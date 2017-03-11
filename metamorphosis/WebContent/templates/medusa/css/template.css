@@ -1,0 +1,120 @@
+body {
+	background-color : #68b3f4;
+}
+
+input[type=submit]{
+	border : 1px solid rgb(10, 136, 247);
+	cursor : pointer;
+	background : rgb(86, 182, 255);
+	color : white;
+	padding : 6px;
+}
+
+input[type=submit]:hover{
+	background : rgb(10, 136, 255);
+}
+
+input {
+	padding-left : 2px;
+}
+
+h1 {
+	font-size: 1.6em;
+    line-height: 1.0666666664em;
+	font-family : Exo;
+	border-left:none;
+	border-right:none;
+	text-align : center;
+	position:relative;
+	color : white;
+	padding : 0.5em;
+	border-bottom : 1px solid #fff;
+}
+
+header {
+	height : 7.5em;
+	padding : 0 0.3em;
+	background : #fff;
+}
+div.offering {
+	display : inline-block;
+	width : 70%;
+}
+div.offering p {
+	width : 45%;
+	font-family : Cabin;
+	border : 8px solid rgb(0, 148, 248);
+	border-radius:50%;
+	margin-top : 10px;
+	padding:2em 1.75em;
+	text-align : center;
+	background : rgba(254,254,254,0.1);
+	display : inline-block;
+	font-size : 1.03em;
+	color : rgb(94, 105, 99);
+	box-shadow: inset 0 -15px 30px rgba(200,200,200,0.1), 0 5px 10px rgba(200,200,200,0.1);
+}
+
+main img {
+	width : 29%;
+	margin-left:2px;
+	display : inline-block;
+	vertical-align : top;
+}
+
+b {
+	color : rgb(234, 133, 17);
+}
+
+.login {
+	float: right;
+	margin-top : 15px;
+	margin-right : 20%;
+	width : 280px;
+	line-height :1.7em;
+	font-size:80%;
+}
+
+.login input[type=submit]{
+	position : absolute;
+	font-family : Cabin;
+	right:12%;
+	margin-top : -42px;
+}
+
+.login input[type=text],.login input[type=password]{
+	border : 1px solid rgb(86, 182, 255);
+	height : 25px;
+	margin-top : 5px;
+}
+
+.login span {
+	display : inline-block;
+	width : 100px;
+	text-align : right;
+	font-family : Cabin;
+	font-weight : bold;
+	color : rgb(0, 172, 255);
+}
+
+.login a {
+	color : rgb(0, 172, 255);
+	margin-left : 115px;
+	font-size : 90%;
+	cursor : pointer;
+	font-family : Arial;
+}
+
+main {
+	min-height : 70vh;
+	background-color : #68b3f4;
+	padding : 0;
+	padding-top : 0px;
+	position:relative;
+}
+
+footer {
+	background : rgb(10, 10, 10);
+    color : rgb(60, 60, 60);
+    box-shadow: inset 0 -15px 30px rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.5);
+}

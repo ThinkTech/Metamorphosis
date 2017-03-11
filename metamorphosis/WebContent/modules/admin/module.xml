@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<name>admin</name>
+	<administrable>false</administrable>
+	<index>users.jsp</index>
+	<order>5</order>
+	<author>Mamadou Lamine Ba</author>
+	<authorEmail>laminba2003@yahoo.fr</authorEmail>
+	<description>module for administration</description>
+	<creationDate>2016-09-01</creationDate>
+	<copyright>© 2016</copyright>
+	<license>GNU/GPL</license>
+	<version>1.0</version>
+	<menus>
+		<menu>
+			<menuItem label="Users"/>
+			<menuItem label="Groups" url="groups" />
+			<menuItem label="Modules" url="modules" />
+			<menuItem label="Templates" url="templates" />
+		</menu>
+	</menus>
+</module>

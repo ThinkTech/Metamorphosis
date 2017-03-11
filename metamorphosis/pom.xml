@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.metamorphosis</groupId>
+	<artifactId>metamorphosis-core</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+		    <resource>
+				<directory>src</directory>
+				<includes>
+					<include>struts.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>WebContent/css</directory>
+				<targetPath>META-INF</targetPath>
+				<includes>
+					<include>metamorphosis.css</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>WebContent/js</directory>
+				<targetPath>META-INF</targetPath>
+				<includes>
+				    <include>jquery-3.1.1.min.js</include>
+					<include>metamorphosis.js</include>
+					<include>handlebars-v4.0.5.js</include>
+					<include>dust-full.min.js</include>
+					<include>pdfmake.min.js</include>
+					<include>vfs_fonts.js</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>WebContent/images</directory>
+				<targetPath>META-INF</targetPath>
+				<includes>
+					<include>favicon.ico</include>
+					<include>logo.png</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>WebContent/templates/medusa</directory>
+				<targetPath>META-INF/medusa</targetPath>
+			</resource>
+			<resource>
+				<directory>WebContent/templates/nova</directory>
+				<targetPath>META-INF/nova</targetPath>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>2.3.16</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-tiles-plugin</artifactId>
+			<version>2.3.16</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-jsr223</artifactId>
+			<version>2.4.7</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>mailapi</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+
+	</dependencies>
+
+</project>

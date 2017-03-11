@@ -1,0 +1,151 @@
+.icon-16 {
+	background-image: url("../images/icon-16.png");
+}
+
+.icon-32 {
+	background-image: url("../images/icon-32.png");
+}
+
+.preferences-32 {
+	background-image: url("../images/preferences-32.png");
+}
+
+#content .preferences {
+	width : 100%;
+}
+
+#extensions {
+	padding : 10px;
+}
+.extension {
+	display : inline-block;
+	width : auto;
+	height: 150px;
+	margin : 5px;
+}
+
+.extension > a {
+	cursor : pointer;
+}
+
+.extension > a > img {
+	width : 128px;
+	height: 128px;
+}
+
+.extension img.selected {
+	vertical-align : top;
+	border : none;
+	width : auto;
+	height : auto;
+}
+
+.extension div {
+	text-align : left;
+	vertical-align : top;
+}
+
+.extension .info {
+	height: 128px;
+	display : inline-block;
+}
+
+.extension .info span {
+	font-size : 85%;
+}
+
+.extension div span {
+	display : block;
+	text-align : left;
+	margin-bottom :17px;
+}
+.extension div span.extension-name {
+	font-weight : bold;
+	margin-top :10px;	
+}
+
+.extension span a {
+	font-size : 80%;
+}
+
+.extensionDetails {
+	padding : 20px;
+	background : #fff;
+	border : 1px solid #ccc;
+	width : 300px;
+	margin-top : -128px;
+	display : none;
+	z-index : 999;
+	position : absolute;
+	margin-left : -15px;
+	margin-right : 15px;
+}
+
+.extensionDetails div span {
+	display : block;
+	text-align : left;
+	width : auto;
+	margin-bottom :10px;
+	margin-left : 30px;
+	white-space : nowrap;
+	font-size : 90%;
+}
+
+
+#content h2 {
+	margin-bottom :35px;
+}
+
+#content canvas {
+	width : 95%;
+	height : 7em;
+	margin-top : 0.5em;
+	margin-bottom : 0.5em;
+}
+
+
+.account {
+	padding-left : 3.9%;
+}
+
+.account fieldset,.permissions fieldset fieldset {
+	display : inline-block;
+	width : 31%;
+	margin-left : 1%;
+	vertical-align : top;
+	line-height : 1.45em;
+	padding : 4px;
+	margin-top : 4px;
+}
+
+#permissions > fieldset {
+	margin-top : -10px;
+}
+
+.account fieldset > span {
+	display : inline-block;
+	width : 44%;
+	text-align : left;
+	white-space : nowrap;
+}
+
+.account fieldset > span.text-right {
+	text-align : right;
+    width : 38%;
+}
+
+.account h2 {
+	display : inline-block;
+	width : 70%;
+	background-image : none;
+}
+
+.account .change-password fieldset {
+	line-height : 1.5em;
+}
+
+.account .change-password input[type=submit] {
+	float : right;
+	margin-right : 15px;
+	margin-top : 10px;
+}
