@@ -31,6 +31,7 @@
 					<include>dust-full.min.js</include>
 					<include>pdfmake.min.js</include>
 					<include>vfs_fonts.js</include>
+					<include>sortable.js</include>
 				</includes>
 			</resource>
 			<resource>
@@ -84,8 +85,14 @@
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-jsr223</artifactId>
-			<version>2.4.7</version>
+			<version>2.4.9</version>
 		</dependency>
+		
+		<dependency>
+   		   <groupId>org.codehaus.groovy</groupId>
+           <artifactId>groovy-json</artifactId>
+           <version>2.4.9</version>
+        </dependency>
 		
 		<dependency>
             <groupId>com.sun.mail</groupId>
