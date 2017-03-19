@@ -25,7 +25,6 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				String uri = request.getRequestURI();
 				String actionURL = uri.substring(request.getContextPath().length()+1,uri.length());
 				request.setAttribute("module",module);
-				request.setAttribute("module",module);
 				request.setAttribute("title",actionURL);
 				request.setAttribute("js","modules/"+module.getId()+"/js");
 				request.setAttribute("css","modules/"+module.getId()+"/css");
@@ -53,13 +52,11 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				HttpServletResponse response = ServletActionContext.getResponse();
 				if(module.isCached() && !module.isBackend()) {
 					response.setHeader("Cache-control", "private, max-age=7200");
-				}else if(module.isBackend()) {
+				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")) {
+					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
 					HttpSession session = request.getSession();
 					User user = (User) session.getAttribute("user");
-					if(user!=null)
-					 response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
-					else
-					 return "error";
+					if(user==null) return "error";
 				}
 			}
 			return invocation.invoke();
