@@ -41,4 +41,8 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public TemplateManager getTemplateManager() {
 		return TemplateManager.getInstance();
 	}
+	
+	public User getLoggedUser() {
+		return (User) getSession().getAttribute("user");
+	}
 }

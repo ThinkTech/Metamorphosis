@@ -12,6 +12,7 @@ public class Module extends Extension {
 	private boolean administrable = true;
 	private boolean cached;
 	private String indexPage = "index.jsp";
+	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<Action> actions = new ArrayList<Action>();
 
@@ -60,6 +61,12 @@ public class Module extends Extension {
 		this.indexPage = indexPage;
 	}
 
+	public String getScript() {
+		return script;
+	}
+	public void setScript(String script) {
+		this.script = script;
+	}
 	public List<Menu> getMenus() {
 		return menus;
 	}

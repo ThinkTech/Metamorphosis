@@ -75,6 +75,7 @@ public class ModuleManager implements DispatcherListener {
 		digester.addBeanPropertySetter("module/url");
 		digester.addBeanPropertySetter("module/icon");
 		digester.addBeanPropertySetter("module/index","indexPage");
+		digester.addBeanPropertySetter("module/script");
 		digester.addBeanPropertySetter("module/template");
 		digester.addBeanPropertySetter("module/main");
 		digester.addBeanPropertySetter("module/visible");
@@ -243,6 +244,14 @@ public class ModuleManager implements DispatcherListener {
 			Action action = module.getAction(url);
 			if(action != null && action.getScript() != null) {
 				File script = new File(module.getFolder() + "/scripts/" + action.getScript());
+				if(script.exists()) {
+					String name = script.getName();
+					String extension = name.substring(name.indexOf(".") + 1);
+					ScriptEngine engine = new ScriptEngineManager().getEngineByExtension(extension);
+					return engine.eval(new FileReader(script));
+				}
+			}else if(module.getUrl().equals(url)) {
+				File script = new File(module.getFolder() + "/scripts/" + module.getScript());
 				if(script.exists()) {
 					String name = script.getName();
 					String extension = name.substring(name.indexOf(".") + 1);
