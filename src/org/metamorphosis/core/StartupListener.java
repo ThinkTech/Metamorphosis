@@ -137,6 +137,7 @@ public class StartupListener implements ServletContextListener {
 					String url = item.getUrl().substring(module.getUrl().length()+1);
 					content+="<action name='"+url+"'>";
 					content+="<result name='success' type='tiles'>"+item.getUrl()+"</result>";
+					content+="<result name='error' type='redirect'>/</result>";
 					content+="</action>";
 				}
 			}

@@ -19,11 +19,20 @@ public class ModuleInterceptor extends AbstractInterceptor {
 			ModuleManager moduleManager = ModuleManager.getInstance();
 		    Module module = moduleManager.getCurrentModule();
 			if(module!=null) {
-				ValueStack stack = ActionContext.getContext().getValueStack();
-				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
 				HttpServletRequest request = ServletActionContext.getRequest();
 				String uri = request.getRequestURI();
 				String actionURL = uri.substring(request.getContextPath().length()+1,uri.length());
+				HttpServletResponse response = ServletActionContext.getResponse();
+				if(module.isCached() && !module.isBackend()) {
+					response.setHeader("Cache-control", "private, max-age=7200");
+				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")) {
+					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
+					HttpSession session = request.getSession();
+					User user = (User) session.getAttribute("user");
+					if(user==null) return "error";
+				}
+				ValueStack stack = ActionContext.getContext().getValueStack();
+				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
 				request.setAttribute("module",module);
 				request.setAttribute("title",actionURL);
 				request.setAttribute("js","modules/"+module.getId()+"/js");
@@ -48,15 +57,6 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					if(url.equals(actionURL) && action.getTitle()!=null) {
 						request.setAttribute("title",action.getTitle());
 					}
-				}
-				HttpServletResponse response = ServletActionContext.getResponse();
-				if(module.isCached() && !module.isBackend()) {
-					response.setHeader("Cache-control", "private, max-age=7200");
-				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")) {
-					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
-					HttpSession session = request.getSession();
-					User user = (User) session.getAttribute("user");
-					if(user==null) return "error";
 				}
 			}
 			return invocation.invoke();
