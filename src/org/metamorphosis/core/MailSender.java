@@ -19,7 +19,7 @@ public class MailSender {
     private String password ="California2003";
     private String me = "ThinkTech <info@thinktech.sn>";
     
-    public void sendTextMessage(String subject,String textBody,String sender,boolean cc) throws AddressException, MessagingException {
+    public void sendMail(String subject,String textBody,String sender,boolean cc) throws AddressException, MessagingException {
  
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");

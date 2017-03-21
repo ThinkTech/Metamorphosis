@@ -7,8 +7,8 @@ public class MailAction extends ActionSupport {
 	
 	public void sendMail() {
 		try {
-			MailSender sender = new MailSender();
-			sender.sendTextMessage(mail.getSubject(), mail.getMessage(),
+			MailSender mailSender = new MailSender();
+			mailSender.sendMail(mail.getSubject(), mail.getMessage(),
 				mail.getAuthor()+"<"+mail.getEmail()+">",true);
 		} catch(Exception e){
 			mail = null;
