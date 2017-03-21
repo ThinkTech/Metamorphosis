@@ -10,8 +10,8 @@ public class Action {
 	private boolean global;
 	private String url;
 	private String className="";
-	private String method="execute";
-	private String script;
+	private String method ="execute";
+	private String script = "module.groovy";
 	private List<Result> results = new ArrayList<Result>();
 	
 	public String getName() {
