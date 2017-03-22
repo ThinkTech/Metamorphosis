@@ -25,8 +25,6 @@ const confirm = callback => {
 	}).focus();
 };
 
-page.table = {};
-
 page.table.init = entity => {
 	page.table.url = app.apiURL+entity+"s";
 	page.table.message = "no "+entity;
@@ -223,35 +221,6 @@ page.deserialize = (form, entity) => {
      });
 };
 
-page.table.paginate = () => {
-	$("table").unbind("repaginate").each(function() {
-		$(".pager").remove();
-	    var currentPage = 0;
-	    const $table = $(this);
-	    const numPerPage = 7;
-	    $table.bind('repaginate', function() {
-	        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
-	    });
-	    $table.trigger('repaginate');
-	    const numRows = $table.find('tbody tr').length;
-	    if(numRows > numPerPage) {
-		    const numPages = Math.ceil(numRows / numPerPage);
-		    const $pager = $('<div class="pager"></div>').attr("id","pager"+$table.parent().attr("id"));
-		    for (var page = 0; page < numPages; page++) {
-		        $('<span class="page-number"></span>').text(page + 1).bind('click', {
-		            newPage: page
-		        }, function(event) {
-		            currentPage = event.data['newPage'];
-		            $table.trigger('repaginate');
-		            $(this).addClass('active').siblings().removeClass('active');
-		            $table.parent().focus();
-		            return false;
-		        }).appendTo($pager);
-		    }
-		    $pager.insertAfter($table.parent()).find('span.page-number:first').addClass('active');
-		 }
-	});
-};
 
 page.table.details = {};
 
