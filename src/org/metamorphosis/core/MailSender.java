@@ -36,20 +36,18 @@ public class MailSender {
       		  });
  
         // Construct the message and send it.
-        Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(user));
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(user));
         if(cc) {
-        	msg.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse(mail.getAddress()+","+me));
+        	message.setRecipients(Message.RecipientType.TO,
+			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"+","+me));
         } else {
-        	msg.setRecipients(Message.RecipientType.TO,
+        	message.setRecipients(Message.RecipientType.TO,
         			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
         }
-        msg.setSubject(mail.getSubject());
-        msg.setContent(mail.getContent(),"text/html");
-        msg.setSentDate(new Date());
-        Transport.send(msg);
-         
+        message.setSubject(mail.getSubject());
+        message.setContent(mail.getContent(),"text/html");
+        message.setSentDate(new Date());
+        Transport.send(message);
     }
-    
 }
