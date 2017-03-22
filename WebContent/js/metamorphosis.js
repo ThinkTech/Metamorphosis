@@ -163,7 +163,7 @@ page.table.paginate = () => {
 		$(".pager").remove();
 	    var currentPage = 0;
 	    const $table = $(this);
-	    const numPerPage = 7;
+	    const numPerPage = 12;
 	    $table.bind('repaginate', function() {
 	        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
 	    });
