@@ -3,21 +3,31 @@ package org.metamorphosis.core;
 public class Mail {
 
 	private String author;
-	private String email;
+	private String address;
 	private String subject;
-	private String message;
+	private String content;
 	
+	public Mail() {
+		
+	}
+	
+	public Mail(String author, String address, String subject, String content) {
+		this.author = author;
+		this.address = address;
+		this.subject = subject;
+		this.content = content;
+	}
 	public String getAuthor() {
 		return author;
 	}
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public String getEmail() {
-		return email;
+	public String getAddress() {
+		return address;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getSubject() {
 		return subject;
@@ -25,12 +35,12 @@ public class Mail {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getMessage() {
-		return message;
+
+	public String getContent() {
+		return content;
 	}
-	public void setMessage(String message) {
-		this.message = message;
+
+	public void setContent(String content) {
+		this.content = content;
 	}
-	
-	
 }

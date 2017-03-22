@@ -19,7 +19,7 @@ public class MailSender {
     private String password ="California2003";
     private String me = "ThinkTech <info@thinktech.sn>";
     
-    public void sendMail(String subject,String textBody,String sender,boolean cc) throws AddressException, MessagingException {
+    public void sendMail(Mail mail,boolean cc) throws AddressException, MessagingException {
  
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -40,13 +40,13 @@ public class MailSender {
         msg.setFrom(new InternetAddress(user));
         if(cc) {
         	msg.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse(sender+","+me));
+			InternetAddress.parse(mail.getAddress()+","+me));
         } else {
         	msg.setRecipients(Message.RecipientType.TO,
-        			InternetAddress.parse(sender));
+        			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
         }
-        msg.setSubject(subject);
-        msg.setContent(textBody,"text/html");
+        msg.setSubject(mail.getSubject());
+        msg.setContent(mail.getContent(),"text/html");
         msg.setSentDate(new Date());
         Transport.send(msg);
          

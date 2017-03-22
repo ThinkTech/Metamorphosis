@@ -6,13 +6,17 @@ public class MailAction extends ActionSupport {
 	private Mail mail;
 	
 	public void sendMail() {
-		try {
-			MailSender mailSender = new MailSender();
-			mailSender.sendMail(mail.getSubject(), mail.getMessage(),
-				mail.getAuthor()+"<"+mail.getEmail()+">",true);
-		} catch(Exception e){
-			mail = null;
-		}		
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				try {
+					MailSender mailSender = new MailSender();
+					mailSender.sendMail(mail,true);
+				} catch(Exception e){
+					mail = null;
+				}	
+			}
+		});	
+		thread.start();
 	}
 
 	public Mail getMail() {
