@@ -14,6 +14,13 @@ public class MailSender {
 	 
     private MailConfig config = new MailConfig();
     
+    public MailSender() {
+    }
+    
+    public MailSender(MailConfig config) {
+    	this.config = config;
+    }
+    
     public void sendMail(Mail mail,boolean cc)  {
  
         // Get the Session object
