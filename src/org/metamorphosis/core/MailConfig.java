@@ -4,7 +4,7 @@ import java.util.Properties;
 
 public class MailConfig {
 	
-	private String user ="ThinkTech.sn Info <info@thinktech.sn>";
+	private String user ="info@thinktech.sn";
     private String password ="California2003";
     Properties properties = new Properties();
     
@@ -57,5 +57,4 @@ public class MailConfig {
 		this.properties = properties;
 	}
     
-
 }
