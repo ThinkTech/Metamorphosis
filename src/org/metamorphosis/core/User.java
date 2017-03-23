@@ -1,5 +1,7 @@
 package org.metamorphosis.core;
 
+import java.util.Date;
+
 public class User {
 	
 	private String firstName;
@@ -7,6 +9,7 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
+	private Date lastLogon = new Date();
 	
 	public String getFirstName() {
 		return firstName;
@@ -38,7 +41,12 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+	public Date getLastLogon() {
+		return lastLogon;
+	}
+	public void setLastLogon(Date lastLogon) {
+		this.lastLogon = lastLogon;
+	}
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
