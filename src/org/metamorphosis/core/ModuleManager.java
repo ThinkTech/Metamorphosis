@@ -305,6 +305,10 @@ public class ModuleManager implements DispatcherListener {
 								"org.apache.struts2.views.tiles.TilesResult");
 						resultBuilder.addParam("location", item.getUrl());
 						actionBuilder.addResultConfig(resultBuilder.build());
+						resultBuilder = new ResultConfig.Builder("error",
+								"org.apache.struts2.dispatcher.ServletRedirectResult");
+						resultBuilder.addParam("location", "/");
+						actionBuilder.addResultConfig(resultBuilder.build());
 						ActionConfig actionConfig = actionBuilder.build();
 						packageBuilder.addActionConfig(url, actionConfig);
 					}
@@ -318,8 +322,12 @@ public class ModuleManager implements DispatcherListener {
 					if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
 						result.setValue(module.getUrl() + "/" + result.getValue());
 					}
+					ResultConfig.Builder resultBuilder = new ResultConfig.Builder("error",
+							"org.apache.struts2.dispatcher.ServletRedirectResult");
+					resultBuilder.addParam("location", "/");
+					actionBuilder.addResultConfig(resultBuilder.build());
+					resultBuilder = null;
 					String type = result.getType();
-					ResultConfig.Builder resultBuilder = null;
 					if(type.equals("tiles")) {
 						resultBuilder = new ResultConfig.Builder(result.getName(),
 								"org.apache.struts2.views.tiles.TilesResult");
