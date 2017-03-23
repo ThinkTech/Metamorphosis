@@ -20,7 +20,7 @@ public class MailSender {
         Session session = Session.getInstance(config.getProperties(),
       		  new Authenticator() {
       			protected PasswordAuthentication getPasswordAuthentication() {
-      				return new PasswordAuthentication(config.getUser(), config.getUser());
+      				return new PasswordAuthentication(config.getUser(), config.getPassword());
       			}
       		  });
  
