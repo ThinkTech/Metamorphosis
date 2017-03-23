@@ -8,7 +8,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -19,7 +18,7 @@ public class MailSender {
     private String password ="California2003";
     private String me = "ThinkTech <info@thinktech.sn>";
     
-    public void sendMail(Mail mail,boolean cc) throws AddressException, MessagingException {
+    public void sendMail(Mail mail,boolean cc)  {
  
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -36,18 +35,31 @@ public class MailSender {
       		  });
  
         // Construct the message and send it.
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(user));
-        if(cc) {
-        	message.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"+","+me));
-        } else {
-        	message.setRecipients(Message.RecipientType.TO,
-        			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
+        try {
+	        final Message message = new MimeMessage(session);
+	        message.setFrom(new InternetAddress(user));
+	        if(cc) {
+	        	message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"+","+me));
+	        } else {
+	        	message.setRecipients(Message.RecipientType.TO,
+	        			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
+	        }
+	        message.setSubject(mail.getSubject());
+	        message.setContent(mail.getContent(),"text/html");
+	        message.setSentDate(new Date());
+	        Thread thread = new Thread(new Runnable() {
+				public void run() {
+					try {
+						Transport.send(message);
+					} catch (MessagingException e) {
+						e.printStackTrace();
+					}
+				}	
+			});	
+			thread.start();
+        } catch (MessagingException e) {
+        	e.printStackTrace();
         }
-        message.setSubject(mail.getSubject());
-        message.setContent(mail.getContent(),"text/html");
-        message.setSentDate(new Date());
-        Transport.send(message);
     }
 }
