@@ -145,7 +145,7 @@ page.highlight = () => {
 	var path = "";
 	for( var i = 2;i<array.length;i++) {
 		path += array[i];
-		$('a[href$='+array[i]+"]").addClass('active');
+		if(array[i]) $('a[href$='+array[i]+"]").addClass('active');
 	}
 	if(path=="") $('a[href$='+array[1]+"]").addClass('active');
 	if($("aside a.active").length>1) $("aside a.active:first").removeClass("active");
