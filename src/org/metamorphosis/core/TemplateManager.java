@@ -184,6 +184,22 @@ public class TemplateManager {
 	public List<Template> getTemplates() {
 		return templates;
 	}
+	
+	public List<Template> getBackendTemplates() {
+		List<Template> list = new ArrayList<Template>();
+		for (Template current : templates) {
+			if (current.isBackend()) list.add(current);
+		}
+		return list;
+	}
+	
+	public List<Template> getFrontendTemplates() {
+		List<Template> list = new ArrayList<Template>();
+		for (Template current : templates) {
+			if (current.isFrontend()) list.add(current);
+		}
+		return list;
+	}
 
 	public static TemplateManager getInstance() {
 		return instance;
