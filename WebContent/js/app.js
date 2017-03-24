@@ -10,15 +10,6 @@ window.addEventListener('online', () => {
 	app.release();
 });
 
-const confirm = callback => {
-	$("body").trigger("click");
-	const container = $("#confirm-dialog-container").show();
-	$("#confirm-dialog-ok").one("click",() => {
-		container.hide();
-		callback();
-	}).focus();
-};
-
 page.table.init = entity => {
 	page.table.url = app.apiURL+entity+"s";
 	page.table.message = "no "+entity;
@@ -348,27 +339,4 @@ app.ready(() => {
 		$(".focus").removeClass("focus");
 		$("#contextmenu").hide()
 	});
-	
-	$("body").append('<div id="confirm-dialog-container">'+
-			'<div><span>Confirmation</span>'+
-			'<span>Are you sure you want to delete this item?</span>'+
-			'<a id="confirm-dialog-cancel" tabindex="2">Cancel</a>'+
-			'<a id="confirm-dialog-ok" tabindex="1">OK</a></div></div>');
-	
-	$("#confirm-dialog-cancel").click(() => $("#confirm-dialog-container").hide());
-	
-	$("#confirm-dialog-container").on('keydown', function(event) {     
-	        switch (event.keyCode) {
-	            case 27:
-	            	$(this).hide();
-	                break;
-	            case 9:
-	            	document.activeElement == $("#confirm-dialog-ok")[0] ? $("#confirm-dialog-cancel").focus() : $("#confirm-dialog-ok").focus(); 
-	            	break;
-	            case 13:
-	            	$(document.activeElement).click();
-	                break;
-	        }
-	       return false;
-	 }); 
 });
