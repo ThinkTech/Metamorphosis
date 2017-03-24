@@ -211,8 +211,8 @@ page.table.paginate = () => {
 		        }).appendTo($pager);
 		    }
 		    $pager.insertAfter($table.parent()).find('span.page-number:first').addClass('active');
-		    head.load("js/sortable.js", () => sorttable.makeSortable($table[0]));
-		 }
+		}
+	    head.load("js/sortable.js", () => sorttable.makeSortable($table[0]));
 	});
 };
 
