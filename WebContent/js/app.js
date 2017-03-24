@@ -10,12 +10,6 @@ window.addEventListener('online', () => {
 	app.release();
 });
 
-const alert = message => {
-	$("#alert-dialog-container span:nth-child(2)").html(message);
-	$("#alert-dialog-container").show();
-	return false;
-};
-
 const confirm = callback => {
 	$("body").trigger("click");
 	const container = $("#confirm-dialog-container").show();
@@ -360,10 +354,6 @@ app.ready(() => {
 			'<span>Are you sure you want to delete this item?</span>'+
 			'<a id="confirm-dialog-cancel" tabindex="2">Cancel</a>'+
 			'<a id="confirm-dialog-ok" tabindex="1">OK</a></div></div>');
-	
-	$("body").append('<div id="alert-dialog-container">'+
-			'<div><span>Alert</span><span></span>'+
-			'<a id="alert-dialog-ok">OK</a></div></div>');
 	
 	$("#confirm-dialog-cancel").click(() => $("#confirm-dialog-container").hide());
 	
