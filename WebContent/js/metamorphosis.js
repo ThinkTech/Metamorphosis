@@ -188,7 +188,6 @@ page.table = {};
 page.table.paginate = () => {
 	$("table").unbind("repaginate").each(function() {
 		const $table = $(this);
-		head.load("js/sortable.js", () => sorttable.makeSortable($table));
 		$(".pager").remove();
 	    var currentPage = 0;
 	    const numPerPage = 12;
@@ -212,6 +211,7 @@ page.table.paginate = () => {
 		        }).appendTo($pager);
 		    }
 		    $pager.insertAfter($table.parent()).find('span.page-number:first').addClass('active');
+		    head.load("js/sortable.js", () => sorttable.makeSortable($table[0]));
 		 }
 	});
 };
