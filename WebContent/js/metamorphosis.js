@@ -156,6 +156,7 @@ page.init = () => {
 	$("body").append('<div id="alert-dialog-container">'+
 			'<div><span>Alert</span><span></span>'+
 			'<a id="alert-dialog-ok">OK</a></div></div>');
+	$("#alert-dialog-ok").click(() => $("#alert-dialog-container").hide());
 	page.highlight();
 };
 

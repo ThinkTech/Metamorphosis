@@ -357,8 +357,6 @@ app.ready(() => {
 	
 	$("#confirm-dialog-cancel").click(() => $("#confirm-dialog-container").hide());
 	
-	$("#alert-dialog-ok").click(() => $("#alert-dialog-container").hide());
-	
 	$("#confirm-dialog-container").on('keydown', function(event) {     
 	        switch (event.keyCode) {
 	            case 27:
