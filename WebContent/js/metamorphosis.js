@@ -157,6 +157,17 @@ page.init = () => {
 			'<div><span>Alert</span><span></span>'+
 			'<a id="alert-dialog-ok">OK</a></div></div>');
 	$("#alert-dialog-ok").click(() => $("#alert-dialog-container").hide());
+	$("#alert-dialog-ok").on('keydown', function(event) {     
+       switch (event.keyCode) {
+            case 27:
+            	$(this).hide();
+                break;
+            case 13:
+            	$(document.activeElement).click();
+                break;
+       }
+       return false;
+	}); 
 	$("body").append('<div id="confirm-dialog-container">'+
 			'<div><span>Confirmation</span>'+
 			'<span class="confirmation-dialog-title"></span>'+
@@ -219,6 +230,7 @@ page.table.paginate = () => {
 const alert = message => {
 	$("#alert-dialog-container span:nth-child(2)").html(message);
 	$("#alert-dialog-container").show();
+	$("#alert-dialog-ok").focus();
 	return false;
 };
 
