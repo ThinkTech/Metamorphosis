@@ -45,4 +45,9 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public User getLoggedUser() {
 		return (User) getSession().getAttribute("user");
 	}
+	
+	public String getLogo() {
+		return "images/logo.png";
+	}
+	
 }

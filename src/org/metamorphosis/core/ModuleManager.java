@@ -260,7 +260,7 @@ public class ModuleManager implements DispatcherListener {
 				}
 			}
 		}
-		return null;
+		return new ActionSupport();
 	}
 
 	public Module getModuleById(String id) {
