@@ -155,7 +155,7 @@ page.init = () => {
 	$("body").append('<div id="wait"><div id="loader"/></div>');
 	$("body").append('<div id="alert-dialog-container">'+
 			'<div><span>Alert</span><span></span>'+
-			'<a id="alert-dialog-ok">OK</a></div></div>');
+			'<a tabindex="3" id="alert-dialog-ok">OK</a></div></div>');
 	$("#alert-dialog-ok").click(() => $("#alert-dialog-container").hide());
 	$("#alert-dialog-ok").on('keydown', function(event) {     
        switch (event.keyCode) {
