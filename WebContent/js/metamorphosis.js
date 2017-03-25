@@ -229,8 +229,7 @@ page.table.paginate = () => {
 
 const alert = message => {
 	$("#alert-dialog-container span:nth-child(2)").html(message);
-	$("#alert-dialog-container").show();
-	$("#alert-dialog-ok").focus();
+	$("#alert-dialog-container").show("slow",() => $("#alert-dialog-ok").focus());
 	return false;
 };
 
@@ -238,11 +237,12 @@ const confirm = (message,callback) => {
 	$("body").trigger("click");
 	const container = $("#confirm-dialog-container");
 	$("span.confirmation-dialog-title",container).html(message);
-	container.show();
-	$("#confirm-dialog-ok").one("click",() => {
-		container.hide();
-		callback();
-	}).focus();
+	container.show("slow",() => {
+		$("#confirm-dialog-ok").one("click",() => {
+			container.hide();
+			callback();
+		}).focus();
+	});
 };
 
 app.ready(() => page.init());
