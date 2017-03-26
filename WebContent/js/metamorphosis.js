@@ -81,7 +81,7 @@ app.delete = (url, callback, error) => {
 	  });
 };
 
-app.authenticate(form) {
+app.authenticate = form => {
 	const url = form.attr("action");
 	const data = form.serialize();
 	app.post(url,data, response => {
