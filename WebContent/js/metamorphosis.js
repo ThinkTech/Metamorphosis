@@ -81,6 +81,18 @@ app.delete = (url, callback, error) => {
 	  });
 };
 
+app.authenticate(form) {
+	const url = form.attr("action");
+	const data = form.serialize();
+	app.post(url,data, response => {
+		location = response.url;
+	}, error => {
+		alert("email or password incorrect", () => {
+			$("input[type=email]").focus();
+		});
+	});
+};
+
 app.engines = {};
 
 app.engine = (type, engine) => app.engines[type] = engine;
