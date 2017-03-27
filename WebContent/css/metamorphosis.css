@@ -394,6 +394,7 @@ footer p {
 label.required:before {
 	content: "*";
 	color: red;
+	margin-right : 2px;
 }
 
 #form input,#form select {
@@ -879,6 +880,9 @@ ul.tabs li h2 {
 	main {width : 98.5%;margin-left:5px;display:block}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:40%}
 	input[type=submit]{margin-left : 65%;}
+	#form fieldset label {font-size : 85%;}
+	#form input[type=email],#form input[type=text], #form input[type=file], 
+	#form input[type=file],#form select {width: 24%;}
 }
  
 @media(max-width:480px ){
@@ -894,10 +898,17 @@ ul.tabs li h2 {
 	table td:nth-child(1) {display:none}
 	table td:nth-child(5) {display:none}
 	input[type=submit]{margin-left : 55%;}
+	#form fieldset {padding : 5px}
+	#form fieldset label {font-size : 80%;}
+	#form input[type=email],#form input[type=text], #form input[type=file], 
+	#form input[type=file],#form select {width: 23%;}
 }
 @media(max-width:360px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}
 	#confirm-dialog-container > div, #alert-dialog-container > div {width:90%}
+	#form fieldset label {font-size : 70%;width:21%}
+	#form input[type=email],#form input[type=text], #form input[type=file], 
+	#form input[type=file],#form select {width: 26%;}
 }
 @media(max-width:320px ){
 	input[type=submit]{margin-left : 45%;margin-top : 40px;}
