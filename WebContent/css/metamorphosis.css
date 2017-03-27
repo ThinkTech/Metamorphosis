@@ -60,6 +60,7 @@ h1 {
 	padding-left: 34px;
 	margin-left : -5px;
 	padding-right : 0px;
+	text-transform : capitalize;
 }
 
 h2,h3 {
@@ -122,6 +123,7 @@ legend {
 	font-size: 1.2em;
 	font-weight: bold;
 	line-height: 10px;
+	text-transform : capitalize;
 }
 
 select {
@@ -133,14 +135,16 @@ select, input {
 }
 
 .text-right {
-	text-align: right;
-	font-weight: bold;
-    background-color: #f8f8f8;
-    border: 1px solid #eee;
-    border-radius: 3px;
-    padding: 1px;
-    padding-right: 2px;
-    white-space: nowrap;
+	text-align : right;
+	padding-top : 10px;
+	vertical-align : top;
+	font-weight : bold;
+	background-color : #fbfbfb;
+	border : 1px solid #eee;
+	border-radius : 3px;
+	white-space : nowrap;
+	height : 22px;
+	padding-right : 1px;
 }
 
 span a {
@@ -378,27 +382,22 @@ footer p {
 
 #form fieldset {
 	padding: 20px;
+	padding-left : 24px;
 }
 
 #form fieldset label {
 	display: inline-block;
 	width: 24%;
 	text-align: right;
-
-	white-space: nowrap;
-	font-size: 1.3em;
-	font-weight : 600;
-	background-color : rgba(255,255,255,0.05);
 }
 
-#form fieldset label.required:before {
+label.required:before {
 	content: "*";
 	color: red;
 }
 
-#form input {
-	margin-top: 3px;
-	height: 22px;
+#form input,#form select {
+	margin-bottom : 3px;
 }
 
 #form input[type=text], #form input[type=file] {
@@ -408,24 +407,16 @@ footer p {
 #form input[type=file] {
 	height: 30px;
 	margin-bottom: 2px;
-}
-
-#form input[type=file] {
 	font-size: 80%;
 }
 
-#form input[type=submit] {
+input[type=submit] {
 	cursor: pointer;
-	position: relative;
-	height: 30px;
-	display: block;
-	margin: 0 79.8%;
-	margin-top: 10px;
-	background-repeat: no-repeat;
-	padding: 2px;
-	padding-left: 20px;
-	padding-right: 6px;
-	background-position: 3% 54%;
+	width : 80px;
+	margin-left : 80%;
+	border-radius : 2px;
+	margin-top : 10px;
+	margin-bottom : 10px;
 }
 
 #form select {
@@ -859,6 +850,7 @@ ul.tabs li h2 {
 	table td:nth-child(6) {display:none}
 	table td:nth-child(7) {display:none}
 	aside {display:inline-block}
+	input[type=submit]{margin-left : 75%;}
 }
 
 @media(max-width:870px ){
@@ -887,6 +879,7 @@ ul.tabs li h2 {
 	h1 {font-size : 0.8em;}
 	main {width : 98.5%;margin-left:5px;display:block}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:40%}
+	input[type=submit]{margin-left : 65%;}
 }
  
 @media(max-width:480px ){
@@ -901,10 +894,12 @@ ul.tabs li h2 {
 	table th:nth-child(5) {display:none}
 	table td:nth-child(1) {display:none}
 	table td:nth-child(5) {display:none}
+	input[type=submit]{margin-left : 55%;}
 }
 @media(max-width:360px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}
 	#confirm-dialog-container > div, #alert-dialog-container > div {width:90%}
 }
 @media(max-width:320px ){
+	input[type=submit]{margin-left : 45%;margin-top : 40px;}
 }
