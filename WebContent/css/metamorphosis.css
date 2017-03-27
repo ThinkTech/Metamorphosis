@@ -325,15 +325,16 @@ aside ul li a:hover {
 
 aside h1 {
 	width: 90%;
-	font-size: 100%;
-	margin-left: 10.5px;
-	line-height: 1.9em;
-	vertical-align: top;
-	background-repeat: no-repeat;
-	background-position: 2px center;
-	text-align: left;
-	padding: 0;
-	padding-left: 20px;
+    font-size: 100%;
+    margin-left: 10.5px;
+    height: 1.9em;
+    vertical-align: top;
+    background-repeat: no-repeat;
+    background-position: 2px center;
+    text-align: left;
+    padding: 0;
+    padding-left: 20px;
+    padding-top: 0.75em;
 }
 
 aside h1:before, aside h1:after {
