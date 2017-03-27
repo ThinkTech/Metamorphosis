@@ -138,7 +138,7 @@ select, input {
     background-color: #f8f8f8;
     border: 1px solid #eee;
     border-radius: 3px;
-    padding: 3px;
+    padding: 1px;
     padding-right: 2px;
     white-space: nowrap;
 }
