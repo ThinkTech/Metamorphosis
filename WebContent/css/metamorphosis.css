@@ -138,7 +138,7 @@ select, input {
 	padding-top : 10px;
 	vertical-align : top;
 	font-weight : bold;
-	background-color : #fbfbfb;
+	background-color : #fefefe;
 	border : 1px solid #eee;
 	border-radius : 3px;
 	white-space : nowrap;
@@ -387,7 +387,7 @@ footer p {
 
 #form fieldset label {
 	display: inline-block;
-	width: 24%;
+	width: 20%;
 	text-align: right;
 }
 
