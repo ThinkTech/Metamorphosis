@@ -11,7 +11,7 @@ import com.opensymphony.xwork2.ActionContext;
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
-	private Search search;
+	private Search search = new Search();
 	
 	public HttpServletRequest getRequest() {
 		return ServletActionContext.getRequest();
