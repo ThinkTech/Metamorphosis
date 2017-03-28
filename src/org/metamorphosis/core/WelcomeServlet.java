@@ -22,7 +22,7 @@ public class WelcomeServlet extends HttpServlet {
 	
 	public Module getHomeModule() {
 		ModuleManager moduleManager = ModuleManager.getInstance();
-		List<Module> modules = moduleManager.getVisibleModules("front-end");
+		List<Module> modules = moduleManager.getVisibleModules("front-end",null);
 		for(Module module : modules) if(module.isMain()) return module;
 		return null;	
 	}

@@ -80,6 +80,7 @@ public class ModuleManager implements DispatcherListener {
 		digester.addBeanPropertySetter("module/main");
 		digester.addBeanPropertySetter("module/visible");
 		digester.addBeanPropertySetter("module/administrable");
+		digester.addBeanPropertySetter("module/roles");
 		digester.addBeanPropertySetter("module/cached");
 		digester.addBeanPropertySetter("module/order");
 		digester.addBeanPropertySetter("module/author");
@@ -376,10 +377,21 @@ public class ModuleManager implements DispatcherListener {
 		this.modules = modules;
 	}
 
-	public List<Module> getVisibleModules(String type) {
+	public List<Module> getVisibleModules(String type,User user) {
 		List<Module> modules = new ArrayList<Module>();
 		for(Module module : this.modules) {
-			if(module.isVisible() && module.getType().equals(type)) modules.add(module);
+			if(module.isVisible() && module.getType().equals(type)) {
+				if(module.getRoles() == null) {
+					modules.add(module);
+				}else {
+					String roles = module.getRoles();
+					if(user!=null) {
+						if(roles.toLowerCase().indexOf(user.getRole()) !=-1) {
+							modules.add(module);
+						}
+					}
+				}
+			}
 		}
 		return modules;
 	}

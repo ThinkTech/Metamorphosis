@@ -15,6 +15,7 @@ public class Module extends Extension {
 	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<Action> actions = new ArrayList<Action>();
+	private String roles;
 
 	public int getOrder() {
 		return order;
@@ -122,5 +123,12 @@ public class Module extends Extension {
 	public String getPath() {
 		return "modules/" + folder.getName();
 	}
-
+	
+	public String getRoles() {
+		return roles;
+	}
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+	
 }

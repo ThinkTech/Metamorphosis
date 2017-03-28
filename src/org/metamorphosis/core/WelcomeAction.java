@@ -11,7 +11,7 @@ public class WelcomeAction extends ActionSupport {
 	}
 	
 	public List<Module> getModules() {
-		return getModuleManager().getVisibleModules("front-end");
+		return getModuleManager().getVisibleModules("front-end",null);
 	}
 	
 }

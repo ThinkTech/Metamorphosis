@@ -23,16 +23,18 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				String uri = request.getRequestURI();
 				String actionURL = uri.substring(request.getContextPath().length()+1,uri.length());
 				HttpServletResponse response = ServletActionContext.getResponse();
+				HttpSession session = request.getSession();
+				User user = (User) session.getAttribute("user");
 				if(module.isCached() && !module.isBackend()) {
 					response.setHeader("Cache-control", "private, max-age=7200");
 				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")) {
-					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
-					HttpSession session = request.getSession();
-					User user = (User) session.getAttribute("user");
+					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");	
 					if(user==null) return "error";
+					String roles = module.getRoles();
+					if(roles.toLowerCase().indexOf(user.getRole()) ==-1) return "error";
 				}
 				ValueStack stack = ActionContext.getContext().getValueStack();
-				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
+				stack.set("modules",moduleManager.getVisibleModules(module.getType(),user));
 				request.setAttribute("module",module);
 				request.setAttribute("title",actionURL);
 				request.setAttribute("js","modules/"+module.getId()+"/js");
