@@ -380,13 +380,13 @@ public class ModuleManager implements DispatcherListener {
 	public List<Module> getVisibleModules(String type,User user) {
 		List<Module> modules = new ArrayList<Module>();
 		for(Module module : this.modules) {
+			String roles = module.getRoles();
 			if(module.isVisible() && module.getType().equals(type)) {
-				if(module.getRoles() == null) {
+				if(roles.equals("all")) {
 					modules.add(module);
 				}else {
-					String roles = module.getRoles();
 					if(user!=null) {
-						if(roles.toLowerCase().indexOf(user.getRole()) !=-1) {
+						if(roles.toLowerCase().indexOf(user.getRole()) !=-1 || roles.equals("all")) {
 							modules.add(module);
 						}
 					}
@@ -396,13 +396,6 @@ public class ModuleManager implements DispatcherListener {
 		return modules;
 	}
 
-	public Module getDefaultBackendModule() {
-		for(Module module : this.modules) {
-			if(module.isBackend()) return module;
-		}
-		return null;
-	}
-
 	public List<Module> getAdminModules() {
 		List<Module> modules = new ArrayList<Module>();
 		for(Module module : this.modules) {
@@ -410,12 +403,25 @@ public class ModuleManager implements DispatcherListener {
 		}
 		return modules;
 	}
-
-	public Module getMain() {
-		for(Module module : modules) {
-			if(module.isMain() && module.isBackend()) return module;
+	
+	public Module getDefaultBackendModule(User user) {
+		for(Module module : this.modules) {
+			if(module.isBackend()) {
+				String roles = module.getRoles();
+				if(roles.toLowerCase().indexOf(user.getRole()) !=-1 || roles.equals("all")) return module;
+			}
 		}
-		return getDefaultBackendModule();
+		return null;
+	}
+
+	public Module getMain(User user) {
+		for(Module module : modules) {
+			if(module.isMain() && module.isBackend()) {
+				String roles = module.getRoles();
+				if(roles.toLowerCase().indexOf(user.getRole()) !=-1 || roles.equals("all")) return module;
+			}
+		}
+		return getDefaultBackendModule(user);
 	}
 
 	public Configuration getConfiguration() {

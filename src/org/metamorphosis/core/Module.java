@@ -15,7 +15,7 @@ public class Module extends Extension {
 	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<Action> actions = new ArrayList<Action>();
-	private String roles;
+	private String roles="all";
 
 	public int getOrder() {
 		return order;
