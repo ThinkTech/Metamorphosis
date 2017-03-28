@@ -239,7 +239,7 @@ page.table.paginate = () => {
 	});
 };
 
-page.table.init = () {
+page.table.init = () => {
 	var tbody = $("#list tbody");
 	const rows = $("tr",tbody).length; 
 	if(!rows) {
