@@ -202,6 +202,8 @@ page.init = () => {
 	}); 
 	
 	page.highlight();
+	
+	page.table.init();
 };
 
 page.table = {};
@@ -235,6 +237,20 @@ page.table.paginate = () => {
 		}
 	    head.load("js/sortable.js", () => sorttable.makeSortable($table[0]));
 	});
+};
+
+page.table.init = () {
+	var tbody = $("#list tbody");
+	const rows = $("tr",tbody).length; 
+	if(!rows) {
+		tbody.append("<tr class='empty'><td valign='top' colspan='"+$("th").length+"'>no record found</td></tr>");
+		$("<div class='row-count'/>").html("0 records").insertAfter("#list");
+	}else {
+		page.table.paginate();
+		$("<div class='row-count'/>").html(rows + " records").insertAfter("#list");
+	}
+	$("#search input").focus().val($("#search input").val());
+	$("a.refresh-16").attr("href",window.location.href);
 };
 
 const alert = (message,callback) => {
