@@ -11,6 +11,8 @@ import com.opensymphony.xwork2.ActionContext;
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
+	private Search search;
+	
 	public HttpServletRequest getRequest() {
 		return ServletActionContext.getRequest();
 	}
@@ -49,5 +51,12 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public String getLogo() {
 		return "images/logo.png";
 	}
-	
+
+	public Search getSearch() {
+		return search;
+	}
+
+	public void setSearch(Search search) {
+		this.search = search;
+	}
 }
