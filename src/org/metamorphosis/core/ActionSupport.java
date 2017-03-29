@@ -51,6 +51,15 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public String getLogo() {
 		return "images/logo.png";
 	}
+	
+	public String getBaseUrl() {
+		HttpServletRequest request = getRequest();
+	    String scheme = request.getScheme() + "://";
+	    String serverName = request.getServerName();
+	    String serverPort = (request.getServerPort() == 80) ? "" : ":" + request.getServerPort();
+	    String contextPath = request.getContextPath();
+	    return scheme + serverName + serverPort + contextPath;
+    }
 
 	public Search getSearch() {
 		return search;
