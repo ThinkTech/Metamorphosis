@@ -260,8 +260,9 @@ public class ModuleManager implements DispatcherListener {
 					return engine.eval(new FileReader(script));
 				}
 			}
+			return new ActionSupport();
 		}
-		return new ActionSupport();
+		return null;
 	}
 
 	public Module getModuleById(String id) {

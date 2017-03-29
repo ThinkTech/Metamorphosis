@@ -8,7 +8,8 @@ public class ActionFactory extends DefaultActionFactory {
 
 	@Override
 	public Object buildAction(String url, String namespace, ActionConfig config,Map<String, Object> extraContext) throws Exception {
-		return ModuleManager.getInstance().buildAction(url);
+		Object object = ModuleManager.getInstance().buildAction(url);
+		return object!=null ? object : super.buildAction(url, namespace, config, extraContext);
 	}
 
 }
