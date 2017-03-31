@@ -145,12 +145,13 @@ select, input {
 	font-weight : bold;
 	text-align : right;
 	vertical-align : top;
-	background-color : #fefefe;
-	border : 1px solid #eee;
+	background-color: #fefefe;
+    border: 1px solid #1bd3da;
 	border-radius : 3px;
 	white-space : nowrap;
-	height: 25px;
+	height: 24px;
     padding: 1px;
+    padding-right : 4px;
 }
 
 span a {
@@ -391,6 +392,7 @@ footer p {
 	display: inline-block;
 	width: 20%;
 	text-align: right;
+	margin-top : 2px;
 }
 
 #content span,#content label {
