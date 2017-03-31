@@ -58,15 +58,23 @@ h1 {
 	background-repeat: no-repeat;
 	background-position: 0px 2px;
 	padding-left: 34px;
-	margin-left : -5px;
 	padding-right : 0px;
 	text-transform : capitalize;
 }
 
-h2,h3 {
+#content h1 {
+	clear : left;
+}
+
+#content > h2, #content > h3 {
 	font-size: 1.1em;
-	line-height: 1.5em;
-	margin-top : -4px;
+	margin-left : 30px;
+	margin-top : 8px;
+	margin-bottom : 8px;
+}
+
+h2 i.fa {
+	margin-right : 3px;
 }
 
 a {
@@ -91,22 +99,24 @@ input {
 	padding-left: 2px;
 }
 
-h1 a {
+.buttons {
 	float: right;
+}
+
+.buttons a {
 	font-size: 12px;
 	background-repeat: no-repeat;
-	padding: 10px;
+	padding: 6px;
 	padding-left: 22px;
 	background-position: 4.3% 50%;
 	margin-right: 5px;
-	margin-top: -12px;
 	text-align: center;
 	cursor: pointer;
 	font-weight: normal;
 	user-select: none;
 }
 
-h1 a:first-of-type {
+.buttons a:last-of-type {
 	margin-right : 0px;
 }
 
@@ -114,13 +124,11 @@ fieldset {
 	background-repeat: no-repeat;
 	background-position: 4px 15px;
 	padding-top: 0px;
-	line-height: 0em;
-	font-size: 80%;
 	height: auto;
 }
 
 legend {
-	font-size: 1.1em;
+	font-size: 85%;
 	font-weight: bold;
 	text-transform : capitalize;
 }
@@ -134,16 +142,15 @@ select, input {
 }
 
 .text-right {
-	text-align : right;
-	padding-top : 10px;
-	vertical-align : top;
 	font-weight : bold;
+	text-align : right;
+	vertical-align : top;
 	background-color : #fefefe;
 	border : 1px solid #eee;
 	border-radius : 3px;
 	white-space : nowrap;
 	height: 25px;
-    padding-right: 1px;
+    padding: 1px;
 }
 
 span a {
@@ -372,23 +379,30 @@ footer p {
 	display: none !important;
 }
 
-#form>fieldset {
+#form fieldset {
 	margin: auto;
 	background-color: #fff;
-	width: 99%;
-	height: auto;
-}
-
-#form fieldset {
-	padding: 20px;
+	padding: 10px;
 	padding-left : 24px;
-	margin-top : 15px;
+	height: auto;
 }
 
 #form fieldset label {
 	display: inline-block;
 	width: 20%;
 	text-align: right;
+}
+
+#content span,#content label {
+	font-size : 75%;
+}
+
+
+label i.fa,span i.fa {
+	margin-right : 5px;
+	font-weight : normal;
+	font-size: 80%;
+    margin-top: -5px;
 }
 
 label.required:before {
@@ -423,18 +437,6 @@ input[type=submit] {
 #form select {
 	margin-right: 0;
 	width: 22%;
-}
-
-#details>h2 a:first-of-type {
-	margin-left: 25px;
-}
-
-#details h2.icon-16 {
-	background-repeat: no-repeat;
-}
-
-#details>h2 a:hover {
-	padding: 2px;
 }
 
 #wait {
@@ -504,17 +506,12 @@ input[type=submit] {
 	background : #fff;
 	opacity : 0.91;
 	width : 99.6%;
-	max-width : 99.6%;
 	margin-left : auto;
 	margin-right : auto;
 	padding : 7px;
 	padding-top : 6px;
 	border: 1px solid #06d0d8;
 	min-height : 100%;
-}
-
-#content h2 {
-	margin-bottom: 35px;
 }
 
 #content canvas {
@@ -600,65 +597,39 @@ input[type=submit] {
 	background-position: 2px center;
 }
 
-#details {
-	background: rgb(253, 253, 254);
-	padding: 5px;
-	border: 1px solid rgb(86, 182, 255);
-	padding-bottom: 20px;
-	display: none;
-	height: 16.5em;
-	margin-top: 2px;
+.details {
+	width : 100%;
+	display: block;
+    vertical-align: top;
+    padding-left : 30px;
 }
 
-#details>h2 {
-	font-size: 1.1em;
-	margin-top: 3px;
-	margin-bottom: 6px;
-	padding-left: 18px;
-	background-repeat: no-repeat;
-	background-position: 0px 51%;
+fieldset .details {
+	margin-bottom : 20px;
 }
 
-#details>h2  a {
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
-	width: 16px;
-	height: 16px;
-	margin-left: 3px;
-	margin-right: 3px;
-	cursor: pointer;
-	display: inline-block;
+.details:first-of-type {
+	margin-top : 10px;
 }
 
-#details fieldset {
-	display: inline-block;
-	width: 31%;
-	margin-left: 1%;
-	vertical-align: top;
-	line-height: 1.45em;
-	padding: 4px;
-	margin-top: 4px;
+.details span {
+	width: 29%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 2px;
+    padding-top: 3px;
+    height: 25px;
+    margin-bottom : 3px;
+    overflow : hidden;
 }
 
-span input[type=radio] {
-	vertical-align: middle;
-	margin-left: 3px;
+.details span.text-right {
+	width : 19%;
+	padding : 1px;
+	margin-right : 0px;
+	padding-right : 2px;
 }
 
-#details fieldset span {
-	display: inline-block;
-	width: 44%;
-	text-align: left;
-	white-space: nowrap;
-	padding-left : 2px;
-}
-
-#details fieldset span:nth-child(odd) {
-	text-align: right;
-	width: 38%;
-	font-weight : 600;
-	background-color : rgba(255,255,255,0.05);
-}
 
 #offline {
 	background: rgba(100, 100, 100, 0.5);
@@ -728,6 +699,14 @@ div.pager span:last-of-type {
 	margin-right: 0.12em;
 }
 
+#tabs > div {
+	display : none;
+}
+
+#tabs fieldset {
+	margin-top : 0px;
+}
+
 ul.tabs {
 	margin: 0;
 	padding: 0;
@@ -735,7 +714,6 @@ ul.tabs {
 	list-style: none;
 	height: 32px;
 	width: 100%;
-	margin-top: 5px;
 }
 
 ul.tabs li {
@@ -761,11 +739,20 @@ ul.tabs li:hover {
 	background: #fff;
 }
 
+ul.tabs li.active {
+	background:#06d0d8;
+}
+
+
+ul.tabs li.active h2 {
+	color : white;
+}
+
 ul.tabs li h2 {
 	color : #401c15;
 	font-size: 95%;
 	background: none;
-	padding: 0px;
+	padding-top: 0.3em;
 	line-height: 1.0em;
 	border: none;
 	font-weight : 600;
@@ -774,15 +761,13 @@ ul.tabs li h2 {
 .tab_container {
 	border-top: none;
 	clear: both;
-	float: left;
 	width: 100%;
 	margin-bottom: 5px;
 }
 
 .tab_content {
 	display: none;
-	padding: 5px;
-	font-size: 98%;
+	padding-top: 5px;
 }
 
 .tab_content h2 {
@@ -835,6 +820,8 @@ ul.tabs li h2 {
 @media(max-width:1199px ){
 	main {width : 76%}
 	.logo {width:229px}
+	.details {width:100%}
+	.details span,.details span.text-right {padding-left : 4px;}
 }
 
 @media(max-width:1024px ){
@@ -859,16 +846,16 @@ ul.tabs li h2 {
 	.logo {display : none}
 	.topmenu {margin-left:3px;margin-top:8px}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:30%}
+	#content h1 {clear:both}
 }
 
 @media(max-width:767px ){
-	h1 {background-position-y : -5px; background-position-y: -1px;
-    height: 35px;font-size : 0.8em;}
-	h1 a {font-size : 10px;padding-left:20px}
+	h1 {background-position-y : -5px; background-position-y: -1px;}
 	h3,h4{font-size : 1.05em}
 	.logo {display : none}
 	.topmenu {margin-left:2px;margin-top:8px}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:32%}
+	.details {width:100%;padding-left : 0px;}
 }
 @media(max-width:640px){
 	.logo {display : none}
@@ -876,39 +863,36 @@ ul.tabs li h2 {
 	#search select {font-size : 11px;}
 	#search input {width:110px;font-size : 11px;}
 	#search span {font-size : 11px;}
-	h1 {font-size : 0.8em;}
 	main {width : 98.5%;margin-left:5px;display:block}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:40%}
 	input[type=submit]{margin-left : 65%;}
-	#form fieldset label {font-size : 85%;}
 	#form input[type=email],#form input[type=text], #form input[type=file], 
 	#form input[type=file],#form select {width: 24%;}
+	.details span {width:58%}
+	.details span.text-right {width:35%}
+	.buttons {width : 100%;margin-top: 25px;line-height: 35px;}
+	.buttons a {margin-bottom : 5px}
+	#content h1 {overflow : hidden;white-space:nowrap}
 }
  
 @media(max-width:480px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:50%}
 	th,td{font-size: 0.7em}
 	main {width : 98.5%;margin-left:3px;display:block}
-	h1 {font-size : 0.7em;padding-left:5px;margin-top:5px}
-	#content h1 {background-image : none}
 	.topmenu {margin-left:-1px}
-	select,input {font-size : 85%}
 	table th:nth-child(1) {display:none}
 	table th:nth-child(5) {display:none}
 	table td:nth-child(1) {display:none}
 	table td:nth-child(5) {display:none}
 	input[type=submit]{margin-left : 55%;}
 	#form fieldset {padding : 5px}
-	#form fieldset label {font-size : 80%;}
+	#form fieldset label {width:35%}
 	#form input[type=email],#form input[type=text], #form input[type=file], 
-	#form input[type=file],#form select {width: 23%;}
+	#form input[type=file],#form select {width: 50%;}
 }
 @media(max-width:360px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}
 	#confirm-dialog-container > div, #alert-dialog-container > div {width:90%}
-	#form fieldset label {font-size : 70%;width:21%}
-	#form input[type=email],#form input[type=text], #form input[type=file], 
-	#form input[type=file],#form select {width: 26%;}
 }
 @media(max-width:320px ){
 	input[type=submit]{margin-left : 45%;margin-top : 40px;}
