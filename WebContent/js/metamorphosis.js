@@ -204,6 +204,9 @@ page.init = () => {
 	page.highlight();
 	
 	page.table.init();
+	
+	page.tabs.init();
+	
 };
 
 page.table = {};
@@ -251,6 +254,28 @@ page.table.init = () => {
 	}
 	$("#search input").focus().val($("#search input").val());
 	$("a.refresh-16").attr("href",window.location.href);
+};
+
+page.tabs = {};
+
+page.tabs.init = () => {
+	var tabs = $("#tabs").addClass("tab_container");
+	const ul = $('<ul class="tabs"></ul>').insertBefore(tabs);
+	$.each($("> div",tabs),(index, element) => {
+		  const div= $(element).attr("id","tab"+index).addClass("tab_content").hide();
+		  const h2 = $("<h2>"+div.attr("title")+"</h2>").attr("title",div.attr("title"));
+		  const li = $("<li/>").attr("rel",div.attr("id")).html(h2);
+		  li.click(function() {
+				const parent = $(this).parent();
+				$("li",parent).removeClass("active");
+				$(this).addClass("active");
+				const activeTab = $(this).attr("rel"); 
+				$("#"+activeTab).parent().find(".tab_content").hide();
+				$("#"+activeTab).fadeIn(); 
+		  }).appendTo(ul);
+	});
+	$("li:first-child",ul).addClass("active");
+	$("div:first-child",tabs).show();
 };
 
 const alert = (message,callback) => {
