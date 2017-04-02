@@ -15,8 +15,6 @@ public class Structure {
 	private String size;
 	private String state;
 	private String target;
-	private String ninea;
-	private String rc;
 	private String instance;
 	private Date createdOn;
 	private User createdBy;
@@ -76,18 +74,6 @@ public class Structure {
 	}
 	public void setTarget(String target) {
 		this.target = target;
-	}
-	public String getNinea() {
-		return ninea;
-	}
-	public void setNinea(String ninea) {
-		this.ninea = ninea;
-	}
-	public String getRc() {
-		return rc;
-	}
-	public void setRc(String rc) {
-		this.rc = rc;
 	}
 	public String getInstance() {
 		return instance;
