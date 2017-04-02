@@ -176,6 +176,10 @@ tr a:focus {
 	border : none;
 }
 
+tr.empty {
+	background : transparent;
+}
+
 tr.empty td {
 	text-align: center;
 	padding: 20px;
@@ -383,14 +387,15 @@ footer p {
 #form fieldset {
 	margin: auto;
 	background-color: #fff;
-	padding: 10px;
+	padding-top: 1px;
 	padding-left : 24px;
+	padding-bottom : 7px;
 	height: auto;
 }
 
 #form fieldset label {
 	display: inline-block;
-	width: 20%;
+	width: 24%;
 	text-align: right;
 	margin-top : 2px;
 }
@@ -418,7 +423,7 @@ label.required:before {
 }
 
 #form input[type=text], #form input[type=file] {
-	width: 22%;
+	width: 24%;
 }
 
 #form input[type=file] {
@@ -438,7 +443,7 @@ input[type=submit] {
 
 #form select {
 	margin-right: 0;
-	width: 22%;
+	width: 24%;
 }
 
 #wait {
@@ -824,10 +829,14 @@ ul.tabs li h2 {
 	.logo {width:229px}
 	.details {width:100%}
 	.details span,.details span.text-right {padding-left : 4px;}
+	#form fieldset label {width:24%}
+	#form input[type=email],#form input[type=text], #form input[type=file], 
+	#form select {width: 24%;}
 }
 
 @media(max-width:1024px ){
 	main {margin-left:1px;width : 74%}
+	#form fieldset {padding-left:9px}
 }
   
 @media(max-width:991px ){
@@ -868,13 +877,14 @@ ul.tabs li h2 {
 	main {width : 98.5%;margin-left:5px;display:block}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:40%}
 	input[type=submit]{margin-left : 65%;}
-	#form input[type=email],#form input[type=text], #form input[type=file], 
-	#form input[type=file],#form select {width: 24%;}
 	.details span {width:58%}
 	.details span.text-right {width:35%}
 	.buttons {width : 100%;margin-top: 25px;line-height: 35px;}
 	.buttons a {margin-bottom : 5px}
 	#content h1 {overflow : hidden;white-space:nowrap}
+	#form fieldset label {width:35%}
+	#form input[type=email],#form input[type=text], #form input[type=file], 
+	#form select {width: 62%;}
 }
  
 @media(max-width:480px ){
@@ -884,13 +894,9 @@ ul.tabs li h2 {
 	.topmenu {margin-left:-1px}
 	table th:nth-child(1) {display:none}
 	table th:nth-child(5) {display:none}
-	table td:nth-child(1) {display:none}
+	table tr:not(.empty) td:nth-child(1) {display:none}
 	table td:nth-child(5) {display:none}
 	input[type=submit]{margin-left : 55%;}
-	#form fieldset {padding : 5px}
-	#form fieldset label {width:35%}
-	#form input[type=email],#form input[type=text], #form input[type=file], 
-	#form input[type=file],#form select {width: 50%;}
 }
 @media(max-width:360px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}

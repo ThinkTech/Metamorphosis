@@ -5,9 +5,9 @@ public class Address {
 	private String country;
 	private String town;
 	private String location;
-	private int longitude;
-	private int latitude;
-	private int altitude;
+	private String longitude;
+	private String latitude;
+	private String altitude;
 	private String mobile;
 	private String telephone;
 	private String email;
@@ -33,22 +33,22 @@ public class Address {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public int getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(int longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	public int getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(int latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	public int getAltitude() {
+	public String getAltitude() {
 		return altitude;
 	}
-	public void setAltitude(int altitude) {
+	public void setAltitude(String altitude) {
 		this.altitude = altitude;
 	}
 	public String getMobile() {
@@ -87,5 +87,4 @@ public class Address {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	
 }
