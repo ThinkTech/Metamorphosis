@@ -4,13 +4,21 @@ import java.util.Date;
 
 public class User {
 	
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 	private String role;
 	private Date lastLogon = new Date();
+	private Structure structure = new Structure();
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -46,6 +54,12 @@ public class User {
 	}
 	public void setLastLogon(Date lastLogon) {
 		this.lastLogon = lastLogon;
+	}
+	public Structure getStructure() {
+		return structure;
+	}
+	public void setStructure(Structure structure) {
+		this.structure = structure;
 	}
 	public String getFullName() {
 		return firstName + " " + lastName;
