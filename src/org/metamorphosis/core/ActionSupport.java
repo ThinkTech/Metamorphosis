@@ -68,4 +68,8 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public void setSearch(Search search) {
 		this.search = search;
 	}
+	
+	public String getReferer() {
+		return getRequest().getHeader("referer");
+	}
 }
