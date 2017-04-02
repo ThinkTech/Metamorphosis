@@ -2,7 +2,9 @@ package org.metamorphosis.core;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Structure {
 
@@ -20,6 +22,8 @@ public class Structure {
 	private User createdBy;
 	private Address address = new Address();
 	private List<Contact> contacts = new ArrayList<Contact>();
+	private Map<String,String> info = new HashMap<String,String>();
+	
 	
 	public Long getId() {
 		return id;
@@ -104,5 +108,11 @@ public class Structure {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public Map<String, String> getInfo() {
+		return info;
+	}
+	public void setInfo(Map<String, String> info) {
+		this.info = info;
 	}
 }

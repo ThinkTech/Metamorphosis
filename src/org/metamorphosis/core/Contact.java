@@ -1,11 +1,18 @@
 package org.metamorphosis.core;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Contact {
 
 	private Long id;
 	private String firstName;
 	private String lastName;
 	private Address address = new Address();
+	private Map<String,String> info = new HashMap<String,String>();
+	private Date createdOn;
+	private User createdBy;
 	
 	public Long getId() {
 		return id;
@@ -30,5 +37,23 @@ public class Contact {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public Map<String, String> getInfo() {
+		return info;
+	}
+	public void setInfo(Map<String, String> info) {
+		this.info = info;
+	}
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+	public User getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 }

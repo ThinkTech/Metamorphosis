@@ -12,6 +12,8 @@ public class User {
 	private String role;
 	private Date lastLogon = new Date();
 	private Structure structure = new Structure();
+	private Date createdOn;
+	private User createdBy;
 	
 	public Long getId() {
 		return id;
@@ -60,6 +62,18 @@ public class User {
 	}
 	public void setStructure(Structure structure) {
 		this.structure = structure;
+	}
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+	public User getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 	public String getFullName() {
 		return firstName + " " + lastName;
