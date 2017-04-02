@@ -1,6 +1,7 @@
 package org.metamorphosis.core;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Structure {
@@ -14,6 +15,11 @@ public class Structure {
 	private String size;
 	private String state;
 	private String target;
+	private String ninea;
+	private String rc;
+	private String instance;
+	private Date createdOn;
+	private User createdBy;
 	private Address address = new Address();
 	private List<Contact> contacts = new ArrayList<Contact>();
 	
@@ -70,6 +76,36 @@ public class Structure {
 	}
 	public void setTarget(String target) {
 		this.target = target;
+	}
+	public String getNinea() {
+		return ninea;
+	}
+	public void setNinea(String ninea) {
+		this.ninea = ninea;
+	}
+	public String getRc() {
+		return rc;
+	}
+	public void setRc(String rc) {
+		this.rc = rc;
+	}
+	public String getInstance() {
+		return instance;
+	}
+	public void setInstance(String instance) {
+		this.instance = instance;
+	}
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+	public User getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 	public List<Contact> getContacts() {
 		return contacts;
