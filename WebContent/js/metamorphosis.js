@@ -220,7 +220,7 @@ page.init = function() {
 	       return false;
 	}); 
 	
-	$("input[type=submit]").on('submit',function(){
+	$("input[type=submit]").click(function(){
 		$(this).attr("disabled","disabled");
 	});
 	
