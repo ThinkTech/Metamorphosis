@@ -220,8 +220,8 @@ page.init = function() {
 	       return false;
 	}); 
 	
-	$("input[type=submit]").click(function(){
-		$(this).attr("disabled","disabled");
+	$("form").on('submit',function(){
+		$("input[type=submit]",this).attr("disabled","disabled");
 	});
 	
 	page.highlight();
