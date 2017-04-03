@@ -14,6 +14,9 @@ public class Address {
 	private String bp;
 	private String fax;
 	private String website;
+	private String youtube;
+	private String facebook;
+	private String twitter;
 	
 	public String getCountry() {
 		return country;
@@ -87,4 +90,23 @@ public class Address {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
+	public String getYoutube() {
+		return youtube;
+	}
+	public void setYoutube(String youtube) {
+		this.youtube = youtube;
+	}
+	public String getFacebook() {
+		return facebook;
+	}
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+	public String getTwitter() {
+		return twitter;
+	}
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+	
 }
