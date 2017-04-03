@@ -9,6 +9,8 @@ public class Contact {
 	private Long id;
 	private String firstName;
 	private String lastName;
+	private String profession;
+	private String email;
 	private Address address = new Address();
 	private Map<String,String> info = new HashMap<String,String>();
 	private Date createdOn;
@@ -31,6 +33,18 @@ public class Contact {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getProfession() {
+		return profession;
+	}
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public Address getAddress() {
 		return address;
