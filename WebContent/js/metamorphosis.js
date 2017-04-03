@@ -1,14 +1,13 @@
-const app = {};
-
+var app = {};
 app.ready = function(callback) { 
 	$(document).ready(callback); 
 };
 
-app.get = function(url, callback, ...options) {
-	 var store =  typeof options[0] == 'boolean' ? options[0] : false;
+app.get = function(url, callback) {
+	 var store =  typeof arguments[2] == 'boolean' ? arguments[2] : false;
 	 page.wait();
 	 if(store) {
-		 const data = localStorage.getItem(url); 
+		 var data = localStorage.getItem(url); 
 		 if(data) {
 			 page.release();
 			 if(callback) callback(JSON.parse(data));
@@ -31,7 +30,7 @@ app.get = function(url, callback, ...options) {
 	     }
 	 }).fail(function(data){
 	  	 page.release();
-	  	 const error = options[0] instanceof Function ? options[0] : options[1];
+	  	 var error = arguments[2] instanceof Function ? arguments[2] : arguments[3];
 	  	 if(error) error(data);
 	 });
 };
@@ -84,10 +83,10 @@ app.delete = function(url, callback, error) {
 };
 
 app.authenticate = function(form) {
-	const url = form.attr("action");
-	const data = form.serialize();
+	var url = form.attr("action");
+	var data = form.serialize();
 	app.post(url,data, function(response) {
-		location = response.url;
+		window.location.href = response.url;
 	}, function(error) {
 		alert("email or password incorrect", function() {
 			$("input[type=email]").focus();
@@ -103,7 +102,7 @@ app.engine = function(type, engine) {
 
 app.engine("text/x-handlebars-template",function(info) {
   head.load("js/handlebars-v4.0.5.js",function(){
-    const html = $.parseHTML(Handlebars.compile(info.source)(info.data));
+    var html = $.parseHTML(Handlebars.compile(info.source)(info.data));
     info.append ? info.destination.append(html) : info.destination.html(html);
     if(info.callback) info.callback($(html));
   });
@@ -112,16 +111,16 @@ app.engine("text/x-handlebars-template",function(info) {
 app.engine("text/x-dust-template",function(info) {
   head.load("js/dust-full.min.js",function() {
     dust.renderSource(info.source,info.data,function(err, out) {
-      const html = $.parseHTML(out);
+      var html = $.parseHTML(out);
       info.append ? info.destination.append(html) : info.destination.html(html);
       if(info.callback) info.callback($(html));
     });
   });
 });
 
-const page = {};
+var page = {};
 
-page.render = function(element, data, ...options) {
+page.render = function(element, data) {
   this.cache = this.cache ? this.cache : new Map();
   var template;
   if(this.cache.has(element[0])) {
@@ -129,13 +128,13 @@ page.render = function(element, data, ...options) {
   }else {
 	  this.cache.set(element[0],template = $("template", element));
   }
-  const engine = app.engines[template.attr("type")];
+  var engine = app.engines[template.attr("type")];
   engine({
     source: template.html(),
     data: data,
-    append: options[0] instanceof Function ? false : options[0],
-    destination: options[1] && !(options[1] instanceof Function) ? options[1] : element,
-    callback: options[0] instanceof Function ? options[0] : options[1] instanceof Function ? options[1] : options[2]
+    append: arguments[2] instanceof Function ? false : arguments[2],
+    destination: arguments[3] && !(arguments[3] instanceof Function) ? arguments[3] : element,
+    callback: arguments[2] instanceof Function ? arguments[2] : arguments[3] instanceof Function ? arguments[3] : arguments[4]
   });
 };
 
@@ -148,7 +147,7 @@ page.release = function() {
 };
 
 var doc = function(entity) {
-	const names = Object.getOwnPropertyNames(entity);
+	var names = Object.getOwnPropertyNames(entity);
 	return {content: entity[names[1]] + " " + entity[names[2]]};
 };
 
@@ -169,7 +168,7 @@ page.print = function(url, callback){
 };
 
 page.highlight = function() {
-	const array = window.location.pathname.split( '/' );
+	var array = window.location.pathname.split( '/' );
 	var path = "";
 	for( var i = 0;i<array.length;i++) {
 		path += array[i];
@@ -220,10 +219,6 @@ page.init = function() {
 	       return false;
 	}); 
 	
-	$("form").on('submit',function(){
-		$("input[type=submit]",this).attr("disabled","disabled");
-	});
-	
 	page.highlight();
 	
 	page.table.init();
@@ -236,18 +231,18 @@ page.table = {};
 
 page.table.paginate = function() {
 	$("table").unbind("repaginate").each(function() {
-		const $table = $(this);
+		var $table = $(this);
 		$(".pager").remove();
 	    var currentPage = 0;
-	    const numPerPage = 12;
+	    var numPerPage = 12;
 	    $table.bind('repaginate', function() {
 	        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
 	    });
 	    $table.trigger('repaginate');
-	    const numRows = $table.find('tbody tr').length;
+	    var numRows = $table.find('tbody tr').length;
 	    if(numRows > numPerPage) {
-		    const numPages = Math.ceil(numRows / numPerPage);
-		    const $pager = $('<div class="pager"></div>').attr("id","pager"+$table.parent().attr("id"));
+		    var numPages = Math.ceil(numRows / numPerPage);
+		    var $pager = $('<div class="pager"></div>').attr("id","pager"+$table.parent().attr("id"));
 		    for (var page = 0; page < numPages; page++) {
 		        $('<span class="page-number"></span>').text(page + 1).bind('click', {
 		            newPage: page
@@ -269,13 +264,13 @@ page.table.paginate = function() {
 
 page.table.init = function() {
 	var tbody = $("#list tbody");
-	const rows = $("tr",tbody).length; 
+	var rows = $("tr",tbody).length; 
 	if(!rows) {
 		tbody.append("<tr class='empty'><td valign='top' colspan='"+$("th").length+"'>no record found</td></tr>");
 		$("<div class='row-count'/>").html("0 records").insertAfter("#list");
 	}else {
 		page.table.paginate();
-		$("<div class='row-count'/>").html(rows + " records").insertAfter("#list");
+		$("<div class='row-count'/>").html(rows + " records").insertAfter("#list").fadeIn();
 	}
 	$("#search input").focus().val($("#search input").val());
 	$("a.refresh-16").attr("href",window.location.href);
@@ -285,26 +280,26 @@ page.tabs = {};
 
 page.tabs.init = function() {
 	var tabs = $("#tabs").addClass("tab_container");
-	const ul = $('<ul class="tabs"></ul>').insertBefore(tabs);
+	var ul = $('<ul class="tabs"></ul>').insertBefore(tabs);
 	$.each($("> div",tabs),function(index, element){
-		  const div= $(element).attr("id","tab"+index).addClass("tab_content").hide();
-		  const h2 = $("<h2>"+div.attr("title")+"</h2>").attr("title",div.attr("title"));
-		  const li = $("<li/>").attr("rel",div.attr("id")).html(h2);
+		  var div= $(element).attr("id","tab"+index).addClass("tab_content").hide();
+		  var h2 = $("<h2>"+div.attr("title")+"</h2>").attr("title",div.attr("title"));
+		  var li = $("<li/>").attr("rel",div.attr("id")).html(h2);
 		  li.click(function() {
-				const parent = $(this).parent();
+				var parent = $(this).parent();
 				$("li",parent).removeClass("active");
 				$(this).addClass("active");
-				const activeTab = $(this).attr("rel"); 
+				var activeTab = $(this).attr("rel"); 
 				$("#"+activeTab).parent().find(".tab_content").hide();
 				$("#"+activeTab).fadeIn(); 
 		  }).appendTo(ul);
 	});
 	$("li:first-child",ul).addClass("active");
-	$("div:first-child",tabs).show();
+	$("div:first-child",tabs).fadeIn();
 };
 
-const alert = function(message,callback) {
-	const container = $("#alert-dialog-container");
+var alert = function(message,callback) {
+	var container = $("#alert-dialog-container");
 	$("span:nth-child(2)",container).html(message);
 	container.show(0,function(){
 		$("#alert-dialog-ok").one("click",function() {
@@ -315,9 +310,9 @@ const alert = function(message,callback) {
 	return false;
 };
 
-const confirm = function(message,callback){
+var confirm = function(message,callback){
 	$("body").trigger("click");
-	const container = $("#confirm-dialog-container");
+	var container = $("#confirm-dialog-container");
 	$("span.confirmation-dialog-title",container).html(message);
 	container.show(0,function(){
 		$("#confirm-dialog-ok").one("click",function(){
@@ -325,6 +320,21 @@ const confirm = function(message,callback){
 			callback();
 		}).focus();
 	});
+};
+
+app.getCountries = function(lang,selected) {
+	app.get("https://restcountries.eu/rest/v2/all",function(countries){
+		$.each(countries,function(index,country){
+			const option = $("<option/>").html(country.name);
+			option.attr("value",country.alpha3Code);
+			if(country.alpha3Code == selected) {
+				option.attr("selected","true");
+				$(".town").attr("value",country.capital);
+			}
+			$(".country").append(option);
+			
+		});
+	},true);
 };
 
 app.ready(function() {
