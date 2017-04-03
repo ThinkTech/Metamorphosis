@@ -1,8 +1,10 @@
 const app = {};
 
-app.ready = callback => $(document).ready(callback);
+app.ready = function(callback) { 
+	$(document).ready(callback); 
+};
 
-app.get = (url, callback, ...options) => {
+app.get = function(url, callback, ...options) {
 	 var store =  typeof options[0] == 'boolean' ? options[0] : false;
 	 page.wait();
 	 if(store) {
@@ -17,7 +19,7 @@ app.get = (url, callback, ...options) => {
 		 type : 'GET', 
 		 url : url, 
 		 dataType : 'json'
-	 }).done(data => {
+	 }).done(function(data){
 		 page.release();
 	     if(callback) callback(data);
 	     try {
@@ -27,67 +29,67 @@ app.get = (url, callback, ...options) => {
 	    		 localStorage.clear();
 	    	  }
 	     }
-	 }).fail(data => {
+	 }).fail(function(data){
 	  	 page.release();
 	  	 const error = options[0] instanceof Function ? options[0] : options[1];
 	  	 if(error) error(data);
 	 });
 };
 
-app.post = (url, formData, callback, error) => {
+app.post = function(url, formData, callback, error) {
 	  page.wait();
 	  $.ajax({
           type : 'POST',
           url : url,
           data : formData,
           dataType : 'json'
-	  }).done(data => {
+	  }).done(function(data){
 		  page.release();
 		  if(callback) callback(data);
-	  }).fail(data => {
+	  }).fail(function(data){
 		  page.release();
 		  if(error) error(data);
 	  });
 };
 
-app.put = (url, formData, callback, error) => {
+app.put = function(url, formData, callback, error) {
 	  page.wait();
 	  $.ajax({
 		  type : 'PUT',
           url : url,
           data : formData,
           dataType : 'json'
-      }).done(data => {
+      }).done(function(data){
     	  page.release();
 	      if(callback) callback(data);
-      }).fail(data => {
+      }).fail(function(data){
     	  page.release();
     	  if(error) error(data);
       });
 };
 
-app.delete = (url, callback, error) => {
+app.delete = function(url, callback, error) {
 	  page.wait();
 	  $.ajax({
 		  type : 'DELETE',
 		  url : url,
 		  dataType : 'json'
-	  }).done(data => {
+	  }).done(function(data){
 		  page.release();
 		  if(callback) callback(data);
-	  }).fail(data => {
+	  }).fail(function(data){
 		  page.release();
 		  if(error) error(data);
 	  });
 };
 
-app.authenticate = form => {
+app.authenticate = function(form) {
 	const url = form.attr("action");
 	const data = form.serialize();
-	app.post(url,data, response => {
+	app.post(url,data, function(response) {
 		location = response.url;
-	}, error => {
-		alert("email or password incorrect", () => {
+	}, function(error) {
+		alert("email or password incorrect", function() {
 			$("input[type=email]").focus();
 		});
 	});
@@ -95,19 +97,21 @@ app.authenticate = form => {
 
 app.engines = {};
 
-app.engine = (type, engine) => app.engines[type] = engine;
+app.engine = function(type, engine) {
+	app.engines[type] = engine;
+};
 
-app.engine("text/x-handlebars-template", info => {
-  head.load("js/handlebars-v4.0.5.js", () => {
+app.engine("text/x-handlebars-template",function(info) {
+  head.load("js/handlebars-v4.0.5.js",function(){
     const html = $.parseHTML(Handlebars.compile(info.source)(info.data));
     info.append ? info.destination.append(html) : info.destination.html(html);
     if(info.callback) info.callback($(html));
   });
 });
 
-app.engine("text/x-dust-template", info => {
-  head.load("js/dust-full.min.js", () => {
-    dust.renderSource(info.source, info.data, (err, out) => {
+app.engine("text/x-dust-template",function(info) {
+  head.load("js/dust-full.min.js",function() {
+    dust.renderSource(info.source,info.data,function(err, out) {
       const html = $.parseHTML(out);
       info.append ? info.destination.append(html) : info.destination.html(html);
       if(info.callback) info.callback($(html));
@@ -117,7 +121,7 @@ app.engine("text/x-dust-template", info => {
 
 const page = {};
 
-page.render = (element, data, ...options) => {
+page.render = function(element, data, ...options) {
   this.cache = this.cache ? this.cache : new Map();
   var template;
   if(this.cache.has(element[0])) {
@@ -135,27 +139,39 @@ page.render = (element, data, ...options) => {
   });
 };
 
-page.wait = () => $("#wait").show();
+page.wait = function() { 
+	$("#wait").show();
+};
 
-page.release = () => $("#wait").hide();
+page.release = function() { 
+	$("#wait").hide();
+};
 
-var doc = entity => {
+var doc = function(entity) {
 	const names = Object.getOwnPropertyNames(entity);
 	return {content: entity[names[1]] + " " + entity[names[2]]};
 };
 
-page.pdf = (url, callback) => {
-	head.load("js/pdfmake.min.js", "js/vfs_fonts.js", () => app.get(url, data => pdfMake.createPdf(callback ? callback(data) : doc(data)).open()));
+page.pdf = function(url, callback){
+	head.load("js/pdfmake.min.js", "js/vfs_fonts.js", function() { 
+		app.get(url, function(data) {
+			pdfMake.createPdf(callback ? callback(data) : doc(data)).open()
+		});
+	 });
 };
 
-page.print = (url, callback) => {
-	head.load("js/pdfmake.min.js", "js/vfs_fonts.js", () => app.get(url, data => pdfMake.createPdf(callback ? callback(data) : doc(data)).print()));
+page.print = function(url, callback){
+	head.load("js/pdfmake.min.js", "js/vfs_fonts.js", function() { 
+		app.get(url, function(data) {
+			pdfMake.createPdf(callback ? callback(data) : doc(data)).print()
+		});
+	 });
 };
 
-page.highlight = () => {
+page.highlight = function() {
 	const array = window.location.pathname.split( '/' );
 	var path = "";
-	for( var i = 2;i<array.length;i++) {
+	for( var i = 0;i<array.length;i++) {
 		path += array[i];
 		if(array[i]) $('a[href$='+array[i]+"]").addClass('active');
 	}
@@ -163,7 +179,7 @@ page.highlight = () => {
 	if($("aside a.active").length>1) $("aside a.active:first").removeClass("active");
 };
 
-page.init = () => {
+page.init = function() {
 	$("body").append('<div id="wait"><div id="loader"/></div>');
 	$("body").append('<div id="alert-dialog-container">'+
 			'<div><span>Information</span><span></span>'+
@@ -185,7 +201,10 @@ page.init = () => {
 			'<a id="confirm-dialog-cancel" tabindex="2">Cancel</a>'+
 			'<a id="confirm-dialog-ok" tabindex="1">OK</a></div></div>');
 	
-	$("#confirm-dialog-cancel").click(() => $("#confirm-dialog-container").hide());
+	$("#confirm-dialog-cancel").click(function() { 
+		$("#confirm-dialog-container").hide();
+	});
+	
 	$("#confirm-dialog-container").on('keydown', function(event) {     
 	        switch (event.keyCode) {
 	            case 27:
@@ -201,6 +220,10 @@ page.init = () => {
 	       return false;
 	}); 
 	
+	$("input[type=submit]").on('submit',function(){
+		$(this).attr("disabled","disabled");
+	});
+	
 	page.highlight();
 	
 	page.table.init();
@@ -211,7 +234,7 @@ page.init = () => {
 
 page.table = {};
 
-page.table.paginate = () => {
+page.table.paginate = function() {
 	$("table").unbind("repaginate").each(function() {
 		const $table = $(this);
 		$(".pager").remove();
@@ -238,11 +261,13 @@ page.table.paginate = () => {
 		    }
 		    $pager.insertAfter($table.parent()).find('span.page-number:first').addClass('active');
 		}
-	    head.load("js/sortable.js", () => sorttable.makeSortable($table[0]));
+	    head.load("js/sortable.js", function() {
+	    	sorttable.makeSortable($table[0]);
+	    });
 	});
 };
 
-page.table.init = () => {
+page.table.init = function() {
 	var tbody = $("#list tbody");
 	const rows = $("tr",tbody).length; 
 	if(!rows) {
@@ -258,10 +283,10 @@ page.table.init = () => {
 
 page.tabs = {};
 
-page.tabs.init = () => {
+page.tabs.init = function() {
 	var tabs = $("#tabs").addClass("tab_container");
 	const ul = $('<ul class="tabs"></ul>').insertBefore(tabs);
-	$.each($("> div",tabs),(index, element) => {
+	$.each($("> div",tabs),function(index, element){
 		  const div= $(element).attr("id","tab"+index).addClass("tab_content").hide();
 		  const h2 = $("<h2>"+div.attr("title")+"</h2>").attr("title",div.attr("title"));
 		  const li = $("<li/>").attr("rel",div.attr("id")).html(h2);
@@ -278,11 +303,11 @@ page.tabs.init = () => {
 	$("div:first-child",tabs).show();
 };
 
-const alert = (message,callback) => {
+const alert = function(message,callback) {
 	const container = $("#alert-dialog-container");
 	$("span:nth-child(2)",container).html(message);
-	container.show(0,() => {
-		$("#alert-dialog-ok").one("click",() => {
+	container.show(0,function(){
+		$("#alert-dialog-ok").one("click",function() {
 			container.hide();
 			if(callback)callback();
 		}).focus();
@@ -290,19 +315,21 @@ const alert = (message,callback) => {
 	return false;
 };
 
-const confirm = (message,callback) => {
+const confirm = function(message,callback){
 	$("body").trigger("click");
 	const container = $("#confirm-dialog-container");
 	$("span.confirmation-dialog-title",container).html(message);
-	container.show(0,() => {
-		$("#confirm-dialog-ok").one("click",() => {
+	container.show(0,function(){
+		$("#confirm-dialog-ok").one("click",function(){
 			container.hide();
 			callback();
 		}).focus();
 	});
 };
 
-app.ready(() => page.init());
+app.ready(function() {
+	page.init();
+});
 
 /* ! head.core - v1.0.2 */
 (function(n,t){"use strict";function r(n){a[a.length]=n}function k(n){var t=new RegExp(" ?\\b"+n+"\\b");c.className=c.className.replace(t,"")}function p(n,t){for(var i=0,r=n.length;i<r;i++)t.call(n,n[i],i)}function tt(){var t,e,f,o;c.className=c.className.replace(/ (w-|eq-|gt-|gte-|lt-|lte-|portrait|no-portrait|landscape|no-landscape)\d+/g,"");t=n.innerWidth||c.clientWidth;e=n.outerWidth||n.screen.width;u.screen.innerWidth=t;u.screen.outerWidth=e;r("w-"+t);p(i.screens,function(n){t>n?(i.screensCss.gt&&r("gt-"+n),i.screensCss.gte&&r("gte-"+n)):t<n?(i.screensCss.lt&&r("lt-"+n),i.screensCss.lte&&r("lte-"+n)):t===n&&(i.screensCss.lte&&r("lte-"+n),i.screensCss.eq&&r("e-q"+n),i.screensCss.gte&&r("gte-"+n))});f=n.innerHeight||c.clientHeight;o=n.outerHeight||n.screen.height;u.screen.innerHeight=f;u.screen.outerHeight=o;u.feature("portrait",f>t);u.feature("landscape",f<t)}function it(){n.clearTimeout(b);b=n.setTimeout(tt,50)}var y=n.document,rt=n.navigator,ut=n.location,c=y.documentElement,a=[],i={screens:[240,320,480,640,768,800,1024,1280,1440,1680,1920],screensCss:{gt:!0,gte:!1,lt:!0,lte:!1,eq:!1},browsers:[{ie:{min:6,max:11}}],browserCss:{gt:!0,gte:!1,lt:!0,lte:!1,eq:!0},html5:!0,page:"-page",section:"-section",head:"head"},v,u,s,w,o,h,l,d,f,g,nt,e,b;if(n.head_conf)for(v in n.head_conf)n.head_conf[v]!==t&&(i[v]=n.head_conf[v]);u=n[i.head]=function(){u.ready.apply(null,arguments)};u.feature=function(n,t,i){return n?(Object.prototype.toString.call(t)==="[object Function]"&&(t=t.call()),r((t?"":"no-")+n),u[n]=!!t,i||(k("no-"+n),k(n),u.feature()),u):(c.className+=" "+a.join(" "),a=[],u)};u.feature("js",!0);s=rt.userAgent.toLowerCase();w=/mobile|android|kindle|silk|midp|phone|(windows .+arm|touch)/.test(s);u.feature("mobile",w,!0);u.feature("desktop",!w,!0);s=/(chrome|firefox)[ \/]([\w.]+)/.exec(s)||/(iphone|ipad|ipod)(?:.*version)?[ \/]([\w.]+)/.exec(s)||/(android)(?:.*version)?[ \/]([\w.]+)/.exec(s)||/(webkit|opera)(?:.*version)?[ \/]([\w.]+)/.exec(s)||/(msie) ([\w.]+)/.exec(s)||/(trident).+rv:(\w.)+/.exec(s)||[];o=s[1];h=parseFloat(s[2]);switch(o){case"msie":case"trident":o="ie";h=y.documentMode||h;break;case"firefox":o="ff";break;case"ipod":case"ipad":case"iphone":o="ios";break;case"webkit":o="safari"}for(u.browser={name:o,version:h},u.browser[o]=!0,l=0,d=i.browsers.length;l<d;l++)for(f in i.browsers[l])if(o===f)for(r(f),g=i.browsers[l][f].min,nt=i.browsers[l][f].max,e=g;e<=nt;e++)h>e?(i.browserCss.gt&&r("gt-"+f+e),i.browserCss.gte&&r("gte-"+f+e)):h<e?(i.browserCss.lt&&r("lt-"+f+e),i.browserCss.lte&&r("lte-"+f+e)):h===e&&(i.browserCss.lte&&r("lte-"+f+e),i.browserCss.eq&&r("eq-"+f+e),i.browserCss.gte&&r("gte-"+f+e));else r("no-"+f);r(o);r(o+parseInt(h,10));i.html5&&o==="ie"&&h<9&&p("abbr|article|aside|audio|canvas|details|figcaption|figure|footer|header|hgroup|main|mark|meter|nav|output|progress|section|summary|time|video".split("|"),function(n){y.createElement(n)});p(ut.pathname.split("/"),function(n,u){if(this.length>2&&this[u+1]!==t)u&&r(this.slice(u,u+1).join("-").toLowerCase()+i.section);else{var f=n||"index",e=f.indexOf(".");e>0&&(f=f.substring(0,e));c.id=f.toLowerCase()+i.page;u||r("root"+i.section)}});u.screen={height:n.screen.height,width:n.screen.width};tt();b=0;n.addEventListener?n.addEventListener("resize",it,!1):n.attachEvent("onresize",it)})(window);
