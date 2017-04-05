@@ -18,6 +18,7 @@ public class Structure {
 	private String state;
 	private String target;
 	private String instance;
+	private String database;
 	private Date createdOn;
 	private User createdBy;
 	private Address address = new Address();
@@ -84,6 +85,12 @@ public class Structure {
 	}
 	public void setInstance(String instance) {
 		this.instance = instance;
+	}
+	public String getDatabase() {
+		return database;
+	}
+	public void setDatabase(String database) {
+		this.database = database;
 	}
 	public Date getCreatedOn() {
 		return createdOn;
