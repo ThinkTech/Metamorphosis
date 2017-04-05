@@ -3,7 +3,7 @@ package org.metamorphosis.core;
 public class Address {
 
 	private String country;
-	private String town;
+	private String city;
 	private String location;
 	private String longitude;
 	private String latitude;
@@ -24,11 +24,11 @@ public class Address {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getTown() {
-		return town;
+	public String getCity() {
+		return city;
 	}
-	public void setTown(String town) {
-		this.town = town;
+	public void setCity(String city) {
+		this.city = city;
 	}
 	public String getLocation() {
 		return location;
