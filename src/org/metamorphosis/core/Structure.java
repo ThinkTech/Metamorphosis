@@ -24,7 +24,7 @@ public class Structure {
 	private Address address = new Address();
 	private List<Contact> contacts = new ArrayList<Contact>();
 	private Map<String,String> info = new HashMap<String,String>();
-	
+	private boolean createAccount;
 	
 	public Long getId() {
 		return id;
@@ -122,4 +122,11 @@ public class Structure {
 	public void setInfo(Map<String, String> info) {
 		this.info = info;
 	}
+	public boolean isCreateAccount() {
+		return createAccount;
+	}
+	public void setCreateAccount(boolean createAccount) {
+		this.createAccount = createAccount;
+	}
+	
 }
