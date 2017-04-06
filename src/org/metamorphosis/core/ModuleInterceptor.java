@@ -31,9 +31,15 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");	
 					if(user==null) return "error";
 					String roles = module.getRoles();
+					boolean found = false;
 					for(Account account : user.getAccounts()) {
-						if(roles.toLowerCase().indexOf(account.getRole()) ==-1 && !roles.equals("all")) return "error";
+						if(roles.toLowerCase().indexOf(account.getRole()) !=-1 || roles.equals("all")) {
+							found = true;
+							user.setCurrentAccount(account);
+							break;
+						}
 					}
+					if(!found) return "error";
 				}
 				ValueStack stack = ActionContext.getContext().getValueStack();
 				stack.set("modules",moduleManager.getVisibleModules(module.getType(),user));

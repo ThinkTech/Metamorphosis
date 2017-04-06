@@ -329,7 +329,6 @@ app.getCountries = function(lang,selected) {
 			option.attr("value",country.alpha3Code);
 			if(country.alpha3Code == selected) {
 				option.attr("selected","true");
-				$(".town").attr("value",country.capital);
 			}
 			$(".country").append(option);
 			

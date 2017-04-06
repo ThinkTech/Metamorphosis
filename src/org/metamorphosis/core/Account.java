@@ -9,6 +9,7 @@ public class Account {
 	private Structure structure = new Structure();
 	private Date createdOn;
 	private User createdBy;
+	private boolean current;
 	
 	public Long getId() {
 		return id;
@@ -40,4 +41,11 @@ public class Account {
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
+	public boolean isCurrent() {
+		return current;
+	}
+	public void setCurrent(boolean current) {
+		this.current = current;
+	}
+	
 }

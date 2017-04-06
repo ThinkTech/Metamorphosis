@@ -48,6 +48,19 @@ public class User {
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
+	public void setCurrentAccount(Account current) {
+		for(Account account : accounts) {
+			account.setCurrent(false);
+		}
+		current.setCurrent(true);
+	}
+	public Account getCurrentAccount() {
+		for(Account account : accounts) {
+			if(account.isCurrent()) return account;
+		}
+		return null;
+	}
+	
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}

@@ -1,13 +1,5 @@
 html {
-	-ms-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-tap-highlight-color: transparent;
 	box-sizing: border-box;
-	-webkit-overflow-scrolling: touch;
-	-ms-touch-action: manipulation;
-	touch-action: manipulation;
 	width: 100%;
 	height: 100%;
 	color: #222;
@@ -147,7 +139,6 @@ select, input {
 	vertical-align : top;
 	background-color: #fefefe;
     border: 1px solid #1bd3da;
-	border-radius : 3px;
 	white-space : nowrap;
 	height: 24px;
     padding: 1px;
@@ -431,6 +422,7 @@ label.required:before {
 
 #form input:not([type="submit"]),#form select {
 	margin-bottom : 3px;
+	margin-top : 0px;
 }
 
 #form input:not([type="submit"]) {
@@ -555,7 +547,7 @@ input[type=submit] {
 	background: #fcfdff;
 	border: 1px solid #06d0d8;
 	width: 300px;
-	height: 120px;
+	height: 140px;
 	display: block;
 	margin: auto;
 	z-index: 999999999999;
@@ -730,7 +722,6 @@ ul.tabs {
 	padding: 0;
 	float: left;
 	list-style: none;
-	height: 32px;
 	width: 100%;
 }
 
@@ -747,10 +738,11 @@ ul.tabs li {
 	background: #fff;
 	overflow: hidden;
 	position: relative;
-	width: auto;
-	padding-top: 6px;
-	border-radius: 5px;
-	margin-right: 3px;
+	width: 90px;
+    padding-top: 6px;
+    border-radius: 5px;
+    margin-right: 3px;
+    margin-bottom: 3px;
 }
 
 ul.tabs li:hover {
@@ -875,7 +867,7 @@ ul.tabs li h2 {
 	.logo {display : none}
 	.topmenu {margin-left:2px;margin-top:8px}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:32%}
-	.details {width:100%;padding-left : 0px;}
+	.details {width:100%;}
 }
 @media(max-width:640px){
 	.logo {display : none}
