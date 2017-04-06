@@ -8,6 +8,7 @@ public class Account {
 	private String email;
 	private String password;
 	private String role;
+	private Structure structure = new Structure();
 	private Date createdOn;
 	private User createdBy;
 	
@@ -34,6 +35,12 @@ public class Account {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public Structure getStructure() {
+		return structure;
+	}
+	public void setStructure(Structure structure) {
+		this.structure = structure;
 	}
 	public Date getCreatedOn() {
 		return createdOn;
