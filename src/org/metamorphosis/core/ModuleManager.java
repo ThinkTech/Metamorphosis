@@ -387,7 +387,7 @@ public class ModuleManager implements DispatcherListener {
 					modules.add(module);
 				}else {
 					if(user!=null) {
-						if(roles.toLowerCase().indexOf(user.getRole()) !=-1 || roles.equals("all")) {
+						if(roles.toLowerCase().indexOf(user.getAccount().getRole()) !=-1 || roles.equals("all")) {
 							modules.add(module);
 						}
 					}
@@ -409,7 +409,7 @@ public class ModuleManager implements DispatcherListener {
 		for(Module module : this.modules) {
 			if(module.isBackend()) {
 				String roles = module.getRoles();
-				if(roles.toLowerCase().indexOf(user.getRole()) !=-1 || roles.equals("all")) return module;
+				if(roles.toLowerCase().indexOf(user.getAccount().getRole()) !=-1 || roles.equals("all")) return module;
 			}
 		}
 		return null;
@@ -419,7 +419,7 @@ public class ModuleManager implements DispatcherListener {
 		for(Module module : modules) {
 			if(module.isMain() && module.isBackend()) {
 				String roles = module.getRoles();
-				if(roles.toLowerCase().indexOf(user.getRole()) !=-1 || roles.equals("all")) return module;
+				if(roles.toLowerCase().indexOf(user.getAccount().getRole()) !=-1 || roles.equals("all")) return module;
 			}
 		}
 		return getDefaultBackendModule(user);
