@@ -27,7 +27,8 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				User user = (User) session.getAttribute("user");
 				if(module.isCached() && !module.isBackend()) {
 					response.setHeader("Cache-control", "private, max-age=7200");
-				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")) {
+				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")
+						& !actionURL.endsWith("users/register")) {
 					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");	
 					if(user==null) return "error";
 					String roles = module.getRoles();

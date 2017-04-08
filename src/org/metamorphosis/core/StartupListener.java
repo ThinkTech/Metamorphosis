@@ -47,8 +47,6 @@ public class StartupListener implements ServletContextListener {
 		template = templateManager.getFrontendTemplate(null);
 		template = template!=null ? template : copyFrontendTemplate(templateManager,root);
 		context.setAttribute("templateManager",templateManager);
-		context.setAttribute("loginForm","login");
-		context.setAttribute("registerForm","register");
 		return tilesDefinitions += ","+ createTemplateTiles(root,template);
 	}
 	
@@ -77,11 +75,11 @@ public class StartupListener implements ServletContextListener {
 				"<tiles-definitions><definition name='"+template.getType()+"' template='"+template.getIndexPage()+"' preparer='org.metamorphosis.core.PagePreparer'/>";
 		if(template.isFrontend()) {
 			content += "<definition name='index' extends='"+template.getType()+"'>";
-			content+="<put-attribute name='content' value='/index.jsp'/>";
-			content+="</definition>";
-			content+= "<definition name='login' template='/templates/"+template.getFolder().getName()+"/"+template.getLoginPage()+"'>";
-			content+="</definition>";
-			content+= "<definition name='register' template='/templates/"+template.getFolder().getName()+"/"+template.getRegistrationPage()+"'>";
+			if(template.getRedirect()==null) {
+				content+="<put-attribute name='content' value='/index.jsp'/>";
+			}else {
+				content+="<put-attribute name='content' value='/templates/"+template.getId()+"/"+template.getRedirect()+"/>";
+			}
 			content+="</definition>";
 		}
 		content +="</tiles-definitions>";

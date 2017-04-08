@@ -9,7 +9,9 @@ public class Account {
 	private Structure structure = new Structure();
 	private Date createdOn;
 	private User createdBy;
+	private boolean main;
 	private boolean current;
+	
 	
 	public Long getId() {
 		return id;
@@ -40,6 +42,12 @@ public class Account {
 	}
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
+	}
+	public boolean isMain() {
+		return main;
+	}
+	public void setMain(boolean main) {
+		this.main = main;
 	}
 	public boolean isCurrent() {
 		return current;
