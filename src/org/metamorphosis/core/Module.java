@@ -5,24 +5,18 @@ import java.util.List;
 
 public class Module extends Extension {
 	
-	private int order;
 	private String url;
 	private String icon;
 	private boolean main;
 	private boolean administrable = true;
 	private boolean cached;
+	private boolean mandatory;
 	private String indexPage = "index.jsp";
 	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<Action> actions = new ArrayList<Action>();
 	private String roles="all";
-
-	public int getOrder() {
-		return order;
-	}
-	public void setOrder(int order) {
-		this.order = order;
-	}
+	
 	
 	public String getUrl() {
 		return url;
@@ -54,6 +48,14 @@ public class Module extends Extension {
 		this.cached = cached;
 	}
 	
+	public boolean isMandatory() {
+		return mandatory;
+	}
+
+	public void setMandatory(boolean mandatory) {
+		this.mandatory = mandatory;
+	}
+
 	public String getIndexPage() {
 		return indexPage;
 	}

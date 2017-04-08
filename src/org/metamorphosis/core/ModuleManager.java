@@ -46,7 +46,6 @@ public class ModuleManager implements DispatcherListener {
 		  for(File folder : files) {
 			if(folder.isDirectory()) loadModule(folder);
 		  }
-		  orderModules();
 		  monitorRoot(root);
 		}
 	}
@@ -82,7 +81,7 @@ public class ModuleManager implements DispatcherListener {
 		digester.addBeanPropertySetter("module/administrable");
 		digester.addBeanPropertySetter("module/roles");
 		digester.addBeanPropertySetter("module/cached");
-		digester.addBeanPropertySetter("module/order");
+		digester.addBeanPropertySetter("module/mandatory");
 		digester.addBeanPropertySetter("module/author");
 		digester.addBeanPropertySetter("module/authorEmail");
 		digester.addBeanPropertySetter("module/authorUrl");
@@ -120,10 +119,6 @@ public class ModuleManager implements DispatcherListener {
 				item.setUrl(url);
 			}
 		}
-	}
-
-	private void orderModules() {
-
 	}
 	
 	private void monitorRoot(final File root) {
