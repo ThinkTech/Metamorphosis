@@ -3,7 +3,7 @@ package org.metamorphosis.core;
 public class Template extends Extension {
 
 	protected boolean selected;
-	private String redirect;
+	private String redirectPage;
     
 	public boolean isSelected() {
 		return selected;
@@ -21,12 +21,12 @@ public class Template extends Extension {
 		return "/templates/"+id+"/index.jsp";
 	}
 
-	public String getRedirect() {
-		return redirect;
+	public String getRedirectPage() {
+		return redirectPage;
 	}
 
-	public void setRedirect(String redirect) {
-		this.redirect = redirect;
+	public void setRedirectPage(String redirectPage) {
+		this.redirectPage = redirectPage;
 	}
 	
 }

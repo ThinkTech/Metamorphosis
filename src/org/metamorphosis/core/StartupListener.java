@@ -75,10 +75,10 @@ public class StartupListener implements ServletContextListener {
 				"<tiles-definitions><definition name='"+template.getType()+"' template='"+template.getIndexPage()+"' preparer='org.metamorphosis.core.PagePreparer'/>";
 		if(template.isFrontend()) {
 			content += "<definition name='index' extends='"+template.getType()+"'>";
-			if(template.getRedirect()==null) {
+			if(template.getRedirectPage()==null) {
 				content+="<put-attribute name='content' value='/index.jsp'/>";
 			}else {
-				content+="<put-attribute name='content' value='/templates/"+template.getId()+"/"+template.getRedirect()+"/>";
+				content+="<put-attribute name='content' value='/templates/"+template.getId()+"/"+template.getRedirectPage()+"'/>";
 			}
 			content+="</definition>";
 		}
