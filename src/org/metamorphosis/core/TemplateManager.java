@@ -53,7 +53,6 @@ public class TemplateManager {
 		digester.addBeanPropertySetter("template/name");
 		digester.addBeanPropertySetter("template/type");
 		digester.addBeanPropertySetter("template/selected");
-		digester.addBeanPropertySetter("template/redirect","redirectPage");
 		digester.addBeanPropertySetter("template/author");
 		digester.addBeanPropertySetter("template/authorEmail");
 		digester.addBeanPropertySetter("template/authorUrl");

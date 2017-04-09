@@ -374,24 +374,26 @@ public class ModuleManager implements DispatcherListener {
 	}
 
 	public List<Module> getVisibleModules(String type,User user) {
-		List<Module> modules = new ArrayList<Module>();
-		for(Module module : this.modules) {
+		List<Module> visibles = new ArrayList<Module>();
+		Subscription subscription = user!=null ? user.getSubscription() : null;
+		List<Module> modules = subscription !=null ? subscription.getModules() : this.modules;
+		for(Module module : modules) {
 			String roles = module.getRoles();
 			if(module.isVisible() && module.getType().equals(type)) {
 				if(roles.equals("all")) {
-					modules.add(module);
+					visibles.add(module);
 				}else {
 					if(user!=null) {
 						for(Account account : user.getAccounts()) {
 							if(roles.toLowerCase().indexOf(account.getRole()) !=-1 || roles.equals("all")) {
-								modules.add(module);
+								visibles.add(module);
 							}
 						}
 					}
 				}
 			}
 		}
-		return modules;
+		return visibles;
 	}
 
 	public List<Module> getAdminModules() {

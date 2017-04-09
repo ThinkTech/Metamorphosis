@@ -64,4 +64,11 @@ public class User {
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
+	
+	public Subscription getSubscription() {
+		Subscription subscription;
+		Account account = getCurrentAccount();
+		subscription = account!= null && account.getStructure()!= null ? account.getStructure().getSubscription() : null;
+		return subscription;
+	}
 }
