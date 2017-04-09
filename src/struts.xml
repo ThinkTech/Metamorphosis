@@ -25,6 +25,10 @@
         <result type="tiles">index</result>
      </action>
      
+     <action name="login" class="org.metamorphosis.core.ActionSupport">
+        <result type="tiles">login</result>
+     </action>
+     
      <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
      
       <action name="{module}">
