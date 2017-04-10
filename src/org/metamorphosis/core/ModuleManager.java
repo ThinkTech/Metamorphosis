@@ -404,6 +404,22 @@ public class ModuleManager implements DispatcherListener {
 		return modules;
 	}
 	
+	public List<Module> getFrontendModules() {
+		List<Module> modules = new ArrayList<Module>();
+		for(Module module : this.modules) {
+			if(module.isFrontend()) modules.add(module);
+		}
+		return modules;
+	}
+	
+	public List<Module> getBackendModules() {
+		List<Module> modules = new ArrayList<Module>();
+		for(Module module : this.modules) {
+			if(module.isBackend()) modules.add(module);
+		}
+		return modules;
+	}
+	
 	public Module getDefaultBackendModule(User user) {
 		for(Module module : this.modules) {
 			if(module.isBackend()) {
