@@ -939,6 +939,7 @@ ul.tabs li h2 {
 	#form input[type=checkbox]{width:24px;margin-right:55%;margin-top : 3px;}
 	table th:nth-child(5) {display:none}
 	table td:nth-child(5) {display:none}
+	.buttons {position:relative;margin-top:0px}
 }
  
 @media(max-width:480px ){
@@ -956,7 +957,6 @@ ul.tabs li h2 {
 	#form input:not([type="submit"]), #form select {width: 45%;}
 	#form input[type=checkbox]{width:24px;margin-right:39%;margin-top : 3px;}
 	input[type=submit]{margin-left : 55%;}
-	.buttons {position:relative;margin-top:0px}
 }
 @media(max-width:360px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}

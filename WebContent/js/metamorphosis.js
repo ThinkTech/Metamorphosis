@@ -174,7 +174,7 @@ page.highlight = function() {
 		path += array[i];
 		if(array[i]) $('a[href$='+array[i]+"]").addClass('active');
 	}
-	if(path=="") $('a[href$='+array[1]+"]").addClass('active');
+	if(path && array[1]) $('a[href$='+array[1]+"]").addClass('active');
 	if($("aside a.active").length>1) $("aside a.active:first").removeClass("active");
 };
 
@@ -219,8 +219,6 @@ page.init = function() {
 	       return false;
 	}); 
 	
-	page.highlight();
-	
 	page.table.init();
 	
 	page.tabs.init();
@@ -236,6 +234,8 @@ page.init = function() {
 	    $('html, body').animate({scrollTop : 0},800);
 	    return false;
 	});
+	
+	page.highlight();
 	
 };
 
