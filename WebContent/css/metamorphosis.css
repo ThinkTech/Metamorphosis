@@ -54,6 +54,10 @@ h1 {
 	text-transform : capitalize;
 }
 
+h1 .fa {
+	margin-right : 7px;
+}
+
 #content h1 {
 	clear : left;
 }
@@ -65,8 +69,8 @@ h1 {
 	margin-bottom : 8px;
 }
 
-h2 i.fa {
-	margin-right : 3px;
+h2 i.fa, a i.fa, p i.fa {
+	margin-right : 5px;
 }
 
 a {
@@ -91,25 +95,42 @@ input {
 	padding-left: 2px;
 }
 
-.buttons {
-	float: right;
+.scrollToTop{
+  background-color: #06d0d8;
+  color: #fff;
+}
+.scrollToTop:hover,.scrollToTop:focus{  
+  color: #fff;
 }
 
-.buttons a {
-	font-size: 12px;
-	background-repeat: no-repeat;
-	padding: 6px;
-	padding-left: 22px;
-	background-position: 4.3% 50%;
-	margin-right: 5px;
-	text-align: center;
-	cursor: pointer;
-	font-weight: normal;
-	user-select: none;
+/*scrol to top*/
+
+.scrollToTop {
+  bottom: 35px;
+  display: none;
+  font-size: 2rem;
+  font-weight: bold;
+  height: 50px;
+  position: fixed;
+  right: 10px;
+  text-align: center;
+  text-decoration: none;
+  width: 50px;
+  z-index: 9;
+  border:1px solid;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  border-radius : 50%;
+  line-height : 45px;
 }
 
-.buttons a:last-of-type {
-	margin-right : 0px;
+.scrollToTop:hover, .scrollToTop:focus{
+  text-decoration: none;
+  outline: none;
+  background-color: #000;
 }
 
 fieldset {
@@ -243,6 +264,35 @@ header img {
 	vertical-align: top;
 }
 
+.buttons {
+	position : absolute;
+	top : 10px;
+	right : 10px;
+}
+
+.button {
+    float: right;
+    margin-right: 10px;
+    background: #191717;
+    color: #fff;
+    padding: 8px;
+    border: 1px solid #06d0d8;
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom : 15px;
+}
+
+.button:hover {
+    background: #fff;
+    color: #000;
+}
+
+.button i {
+	margin-right : 3px;
+}
+
+
 .topmenu {
 	display: inline-block;
 	margin-top: 10px;
@@ -319,7 +369,7 @@ aside ul li {
 	font-weight: 500;
 	line-height: 2em;
 	background-repeat: no-repeat;
-	background-position: 16% 59%;
+	background-position: 16% 49%;
 }
 
 aside a {
@@ -364,14 +414,11 @@ footer p {
 	text-align: center;
 }
 
-#form {
-	max-width: 1120px;
-	margin: auto;
-	position: relative;
-	background: #fff;
-	vertical-align: top;
+#form h1 {
+	padding : 0;
+	line-height : 1.6em;
+	font-weight : bold;
 }
-
 .form-error {
 	margin-left: 30px;
 	margin-top : -5px;
@@ -423,6 +470,7 @@ label.required:before {
 #form input:not([type="submit"]),#form select {
 	margin-bottom : 3px;
 	margin-top : 0px;
+	height : 24px;
 }
 
 #form input:not([type="submit"]) {
@@ -442,6 +490,10 @@ input[type=submit] {
 	border-radius : 2px;
 	margin-top : 15px;
 	margin-bottom : 10px;
+	border : 1px solid #06d0d8;
+	background : #06d0d8;
+	color : white;
+	height : 34px;
 }
 
 #form select {
@@ -736,9 +788,8 @@ ul.tabs li {
 	font-size: 75%;
 	font-weight: bold;
 	background: #fff;
-	overflow: hidden;
 	position: relative;
-	width: 90px;
+	min-width: 90px;
     padding-top: 6px;
     border-radius: 5px;
     margin-right: 3px;
@@ -880,7 +931,7 @@ ul.tabs li h2 {
 	input[type=submit]{margin-left : 65%;}
 	.details span {width:58%}
 	.details span.text-right {width:35%}
-	.buttons {width : 100%;margin-top: 25px;line-height: 35px;}
+	.buttons {width : 100%;margin-top: 25px;}
 	.buttons a {margin-bottom : 5px}
 	#content h1 {overflow : hidden;white-space:nowrap}
 	#form fieldset label {width:35%}
@@ -905,6 +956,7 @@ ul.tabs li h2 {
 	#form input:not([type="submit"]), #form select {width: 45%;}
 	#form input[type=checkbox]{width:24px;margin-right:39%;margin-top : 3px;}
 	input[type=submit]{margin-left : 55%;}
+	.buttons {position:relative;margin-top:0px}
 }
 @media(max-width:360px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}
@@ -912,4 +964,5 @@ ul.tabs li h2 {
 }
 @media(max-width:320px ){
 	input[type=submit]{margin-left : 45%;margin-top : 40px;}
+	.scrollToTop {bottom : 5px}
 }

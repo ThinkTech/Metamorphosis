@@ -186,7 +186,7 @@ page.init = function() {
 	$("#alert-dialog-container").on('keydown', function(event) {     
        switch (event.keyCode) {
             case 27:
-            	$(this).hide();
+            	$(document.activeElement).click();
                 break;
             case 13:
             	$(document.activeElement).click();
@@ -224,6 +224,18 @@ page.init = function() {
 	page.table.init();
 	
 	page.tabs.init();
+	
+	$(window).scroll(function(){
+	    if ($(this).scrollTop() > 300) {
+	      $('.scrollToTop').fadeIn();
+	    } else {
+	      $('.scrollToTop').fadeOut();
+	    }
+	});
+	$('.scrollToTop').click(function(){
+	    $('html, body').animate({scrollTop : 0},800);
+	    return false;
+	});
 	
 };
 

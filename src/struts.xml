@@ -31,7 +31,7 @@
      
      <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
      
-      <action name="{module}">
+      <action name="{module}" class="org.metamorphosis.core.ActionSupport">
 	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException"
 	        result="error" />
             <result name="success" type="tiles">{1}</result>
