@@ -13,15 +13,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
 	private Search search = new Search();
 	
-	
-	public String execute() {
-		HttpServletRequest request = getRequest();
-		String uri = request.getRequestURI();
-		String actionURL = uri.substring(request.getContextPath().length()+1,uri.length());
-		if(request.getAttribute("title")!=null) request.setAttribute("title",actionURL);
-		return SUCCESS;
-	}
-	
 	public HttpServletRequest getRequest() {
 		return ServletActionContext.getRequest();
 	}

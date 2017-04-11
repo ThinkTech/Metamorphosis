@@ -16,12 +16,12 @@ public class ModuleInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation)  {
 		try {
+			HttpServletRequest request = ServletActionContext.getRequest();
+			String uri = request.getRequestURI();
+			String actionURL = uri.substring(request.getContextPath().length()+1,uri.length());
 			ModuleManager moduleManager = ModuleManager.getInstance();
 		    Module module = moduleManager.getCurrentModule();
 			if(module!=null) {
-				HttpServletRequest request = ServletActionContext.getRequest();
-				String uri = request.getRequestURI();
-				String actionURL = uri.substring(request.getContextPath().length()+1,uri.length());
 				HttpServletResponse response = ServletActionContext.getResponse();
 				HttpSession session = request.getSession();
 				User user = (User) session.getAttribute("user");
@@ -63,7 +63,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					String title = module.getTitle()!=null ? module.getTitle() : actionURL;
 					request.setAttribute("title",title);
 				}else {
-					request.setAttribute("title",actionURL);
+					request.setAttribute("title",actionURL.substring(0, 1).toUpperCase() + actionURL.substring(1));
 					for(Action action : module.getActions()) {
 						String url = module.getUrl()+"/"+action.getUrl();
 						if(action.getName()!=null && !action.isGlobal()) {
@@ -74,10 +74,11 @@ public class ModuleInterceptor extends AbstractInterceptor {
 						}
 					}
 				}
+			}else {
+				request.setAttribute("title",actionURL.substring(0, 1).toUpperCase() + actionURL.substring(1));
 			}
 			return invocation.invoke();
 		}catch(Exception e) {
-
 		}
 		return "error";
 	}
