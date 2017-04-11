@@ -45,7 +45,6 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				ValueStack stack = ActionContext.getContext().getValueStack();
 				stack.set("modules",moduleManager.getVisibleModules(module.getType(),user));
 				request.setAttribute("module",module);
-				request.setAttribute("title",actionURL);
 				request.setAttribute("js","modules/"+module.getId()+"/js");
 				request.setAttribute("css","modules/"+module.getId()+"/css");
 				request.setAttribute("images","modules/"+module.getId()+"/images");
@@ -60,13 +59,19 @@ public class ModuleInterceptor extends AbstractInterceptor {
 						}
 					}
 				}
-				for(Action action : module.getActions()) {
-					String url = module.getUrl()+"/"+action.getUrl();
-					if(action.getName()!=null && !action.isGlobal()) {
-					  request.setAttribute(action.getName(),url);
-					}
-					if(url.equals(actionURL) && action.getTitle()!=null) {
-						request.setAttribute("title",action.getTitle());
+				if(module.getUrl().equals(actionURL)) {
+					String title = module.getTitle()!=null ? module.getTitle() : actionURL;
+					request.setAttribute("title",title);
+				}else {
+					request.setAttribute("title",actionURL);
+					for(Action action : module.getActions()) {
+						String url = module.getUrl()+"/"+action.getUrl();
+						if(action.getName()!=null && !action.isGlobal()) {
+						  request.setAttribute(action.getName(),url);
+						}
+						if(url.equals(actionURL) && action.getTitle()!=null) {
+							request.setAttribute("title",action.getTitle());
+						}
 					}
 				}
 			}

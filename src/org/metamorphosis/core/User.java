@@ -8,6 +8,7 @@ public class User {
 	private Long id;
 	private String firstName;
 	private String lastName;
+	private String profession;
 	private String email;
 	private String password;
 	private List<Account> accounts = new ArrayList<Account>();
@@ -29,6 +30,12 @@ public class User {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getProfession() {
+		return profession;
+	}
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 	public String getEmail() {
 		return email;

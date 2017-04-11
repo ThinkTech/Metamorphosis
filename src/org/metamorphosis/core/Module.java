@@ -6,6 +6,7 @@ import java.util.List;
 public class Module extends Extension {
 	
 	private String url;
+	private String title;
 	private String icon;
 	private boolean main;
 	private boolean administrable = true;
@@ -24,6 +25,14 @@ public class Module extends Extension {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public boolean isMain() {
