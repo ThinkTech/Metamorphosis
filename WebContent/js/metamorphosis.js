@@ -338,8 +338,8 @@ app.getCountries = function(lang,selected) {
 	app.get("https://restcountries.eu/rest/v2/all",function(countries){
 		$.each(countries,function(index,country){
 			const option = $("<option/>").html(country.name);
-			option.attr("value",country.alpha3Code);
-			if(country.alpha3Code == selected) {
+			option.attr("value",country.alpha2Code);
+			if(country.alpha2Code == selected) {
 				option.attr("selected","true");
 			}
 			$(".country").append(option);
