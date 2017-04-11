@@ -60,6 +60,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	    String contextPath = request.getContextPath();
 	    return scheme + serverName + serverPort + contextPath;
     }
+	
+	public String getInitParameter(String name) {
+		return getRequest().getServletContext().getInitParameter(name);
+	}
 
 	public Search getSearch() {
 		return search;
