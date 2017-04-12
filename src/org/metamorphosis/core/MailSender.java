@@ -21,6 +21,10 @@ public class MailSender {
     	this.config = config;
     }
     
+    public void sendMail(Mail mail)  {
+    	sendMail(mail,false);
+    }
+    
     public void sendMail(Mail mail,boolean cc)  {
  
         // Get the Session object
