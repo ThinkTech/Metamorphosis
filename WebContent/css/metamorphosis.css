@@ -482,6 +482,7 @@ label.required:before {
 	margin-top: 3px;
     width: 2%;
     margin-right : 22%;
+    cursor : pointer;
 }
 
 input[type=submit] {
