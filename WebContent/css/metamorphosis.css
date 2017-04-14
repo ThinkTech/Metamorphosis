@@ -480,7 +480,7 @@ label.required:before {
 	width: 24%;
 }
 
-#form input[type=checkbox] {
+#form input[type=checkbox], #form input[type=radio]{
 	margin-top: 3px;
     width: 2%;
     margin-right : 22%;
@@ -889,7 +889,7 @@ ul.tabs li h2 {
 	.details span,.details span.text-right {padding-left : 4px;}
 	#form fieldset label {width:24%}
 	#form input:not([type="submit"]), #form select {width: 24%;}
-	#form input[type=checkbox]{width:4%;margin-right:20%;margin-top : 3px;}
+	#form input[type=checkbox],#form input[type=radio]{width:4%;margin-right:20%;margin-top : 3px;}
 }
 
 @media(max-width:1024px ){
@@ -940,7 +940,7 @@ ul.tabs li h2 {
 	#content h1 {overflow : hidden;white-space:nowrap}
 	#form fieldset label {width:35%}
 	#form input:not([type="submit"]), #form select {width: 62%;}
-	#form input[type=checkbox]{width:24px;margin-right:55%;margin-top : 3px;}
+	#form input[type=checkbox],#form input[type=radio]{width:24px;margin-right:55%;margin-top : 3px;}
 	table th:nth-child(5) {display:none}
 	table td:nth-child(5) {display:none}
 	.buttons {position:relative;margin-top:0px}
@@ -959,7 +959,7 @@ ul.tabs li h2 {
 	table td:nth-child(5) {display:none}
 	#form fieldset label {width:46%;font-size : 70%}
 	#form input:not([type="submit"]), #form select {width: 45%;}
-	#form input[type=checkbox]{width:24px;margin-right:39%;margin-top : 3px;}
+	#form input[type=checkbox],#form input[type=radio]{width:24px;margin-right:39%;margin-top : 3px;}
 	input[type=submit]{margin-left : 55%;}
 }
 @media(max-width:360px ){
