@@ -11,6 +11,7 @@ public class User {
 	private String profession;
 	private String email;
 	private String password;
+	private String lang;
 	private List<Account> accounts = new ArrayList<Account>();
 	
 	public Long getId() {
@@ -48,6 +49,12 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getLang() {
+		return lang;
+	}
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 	public List<Account> getAccounts() {
 		return accounts;
