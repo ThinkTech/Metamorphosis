@@ -234,6 +234,13 @@ public class ModuleManager implements DispatcherListener {
 		}
 		return null;
 	}
+	
+	public Module getModuleByName(String name) {
+		for(Module module : modules) {
+			if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
+		}
+		return null;
+	}
 
 	public Object buildAction(String url) throws Exception {
 		Module module = getCurrentModule();
