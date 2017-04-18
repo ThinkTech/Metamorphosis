@@ -19,6 +19,7 @@ public abstract class Extension {
 	protected File folder;
 	private boolean visible = true;
 	protected int index;
+	private Pricing pricing;
 	
 	public String getId() {
 		return id;
@@ -97,15 +98,12 @@ public abstract class Extension {
 		this.folder = folder;
 		id = folder.getName();
 	}
-	
 	public boolean isBackend() {
 		return type.equals("back-end") || type.equals("both");
 	}
-	
 	public boolean isFrontend() {
 		return type.equals("front-end") || type.equals("both");
 	}
-	
 	public boolean isVisible() {
 		return visible;
 	}
@@ -118,5 +116,10 @@ public abstract class Extension {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
+	public Pricing getPricing() {
+		return pricing;
+	}
+	public void setPricing(Pricing pricing) {
+		this.pricing = pricing;
+	}
 }

@@ -141,5 +141,4 @@ public class Module extends Extension {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
-	
 }
