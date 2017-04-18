@@ -33,6 +33,10 @@
         <result type="tiles">reset</result>
      </action>
      
+     <action name="password/confirm" class="org.metamorphosis.core.ActionSupport">
+        <result type="tiles">confirm</result>
+     </action>
+     
      <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
      
       <action name="{module}" class="org.metamorphosis.core.ActionSupport">
