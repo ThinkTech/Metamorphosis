@@ -30,11 +30,11 @@
      </action>
      
      <action name="password/reset" class="org.metamorphosis.core.ActionSupport">
-        <result type="tiles">reset</result>
+        <result type="tiles">password/reset</result>
      </action>
      
-     <action name="password/confirm" class="org.metamorphosis.core.ActionSupport">
-        <result type="tiles">confirm</result>
+     <action name="password/change" class="org.metamorphosis.core.ActionSupport">
+        <result type="tiles">password/change</result>
      </action>
      
      <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
