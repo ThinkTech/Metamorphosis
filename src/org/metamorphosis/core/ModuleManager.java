@@ -87,6 +87,7 @@ public class ModuleManager implements DispatcherListener {
 		digester.addBeanPropertySetter("module/authorEmail");
 		digester.addBeanPropertySetter("module/authorUrl");
 		digester.addBeanPropertySetter("module/description");
+		digester.addBeanPropertySetter("module/details");
 		digester.addBeanPropertySetter("module/creationDate");
 		digester.addBeanPropertySetter("module/copyright");
 		digester.addBeanPropertySetter("module/license");

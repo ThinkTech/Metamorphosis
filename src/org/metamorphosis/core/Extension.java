@@ -15,6 +15,7 @@ public abstract class Extension {
 	protected String license;
 	protected String version;
 	protected String description;
+	protected String details;
 	protected File folder;
 	private boolean visible = true;
 	protected int index;
@@ -82,6 +83,12 @@ public abstract class Extension {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getDetails() {
+		return details;
+	}
+	public void setDetails(String details) {
+		this.details = details;
 	}
 	public File getFolder() {
 		return folder;

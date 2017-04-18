@@ -57,6 +57,7 @@ public class TemplateManager {
 		digester.addBeanPropertySetter("template/authorEmail");
 		digester.addBeanPropertySetter("template/authorUrl");
 		digester.addBeanPropertySetter("template/description");
+		digester.addBeanPropertySetter("template/details");
 		digester.addBeanPropertySetter("template/creationDate");
 		digester.addBeanPropertySetter("template/copyright");
 		digester.addBeanPropertySetter("template/license");
