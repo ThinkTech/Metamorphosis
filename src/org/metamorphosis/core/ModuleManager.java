@@ -92,10 +92,7 @@ public class ModuleManager implements DispatcherListener {
 		digester.addBeanPropertySetter("module/copyright");
 		digester.addBeanPropertySetter("module/license");
 		digester.addBeanPropertySetter("module/version");
-		digester.addObjectCreate("module/pricing", Pricing.class);
-		digester.addBeanPropertySetter("module/pricing/amount");
-		digester.addBeanPropertySetter("module/pricing/currency");
-		digester.addSetNext("module/pricing", "setPricing");
+		digester.addBeanPropertySetter("module/price");
 		digester.addObjectCreate("module/menus/menu", Menu.class);
 		digester.addSetProperties("module/menus/menu");
 		digester.addObjectCreate("module/menus/menu/menuItem", MenuItem.class);

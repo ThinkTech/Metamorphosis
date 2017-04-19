@@ -14,12 +14,13 @@ public abstract class Extension {
 	protected String copyright;
 	protected String license;
 	protected String version;
+	protected String price;
 	protected String description;
 	protected String details;
 	protected File folder;
 	private boolean visible = true;
 	protected int index;
-	private Pricing pricing;
+	
 	
 	public String getId() {
 		return id;
@@ -79,6 +80,12 @@ public abstract class Extension {
 	public void setVersion(String version) {
 		this.version = version;
 	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -115,11 +122,5 @@ public abstract class Extension {
 	}
 	public void setIndex(int index) {
 		this.index = index;
-	}
-	public Pricing getPricing() {
-		return pricing;
-	}
-	public void setPricing(Pricing pricing) {
-		this.pricing = pricing;
 	}
 }
