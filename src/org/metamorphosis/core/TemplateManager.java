@@ -50,6 +50,7 @@ public class TemplateManager {
 		Digester digester = new Digester();
 		digester.setValidating(false);
 		digester.addObjectCreate("template", Template.class);
+		digester.addBeanPropertySetter("template/id");
 		digester.addBeanPropertySetter("template/name");
 		digester.addBeanPropertySetter("template/type");
 		digester.addBeanPropertySetter("template/selected");
