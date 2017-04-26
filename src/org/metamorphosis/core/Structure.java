@@ -10,7 +10,7 @@ public class Structure {
 
 	private Long id;
 	private String name;
-	private String sigle;
+	private String acronym;
 	private String type;
 	private String category;
 	private String business;
@@ -39,11 +39,11 @@ public class Structure {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSigle() {
-		return sigle;
+	public String getAcronym() {
+		return acronym;
 	}
-	public void setSigle(String sigle) {
-		this.sigle = sigle;
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
 	}
 	public String getType() {
 		return type;
