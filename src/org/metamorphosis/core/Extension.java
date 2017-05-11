@@ -2,7 +2,7 @@ package org.metamorphosis.core;
 
 import java.io.File;
 
-public abstract class Extension {
+public abstract class Extension implements Comparable<Extension> {
 
 	protected String id;
 	protected String name;
@@ -124,4 +124,7 @@ public abstract class Extension {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+	public int compareTo(Extension extension) {
+        return name.compareTo(extension.name);
+    }
 }

@@ -3,6 +3,7 @@ package org.metamorphosis.core;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -420,6 +421,7 @@ public class ModuleManager implements DispatcherListener {
 		for(Module module : this.modules) {
 			if(module.isFrontend()) modules.add(module);
 		}
+		Collections.sort(modules);
 		return modules;
 	}
 	
@@ -428,6 +430,7 @@ public class ModuleManager implements DispatcherListener {
 		for(Module module : this.modules) {
 			if(module.isBackend()) modules.add(module);
 		}
+		Collections.sort(modules);
 		return modules;
 	}
 	
