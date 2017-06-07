@@ -517,7 +517,7 @@ input[type=submit] {
 	top: 0px;
 	background-repeat: no-repeat;
 	background-position: center center;
-	padding-left : 50%;
+	padding-left : 0px;
 	padding-top : 15%;
 }
 
@@ -527,6 +527,7 @@ input[type=submit] {
     border-radius: 50%;
     width: 90px;
     height: 90px;
+    margin : auto;
     animation: spin 1s linear infinite;
 }
 
@@ -610,27 +611,29 @@ input[type=submit] {
 
 #confirm-dialog-container > div, #alert-dialog-container > div {
 	background: #fcfdff;
-	border: 1px solid #06d0d8;
-	width: 300px;
-	min-height: 140px;
-	height : auto;
-	display: block;
-	margin: auto;
-	z-index: 999999999999;
-	padding: 0;
-	padding-bottom : 5px;
+    border: 1px solid #06d0d8;
+    width: 300px;
+    min-height: 120px;
+    height: auto;
+    display: block;
+    margin: auto;
+    z-index: 999999999999;
+    padding: 0;
+    padding-bottom: 5px;
 }
 
 #confirm-dialog-container span:nth-child(1), #alert-dialog-container span:nth-child(1) {
 	text-align: left;
-	width: 100%;
-	display: block;
-	background-color: #00BCD4;
-	background-repeat : no-repeat;
-	color: #F8F8F8;
-	padding: 3px;
+    width: 100%;
+    display: block;
+    background-color: #00BCD4;
+    background-repeat: no-repeat;
+    color: #F8F8F8;
+    padding: 8px;
+    padding-top: 3px;
     padding-left: 28px;
     padding-bottom: 7px;
+    height: 34px;
 }
 
 #confirm-dialog-container span:nth-child(2), #alert-dialog-container span:nth-child(2) {
@@ -641,15 +644,16 @@ input[type=submit] {
 
 #confirm-dialog-container a, #alert-dialog-container a {
 	font-size: 75%;
-	cursor: pointer;
-	background: #00BCD4;
-	color: white;
-	padding: 6px;
-	display: inline-block;
-	width: 70px;
-	margin-right: 5px;
-	height : 31px;
-	margin-left : 200px;
+    cursor: pointer;
+    background: #00BCD4;
+    color: white;
+    padding: 6px;
+    display: inline-block;
+    width: 70px;
+    margin-right: 5px;
+    height: 31px;
+    line-height: 20px;
+    margin-left: 200px;
 }
 
 #confirm-dialog-container a#confirm-dialog-ok {

@@ -131,6 +131,23 @@ app.engine("text/x-dust-template",function(info) {
     dust.renderSource(info.source,info.data,function(err, out) {
       var html = $.parseHTML(out);
       info.append ? info.destination.append(html) : info.destination.html(html);
+      $.each($("[data-translation]",info.destination),function(index,element){
+			var propertyName = $(element).attr("data-translation");
+			var value = i18n(propertyName);
+			if($(element).is('input:submit')) {
+				$(element).attr("value",value).attr("title",value);
+			}
+			else if($(element).is('input') || $(element).is('textarea') || $(element).is('select')) {
+				$(element).attr("placeholder",value).attr("title",value);
+			}
+			else {
+				$(element).html(value);
+			}
+		});
+		$.each($("[data-info]",html),function(index,element){
+			var propertyName = $(element).attr("data-info-translation");
+			$(element).attr("data-info",i18n(propertyName));
+		});
       if(info.callback) info.callback($(html));
     });
   });
@@ -289,7 +306,8 @@ page.retranslate = function(language) {
 page.init = function() {
 	$("body").append('<div id="wait"><div id="loader"/></div>');
 	$("body").append('<div id="alert-dialog-container" style="display:none">'+
-			'<i class="fa fa-info"></i><div><span data-translation="information">Information</span><span></span>'+
+			'<i class="fa fa-info"></i>'+
+			'<div><span data-translation="information">Information</span><span></span>'+
 			'<a tabindex="3" id="alert-dialog-ok" data-translation="ok">OK</a></div></div>');
 	$("#alert-dialog-container").on('keydown', function(event) {     
        switch (event.keyCode) {
@@ -303,7 +321,8 @@ page.init = function() {
        return false;
 	}); 
 	$("body").append('<div id="confirm-dialog-container" style="display:none">'+
-			'<i class="fa fa-question-circle"></i><div><span data-translation="confirmation">Confirmation</span>'+
+			'<i class="fa fa-info"></i>'+
+			'<div><span data-translation="confirmation">Confirmation</span>'+
 			'<span class="confirmation-dialog-title"></span>'+
 			'<a id="confirm-dialog-ok" tabindex="1" data-translation="ok">OK</a>'+
 			'<a id="confirm-dialog-cancel" tabindex="2" data-translation="cancel">Cancel</a></div></div>');
@@ -476,7 +495,7 @@ app.getCountries = function(lang,selected) {
 app.ready(function() {
 	page.init();
 	window.addEventListener('offline', function(){
-		$("<div id='offline'><span>You are currently offline</span></div>").appendTo($("body"));
+		var div = $("<div id='offline'><span>You are currently offline</span></div>").appendTo($("body"));
 		page.wait();
 	});
 	window.addEventListener('online', function(){

@@ -132,6 +132,7 @@ public class StartupListener implements ServletContextListener {
 		return "/modules/"+module.getId()+"/"+temp.getName();
 	}
 
+	
 	private String createModuleConfig(Module module) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE struts PUBLIC '-//Apache Software Foundation//DTD Struts Configuration 2.0//EN' "+
