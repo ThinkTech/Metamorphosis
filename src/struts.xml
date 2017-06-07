@@ -39,7 +39,7 @@
      
      <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
      
-      <action name="{module}" class="org.metamorphosis.core.ActionSupport">
+      <action name="{module}" class="org.metamorphosis.core.ActionSupport" method="navigate">
 	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException"
 	        result="error" />
             <result name="success" type="tiles">{1}</result>

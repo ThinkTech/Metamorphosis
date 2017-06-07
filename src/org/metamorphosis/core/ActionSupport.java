@@ -1,7 +1,10 @@
 package org.metamorphosis.core;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -75,5 +78,35 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public String getReferer() {
 		return getRequest().getHeader("referer");
+	}
+	
+	public String navigate() throws ServletException, IOException {
+		HttpServletRequest request = getRequest();
+		String actionURL = (String) request.getAttribute("actionURL");
+		if(actionURL!=null) {
+			ModuleManager moduleManager = ModuleManager.getInstance();
+			List<Module> modules = moduleManager.getVisibleModules("front-end",null);
+			for(Module module : modules) {
+				if(module.isMain()) {
+					String url = module.getUrl()+"/"+actionURL;
+					Action action = module.getAction(actionURL);
+					if(action!=null) { 
+					    request.getRequestDispatcher(url).forward(request, getResponse());
+					    return null;
+					}else {
+						for(Menu menu : module.getMenus()) {
+							for(MenuItem item : menu.getMenuItems()) {
+								if(item.getUrl().equals(actionURL)) {
+									request.getRequestDispatcher(url).forward(request, getResponse());
+								    return null;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		return SUCCESS;
 	}
 }
