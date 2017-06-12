@@ -11,6 +11,7 @@ public class Action {
 	private String url;
 	private String className="";
 	private String method ="execute";
+	private String page;
 	private String script = "module.groovy";
 	private List<Result> results = new ArrayList<Result>();
 	
@@ -49,6 +50,17 @@ public class Action {
 	}
 	public void setMethod(String method) {
 		this.method = method;
+	}
+	public String getPage() {
+		return page;
+	}
+	public void setPage(String page) {
+		this.page = page;
+		if(page!=null) {
+			Result result = new Result();
+			result.setValue(this.page);
+			results.add(result);
+		}
 	}
 	public String getScript() {
 		return script;
