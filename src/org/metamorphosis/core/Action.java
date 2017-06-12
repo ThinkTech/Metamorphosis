@@ -5,9 +5,7 @@ import java.util.List;
 
 public class Action {
 
-	private String name;
 	private String title;
-	private boolean global;
 	private String url;
 	private String className="";
 	private String method ="execute";
@@ -15,23 +13,11 @@ public class Action {
 	private String script = "module.groovy";
 	private List<Result> results = new ArrayList<Result>();
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public boolean isGlobal() {
-		return global;
-	}
-	public void setGlobal(boolean global) {
-		this.global = global;
 	}
 	public String getUrl() {
 		return url;

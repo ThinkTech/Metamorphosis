@@ -65,9 +65,6 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					request.setAttribute("title",actionURL.substring(0, 1).toUpperCase() + actionURL.substring(1));
 					for(Action action : module.getActions()) {
 						String url = module.getUrl()+"/"+action.getUrl();
-						if(action.getName()!=null && !action.isGlobal()) {
-						  request.setAttribute(action.getName(),url);
-						}
 						if(url.equals(actionURL) && action.getTitle()!=null) {
 							request.setAttribute("title",action.getTitle());
 						}

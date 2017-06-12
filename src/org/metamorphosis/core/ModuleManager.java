@@ -364,9 +364,6 @@ public class ModuleManager implements DispatcherListener {
 				}
 				ActionConfig actionConfig = actionBuilder.build();
 				packageBuilder.addActionConfig(action.getUrl(), actionConfig);
-				if(action.getName()!=null && action.isGlobal()) {
-					  servletContext.setAttribute(action.getName(),module.getUrl()+"/"+action.getUrl());
-				}
 			}
 			PackageConfig packageConfig = packageBuilder.build();
 			configuration.addPackageConfig(module.getId(), packageConfig);
