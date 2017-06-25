@@ -174,7 +174,7 @@ page.render = function(element, data) {
 };
 
 page.wait = function() { 
-	$("#wait").show();
+	$("#wait").css("height",$(document).height()).show();
 };
 
 page.release = function() { 
@@ -496,6 +496,7 @@ app.ready(function() {
 	page.init();
 	window.addEventListener('offline', function(){
 		var div = $("<div id='offline'><span>You are currently offline</span></div>").appendTo($("body"));
+		div.css("height",$(document).height());
 		page.wait();
 	});
 	window.addEventListener('online', function(){
