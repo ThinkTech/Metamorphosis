@@ -184,7 +184,7 @@ public class StartupListener implements ServletContextListener {
 		copyFile(root,"js","sortable.js");
 		if(!new File(root+"/images/logo.png").exists()) copyFile(root,"images","logo.png");
 		if(!new File(root+"/images/favicon.ico").exists()) copyFile(root,"images","favicon.ico");
-		if(!new File(root+"/404.jsp").exists()) copyFile(root,"","/404.jsp");
+		if(!new File(root+"/404.jsp").exists()) copyFile(root,"","404.jsp");
 	}
 	
 	private Template copyBackendTemplate(TemplateManager templateManager,String root) {

@@ -18,7 +18,7 @@
 				<directory>WebContent</directory>
 				<targetPath>META-INF</targetPath>
 				<includes>
-				    <include>404.jsp</include>
+					<include>404.jsp</include>
 				</includes>
 			</resource>
 			<resource>

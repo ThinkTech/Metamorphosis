@@ -741,13 +741,15 @@ ul.accordion h2 img {
 }
 
 .message-404 {
-      text-align : center;
-      border : 1px solid;
-      width : 300px;
-      height : center;
-      margin : auto;
-      padding : 50px;
-      border-radius : 15px;
+    text-align: center;
+    border: 1px solid;
+    width: 300px;
+    height: 200px;
+    margin: auto;
+    padding-top: 75px;
+    border-radius: 15px;
+    margin-top: 100px;
+    margin-bottom: 150px;
 }
 
 .message-404 p {
