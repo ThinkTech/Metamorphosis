@@ -740,6 +740,19 @@ ul.accordion h2 img {
     height : 32px;
 }
 
+.message-404 {
+      text-align : center;
+      border : 1px solid;
+      width : 300px;
+      height : center;
+      margin : auto;
+      padding : 50px;
+      border-radius : 15px;
+}
+
+.message-404 p {
+      color : #fb5c5c;
+}
 
 @keyframes flipdown {
   0% {

@@ -85,6 +85,9 @@ public class StartupListener implements ServletContextListener {
 			content += "<definition name='password/change' extends='"+template.getType()+"'>";
 			content+="<put-attribute name='content' value='/templates/"+template.getId()+"/change.jsp'/>";
 			content+="</definition>";
+			content += "<definition name='404' extends='"+template.getType()+"'>";
+			content+="<put-attribute name='content' value='/404.jsp'/>";
+			content+="</definition>";
 		}
 		content +="</tiles-definitions>";
 		File temp=null;
@@ -181,6 +184,7 @@ public class StartupListener implements ServletContextListener {
 		copyFile(root,"js","sortable.js");
 		if(!new File(root+"/images/logo.png").exists()) copyFile(root,"images","logo.png");
 		if(!new File(root+"/images/favicon.ico").exists()) copyFile(root,"images","favicon.ico");
+		if(!new File(root+"/404.jsp").exists()) copyFile(root,"","/404.jsp");
 	}
 	
 	private Template copyBackendTemplate(TemplateManager templateManager,String root) {
