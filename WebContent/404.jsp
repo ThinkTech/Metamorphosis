@@ -1,3 +1,3 @@
 <div class="message-404">
-   <p>The page requested cannot be found.</p>
+   <p data-translation="message-404"></p>
 </div>
