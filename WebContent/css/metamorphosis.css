@@ -461,31 +461,6 @@ input[type=submit] {
 	padding: 10px;
 }
 
-#search {
-	display: inline-block;
-}
-
-#search span {
-	font-size: 90%;
-	font-weight : bold;
-}
-
-#search select {
-	width: auto;
-	border-radius : 15px;
-}
-
-#search input {
-	padding: 6px 15px 6px 30px;
-	margin: 0px;
-	width: 190px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	margin-left: 5px;
-	background-repeat: no-repeat;
-	background-position: 8px 6px;
-	border-radius: 15px;
-}
 
 div.pager {
 	text-align: right;
