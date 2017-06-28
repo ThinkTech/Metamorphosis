@@ -267,7 +267,7 @@ page.translate = function(url,language,callback) {
 		if(callback) callback();
 	},function(){
 		if(!page.failures[url+"_en"]){
-			page.translate(url,"en");
+			page.translate(url,"en",callback);
 			page.failures[url+"_en"] = url+"_en";
 			if(callback) callback();
 		}
