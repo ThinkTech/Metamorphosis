@@ -274,9 +274,6 @@ page.translate = function(url,language,callback) {
 	});
 };
 
-page.translate = function(language,callback) {
-	page.translate("i18n/app",language,callback);
-}
 
 page.retranslate = function(language) {
 	page.language = language;
