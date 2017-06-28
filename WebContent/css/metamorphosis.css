@@ -798,7 +798,6 @@ Embed code cb87d958ba
 	table th:nth-child(7) {display:none}
 	table td:nth-child(6) {display:none}
 	table td:nth-child(7) {display:none}
-	input[type=submit]{margin-left : 75%;}
 }
 
 @media(max-width:870px ){
