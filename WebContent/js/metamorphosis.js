@@ -232,9 +232,8 @@ page.speak = function(text) {
 
 page.bundles = [];
 page.failures = {};
-page.translate = function(url,language) {
+page.translate = function(url,language,callback) {
 	page.language = localStorage.getItem("language") ? localStorage.getItem("language") : (language ? language : page.language);
-	const callback = arguments[1] instanceof Function ? arguments[1] : arguments[2];
 	if(url.indexOf("//")!=-1) {
 		if(callback) callback();
 		return;
@@ -275,8 +274,8 @@ page.translate = function(url,language) {
 	});
 };
 
-page.translate = function(language) {
-	page.translate("i18n/app",language);
+page.translate = function(language,callback) {
+	page.translate("i18n/app",language,callback);
 }
 
 page.retranslate = function(language) {
