@@ -275,6 +275,10 @@ page.translate = function(url,language) {
 	});
 };
 
+page.translate = function(language) {
+	page.translate("i18n/app",language);
+}
+
 page.retranslate = function(language) {
 	page.language = language;
 	localStorage.setItem("language",page.language);
