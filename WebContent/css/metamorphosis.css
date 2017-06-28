@@ -317,10 +317,7 @@ label i.fa,span i.fa {
 input[type=submit] {
 	cursor: pointer;
 	width : 80px;
-	margin-left : 80%;
 	border-radius : 2px;
-	margin-top : 15px;
-	margin-bottom : 10px;
 	border : 1px solid #06d0d8;
 	background : #06d0d8;
 	color : white;
@@ -821,7 +818,6 @@ Embed code cb87d958ba
 	#search input {width:110px;font-size : 11px;}
 	#search span {font-size : 11px;}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:40%}
-	input[type=submit]{margin-left : 65%;}
 	.buttons a {margin-bottom : 5px}
 	#form fieldset label {width:35%}
 	#form input:not([type="submit"]), #form select {width: 62%;}
@@ -842,13 +838,11 @@ Embed code cb87d958ba
 	#form fieldset label {width:46%;font-size : 70%}
 	#form input:not([type="submit"]), #form select {width: 45%;}
 	#form input[type=checkbox],#form input[type=radio]{width:24px;margin-right:39%;margin-top : 3px;}
-	input[type=submit]{margin-left : 55%;}
 }
 @media(max-width:360px ){
 	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}
 	#confirm-dialog-container > div, #alert-dialog-container > div {width:90%}
 }
 @media(max-width:320px ){
-	input[type=submit]{margin-left : 45%;margin-top : 40px;}
 	.scrollToTop {bottom : 5px}
 }
