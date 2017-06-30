@@ -232,50 +232,45 @@ page.speak = function(text) {
 
 page.bundles = [];
 page.failures = {};
-page.translate = function(url,language,callback) {
-	if(arguments.length == 2){
-		language = undefined;
-		callback = arguments[1];
-	}
+page.translate = function(urls,language,callback) {
 	page.language = localStorage.getItem("language") ? localStorage.getItem("language") : (language ? language : page.language);
-	if(url.indexOf("//")!=-1) {
-		if(callback) callback();
-		return;
+	for(var i = 0;i<urls.length;i++) {
+		var url = urls[i];
+		if(url.indexOf("//")!=-1) continue;
+		app.get(url+"_"+page.language+".json",function(data){
+			localStorage.setItem("language",page.language);
+			page.bundles.push(url);
+			i18n.translator.add(data);
+			$.each($("[data-translation]"),function(index,element){
+				var propertyName = $(element).attr("data-translation");
+				if(data.values[propertyName] !== undefined){
+					var value = data.values[propertyName];
+					if($(element).is('input:submit')) {
+						$(element).attr("value",value).attr("title",value);
+					}
+					else if($(element).is('input') || $(element).is('textarea') || $(element).is('select')) {
+						$(element).attr("placeholder",value).attr("title",value);
+					}
+					else {
+						$(element).html(value);
+					}
+				}
+			});
+			$.each($("[data-info]"),function(index,element){
+				var propertyName = $(element).attr("data-info");
+				if(data.values[propertyName] !== undefined){
+					$(element).attr("data-info",i18n(propertyName));
+					$(element).attr("data-info-translation",propertyName);
+				}
+			});
+		},function(){
+			if(!page.failures[url+"_en"]){
+				page.translate([url],"en",callback);
+				page.failures[url+"_en"] = url+"_en";
+			}
+		});
 	}
-	app.get(url+"_"+page.language+".json",function(data){
-		localStorage.setItem("language",page.language);
-		page.bundles.push(url);
-		i18n.translator.add(data);
-		$.each($("[data-translation]"),function(index,element){
-			var propertyName = $(element).attr("data-translation");
-			if(data.values[propertyName] !== undefined){
-				var value = data.values[propertyName];
-				if($(element).is('input:submit')) {
-					$(element).attr("value",value).attr("title",value);
-				}
-				else if($(element).is('input') || $(element).is('textarea') || $(element).is('select')) {
-					$(element).attr("placeholder",value).attr("title",value);
-				}
-				else {
-					$(element).html(value);
-				}
-			}
-		});
-		$.each($("[data-info]"),function(index,element){
-			var propertyName = $(element).attr("data-info");
-			if(data.values[propertyName] !== undefined){
-				$(element).attr("data-info",i18n(propertyName));
-				$(element).attr("data-info-translation",propertyName);
-			}
-		});
-		if(callback) callback();
-	},function(){
-		if(!page.failures[url+"_en"]){
-			page.translate(url,"en",callback);
-			page.failures[url+"_en"] = url+"_en";
-			if(callback) callback();
-		}
-	});
+	 $("body").animate({opacity : 1},10);
 };
 
 
