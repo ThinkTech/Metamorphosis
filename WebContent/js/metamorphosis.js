@@ -233,6 +233,10 @@ page.speak = function(text) {
 page.bundles = [];
 page.failures = {};
 page.translate = function(url,language,callback) {
+	if(arguments.length) == 2 {
+		language = undefined;
+		callback = arguments[1];
+	}
 	page.language = localStorage.getItem("language") ? localStorage.getItem("language") : (language ? language : page.language);
 	if(url.indexOf("//")!=-1) {
 		if(callback) callback();
