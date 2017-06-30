@@ -270,9 +270,12 @@ page.translate = function(urls,language,callback) {
 			}
 		});
 	}
-	 $("body").animate({opacity : 1},10);
+	if(callback) callback();
 };
 
+page.show = function() {
+	 $("body").animate({opacity : 1},10);
+};
 
 page.retranslate = function(language) {
 	page.language = language;
