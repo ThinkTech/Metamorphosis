@@ -70,6 +70,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return getRequest().getParameter(name);
 	}
 	
+	public String getContextPath() {
+		return getRequest().getContextPath();
+	}
+	
 	public void setAttribute(String key,Object object) {
 		getRequest().setAttribute(key,object);
 	}
