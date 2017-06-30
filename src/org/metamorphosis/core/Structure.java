@@ -1,9 +1,7 @@
 package org.metamorphosis.core;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Structure {
@@ -18,11 +16,9 @@ public class Structure {
 	private String state;
 	private String target;
 	private String instance;
-	private DatabaseInfo databaseInfo;
 	private Date createdOn;
 	private User createdBy;
 	private Address address = new Address();
-	private List<Contact> contacts = new ArrayList<Contact>();
 	private Map<String,String> info = new HashMap<String,String>();
 	private boolean allowAccess;
 	private Subscription subscription;
@@ -87,12 +83,7 @@ public class Structure {
 	public void setInstance(String instance) {
 		this.instance = instance;
 	}
-	public DatabaseInfo getDatabaseInfo() {
-		return databaseInfo;
-	}
-	public void setDatabaseInfo(DatabaseInfo databaseInfo) {
-		this.databaseInfo = databaseInfo;
-	}
+	
 	public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -104,12 +95,6 @@ public class Structure {
 	}
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
-	}
-	public List<Contact> getContacts() {
-		return contacts;
-	}
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
 	}
 	public Address getAddress() {
 		return address;
@@ -134,6 +119,5 @@ public class Structure {
 	}
 	public void setSubscription(Subscription subscription) {
 		this.subscription = subscription;
-	}
-	
+	}	
 }
