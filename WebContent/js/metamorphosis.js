@@ -233,7 +233,7 @@ page.speak = function(text) {
 page.bundles = [];
 page.failures = {};
 page.translate = function(url,language,callback) {
-	if(arguments.length) == 2 {
+	if(arguments.length) == 2){
 		language = undefined;
 		callback = arguments[1];
 	}
