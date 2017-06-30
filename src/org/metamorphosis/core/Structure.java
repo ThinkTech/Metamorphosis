@@ -19,8 +19,7 @@ public class Structure {
 	private Date createdOn;
 	private User createdBy;
 	private Address address = new Address();
-	private Map<String,String> info = new HashMap<String,String>();
-	private boolean allowAccess;
+	private Map<String,String> infos = new HashMap<String,String>();
 	private Subscription subscription;
 	
 	public Long getId() {
@@ -83,7 +82,6 @@ public class Structure {
 	public void setInstance(String instance) {
 		this.instance = instance;
 	}
-	
 	public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -102,17 +100,11 @@ public class Structure {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public Map<String, String> getInfo() {
-		return info;
+	public Map<String, String> getInfos() {
+		return infos;
 	}
-	public void setInfo(Map<String, String> info) {
-		this.info = info;
-	}
-	public boolean isAllowAccess() {
-		return allowAccess;
-	}
-	public void setAllowAccess(boolean allowAccess) {
-		this.allowAccess = allowAccess;
+	public void setInfos(Map<String, String> infos) {
+		this.infos = infos;
 	}
 	public Subscription getSubscription() {
 		return subscription;
