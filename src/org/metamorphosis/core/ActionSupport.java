@@ -65,6 +65,18 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public String getInitParameter(String name) {
 		return getRequest().getServletContext().getInitParameter(name);
 	}
+	
+	public String getParameter(String name) {
+		return getRequest().getParameter(name);
+	}
+	
+	public void setAttribute(String key,Object object) {
+		getRequest().setAttribute(key,object);
+	}
+	
+	public void redirect(String location) throws IOException {
+		getResponse().sendRedirect(location);
+	}
 
 	public String getReferer() {
 		return getRequest().getHeader("referer");
