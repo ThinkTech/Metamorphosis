@@ -263,6 +263,7 @@ page.translate = function(urls,language,callback) {
 					$(element).attr("data-info-translation",propertyName);
 				}
 			});
+			if(i==urls.length && callback) callback();
 		},function(){
 			if(!page.failures[url+"_en"]){
 				page.translate([url],"en",callback);
@@ -270,7 +271,6 @@ page.translate = function(urls,language,callback) {
 			}
 		});
 	}
-	if(callback) callback();
 };
 
 page.show = function() {
