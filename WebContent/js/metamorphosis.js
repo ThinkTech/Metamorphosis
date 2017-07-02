@@ -276,6 +276,7 @@ page.translate = function(urls,language,callback) {
 
 page.show = function() {
 	 $("body").animate({opacity : 1},10);
+	 $("div.language select").val(page.language);
 };
 
 page.retranslate = function(language) {
