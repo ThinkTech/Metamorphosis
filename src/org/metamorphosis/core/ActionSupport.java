@@ -86,6 +86,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return getRequest().getHeader("referer");
 	}
 	
+	public String getLanguage() {
+		return getRequest().getLocale().getLanguage();
+	}
+	
 	public String navigate() throws ServletException, IOException {
 		HttpServletRequest request = getRequest();
 		String actionURL = (String) request.getAttribute("actionURL");
