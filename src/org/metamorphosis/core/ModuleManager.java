@@ -51,19 +51,30 @@ public class ModuleManager implements DispatcherListener {
 		}
 	}
 
-	public void loadModule(File folder) {
+	public Module loadModule(File folder) {
 		File metadata = new File(folder + "/"+MODULE_METADATA);
 		if(metadata.exists()) {
 			try {
-				final Module module = parse(metadata);
+				Module module = parse(metadata);
 				module.setFolder(folder);
 				initModule(module);
 				addModule(module);
 				monitorModule(module);
+				return module;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else{
+			Module module = new Module();
+			module.setName(folder.getName());
+			module.setType("front-end");
+			module.setFolder(folder);
+			initModule(module);
+			addModule(module);
+			monitorModule(module);
+			return module;
 		}
+		return null;
 	}
 	
 	private Module parse(File metadata) throws Exception {

@@ -32,9 +32,9 @@ public class TemplateManager {
 
 	public Template loadTemplate(File folder) {
 		File metadata = new File(folder + "/" + TEMPLATE_METADATA);
-		if (metadata.exists()) {
+		if(metadata.exists()) {
 			try {
-				final Template template = parse(metadata);
+				Template template = parse(metadata);
 				template.setFolder(folder);
 				addTemplate(template);
 				monitorTemplate(template);
@@ -42,6 +42,14 @@ public class TemplateManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else {
+			Template template = new Template();
+			template.setName(folder.getName());
+			template.setType("front-end");
+			template.setFolder(folder);
+			addTemplate(template);
+			monitorTemplate(template);
+			return template;
 		}
 		return null;
 	}
