@@ -206,12 +206,6 @@ tr.empty {
 	outline: none;
 }
 
-.logo {
-	width: 230px;
-	display: inline-block;
-	vertical-align: top;
-}
-
 .buttons {
 	position : absolute;
 	top : 10px;
@@ -783,7 +777,6 @@ Embed code cb87d958ba
 
 
 @media(max-width:1199px ){
-	.logo {width:229px}
 	#form fieldset label {width:24%}
 	#form input:not([type="submit"]), #form select {width: 24%;}
 	#form input[type=checkbox],#form input[type=radio]{width:4%;margin-right:20%;margin-top : 3px;}
@@ -801,18 +794,15 @@ Embed code cb87d958ba
 }
 
 @media(max-width:870px ){
-	.logo {display : none}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:30%}
 }
 
 @media(max-width:767px ){
-	.logo {display : none}
 	#confirm-dialog-container, #alert-dialog-container {padding-top:32%}
 	.buttons {position:relative;margin-top:-10px;right:0px;top:0px}
 	.scrollToTop {right:45%}
 }
 @media(max-width:640px){
-	.logo {display : none}
 	#search select {font-size : 11px;}
 	#search input {width:110px;font-size : 11px;}
 	#search span {font-size : 11px;}
