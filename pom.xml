@@ -38,24 +38,7 @@
 					<include>dust-full.min.js</include>
 					<include>pdfmake.min.js</include>
 					<include>vfs_fonts.js</include>
-					<include>sortable.js</include>
 				</includes>
-			</resource>
-			<resource>
-				<directory>WebContent/images</directory>
-				<targetPath>META-INF</targetPath>
-				<includes>
-					<include>favicon.ico</include>
-					<include>logo.png</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>WebContent/templates/medusa</directory>
-				<targetPath>META-INF/medusa</targetPath>
-			</resource>
-			<resource>
-				<directory>WebContent/templates/nova</directory>
-				<targetPath>META-INF/nova</targetPath>
 			</resource>
 		</resources>
 		<plugins>

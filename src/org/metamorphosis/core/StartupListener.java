@@ -42,15 +42,14 @@ public class StartupListener implements ServletContextListener {
 	
 	private String loadTemplates(ServletContext context,String root) {
 		TemplateManager templateManager = new TemplateManager();
-		templateManager.loadTemplates(new File(root+"/templates"));
-		Template template = templateManager.getBackendTemplate(null);
-		template = template!=null ? template : copyBackendTemplate(templateManager,root);
-		context.setAttribute("template",template.getId());
-		String tilesDefinitions = createTemplateTiles(root,template);
-		template = templateManager.getFrontendTemplate(null);
-		template = template!=null ? template : copyFrontendTemplate(templateManager,root);
 		context.setAttribute("templateManager",templateManager);
-		return tilesDefinitions += ","+ createTemplateTiles(root,template);
+		templateManager.loadTemplates(new File(root+"/templates"));
+		String tilesDefinitions="";
+		Template template = templateManager.getBackendTemplate(null);
+		if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
+		template = templateManager.getFrontendTemplate(null);
+		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(root,template);
+		return tilesDefinitions;
 	}
 	
 	private String loadModules(ServletContext context,String root,StringBuffer buffer) {
@@ -181,40 +180,9 @@ public class StartupListener implements ServletContextListener {
 		copyFile(root,"js","dust-full.min.js");
 		copyFile(root,"js","pdfmake.min.js");
 		copyFile(root,"js","vfs_fonts.js");
-		copyFile(root,"js","sortable.js");
-		if(!new File(root+"/images/logo.png").exists()) copyFile(root,"images","logo.png");
-		if(!new File(root+"/images/favicon.ico").exists()) copyFile(root,"images","favicon.ico");
 		if(!new File(root+"/404.jsp").exists()) copyFile(root,"","404.jsp");
 	}
 	
-	private Template copyBackendTemplate(TemplateManager templateManager,String root) {
-		copyFile(root,"templates","nova/index.jsp");
-		copyFile(root,"templates","nova/template.xml");
-		copyFile(root,"templates","nova/thumbnail.png");
-		copyFile(root,"templates","nova/css/template.css");
-		copyFile(root,"templates","nova/js/jquery.magnific-popup.min.js");
-		copyFile(root,"templates","nova/js/jquery.smartWizard.js");
-		copyFile(root,"templates","nova/js/template.js");
-		copyFile(root,"templates","nova/images/account-16.png");
-		copyFile(root,"templates","nova/images/delete-16.png");
-		copyFile(root,"templates","nova/images/edit-16.png");
-		copyFile(root,"templates","nova/images/new-16.png");
-		copyFile(root,"templates","nova/images/pdf-16.png");
-		copyFile(root,"templates","nova/images/print-16.png");
-		copyFile(root,"templates","nova/images/search.png");
-		copyFile(root,"templates","nova/images/signout.png");
-		copyFile(root,"templates","nova/images/square.png");
-		copyFile(root,"templates","nova/images/wait.gif");
-		return templateManager.loadTemplate(new File(root+"/templates/nova"));
-	}
-	
-	private Template copyFrontendTemplate(TemplateManager templateManager,String root) {
-		copyFile(root,"templates","medusa/index.jsp");
-		copyFile(root,"templates","medusa/template.xml");
-		copyFile(root,"templates","medusa/thumbnail.png");
-		copyFile(root,"templates","medusa/css/template.css");
-		return templateManager.loadTemplate(new File(root+"/templates/medusa"));
-	}
 	
 	private void copyFile(String root,String directory,String file)	{
 		InputStream source = this.getClass().getClassLoader().getResourceAsStream("META-INF/"+file);

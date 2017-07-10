@@ -10,6 +10,88 @@ window.addEventListener('online', () => {
 	app.release();
 });
 
+page.table = {};
+
+page.table.paginate = function() {
+	$("table").unbind("repaginate").each(function() {
+		var $table = $(this);
+		$(".pager").remove();
+	    var currentPage = 0;
+	    var numPerPage = 12;
+	    $table.bind('repaginate', function() {
+	        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+	    });
+	    $table.trigger('repaginate');
+	    var numRows = $table.find('tbody tr').length;
+	    if(numRows > numPerPage) {
+		    var numPages = Math.ceil(numRows / numPerPage);
+		    var $pager = $('<div class="pager"></div>').attr("id","pager"+$table.parent().attr("id"));
+		    for (var page = 0; page < numPages; page++) {
+		        $('<span class="page-number"></span>').text(page + 1).bind('click', {
+		            newPage: page
+		        }, function(event) {
+		            currentPage = event.data['newPage'];
+		            $table.trigger('repaginate');
+		            $(this).addClass('active').siblings().removeClass('active');
+		            $table.parent().focus();
+		            return false;
+		        }).appendTo($pager);
+		    }
+		    $pager.insertAfter($table.parent()).find('span.page-number:first').addClass('active');
+		}
+	    head.load("js/sortable.js", function() {
+	    	sorttable.makeSortable($table[0]);
+	    });
+	});
+};
+
+page.table.init = function() {
+	var tbody = $("#list tbody");
+	var rows = $("tr",tbody).length; 
+	if(!rows) {
+		tbody.append("<tr class='empty'><td valign='top' colspan='"+$("th").length+"'>no record found</td></tr>");
+		$("<div class='row-count'/>").html("0 records").insertAfter("#list");
+	}else {
+		page.table.paginate();
+		$("<div class='row-count'/>").html(rows + " records").insertAfter("#list").fadeIn();
+	}
+	$("#search input").focus().val($("#search input").val());
+	$("a.refresh-16").attr("href",window.location.href);
+};
+
+page.tabs = {};
+
+page.tabs.init = function() {
+	var tabs = $("#tabs").addClass("tab_container");
+	var ul = $('<ul class="tabs"></ul>').insertBefore(tabs);
+	$.each($("> div",tabs),function(index, element){
+		  var div= $(element).attr("id","tab"+index).addClass("tab_content").hide();
+		  var h2 = $("<h2>"+div.attr("title")+"</h2>").attr("title",div.attr("title"));
+		  var li = $("<li/>").attr("rel",div.attr("id")).html(h2);
+		  li.click(function() {
+				var parent = $(this).parent();
+				$("li",parent).removeClass("active");
+				$(this).addClass("active");
+				var activeTab = $(this).attr("rel"); 
+				$("#"+activeTab).parent().find(".tab_content").hide();
+				$("#"+activeTab).fadeIn(); 
+		  }).appendTo(ul);
+	});
+	$("li:first-child",ul).addClass("active");
+	$("div:first-child",tabs).fadeIn();
+};
+
+page.highlight = function() {
+	var array = window.location.pathname.split( '/' );
+	var path = "";
+	for( var i = 0;i<array.length;i++) {
+		path += array[i];
+		if(array[i]) $('a[href$='+array[i]+"]").addClass('active');
+	}
+	if(path && array[1]) $('a[href$='+array[1]+"]").addClass('active');
+	if($("aside a.active").length>1) $("aside a.active:first").removeClass("active");
+};
+
 page.table.init = entity => {
 	page.table.url = app.apiURL+entity+"s";
 	page.table.message = "no "+entity;
