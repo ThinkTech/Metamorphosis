@@ -6,7 +6,7 @@ public abstract class Extension implements Comparable<Extension> {
 
 	protected String id;
 	protected String name;
-	protected String type="back-end";
+	protected String type;
 	protected String author;
 	protected String authorEmail;
 	protected String authorUrl;
@@ -97,13 +97,13 @@ public abstract class Extension implements Comparable<Extension> {
 	}
 	public void setFolder(File folder) {
 		this.folder = folder;
-		if(id==null) id = folder.getName();
+		id = id!=null ? id : folder.getName();
 	}
 	public boolean isBackend() {
-		return type.equals("back-end") || type.equals("both");
+		return "back-end".equals(type);
 	}
 	public boolean isFrontend() {
-		return type.equals("front-end") || type.equals("both");
+		return "front-end".equals(type);
 	}
 	public boolean isVisible() {
 		return visible;
