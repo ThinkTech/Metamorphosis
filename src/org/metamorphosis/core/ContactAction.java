@@ -11,8 +11,6 @@ public class ContactAction extends ActionSupport {
 	}
 	
 	public void subscribe() {
-		System.out.println("mail address "+mail.getAddress());
-		System.out.println("subscribe done");
 	}
 
 	public Mail getMail() {
