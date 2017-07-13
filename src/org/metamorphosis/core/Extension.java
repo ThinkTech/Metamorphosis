@@ -14,7 +14,6 @@ public abstract class Extension implements Comparable<Extension> {
 	protected String copyright;
 	protected String license;
 	protected String version;
-	protected String price;
 	protected String description;
 	protected String details;
 	protected File folder;
@@ -80,12 +79,6 @@ public abstract class Extension implements Comparable<Extension> {
 	}
 	public void setVersion(String version) {
 		this.version = version;
-	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
-		this.price = price;
 	}
 	public String getDescription() {
 		return description;
