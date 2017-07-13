@@ -37,7 +37,9 @@
         <result type="tiles">password/change</result>
      </action>
      
-     <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
+     <action name="contact" class="org.metamorphosis.core.ContactAction" method="sendMail"/>
+     
+     <action name="newsletter" class="org.metamorphosis.core.ContactAction" method="subscribe"/>
      
       <action name="{module}" class="org.metamorphosis.core.ActionSupport" method="navigate">
 	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException"
