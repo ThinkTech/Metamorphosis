@@ -18,11 +18,11 @@ public class ContactAction extends ActionSupport {
 	public void subscribe() {
 		try {
 			Connection connection = getConnection();
-			PreparedStatement stmt = connection.prepareStatement("select * from newsletter where email = ?;");
+			PreparedStatement stmt = connection.prepareStatement("select * from newsletters where email = ?;");
 			stmt.setString(1, mail.getAddress());
 			ResultSet rs = stmt.executeQuery();
 			if(!rs.next()) {
-				stmt = connection.prepareStatement("insert into newsletter(email,structure_id) values(?,?);");
+				stmt = connection.prepareStatement("insert into newsletters(email,structure_id) values(?,?);");
 				stmt.setString(1, mail.getAddress());
 				stmt.setInt(2, 1);
 				stmt.executeUpdate();
