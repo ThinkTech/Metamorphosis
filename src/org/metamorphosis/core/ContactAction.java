@@ -17,14 +17,16 @@ public class ContactAction extends ActionSupport {
 	
 	public void subscribe() {
 		try {
+			int structure_id = 1;
 			Connection connection = getConnection();
-			PreparedStatement stmt = connection.prepareStatement("select * from newsletters where email = ?;");
+			PreparedStatement stmt = connection.prepareStatement("select * from newsletters where email = ? and structure_id = ?;");
 			stmt.setString(1, mail.getAddress());
+			stmt.setInt(2, structure_id);
 			ResultSet rs = stmt.executeQuery();
 			if(!rs.next()) {
 				stmt = connection.prepareStatement("insert into newsletters(email,structure_id) values(?,?);");
 				stmt.setString(1, mail.getAddress());
-				stmt.setInt(2, 1);
+				stmt.setInt(2, structure_id);
 				stmt.executeUpdate();
 			}
 			stmt.close();
