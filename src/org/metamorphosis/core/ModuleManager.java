@@ -129,6 +129,11 @@ public class ModuleManager implements DispatcherListener {
 	
 	private void initModule(Module module) {
 		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
+		for(Action action : module.getActions()) {
+			if(action.getPage()==null) {
+				action.setPage(action.getUrl());
+			}
+		}
 		for(Menu menu : module.getMenus()) {
 			for(MenuItem item : menu.getMenuItems()) {
 				String url = item.getUrl() != null ? module.getUrl() + "/" + item.getUrl() : module.getUrl();
