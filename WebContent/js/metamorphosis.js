@@ -416,7 +416,7 @@ app.ready(function() {
 		const div = $("<div id='offline'></div>").appendTo($("body"));
 		const span = $("<span></span>");
 		var message = i18n("offline-message");
-		message = message ? message : $(".offline-message").attr("data-info");
+		message = message ? message : $("#offline-message").attr("data-info");
 		div.append(span.html(message));
 		div.css("height",$(document).height());
 		page.wait();
