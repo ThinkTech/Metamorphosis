@@ -417,7 +417,7 @@ app.ready(function() {
 		const span = $("<span></span>");
 		var message = i18n("offline-message");
 		message = message ? message : $(".offline-message").attr("data-info");
-		span.html(message);
+		div.append(span.html(message));
 		div.css("height",$(document).height());
 		page.wait();
 	});
