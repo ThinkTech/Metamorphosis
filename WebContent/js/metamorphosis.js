@@ -413,7 +413,11 @@ app.getCountries = function(lang,selected) {
 app.ready(function() {
 	page.init();
 	window.addEventListener('offline', function(){
-		var div = $("<div id='offline'><span>You are currently offline</span></div>").appendTo($("body"));
+		const div = $("<div id='offline'></div>").appendTo($("body"));
+		const span = $("<span></span>");
+		var message = i18n("offline-message");
+		message = message ? message : $(".offline-message").attr("data-info");
+		span.html(message);
 		div.css("height",$(document).height());
 		page.wait();
 	});
