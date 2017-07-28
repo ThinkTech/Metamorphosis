@@ -6,7 +6,9 @@
   
    <constant name="struts.enable.SlashesInActionNames" value="true"/>
    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
-   <constant name="struts.patternMatcher" value="regex" />
+   <constant name="struts.patternMatcher" value="regex"/>
+   <constant name="struts.multipart.enabled" value="false"/>
+   
    <bean type="com.opensymphony.xwork2.factory.ActionFactory"  class="org.metamorphosis.core.ActionFactory" />
 	
    <package name="root" namespace="/" extends="tiles-default">
