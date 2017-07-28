@@ -6,7 +6,7 @@ public abstract class Extension implements Comparable<Extension> {
 
 	protected String id;
 	protected String name;
-	protected String type;
+	protected String type = "front-end";
 	protected String author;
 	protected String authorEmail;
 	protected String authorUrl;

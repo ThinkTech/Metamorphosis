@@ -127,7 +127,7 @@ public class StartupListener implements ServletContextListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/modules/"+module.getId()+"/"+temp.getName();
+		return "/modules/"+module.getFolder().getName()+"/"+temp.getName();
 	}
 
 	
