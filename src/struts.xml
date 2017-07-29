@@ -13,12 +13,12 @@
    <package name="root" namespace="/" extends="tiles-default">
    
     <interceptors>
-         <interceptor name="moduleInterceptor" class="org.metamorphosis.core.ModuleInterceptor"></interceptor>
-         <interceptor-stack name="moduleStack">
-         	<interceptor-ref name="moduleInterceptor"/>
-        	<interceptor-ref name="exception"/>
-        	<interceptor-ref name="params"/>
-         </interceptor-stack>
+        <interceptor name="moduleInterceptor" class="org.metamorphosis.core.ModuleInterceptor"/>
+        <interceptor-stack name="moduleStack">
+          <interceptor-ref name="moduleInterceptor"/>
+          <interceptor-ref name="exception"/>
+          <interceptor-ref name="params"/>
+        </interceptor-stack>
      </interceptors>
      
      <default-interceptor-ref name="moduleStack"/>
