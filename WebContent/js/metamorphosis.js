@@ -413,13 +413,13 @@ app.getCountries = function(lang,selected) {
 app.ready(function() {
 	page.init();
 	window.addEventListener('offline', function(){
+		page.wait();
 		const div = $("<div id='offline'></div>").appendTo($("body"));
 		const span = $("<span></span>");
 		var message = i18n("offline-message");
-		message = message ? message : $("#offline-message").attr("data-info");
+		message = message != "offline-message" ? message : $("#offline-message").attr("data-info");
 		div.append(span.html(message));
 		div.css("height",$(document).height());
-		page.wait();
 	});
 	window.addEventListener('online', function(){
 		$("div#offline").remove();
