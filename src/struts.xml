@@ -21,19 +21,21 @@
      
      <default-interceptor-ref name="moduleStack"/>
      
+     <default-class-ref class="org.metamorphosis.core.ActionSupport" />
+     
      <action name="index" class="org.metamorphosis.core.WelcomeAction">
         <result type="tiles">index</result>
      </action>
      
-     <action name="login" class="org.metamorphosis.core.ActionSupport">
+     <action name="login">
         <result type="tiles">login</result>
      </action>
      
-     <action name="password/reset" class="org.metamorphosis.core.ActionSupport">
+     <action name="password/reset">
         <result type="tiles">password/reset</result>
      </action>
      
-     <action name="password/change" class="org.metamorphosis.core.ActionSupport">
+     <action name="password/change">
         <result type="tiles">password/change</result>
      </action>
      
@@ -41,7 +43,7 @@
      
      <action name="newsletter" class="org.metamorphosis.core.ContactAction" method="subscribe"/>
      
-      <action name="{module}" class="org.metamorphosis.core.ActionSupport" method="navigate">
+      <action name="{module}" method="navigate">
 	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException"
 	        result="error" />
             <result name="success" type="tiles">{1}</result>
