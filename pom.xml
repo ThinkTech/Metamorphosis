@@ -11,6 +11,7 @@
 		    <resource>
 				<directory>src</directory>
 				<includes>
+					<include>struts-custom.xml</include>
 					<include>struts.xml</include>
 				</includes>
 			</resource>
