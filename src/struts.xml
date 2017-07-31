@@ -7,7 +7,6 @@
    <constant name="struts.enable.SlashesInActionNames" value="true"/>
    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
    <constant name="struts.patternMatcher" value="regex"/>
-   
    <bean type="com.opensymphony.xwork2.factory.ActionFactory"  class="org.metamorphosis.core.ActionFactory" />
 	
    <package name="root" namespace="/" extends="tiles-default">
@@ -16,8 +15,7 @@
         <interceptor name="moduleInterceptor" class="org.metamorphosis.core.ModuleInterceptor"/>
         <interceptor-stack name="moduleStack">
           <interceptor-ref name="moduleInterceptor"/>
-          <interceptor-ref name="exception"/>
-          <interceptor-ref name="params"/>
+          <interceptor-ref name="defaultStack"/>
         </interceptor-stack>
      </interceptors>
      
