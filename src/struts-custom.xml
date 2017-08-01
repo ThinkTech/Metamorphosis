@@ -123,7 +123,7 @@
             <interceptor name="exception" class="com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor"/>
             <interceptor name="params" class="com.opensymphony.xwork2.interceptor.ParametersInterceptor"/>
 
-            <!-- Basic stack -->
+            <!-- Default stack -->
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="params">
