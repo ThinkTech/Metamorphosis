@@ -364,11 +364,11 @@ page.init = function() {
 	
 	page.language = localStorage.getItem("language") ? localStorage.getItem("language") : "en";
 	
-	if('speechSynthesis' in window) {
-		speechSynthesis.getVoices();
-	}else {
-		$(".voice").hide();
-	}
+	 $.each($("img"),function(index,element){
+		const src = $(element).data("src");
+		if(src) $(element).attr("src",src);
+	});
+	
 };
 
 
