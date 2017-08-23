@@ -352,7 +352,7 @@ page.init = function() {
 	    return false;
 	});
 	
-	$(".info").click(function(){
+	$("span.info").click(function(){
 		const info = $(this).attr("data-info");
 		const input = $(this).prev();
 		alert(info,function(){
