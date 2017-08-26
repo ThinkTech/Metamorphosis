@@ -375,7 +375,8 @@ page.init = function() {
 	
 	 $.each($("img"),function(index,element){
 		const src = $(element).data("src");
-		if(src) $(element).attr("src",src);
+		const delay = $(element).data("delay");
+		if(!delay && src) $(element).attr("src",src);
 	});
 	
 };
