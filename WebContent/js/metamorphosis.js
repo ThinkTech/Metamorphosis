@@ -174,8 +174,15 @@ page.render = function(element, data) {
   });
 };
 
-page.wait = function() { 
-	$("#wait").css("height",$(document).height()).show();
+page.wait = function(position) { 
+	const wait = $("#wait");
+	if(!position) {
+	  wait.css("height",$(document).height()).show();
+	}else {
+		if(position.top) wait.css("top",position.top+"px");
+		if(position.left) wait.css("left",position.left+"px");
+		wait.show();
+	}
 };
 
 page.release = function() { 
