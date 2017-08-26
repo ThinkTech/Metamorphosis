@@ -186,7 +186,9 @@ page.wait = function(position) {
 };
 
 page.release = function() { 
-	$("#wait").hide();
+	const wait = $("#wait").hide();
+	wait.css("top","0px");
+	wait.css("left","0px");
 };
 
 var doc = function(entity) {
