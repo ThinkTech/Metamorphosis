@@ -816,7 +816,7 @@ Embed code cb87d958ba
 }
  
 @media(max-width:480px ){
-	#confirm-dialog-container, #alert-dialog-container {padding-top:50%}
+	#confirm-dialog-container, #alert-dialog-container {padding-top:30%}
 	th,td{font-size: 0.7em}
 	table th:nth-child(3) {display:none}
 	table td:nth-child(3) {display:none}
@@ -829,7 +829,6 @@ Embed code cb87d958ba
 	#form input[type=checkbox],#form input[type=radio]{width:24px;margin-right:39%;margin-top : 3px;}
 }
 @media(max-width:360px ){
-	#confirm-dialog-container, #alert-dialog-container {padding-top:55%}
 	#confirm-dialog-container > div, #alert-dialog-container > div {width:90%}
 }
 @media(max-width:320px ){
