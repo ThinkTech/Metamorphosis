@@ -177,7 +177,7 @@ page.render = function(element, data) {
 page.wait = function(position) { 
 	const wait = $("#wait");
 	if(!position) {
-	  wait.css("height",$(document).height()).show();
+	  wait.css("height",$(document).height()+$("body").height()).show();
 	}else {
 		if(position.top) wait.css("top",position.top+"px");
 		if(position.left) wait.css("left",position.left+"px");
@@ -429,7 +429,7 @@ app.ready(function() {
 		var message = i18n("offline-message");
 		message = message != "offline-message" ? message : $("#offline-message").attr("data-info");
 		div.append(span.html(message));
-		div.css("height",$(document).height());
+		div.css("height",$(document).height()+$("body").height());
 	});
 	window.addEventListener('online', function(){
 		$("div#offline").remove();
