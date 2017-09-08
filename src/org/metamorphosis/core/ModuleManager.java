@@ -250,7 +250,12 @@ public class ModuleManager implements DispatcherListener {
 
 	public Module getModuleByUrl(String url) {
 		for(Module module : modules) {
-			if(module.getUrl().equals(url) || ("/" + module.getUrl()).equals(url)) return module;
+			if(url.equals("/") && module.isMain() && module.isFrontend()) {
+				return module;
+			}
+			else if(module.getUrl().equals(url)) {
+				return module;
+			}
 		}
 		return null;
 	}
@@ -274,7 +279,7 @@ public class ModuleManager implements DispatcherListener {
 					ScriptEngine engine = new ScriptEngineManager().getEngineByExtension(extension);
 					return engine.eval(new FileReader(script));
 				}
-			}else if(module.getUrl().equals(url)) {
+			}else{
 				File script = new File(module.getFolder() + "/scripts/" + module.getScript());
 				if(script.exists()) {
 					String name = script.getName();

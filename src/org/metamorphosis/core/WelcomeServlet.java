@@ -15,7 +15,7 @@ public class WelcomeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {	
 		Module module = getHomeModule();
 		if(module!=null)
-			request.getRequestDispatcher(module.getUrl()).forward(request, response);
+			request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 		else
 			request.getRequestDispatcher("index").forward(request, response);
 	}
