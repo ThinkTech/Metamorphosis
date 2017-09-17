@@ -6,7 +6,7 @@ import java.util.List;
 public class WelcomeAction extends ActionSupport {
 	
 	public List<Module> getModules() {
-		return getModuleManager().getVisibleModules("front-end",null);
+		return getModuleManager().getVisibleModules("front-end");
 	}
 	
 }

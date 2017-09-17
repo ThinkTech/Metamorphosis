@@ -1,8 +1,5 @@
 package org.metamorphosis.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
 	
 	private Long id;
@@ -12,7 +9,6 @@ public class User {
 	private String email;
 	private String password;
 	private String lang;
-	private List<Account> accounts = new ArrayList<Account>();
 	
 	public Long getId() {
 		return id;
@@ -56,33 +52,9 @@ public class User {
 	public void setLang(String lang) {
 		this.lang = lang;
 	}
-	public List<Account> getAccounts() {
-		return accounts;
-	}
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
-	public void setCurrentAccount(Account current) {
-		for(Account account : accounts) {
-			account.setCurrent(false);
-		}
-		current.setCurrent(true);
-	}
-	public Account getCurrentAccount() {
-		for(Account account : accounts) {
-			if(account.isCurrent()) return account;
-		}
-		return null;
-	}
 	
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
 	
-	public Subscription getSubscription() {
-		Subscription subscription;
-		Account account = getCurrentAccount();
-		subscription = account!= null && account.getStructure()!= null ? account.getStructure().getSubscription() : null;
-		return subscription;
-	}
 }

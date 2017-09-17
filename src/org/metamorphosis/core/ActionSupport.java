@@ -95,7 +95,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		String actionURL = (String) request.getAttribute("actionURL");
 		if(actionURL!=null) {
 			ModuleManager moduleManager = ModuleManager.getInstance();
-			List<Module> modules = moduleManager.getVisibleModules("front-end",null);
+			List<Module> modules = moduleManager.getVisibleModules("front-end");
 			for(Module module : modules) {
 				if(module.isMain()) {
 					String url = module.getUrl()+"/"+actionURL;

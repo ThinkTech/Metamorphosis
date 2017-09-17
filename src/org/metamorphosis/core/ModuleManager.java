@@ -403,24 +403,11 @@ public class ModuleManager implements DispatcherListener {
 		this.modules = modules;
 	}
 
-	public List<Module> getVisibleModules(String type,User user) {
+	public List<Module> getVisibleModules(String type) {
 		List<Module> visibles = new ArrayList<Module>();
-		Subscription subscription = user!=null ? user.getSubscription() : null;
-		List<Module> modules = subscription !=null ? subscription.getModules() : this.modules;
 		for(Module module : modules) {
-			String roles = module.getRoles();
 			if(module.isVisible() && module.getType().equals(type)) {
-				if(roles.equals("all")) {
-					visibles.add(module);
-				}else {
-					if(user!=null) {
-						for(Account account : user.getAccounts()) {
-							if(roles.toLowerCase().indexOf(account.getRole()) !=-1 || roles.equals("all")) {
-								visibles.add(module);
-							}
-						}
-					}
-				}
+				visibles.add(module);
 			}
 		}
 		return visibles;
@@ -451,29 +438,14 @@ public class ModuleManager implements DispatcherListener {
 		Collections.sort(modules);
 		return modules;
 	}
-	
-	public Module getDefaultBackendModule(User user) {
-		for(Module module : this.modules) {
-			if(module.isBackend()) {
-				String roles = module.getRoles();
-				for(Account account : user.getAccounts()) {
-					if(roles.toLowerCase().indexOf(account.getRole()) !=-1 || roles.equals("all")) return module;
-				}
-			}
-		}
-		return null;
-	}
 
 	public Module getMain(User user) {
 		for(Module module : modules) {
 			if(module.isMain() && module.isBackend()) {
-				String roles = module.getRoles();
-				for(Account account : user.getAccounts()) {
-					if(roles.toLowerCase().indexOf(account.getRole()) !=-1 || roles.equals("all")) return module;
-				}
+				return module;
 			}
 		}
-		return getDefaultBackendModule(user);
+		return null;
 	}
 
 	public Configuration getConfiguration() {
