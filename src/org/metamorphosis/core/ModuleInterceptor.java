@@ -28,7 +28,6 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					response.setHeader("Cache-control", "private, max-age=7200");
 				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")
 						& !actionURL.endsWith("users/register")) {
-					System.out.println("url "+module.getUrl());
 					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");	
 					if(user==null) return "error";
 				}
