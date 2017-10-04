@@ -429,7 +429,7 @@ app.ready(function() {
 		var message = i18n("offline-message");
 		message = message != "offline-message" ? message : $("#offline-message").attr("data-info");
 		div.append(span.html(message));
-		div.css("height",$(document).height()+$("body").height());
+		div.css("height",$(document).height());
 	});
 	window.addEventListener('online', function(){
 		$("div#offline").remove();
