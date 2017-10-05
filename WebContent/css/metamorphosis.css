@@ -161,33 +161,7 @@ body {
 	margin-left : 0px;
 } 
 
-#offline {
-	background: rgba(100, 100, 100, 0.5);
-	z-index: 9999999;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	text-align: center;
-	padding-top: 20%;
-}
 
-#offline span {
-	color: red;
-	vertical-align: middle;
-	background: #fff;
-	border-radius: 15px;
-	border: 1px solid #06d0d8;
-	padding: 10px;
-}
-
-
-
-/*--------------------*/
-/* Responsive Style */
-/*--------------------*/
-
-  
 @media(max-width:991px ){
 	table th:nth-child(6) {display:none}
 	table th:nth-child(7) {display:none}
