@@ -17,7 +17,7 @@ public class FileMonitor {
 
 	private List<FileListener> listeners = new ArrayList<FileListener>();
 	private File directory;
-	
+	public static volatile boolean monitor = true;
 
 	public FileMonitor(File directory) {
 	    this.directory = directory;
@@ -31,7 +31,7 @@ public class FileMonitor {
 				WatchService watcher = FileSystems.getDefault().newWatchService();
 				Path dir = Paths.get(directory.getAbsolutePath());
 				dir.register(watcher, ENTRY_CREATE,ENTRY_DELETE);
-				while(true) {
+				while(FileMonitor.monitor) {
 					WatchKey key;
 					try {
 						key = watcher.take();
