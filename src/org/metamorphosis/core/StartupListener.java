@@ -213,7 +213,6 @@ public class StartupListener implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
-         FileMonitor.monitor = false;
 	}
 
 }
