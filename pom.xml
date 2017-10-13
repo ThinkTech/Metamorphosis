@@ -8,18 +8,11 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
-		    <resource>
+			<resource>
 				<directory>src</directory>
 				<includes>
 					<include>struts-custom.xml</include>
 					<include>struts.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>WebContent</directory>
-				<targetPath>META-INF</targetPath>
-				<includes>
-					<include>404.jsp</include>
 				</includes>
 			</resource>
 			<resource>
@@ -33,7 +26,7 @@
 				<directory>WebContent/js</directory>
 				<targetPath>META-INF</targetPath>
 				<includes>
-				    <include>jquery-3.1.1.min.js</include>
+					<include>jquery-3.1.1.min.js</include>
 					<include>metamorphosis.js</include>
 					<include>handlebars-v4.0.5.js</include>
 					<include>dust-full.min.js</include>
@@ -78,36 +71,25 @@
 			<artifactId>groovy-jsr223</artifactId>
 			<version>2.4.9</version>
 		</dependency>
-		
+
 		<dependency>
-   		   <groupId>org.codehaus.groovy</groupId>
-           <artifactId>groovy-json</artifactId>
-           <version>2.4.9</version>
-        </dependency>
-        
-        <dependency>
-    	  <groupId>org.codehaus.groovy</groupId>
-    	  <artifactId>groovy-templates</artifactId>
-    	  <version>2.4.9</version>
-	    </dependency>
-		
-		<dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>mailapi</artifactId>
-            <version>1.5.2</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>smtp</artifactId>
-            <version>1.5.2</version>
-        </dependency>
-        
-        <dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.41</version>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-json</artifactId>
+			<version>2.4.9</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>mailapi</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>smtp</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+
 
 	</dependencies>
 
