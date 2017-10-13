@@ -27,18 +27,6 @@
         <result type="tiles">index</result>
      </action>
      
-     <action name="login">
-        <result type="tiles">login</result>
-     </action>
-     
-     <action name="password/reset">
-        <result type="tiles">password/reset</result>
-     </action>
-     
-     <action name="password/change">
-        <result type="tiles">password/change</result>
-     </action>
-     
      <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
           
       <action name="{module}" method="navigate">
