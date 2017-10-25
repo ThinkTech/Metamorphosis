@@ -1,7 +1,9 @@
 const app = {};
 
 app.ready = function(callback) { 
-	$(document).ready(callback); 
+  document.addEventListener("DOMContentLoaded", function(event) {
+	  if(callback) callback();
+  }); 
 };
 
 app.engines = {};
