@@ -14,7 +14,7 @@ app.engine = function(type, engine) {
 
 app.engine("text/x-handlebars-template",function(info) {
   head.load("js/handlebars-v4.0.5.js",function(){
-    var html = $.parseHTML(Handlebars.compile(info.source)(info.data));
+    const html = $.parseHTML(Handlebars.compile(info.source)(info.data));
     info.append ? info.destination.append(html) : info.destination.html(html);
     if(info.callback) info.callback($(html));
   });
@@ -23,7 +23,7 @@ app.engine("text/x-handlebars-template",function(info) {
 app.engine("text/x-dust-template",function(info) {
   head.load("js/dust-full.min.js",function() {
     dust.renderSource(info.source,info.data,function(err, out) {
-      var html = $.parseHTML(out);
+      const html = $.parseHTML(out);
       info.append ? info.destination.append(html) : info.destination.html(html);
       if(info.callback) info.callback($(html));
     });
@@ -40,7 +40,7 @@ page.render = function(element, data) {
   }else {
 	  this.cache.set(element[0],template = $("template", element));
   }
-  var engine = app.engines[template.attr("type")];
+  const engine = app.engines[template.attr("type")];
   engine({
     source: template.html(),
     data: data,
@@ -131,7 +131,7 @@ page.init = function() {
 
 
 const alert = function(message,callback) {
-	var container = $("#alert-dialog-container");
+	const container = $("#alert-dialog-container");
 	$("span:nth-child(2)",container).html(message);
 	container.show(0,function(){
 		$("#alert-dialog-ok").one("click",function() {
@@ -144,7 +144,7 @@ const alert = function(message,callback) {
 
 const confirm = function(message,callback){
 	$("body").trigger("click");
-	var container = $("#confirm-dialog-container");
+	const container = $("#confirm-dialog-container");
 	$("span.confirmation-dialog-title",container).html(message);
 	container.show(0,function(){
 		$("#confirm-dialog-ok").one("click",function(){
