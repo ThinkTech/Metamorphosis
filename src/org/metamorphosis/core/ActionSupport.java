@@ -19,7 +19,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public HttpSession getSession() {
-		return ServletActionContext.getRequest().getSession();
+		return getRequest().getSession(true);
 	}
 	
 	public HttpServletResponse getResponse() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
 	<name>customers</name>
+	<type>back-end</type>
 	<main>true</main>
 	<order>1</order>
 	<author>Mamadou Lamine Ba</author>

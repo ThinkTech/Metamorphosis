@@ -22,13 +22,13 @@ public class ModuleInterceptor extends AbstractInterceptor {
 		    Module module = moduleManager.getCurrentModule();
 			if(module!=null) {
 				HttpServletResponse response = ServletActionContext.getResponse();
-				HttpSession session = request.getSession();
-				User user = (User) session.getAttribute("user");
 				if(module.isCached() && !module.isBackend()) {
 					response.setHeader("Cache-control", "private, max-age=7200");
 				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")
 						& !actionURL.endsWith("users/register")) {
-					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");	
+					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
+					HttpSession session = request.getSession();
+					User user = (User) session.getAttribute("user");
 					if(user==null) return "error";
 				}
 				ValueStack stack = ActionContext.getContext().getValueStack();

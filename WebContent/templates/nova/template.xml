@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>nova</name>
+    <type>back-end</type>
     <selected>true</selected>
 	<author>Mamadou Lamine Ba</author>
 	<authorEmail>laminba2003@yahoo.fr</authorEmail>

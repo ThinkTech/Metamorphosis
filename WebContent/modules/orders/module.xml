@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
 	<name>orders</name>
+	<type>back-end</type>
 	<order>3</order>
 	<author>Mamadou Lamine Ba</author>
 	<authorEmail>laminba2003@yahoo.fr</authorEmail>

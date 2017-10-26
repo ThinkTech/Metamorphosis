@@ -439,7 +439,7 @@ public class ModuleManager implements DispatcherListener {
 		return modules;
 	}
 
-	public Module getMain(User user) {
+	public Module getMain() {
 		for(Module module : modules) {
 			if(module.isMain() && module.isBackend()) {
 				return module;

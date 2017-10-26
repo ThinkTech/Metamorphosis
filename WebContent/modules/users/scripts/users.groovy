@@ -1,9 +1,11 @@
 import org.metamorphosis.core.ActionSupport
+import org.metamorphosis.core.User
 
 class UserAction extends ActionSupport {
 
 	
 	def login()  {
+	    session.setAttribute("user",new User())
 		def module = moduleManager.main
 		def url = module ? request.contextPath+"/"+module.url: request.contextPath+"/"
 		response.sendRedirect(url)

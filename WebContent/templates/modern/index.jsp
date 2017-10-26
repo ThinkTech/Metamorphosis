@@ -50,7 +50,7 @@
   		  <div class="login">
   		  <h1>Welcome</h1>
   		  <p>Enter your credentials</p>
-  		  <form action="${login}">
+  		  <form action="users/login">
     		<div class="input">
       		 <div class="blockinput">
         		<i class="icon-envelope-alt"></i><input type="email" placeholder="Email">
