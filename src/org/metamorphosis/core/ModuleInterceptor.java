@@ -28,7 +28,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 						& !actionURL.endsWith("users/register")) {
 					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
 					HttpSession session = request.getSession();
-					User user = (User) session.getAttribute("user");
+					Object user = (Object) session.getAttribute("user");
 					if(user==null) return "error";
 				}
 				ValueStack stack = ActionContext.getContext().getValueStack();
