@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 
 public class MailSender {
 	 
-    private MailConfig config = new MailConfig();
+    private MailConfig config;
     
     public MailSender() {
     }
@@ -26,16 +26,12 @@ public class MailSender {
     }
     
     public void sendMail(Mail mail,boolean cc)  {
- 
-        // Get the Session object
         Session session = Session.getInstance(config.getProperties(),
       		  new Authenticator() {
       			protected PasswordAuthentication getPasswordAuthentication() {
       				return new PasswordAuthentication(config.getUser(), config.getPassword());
       			}
-      		  });
- 
-        // Construct the message and send it.
+        });
         try {
 	        final Message message = new MimeMessage(session);
 	        message.setFrom(new InternetAddress(config.getUser()));

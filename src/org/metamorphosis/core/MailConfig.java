@@ -4,16 +4,10 @@ import java.util.Properties;
 
 public class MailConfig {
 	
-	private String user ="info@thinktech.sn";
-    private String password ="California2003";
+	private String user;
+    private String password;
     Properties properties = new Properties();
     
-    public MailConfig() {
-    	properties.put("mail.smtp.auth", "true");
- 		properties.put("mail.smtp.starttls.enable", "true");
- 		properties.put("mail.smtp.host", "smtp.thinktech.sn");
- 		properties.put("mail.smtp.port", "25");
-    }
     
     public MailConfig(String user,String password,String host) {
     	this.user = user;
