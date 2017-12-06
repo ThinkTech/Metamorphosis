@@ -55,16 +55,16 @@ page.wait = function(position) {
 	if(!position) {
 	  wait.css("height",$(document).height()).show();
 	}else {
-		if(position.top) wait.css("top",position.top+"px");
-		if(position.left) wait.css("left",position.left+"px");
+		if(position.top) wait.css("padding-top",position.top+"px");
+		if(position.left) wait.css("padding-left",position.left+"px");
 		wait.show();
 	}
 };
 
 page.release = function() { 
 	const wait = $("#wait").hide();
-	wait.css("top","0px");
-	wait.css("left","0px");
+	wait.css("padding-top","15%");
+	wait.css("padding-left","0px");
 };
 
 
