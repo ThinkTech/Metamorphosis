@@ -53,12 +53,12 @@ body {
 
 #wait {
 	width: 100%;
-	height: 100%;
 	position: absolute;
 	z-index: 9999999;
 	text-align: center;
 	display: none;
-	top: 0px;
+	top: 0;
+	bottom : 0;
 	background-repeat: no-repeat;
 	background-position: center center;
 	padding-left : 0px;
@@ -69,8 +69,8 @@ body {
     border: 16px solid #fff; 
     border-top: 16px solid #06d0d8;
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     margin : auto;
     animation: spin 1s linear infinite;
 }
