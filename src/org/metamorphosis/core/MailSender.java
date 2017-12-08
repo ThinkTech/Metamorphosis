@@ -34,7 +34,7 @@ public class MailSender {
         });
         try {
 	        final Message message = new MimeMessage(session);
-	        message.setHeader("Content-Type", "text/html; charset=ISO-8859-1");
+	        message.setHeader("Content-Type", "text/html; charset=UTF-8");
 	        message.setFrom(new InternetAddress(config.getUser()));
 	        if(cc) {
 	        	message.setRecipients(Message.RecipientType.TO,
@@ -44,7 +44,7 @@ public class MailSender {
 	        			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
 	        }
 	        message.setSubject(mail.getSubject());
-	        message.setContent(mail.getContent(),"text/html; charset=ISO-8859-1");
+	        message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 	        message.setSentDate(new Date());
 	        Thread thread = new Thread(new Runnable() {
 				public void run() {
