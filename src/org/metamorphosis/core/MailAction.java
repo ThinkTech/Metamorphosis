@@ -1,6 +1,5 @@
 package org.metamorphosis.core;
 
-
 @SuppressWarnings("serial")
 public class MailAction extends ActionSupport {
 

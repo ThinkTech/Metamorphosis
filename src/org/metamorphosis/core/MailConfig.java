@@ -8,7 +8,6 @@ public class MailConfig {
     private String password;
     Properties properties = new Properties();
     
-    
     public MailConfig(String user,String password,String host) {
     	this.user = user;
     	this.password = password;
