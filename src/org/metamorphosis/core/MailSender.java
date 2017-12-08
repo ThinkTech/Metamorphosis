@@ -34,6 +34,7 @@ public class MailSender {
         });
         try {
 	        final Message message = new MimeMessage(session);
+	        message.setHeader("Content-Type", "text/html; charset=ISO-8859-1");
 	        message.setFrom(new InternetAddress(config.getUser()));
 	        if(cc) {
 	        	message.setRecipients(Message.RecipientType.TO,
