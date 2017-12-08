@@ -147,7 +147,7 @@ const confirm = function(message,callback){
 	const container = $("#confirm-dialog-container");
 	$("span.confirmation-dialog-title",container).html(message);
 	container.show(0,function(){
-		$("#confirm-dialog-ok").one("click",function(){
+		$("#confirm-dialog-ok").unbind("click").click(function(){
 			container.hide();
 			callback();
 		}).focus();
