@@ -34,6 +34,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				ValueStack stack = ActionContext.getContext().getValueStack();
 				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
 				request.setAttribute("module",module);
+				request.setAttribute("url",module.getUrl());
 				request.setAttribute("js","modules/"+module.getId()+"/js");
 				request.setAttribute("css","modules/"+module.getId()+"/css");
 				request.setAttribute("images","modules/"+module.getId()+"/images");
