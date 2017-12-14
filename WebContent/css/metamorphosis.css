@@ -59,8 +59,7 @@ body {
 	display: none;
 	top: 0;
 	bottom : 0;
-	background-repeat: no-repeat;
-	background-position: center center;
+	background: rgba(100, 100, 100, 0.5);
 	padding-left : 0px;
 	padding-top : 15%;
 }

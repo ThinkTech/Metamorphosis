@@ -180,8 +180,6 @@ public class ModuleManager implements DispatcherListener {
 			public void onCreated(String file) {
 	    		if(file.equals(MODULE_METADATA)) {
 					updateModule(module);
-				}else if(file.endsWith(".jsp") || file.endsWith(".html")) {
-					registerPage(module, file);
 				}
 			}
 	    	
@@ -193,19 +191,6 @@ public class ModuleManager implements DispatcherListener {
 		});
 	    monitor.watch();
 	}
-	
-	private void registerPage(Module module,String file) {
-		try {
-			CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
-			String name = file.endsWith(".jsp") ? file.substring(0, file.length() - 4) : file.substring(0, file.length() - 5);
-			Template template = getCurrentTemplate(module);
-			Definition definition = createDefinition(module.getUrl() + "/" + name,module.getUrl(),template.getIndexPage());
-			definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + file));
-			container.register(definition);
-		}catch(Exception es) {
-			es.printStackTrace();
-		}
-	}
 
 	private void registerPages(Module module) throws Exception {
 		CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
@@ -215,7 +200,7 @@ public class ModuleManager implements DispatcherListener {
 		container.register(definition);
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
-			if(file.isFile() && (name.endsWith(".jsp") || name.endsWith(".html"))) {
+			if(file.isFile() && name.endsWith(".jsp")) {
 				String prefix = name.endsWith(".jsp") ? name.substring(0, name.length() - 4) : name.substring(0, name.length() - 5);
 				definition = createDefinition(module.getUrl() + "/" + prefix,module.getUrl(),template.getIndexPage());
 				definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + name));
