@@ -6,30 +6,6 @@ app.ready = function(callback) {
   }); 
 };
 
-app.engines = {};
-
-app.engine = function(type, engine) {
-	app.engines[type] = engine;
-};
-
-app.engine("text/x-handlebars-template",function(info) {
-  head.load("js/handlebars-v4.0.5.js",function(){
-    const html = $.parseHTML(Handlebars.compile(info.source)(info.data));
-    info.append ? info.destination.append(html) : info.destination.html(html);
-    if(info.callback) info.callback($(html));
-  });
-});
-
-app.engine("text/x-dust-template",function(info) {
-  head.load("js/dust-full.min.js",function() {
-    dust.renderSource(info.source,info.data,function(err, out) {
-      const html = $.parseHTML(out);
-      info.append ? info.destination.append(html) : info.destination.html(html);
-      if(info.callback) info.callback($(html));
-    });
-  });
-});
-
 const page = {};
 
 page.render = function(element, data) {
@@ -40,13 +16,19 @@ page.render = function(element, data) {
   }else {
 	  this.cache.set(element[0],template = $("template", element));
   }
-  const engine = app.engines[template.attr("type")];
-  engine({
+  const info = {
     source: template.html(),
     data: data,
     append: arguments[2] instanceof Function ? false : arguments[2],
     destination: arguments[3] && !(arguments[3] instanceof Function) ? arguments[3] : element,
     callback: arguments[2] instanceof Function ? arguments[2] : arguments[3] instanceof Function ? arguments[3] : arguments[4]
+  };
+  head.load("js/dust-full.min.js",function() {
+	  dust.renderSource(info.source,info.data,function(err, out) {
+	      const html = $.parseHTML(out);
+	      info.append ? info.destination.append(html) : info.destination.html(html);
+	      if(info.callback) info.callback($(html));
+	  });
   });
 };
 
