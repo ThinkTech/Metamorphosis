@@ -24,12 +24,11 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				HttpServletResponse response = ServletActionContext.getResponse();
 				if(module.isCached() && !module.isBackend()) {
 					response.setHeader("Cache-control", "private, max-age=7200");
-				}else if(module.isBackend() && !actionURL.endsWith("users/login") & !actionURL.endsWith("users/logout")
-						& !actionURL.endsWith("users/register")) {
+				}else if(module.isBackend() && !actionURL.startsWith("users/")) {
 					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
 					HttpSession session = request.getSession();
 					Object user = (Object) session.getAttribute("user");
-					//if(user==null) return "error";
+					if(user==null) return "error";
 				}
 				ValueStack stack = ActionContext.getContext().getValueStack();
 				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
@@ -60,6 +59,9 @@ public class ModuleInterceptor extends AbstractInterceptor {
 							request.setAttribute("title",action.getTitle());
 						}
 					}
+				}
+				if(actionURL.equals(module.getUrl())){
+					request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 				}
 			}else {
 				request.setAttribute("title",actionURL.substring(0, 1).toUpperCase() + actionURL.substring(1));

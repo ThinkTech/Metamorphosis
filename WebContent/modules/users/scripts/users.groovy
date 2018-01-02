@@ -1,5 +1,7 @@
 import org.metamorphosis.core.ActionSupport
-import org.metamorphosis.core.User
+
+
+class User {}
 
 class UserAction extends ActionSupport {
 
