@@ -31,7 +31,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return (Map) ActionContext.getContext().get("application");
 	}
 	
-	public ServletContext getServletContext() {
+	public ServletContext getContext() {
 		return getModuleManager().getServletContext();
 	}
 	
