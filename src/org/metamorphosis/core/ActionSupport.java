@@ -81,6 +81,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public void redirect(String location) throws IOException {
 		getResponse().sendRedirect(location);
 	}
+	
+	public void write(String content) throws IOException {
+		getResponse().getWriter().write(content);
+	}
 
 	public String getReferer() {
 		return getRequest().getHeader("referer");
