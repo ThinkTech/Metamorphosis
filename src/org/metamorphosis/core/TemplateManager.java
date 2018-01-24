@@ -75,53 +75,59 @@ public class TemplateManager {
 	}
 
 	private void monitorTemplate(final Template template) {
-		FileMonitor monitor = new FileMonitor(template.getFolder());
-		monitor.addListener(new FileListener() {
-
-			@Override
-			public void onCreated(String file) {
-				if (file.equals(TEMPLATE_METADATA)) {
-					updateTemplate(template);
+		String reload = System.getenv("metamorphosis.reload");
+		if("true".equals(reload)){
+			FileMonitor monitor = new FileMonitor(template.getFolder());
+			monitor.addListener(new FileListener() {
+	
+				@Override
+				public void onCreated(String file) {
+					if (file.equals(TEMPLATE_METADATA)) {
+						updateTemplate(template);
+					}
 				}
-			}
-
-			@Override
-			public void onDeleted(String file) {
-
-			}
-
-		});
-		monitor.watch();
+	
+				@Override
+				public void onDeleted(String file) {
+	
+				}
+	
+			});
+			monitor.watch();
+		}
 	}
 
 	private void monitorRoot(final File root) {
-		FileMonitor monitor = new FileMonitor(root);
-		monitor.addListener(new FileListener() {
-
-			@Override
-			public void onCreated(String file) {
-				File folder = new File(root + "/" + file);
-				if (folder.isDirectory()) {
-					logger.log(Level.INFO, "adding template  : " + folder.getName());
-					final Template template = new Template();
-					template.setFolder(folder);
-					addTemplate(template);
-					monitorTemplate(template);
+		String reload = System.getenv("metamorphosis.reload");
+		if("true".equals(reload)){
+			FileMonitor monitor = new FileMonitor(root);
+			monitor.addListener(new FileListener() {
+	
+				@Override
+				public void onCreated(String file) {
+					File folder = new File(root + "/" + file);
+					if (folder.isDirectory()) {
+						logger.log(Level.INFO, "adding template  : " + folder.getName());
+						final Template template = new Template();
+						template.setFolder(folder);
+						addTemplate(template);
+						monitorTemplate(template);
+					}
+	
 				}
-
-			}
-
-			@Override
-			public void onDeleted(String file) {
-				Template template = getTemplate(file);
-				if (template != null) {
-					logger.log(Level.INFO, "removing template  : " + template.getName());
-					removeTemplate(template);
+	
+				@Override
+				public void onDeleted(String file) {
+					Template template = getTemplate(file);
+					if (template != null) {
+						logger.log(Level.INFO, "removing template  : " + template.getName());
+						removeTemplate(template);
+					}
 				}
-			}
-
-		});
-		monitor.watch();
+	
+			});
+			monitor.watch();
+		}
 	}
 
 	private void updateTemplate(Template template) {

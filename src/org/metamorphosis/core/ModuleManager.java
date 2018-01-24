@@ -143,53 +143,59 @@ public class ModuleManager implements DispatcherListener {
 	}
 	
 	private void monitorRoot(final File root) {
-		FileMonitor monitor = new FileMonitor(root);
-		monitor.addListener(new FileListener() {
-			
-			@Override
-			public void onCreated(String file) {
-				File folder = new File(root+"/"+file);
-				if(folder.isDirectory()) {
-					logger.log(Level.INFO, "adding module  : " + folder.getName());
-					final Module module = new Module();
-					module.setFolder(folder);
-					initModule(module);
-					addModule(module);
-					monitorModule(module);
+		String reload = System.getenv("metamorphosis.reload");
+		if("true".equals(reload)){
+			FileMonitor monitor = new FileMonitor(root);
+			monitor.addListener(new FileListener() {
+				
+				@Override
+				public void onCreated(String file) {
+					File folder = new File(root+"/"+file);
+					if(folder.isDirectory()) {
+						logger.log(Level.INFO, "adding module  : " + folder.getName());
+						final Module module = new Module();
+						module.setFolder(folder);
+						initModule(module);
+						addModule(module);
+						monitorModule(module);
+					}
 				}
-			}
-			
-			@Override
-			public void onDeleted(String file) {
-				Module module = getModuleById(file);
-				if(module!=null) {
-					logger.log(Level.INFO, "removing module  : " + module.getName());
-					removeModule(module);
+				
+				@Override
+				public void onDeleted(String file) {
+					Module module = getModuleById(file);
+					if(module!=null) {
+						logger.log(Level.INFO, "removing module  : " + module.getName());
+						removeModule(module);
+					}
 				}
-			}
-			
-		});
-		monitor.watch();
+				
+			});
+			monitor.watch();
+		}
 	}
 
 	private void monitorModule(final Module module) {
-	    FileMonitor monitor = new FileMonitor(module.getFolder());
-	    monitor.addListener(new FileListener() {
-	    	
-	    	@Override
-			public void onCreated(String file) {
-	    		if(file.equals(MODULE_METADATA)) {
-					updateModule(module);
+		String reload = System.getenv("metamorphosis.reload");
+		if("true".equals(reload)){
+		    FileMonitor monitor = new FileMonitor(module.getFolder());
+		    monitor.addListener(new FileListener() {
+		    	
+		    	@Override
+				public void onCreated(String file) {
+		    		if(file.equals(MODULE_METADATA)) {
+						updateModule(module);
+					}
 				}
-			}
-	    	
-			@Override
-			public void onDeleted(String file) {
+		    	
+				@Override
+				public void onDeleted(String file) {
+					
+				}
 				
-			}
-			
-		});
-	    monitor.watch();
+			});
+		    monitor.watch();
+		}
 	}
 
 	private void registerPages(Module module) throws Exception {
