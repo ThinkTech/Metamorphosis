@@ -85,6 +85,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public void write(String content) throws IOException {
 		getResponse().getWriter().write(content);
 	}
+	
+	public Object getDataSource(){
+		return getContext().getAttribute("datasource");
+	}
 
 	public String getReferer() {
 		return getRequest().getHeader("referer");
