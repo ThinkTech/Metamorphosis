@@ -40,7 +40,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public ModuleManager getModuleManager() {
 		return ModuleManager.getInstance();
 	}
-	public Module getModule() {
+	public Module getCurrentModule() {
 		return getModuleManager().getCurrentModule();
 	}
 	public TemplateManager getTemplateManager() {
