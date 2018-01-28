@@ -84,8 +84,8 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		getResponse().getWriter().write(content);
 	}
 	
-	public String json(Object object){
-		return groovy.json.JsonOutput.toJson(object);
+	public void json(Object object) throws IOException{
+		write(groovy.json.JsonOutput.toJson(object));
 	}
 	
 	public Object parse(HttpServletRequest request) throws IOException{
