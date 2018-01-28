@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 
+import groovy.json.JsonSlurper;
+
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
@@ -49,10 +51,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return getSession().getAttribute("user");
 	}
 	
-	public String getLogo() {
-		return "images/logo.png";
-	}
-	
 	public String getBaseUrl() {
 		HttpServletRequest request = getRequest();
 	    String scheme = request.getScheme() + "://";
@@ -84,6 +82,14 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public void write(String content) throws IOException {
 		getResponse().getWriter().write(content);
+	}
+	
+	public String json(Object object){
+		return groovy.json.JsonOutput.toJson(object);
+	}
+	
+	public Object parse(HttpServletRequest request) throws IOException{
+		return new JsonSlurper().parse(request.getInputStream());
 	}
 	
 	public Object getDataSource(){

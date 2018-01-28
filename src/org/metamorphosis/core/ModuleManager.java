@@ -1,14 +1,13 @@
 package org.metamorphosis.core;
 
 import java.io.File;
-import java.io.FileReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.digester.Digester;
@@ -18,10 +17,15 @@ import org.apache.struts2.dispatcher.DispatcherListener;
 import org.apache.tiles.Attribute;
 import org.apache.tiles.Definition;
 import org.apache.tiles.access.TilesAccess;
+import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.customizers.ImportCustomizer;
+
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.config.entities.PackageConfig;
 import com.opensymphony.xwork2.config.entities.ResultConfig;
+import groovy.lang.Binding;
+import groovy.util.GroovyScriptEngine;
 
 public class ModuleManager implements DispatcherListener {
 
@@ -265,23 +269,33 @@ public class ModuleManager implements DispatcherListener {
 			if(action != null && action.getScript() != null) {
 				File script = new File(module.getFolder() + "/scripts/" + action.getScript());
 				if(script.exists()) {
-					String name = script.getName();
-					String extension = name.substring(name.indexOf(".") + 1);
-					ScriptEngine engine = new ScriptEngineManager().getEngineByExtension(extension);
-					return engine.eval(new FileReader(script));
+					String name =  "scripts/" + script.getName();
+				    GroovyScriptEngine engine = getScriptEngine(module.getFolder());
+					return engine.run(name,new Binding());
 				}
 			}else{
 				File script = new File(module.getFolder() + "/scripts/" + module.getScript());
 				if(script.exists()) {
-					String name = script.getName();
-					String extension = name.substring(name.indexOf(".") + 1);
-					ScriptEngine engine = new ScriptEngineManager().getEngineByExtension(extension);
-					return engine.eval(new FileReader(script));
+					String name = "scripts/" + script.getName();
+					GroovyScriptEngine engine = getScriptEngine(module.getFolder());
+					return engine.run(name,new Binding());
 				}
 			}
 			return new ActionSupport();
 		}
 		return null;
+	}
+	
+	private GroovyScriptEngine getScriptEngine(File folder) throws MalformedURLException {
+		URL[] url = {folder.toURI().toURL()};
+		GroovyScriptEngine engine = new GroovyScriptEngine(url);
+		CompilerConfiguration configuration = new CompilerConfiguration();
+		ImportCustomizer importCustomizer = new ImportCustomizer();
+		importCustomizer.addStarImports("org.metamorphosis.core");
+		importCustomizer.addStarImports("groovy.json");
+		configuration.addCompilationCustomizers(importCustomizer);
+		engine.setConfig(configuration);
+		return engine;
 	}
 
 	public Module getModuleById(String id) {
