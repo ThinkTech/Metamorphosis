@@ -291,6 +291,7 @@ public class ModuleManager implements DispatcherListener {
 		GroovyScriptEngine engine = new GroovyScriptEngine(url);
 		CompilerConfiguration configuration = new CompilerConfiguration();
 		ImportCustomizer importCustomizer = new ImportCustomizer();
+		importCustomizer.addImports("java.text.SimpleDateFormat");
 		importCustomizer.addStarImports("org.metamorphosis.core");
 		importCustomizer.addStarImports("groovy.json");
 		configuration.addCompilationCustomizers(importCustomizer);
