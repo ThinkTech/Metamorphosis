@@ -39,10 +39,8 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				request.setAttribute("images","modules/"+module.getId()+"/images");
 				for(Menu menu : module.getMenus()) {
 					for(MenuItem item : menu.getMenuItems()) {
-						if(item.getName()!=null) {
-							request.setAttribute(item.getName(),item.getUrl());
-						}
 						if(item.getUrl().equals(actionURL) && item.getTitle()!=null) {
+							request.setAttribute("activeItem",item);
 							request.setAttribute("title",item.getTitle());
 							break;
 						}
