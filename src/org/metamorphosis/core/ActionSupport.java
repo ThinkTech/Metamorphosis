@@ -33,6 +33,16 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return (Map) ActionContext.getContext().get("application");
 	}
 	
+	public Object getAction(Module module,String url) throws Exception{
+		String reload = System.getenv("metamorphosis.reload");
+		ModuleManager moduleManager = getModuleManager();
+		return "true".equals(reload) ? moduleManager.buildAction(module,url) : moduleManager.buildAndCacheAction(module,url);
+	}
+	
+	public Object getAction(Module module) throws Exception{
+		return getAction(module,null);
+	}
+	
 	public ServletContext getContext() {
 		return getModuleManager().getServletContext();
 	}
