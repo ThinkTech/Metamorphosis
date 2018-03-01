@@ -262,8 +262,7 @@ public class ModuleManager implements DispatcherListener {
 		return null;
 	}
 
-	public Object buildAction(String url) throws Exception {
-		Module module = getCurrentModule();
+	public Object buildAction(Module module,String url) throws Exception {
 		if(module != null) {
 			Action action = module.getAction(url);
 			if(action != null && action.getScript() != null) {
@@ -299,7 +298,7 @@ public class ModuleManager implements DispatcherListener {
 		ServletContext context = getServletContext();
 		Object object = context.getAttribute(key);
 		 if(object==null) {
-          object = ModuleManager.getInstance().buildAction(url);
+          object = ModuleManager.getInstance().buildAction(module,url);
           if(object!=null) context.setAttribute(key,object);  
         }
         return object;
