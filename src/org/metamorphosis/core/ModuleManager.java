@@ -286,6 +286,25 @@ public class ModuleManager implements DispatcherListener {
 		return null;
 	}
 	
+	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
+		String key = url;
+		if(module!=null){
+			Action action = module.getAction(url);
+			if(action != null && action.getScript() != null) {
+				key = module.getUrl()+"/"+action.getScript();
+			}else{
+				key = module.getUrl()+"/"+module.getScript();
+			}
+		}
+		ServletContext context = getServletContext();
+		Object object = context.getAttribute(key);
+		 if(object==null) {
+          object = ModuleManager.getInstance().buildAction(url);
+          if(object!=null) context.setAttribute(key,object);  
+        }
+        return object;
+	}
+	
 	private GroovyScriptEngine getScriptEngine(File folder) throws MalformedURLException {
 		URL[] url = {folder.toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(url);
