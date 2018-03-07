@@ -23,10 +23,6 @@
      
      <default-class-ref class="org.metamorphosis.core.ActionSupport" />
      
-     <action name="index" class="org.metamorphosis.core.WelcomeAction">
-        <result type="tiles">index</result>
-     </action>
-     
      <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
           
       <action name="{module}" method="navigate">
