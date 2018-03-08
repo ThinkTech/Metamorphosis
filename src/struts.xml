@@ -22,8 +22,6 @@
      <default-interceptor-ref name="moduleStack"/>
      
      <default-class-ref class="org.metamorphosis.core.ActionSupport" />
-     
-     <action name="contact" class="org.metamorphosis.core.MailAction" method="sendMail"/>
           
       <action name="{module}" method="navigate">
 	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException"
