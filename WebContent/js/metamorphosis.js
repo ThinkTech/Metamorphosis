@@ -34,13 +34,12 @@ page.render = function(element, data) {
 
 page.wait = function(position) { 
 	const wait = $("#wait");
-	if(!position) {
-	  wait.css("height",$(document).height()).show();
-	}else {
-		if(position.top) wait.css("padding-top",position.top+"px");
-		if(position.left) wait.css("padding-left",position.left+"px");
-		wait.show();
+	wait.css("height",$('body').height()+"px");
+	if(position) {
+	   if(position.top) wait.css("padding-top",position.top+"px");
+	   if(position.left) wait.css("padding-left",position.left+"px");
 	}
+	wait.show();
 };
 
 page.release = function() { 
