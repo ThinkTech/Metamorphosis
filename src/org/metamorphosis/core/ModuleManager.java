@@ -19,12 +19,10 @@ import org.apache.tiles.Definition;
 import org.apache.tiles.access.TilesAccess;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
-
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.config.entities.PackageConfig;
 import com.opensymphony.xwork2.config.entities.ResultConfig;
-import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 
 public class ModuleManager implements DispatcherListener {
