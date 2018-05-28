@@ -270,14 +270,14 @@ public class ModuleManager implements DispatcherListener {
 				if(script.exists()) {
 					String name =  "scripts/" + script.getName();
 				    GroovyScriptEngine engine = getScriptEngine(module.getFolder());
-					return engine.run(name,new Binding());
+					return engine.loadScriptByName(name).newInstance();
 				}
 			}else{
 				File script = new File(module.getFolder() + "/scripts/" + module.getScript());
 				if(script.exists()) {
 					String name = "scripts/" + script.getName();
 					GroovyScriptEngine engine = getScriptEngine(module.getFolder());
-					return engine.run(name,new Binding());
+					return engine.loadScriptByName(name).newInstance();
 				}
 			}
 			return new ActionSupport();
