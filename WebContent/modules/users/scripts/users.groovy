@@ -24,5 +24,3 @@ class UserAction extends ActionSupport {
 	}
 	
 }
-
-new UserAction()
