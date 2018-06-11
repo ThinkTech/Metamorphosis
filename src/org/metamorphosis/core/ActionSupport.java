@@ -58,6 +58,13 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return null;
 	}
 	
+	public void sendMail(String name,String email,String subject,String content){
+		 MailConfig mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"));
+		 MailSender mailSender = new MailSender(mailConfig);
+		 Mail mail = new Mail(name,email,subject,content);
+		 mailSender.sendMail(mail);
+	}
+	
 	public ServletContext getContext() {
 		return getModuleManager().getServletContext();
 	}
