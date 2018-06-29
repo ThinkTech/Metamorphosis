@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -107,7 +108,6 @@ public class ModuleManager implements DispatcherListener {
 		digester.addBeanPropertySetter("module/copyright");
 		digester.addBeanPropertySetter("module/license");
 		digester.addBeanPropertySetter("module/version");
-		digester.addBeanPropertySetter("module/price");
 		digester.addObjectCreate("module/menus/menu", Menu.class);
 		digester.addSetProperties("module/menus/menu");
 		digester.addObjectCreate("module/menus/menu/menuItem", MenuItem.class);
@@ -308,8 +308,26 @@ public class ModuleManager implements DispatcherListener {
 		CompilerConfiguration configuration = new CompilerConfiguration();
 		ImportCustomizer importCustomizer = new ImportCustomizer();
 		importCustomizer.addImports("java.text.SimpleDateFormat");
-		importCustomizer.addStarImports("org.metamorphosis.core");
-		importCustomizer.addStarImports("groovy.json");
+		importCustomizer.addStarImports("org.metamorphosis.core","groovy.json");
+		ServletContext context = getServletContext();
+		String imports = context.getInitParameter("groovy.imports");
+		if(imports!=null && imports.indexOf(",")!=-1){
+			StringTokenizer st = new StringTokenizer(imports);
+			while(st.hasMoreTokens()){
+				importCustomizer.addImports(st.nextToken());
+			}
+		}else if(imports!=null){
+			importCustomizer.addImports(imports);
+		}
+		String starImports = context.getInitParameter("groovy.starImports");
+		if(starImports!=null && starImports.indexOf(",")!=-1){
+			StringTokenizer st = new StringTokenizer(starImports);
+			while(st.hasMoreTokens()){
+				importCustomizer.addStarImports(st.nextToken());
+			}
+		}else if(starImports!=null) {
+			importCustomizer.addStarImports(starImports);
+		}
 		configuration.addCompilationCustomizers(importCustomizer);
 		engine.setConfig(configuration);
 		return engine;
