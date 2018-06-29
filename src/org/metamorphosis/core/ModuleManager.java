@@ -312,7 +312,7 @@ public class ModuleManager implements DispatcherListener {
 		ServletContext context = getServletContext();
 		String imports = context.getInitParameter("groovy.imports");
 		if(imports!=null && imports.indexOf(",")!=-1){
-			StringTokenizer st = new StringTokenizer(imports);
+			StringTokenizer st = new StringTokenizer(imports,",");
 			while(st.hasMoreTokens()){
 				importCustomizer.addImports(st.nextToken());
 			}
@@ -321,7 +321,7 @@ public class ModuleManager implements DispatcherListener {
 		}
 		String starImports = context.getInitParameter("groovy.starImports");
 		if(starImports!=null && starImports.indexOf(",")!=-1){
-			StringTokenizer st = new StringTokenizer(starImports);
+			StringTokenizer st = new StringTokenizer(starImports,",");
 			while(st.hasMoreTokens()){
 				importCustomizer.addStarImports(st.nextToken());
 			}
