@@ -25,9 +25,6 @@ public class StartupListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		ServletContext context = event.getServletContext();
 		context.setAttribute("path",context.getContextPath()+"/");
-		context.setAttribute("app_name",context.getInitParameter("app_name"));
-		context.setAttribute("app_title",context.getInitParameter("app_title"));
-		context.setAttribute("app_description",context.getInitParameter("app_description"));
 		String root = new File(context.getRealPath("/")).getAbsolutePath();
 		FilterRegistration struts2 = context.addFilter("struts2", org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.class);
 		struts2.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true, "/*");
@@ -56,22 +53,13 @@ public class StartupListener implements ServletContextListener {
 	}
 	
 	private String loadModules(ServletContext context,String root,StringBuffer buffer) {
-		String config = "struts-custom.xml,struts-plugin.xml,struts.xml";
-		ModuleManager moduleManager = new ModuleManager(context);
+	    String config = "struts-custom.xml,struts-plugin.xml,struts.xml";
+	    ModuleManager moduleManager = new ModuleManager(context);
 		moduleManager.loadModules(new File(root+"/modules"));
 		Dispatcher.addDispatcherListener(moduleManager);
-		TemplateManager templateManager = (TemplateManager) context.getAttribute("templateManager");
-		if(templateManager.getTemplates().size()>0){
-			for(Module module : moduleManager.getModules()) {
-				buffer.append(","+createModuleTiles(module));
-				config +=","+createModuleConfig(module);
-			}
-		}else{
-			for(Module module : moduleManager.getModules()) {
-				module.setType(null);
-				buffer.append(","+createModuleTiles(module));
-				config +=","+createModuleConfig(module);
-			}
+		for(Module module : moduleManager.getModules()) {
+			buffer.append(","+createModuleTiles(module));
+			config +=","+createModuleConfig(module);
 		}
 		context.setAttribute("moduleManager",moduleManager);
 		return config;
@@ -113,13 +101,8 @@ public class StartupListener implements ServletContextListener {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN' "+
 				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>";
-				if(module.getType()!=null) {
-				  content +="<tiles-definitions><definition name='"+module.getUrl()+"' extends='"+module.getType()+"'>";
-				}else{
-			      content +="<tiles-definitions><definition name='"+module.getUrl()+"'>";	
-				}
-				content +="<put-attribute name='content' value='/modules/"+module.getId()+"/"+module.getIndexPage()+"'/>";
-				content +="</definition>";
+		content +="<tiles-definitions><definition name='"+module.getUrl()+"' extends='"+module.getType()+"'>";
+		content +="<put-attribute name='content' value='/modules/"+module.getId()+"/"+module.getIndexPage()+"'/>";
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
 			if(file.isFile() && (name.endsWith(".jsp") || name.endsWith(".html"))) {
@@ -128,7 +111,8 @@ public class StartupListener implements ServletContextListener {
 				content+="<put-attribute name='content' value='/modules/"+module.getId()+"/"+name+"'/>";
 				content+="</definition>";
 			}
-		}
+	    }
+		content +="</definition>";
 		content +="</tiles-definitions>";
 		File temp=null;
 		try {
@@ -157,7 +141,9 @@ public class StartupListener implements ServletContextListener {
 				if(!item.getUrl().equals(module.getUrl())) {
 					String url = item.getUrl().substring(module.getUrl().length()+1);
 					content+="<action name='"+url+"'>";
-					content+="<result name='success' type='tiles'>"+item.getUrl()+"</result>";
+					if(module.getType()!=null){
+						content+="<result name='success' type='tiles'>"+item.getUrl()+"</result>";
+					}
 					content+="<result name='error' type='redirect'>/</result>";
 					content+="</action>";
 				}
@@ -165,13 +151,17 @@ public class StartupListener implements ServletContextListener {
 		}
 		for(Action action : module.getActions()) {
 			content+="<action name='"+action.getUrl()+"' class='"+action.getClassName()+"' method='"+action.getMethod()+"'>";
-			for(Result result : action.getResults()) {
-				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
-					result.setValue(module.getUrl()+"/"+result.getValue());
+			if(module.getType()!=null){
+				for(Result result : action.getResults()) {
+					if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
+						result.setValue(module.getUrl()+"/"+result.getValue());
+					}
+					content+="<result name='"+result.getName()+"' type='"+result.getType()+"'>"+result.getValue();
+					content+="</result>";
+					content+="<result name='error' type='redirect'>/</result>";
 				}
-				content+="<result name='"+result.getName()+"' type='"+result.getType()+"'>"+result.getValue();
-				content+="</result>";
-				content+="<result name='error' type='redirect'>/</result>";
+			}else{
+				content+="<result name='error'>/</result>";
 			}
 			content+="</action>";
 		}
