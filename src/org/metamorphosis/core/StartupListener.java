@@ -41,14 +41,17 @@ public class StartupListener implements ServletContextListener {
 	}
 	
 	private String loadTemplates(ServletContext context,String root) {
-		TemplateManager templateManager = new TemplateManager();
-		context.setAttribute("templateManager",templateManager);
-		templateManager.loadTemplates(new File(root+"/templates"));
+		File folder = new File(root+"/templates");
 		String tilesDefinitions="";
-		Template template = templateManager.getBackendTemplate(null);
-		if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
-		template = templateManager.getFrontendTemplate(null);
-		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(root,template);
+		if(folder.exists()){
+			TemplateManager templateManager = new TemplateManager();
+			context.setAttribute("templateManager",templateManager);
+			templateManager.loadTemplates(folder);
+			Template template = templateManager.getBackendTemplate(null);
+			if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
+			template = templateManager.getFrontendTemplate(null);
+			if(template!=null) tilesDefinitions += ","+ createTemplateTiles(root,template);
+		}
 		return tilesDefinitions;
 	}
 	
@@ -57,10 +60,12 @@ public class StartupListener implements ServletContextListener {
 		ModuleManager moduleManager = new ModuleManager(context);
 		moduleManager.loadModules(new File(root+"/modules"));
 		Dispatcher.addDispatcherListener(moduleManager);
-		for(Module module : moduleManager.getModules()) {
-			buffer.append(","+createModuleTiles(module));
-			config +=","+createModuleConfig(module);
-			if(module.getId().equals("users")) context.setAttribute("security",true);
+		TemplateManager templateManager = (TemplateManager) context.getAttribute("templateManager");
+		if(templateManager.getTemplates().size()>0){
+			for(Module module : moduleManager.getModules()) {
+				buffer.append(","+createModuleTiles(module));
+				config +=","+createModuleConfig(module);
+			}
 		}
 		context.setAttribute("moduleManager",moduleManager);
 		return config;
