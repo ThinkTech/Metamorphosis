@@ -40,26 +40,24 @@ public class StartupListener implements ServletContextListener {
 	private String loadTemplates(ServletContext context,String root) {
 		TemplateManager templateManager = new TemplateManager();
 		context.setAttribute("templateManager",templateManager);
-		File folder = new File(root+"/templates");
+		templateManager.loadTemplates(new File(root+"/templates"));
 		String tilesDefinitions="";
-		if(folder.exists()){
-			templateManager.loadTemplates(folder);
-			Template template = templateManager.getBackendTemplate(null);
-			if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
-			template = templateManager.getFrontendTemplate(null);
-			if(template!=null) tilesDefinitions += ","+ createTemplateTiles(root,template);
-		}
+		Template template = templateManager.getBackendTemplate(null);
+		if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
+		template = templateManager.getFrontendTemplate(null);
+		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(root,template);
 		return tilesDefinitions;
 	}
 	
 	private String loadModules(ServletContext context,String root,StringBuffer buffer) {
-	    String config = "struts-custom.xml,struts-plugin.xml,struts.xml";
-	    ModuleManager moduleManager = new ModuleManager(context);
+		String config = "struts-custom.xml,struts-plugin.xml,struts.xml";
+		ModuleManager moduleManager = new ModuleManager(context);
 		moduleManager.loadModules(new File(root+"/modules"));
 		Dispatcher.addDispatcherListener(moduleManager);
 		for(Module module : moduleManager.getModules()) {
 			buffer.append(","+createModuleTiles(module));
 			config +=","+createModuleConfig(module);
+			if(module.getId().equals("users")) context.setAttribute("security",true);
 		}
 		context.setAttribute("moduleManager",moduleManager);
 		return config;
@@ -100,9 +98,10 @@ public class StartupListener implements ServletContextListener {
 	private String createModuleTiles(Module module) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN' "+
-				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>";
-		content +="<tiles-definitions><definition name='"+module.getUrl()+"' extends='"+module.getType()+"'>";
-		content +="<put-attribute name='content' value='/modules/"+module.getId()+"/"+module.getIndexPage()+"'/>";
+				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>"+
+				"<tiles-definitions><definition name='"+module.getUrl()+"' extends='"+module.getType()+"'>"+
+				"<put-attribute name='content' value='/modules/"+module.getId()+"/"+module.getIndexPage()+"'/>"+
+				"</definition>";
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
 			if(file.isFile() && (name.endsWith(".jsp") || name.endsWith(".html"))) {
@@ -111,8 +110,7 @@ public class StartupListener implements ServletContextListener {
 				content+="<put-attribute name='content' value='/modules/"+module.getId()+"/"+name+"'/>";
 				content+="</definition>";
 			}
-	    }
-		content +="</definition>";
+		}
 		content +="</tiles-definitions>";
 		File temp=null;
 		try {
@@ -141,9 +139,7 @@ public class StartupListener implements ServletContextListener {
 				if(!item.getUrl().equals(module.getUrl())) {
 					String url = item.getUrl().substring(module.getUrl().length()+1);
 					content+="<action name='"+url+"'>";
-					if(module.getType()!=null){
-						content+="<result name='success' type='tiles'>"+item.getUrl()+"</result>";
-					}
+					content+="<result name='success' type='tiles'>"+item.getUrl()+"</result>";
 					content+="<result name='error' type='redirect'>/</result>";
 					content+="</action>";
 				}
@@ -151,17 +147,13 @@ public class StartupListener implements ServletContextListener {
 		}
 		for(Action action : module.getActions()) {
 			content+="<action name='"+action.getUrl()+"' class='"+action.getClassName()+"' method='"+action.getMethod()+"'>";
-			if(module.getType()!=null){
-				for(Result result : action.getResults()) {
-					if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
-						result.setValue(module.getUrl()+"/"+result.getValue());
-					}
-					content+="<result name='"+result.getName()+"' type='"+result.getType()+"'>"+result.getValue();
-					content+="</result>";
-					content+="<result name='error' type='redirect'>/</result>";
+			for(Result result : action.getResults()) {
+				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
+					result.setValue(module.getUrl()+"/"+result.getValue());
 				}
-			}else{
-				content+="<result name='error'>/</result>";
+				content+="<result name='"+result.getName()+"' type='"+result.getType()+"'>"+result.getValue();
+				content+="</result>";
+				content+="<result name='error' type='redirect'>/</result>";
 			}
 			content+="</action>";
 		}
