@@ -26,8 +26,11 @@ public class TemplateManager {
 					loadTemplate(folder);
 				}
 			}
+			String reload = System.getenv("metamorphosis.reload");
+			if("true".equals(reload)){
+				monitorRoot(root);
+			}
 		}
-		monitorRoot(root);
 	}
 
 	public Template loadTemplate(File folder) {

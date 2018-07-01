@@ -50,7 +50,10 @@ public class ModuleManager implements DispatcherListener {
 		  for(File folder : files) {
 			if(folder.isDirectory()) loadModule(folder);
 		  }
-		  monitorRoot(root);
+		  String reload = System.getenv("metamorphosis.reload");
+		  if("true".equals(reload)){
+			 monitorRoot(root);
+	      }
 		}
 	}
 
