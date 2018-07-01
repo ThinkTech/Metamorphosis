@@ -68,7 +68,7 @@ public class StartupListener implements ServletContextListener {
 			}
 		}else{
 			for(Module module : moduleManager.getModules()) {
-				module.setType("");
+				module.setType(null);
 				buffer.append(","+createModuleTiles(module));
 				config +=","+createModuleConfig(module);
 			}
@@ -112,10 +112,14 @@ public class StartupListener implements ServletContextListener {
 	private String createModuleTiles(Module module) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN' "+
-				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>"+
-				"<tiles-definitions><definition name='"+module.getUrl()+"' extends='"+module.getType()+"'>"+
-				"<put-attribute name='content' value='/modules/"+module.getId()+"/"+module.getIndexPage()+"'/>"+
-				"</definition>";
+				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>";
+				if(module.getType()!=null) {
+				  content +="<tiles-definitions><definition name='"+module.getUrl()+"' extends='"+module.getType()+"'>";
+				}else{
+			      content +="<tiles-definitions><definition name='"+module.getUrl()+"'>";	
+				}
+				content +="<put-attribute name='content' value='/modules/"+module.getId()+"/"+module.getIndexPage()+"'/>";
+				content +="</definition>";
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
 			if(file.isFile() && (name.endsWith(".jsp") || name.endsWith(".html"))) {
