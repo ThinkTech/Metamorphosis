@@ -41,11 +41,11 @@ public class StartupListener implements ServletContextListener {
 	}
 	
 	private String loadTemplates(ServletContext context,String root) {
+		TemplateManager templateManager = new TemplateManager();
+		context.setAttribute("templateManager",templateManager);
 		File folder = new File(root+"/templates");
 		String tilesDefinitions="";
 		if(folder.exists()){
-			TemplateManager templateManager = new TemplateManager();
-			context.setAttribute("templateManager",templateManager);
 			templateManager.loadTemplates(folder);
 			Template template = templateManager.getBackendTemplate(null);
 			if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
