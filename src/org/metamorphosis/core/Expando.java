@@ -77,4 +77,10 @@ public class Expando extends groovy.util.Expando implements Map<Object,Object>{
 		return map.entrySet();
 	}
 	
+	@Override
+	public void setProperty(String property,Object newValue){
+		super.setProperty(property, newValue);
+		map.put(property, newValue);
+	}
+	
 }
