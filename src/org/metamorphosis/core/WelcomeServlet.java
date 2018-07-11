@@ -20,7 +20,7 @@ public class WelcomeServlet extends HttpServlet {
 			request.getRequestDispatcher("index").forward(request, response);
 	}
 	
-	public Module getHomeModule() {
+	private Module getHomeModule() {
 		ModuleManager moduleManager = ModuleManager.getInstance();
 		List<Module> modules = moduleManager.getFrontendModules();
 		for(Module module : modules) if(module.isMain()) return module;
