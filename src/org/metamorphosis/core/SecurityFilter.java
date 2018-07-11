@@ -24,6 +24,15 @@ public class SecurityFilter implements Filter {
 			HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 			httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
 		}else {
+			String forceHttps = System.getenv("metamorphosis.forceHttps");
+			if("true".equals(forceHttps)){
+				String header = httpServletRequest.getHeader("X-Forwarded-Proto");
+				if(header!=null && header.indexOf("https")!=0) {
+					HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+					httpServletResponse.sendRedirect("https://" + request.getServerName() + requestPath);
+			        return;
+			    }
+			}
 			chain.doFilter(request, response);
 		}
 	}
