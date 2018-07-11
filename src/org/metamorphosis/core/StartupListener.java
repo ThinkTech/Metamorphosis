@@ -72,15 +72,6 @@ public class StartupListener implements ServletContextListener {
 			content += "<definition name='index' extends='"+template.getType()+"'>";
 			content+="<put-attribute name='content' value='/index.jsp'/>";
 			content+="</definition>";
-			content += "<definition name='login' extends='"+template.getType()+"'>";
-			content+="<put-attribute name='content' value='/templates/"+template.getId()+"/login.jsp'/>";
-			content+="</definition>";
-			content += "<definition name='password/reset' extends='"+template.getType()+"'>";
-			content+="<put-attribute name='content' value='/templates/"+template.getId()+"/reset.jsp'/>";
-			content+="</definition>";
-			content += "<definition name='password/change' extends='"+template.getType()+"'>";
-			content+="<put-attribute name='content' value='/templates/"+template.getId()+"/change.jsp'/>";
-			content+="</definition>";
 		}
 		content +="</tiles-definitions>";
 		File temp=null;
