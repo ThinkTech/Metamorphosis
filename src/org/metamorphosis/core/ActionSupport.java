@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
-
 import groovy.json.JsonSlurper;
 
 @SuppressWarnings("serial")
