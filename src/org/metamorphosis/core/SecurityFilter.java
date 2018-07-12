@@ -19,8 +19,7 @@ public class SecurityFilter implements Filter {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String requestPath = httpServletRequest.getRequestURI();
-		if(requestPath.indexOf(".groovy")!=-1 || requestPath.indexOf("module.xml")!=-1 
-				|| requestPath.indexOf(".jsp")!=-1){
+		if(requestPath.indexOf(".groovy")!=-1 || requestPath.indexOf("module.xml")!=-1 || requestPath.indexOf(".jsp")!=-1) {
 			httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
 		}else {
 			String forceHttps = System.getenv("metamorphosis.forceHttps");
