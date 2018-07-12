@@ -119,7 +119,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public void json(Object object) throws IOException{
-		getResponse().setContentType("application/json");
+		getResponse().setHeader("Content-Type", "application/json");
 		write(groovy.json.JsonOutput.toJson(object));
 	}
 	
