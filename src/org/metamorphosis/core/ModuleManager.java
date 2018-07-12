@@ -122,10 +122,6 @@ public class ModuleManager implements DispatcherListener {
 		digester.addSetProperties("module/actions/action", "class", "className");
 		digester.addObjectCreate("module/actions/action/result", Result.class);
 		digester.addSetProperties("module/actions/action/result");
-		digester.addObjectCreate("module/actions/action/result/param", Parameter.class);
-		digester.addSetProperties("module/actions/action/result/param");
-		digester.addSetNext("module/actions/action/result/param", "addParameter");
-		digester.addCallMethod("module/actions/action/result/param", "setValue", 0);
 		digester.addSetNext("module/actions/action/result", "addResult");
 		digester.addCallMethod("module/actions/action/result", "setValue", 0);
 		digester.addSetNext("module/actions/action", "addAction");
@@ -416,9 +412,6 @@ public class ModuleManager implements DispatcherListener {
 					}
 					if(resultBuilder != null) {
 						resultBuilder.addParam("location", result.getValue());
-						for(Parameter parameter : result.getParameters()) {
-							resultBuilder.addParam(parameter.getName(),parameter.getValue());
-						}
 						actionBuilder.addResultConfig(resultBuilder.build());
 					}
 				}
