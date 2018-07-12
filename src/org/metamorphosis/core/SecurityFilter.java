@@ -15,22 +15,20 @@ import javax.servlet.http.HttpServletResponse;
 public class SecurityFilter implements Filter {
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String requestPath = httpServletRequest.getRequestURI();
 		if(requestPath.indexOf(".groovy")!=-1 || requestPath.indexOf("module.xml")!=-1 
 				|| requestPath.indexOf(".jsp")!=-1){
-			HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 			httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
 		}else {
 			String forceHttps = System.getenv("metamorphosis.forceHttps");
 			if("true".equals(forceHttps)){
 				String header = httpServletRequest.getHeader("X-Forwarded-Proto");
 				if(header!=null && header.indexOf("https")!=0) {
-					HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 					httpServletResponse.sendRedirect("https://" + request.getServerName() + requestPath);
-			        return;
+					return;
 			    }
 			}
 			chain.doFilter(request, response);
