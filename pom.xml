@@ -19,7 +19,7 @@
 				<directory>WebContent/css</directory>
 				<targetPath>META-INF</targetPath>
 				<includes>
-					<include>metamorphosis.css</include>
+					<include>metamorphosis.min.css</include>
 				</includes>
 			</resource>
 			<resource>
@@ -27,7 +27,7 @@
 				<targetPath>META-INF</targetPath>
 				<includes>
 					<include>jquery-3.1.1.min.js</include>
-					<include>metamorphosis.js</include>
+					<include>metamorphosis.min.js</include>
 					<include>dust-full.min.js</include>
 				</includes>
 			</resource>
