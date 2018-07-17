@@ -18,6 +18,8 @@ public class WelcomeServlet extends HttpServlet {
 			request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 		else
 			request.getRequestDispatcher("index").forward(request, response);
+		String cache = System.getenv("metamorphosis.cache");
+		if(cache!=null) response.setHeader("Cache-control", "private, max-age="+cache);
 	}
 	
 	private Module getHomeModule() {
