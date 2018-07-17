@@ -87,7 +87,8 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public String getBaseUrl() {
 		HttpServletRequest request = getRequest();
-	    String scheme = request.getScheme() + "://";
+	    String header = request.getHeader("X-Forwarded-Proto");
+	    String scheme = header!=null && header.indexOf("https")!=0 ? "https://" : "http://";
 	    String serverName = request.getServerName();
 	    String serverPort = (request.getServerPort() == 80) ? "" : ":" + request.getServerPort();
 	    String contextPath = request.getContextPath();
