@@ -2,14 +2,17 @@ package org.metamorphosis.core;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.digester.Digester;
 
 public class TemplateManager {
 
-	private List<Template> templates = new ArrayList<Template>();
+	private Map<String,Template> templates = new HashMap<String,Template>();
 	private Logger logger = Logger.getLogger(TemplateManager.class.getName());
 	private static TemplateManager instance;
 	private static final String TEMPLATE_METADATA = "template.xml";
@@ -141,7 +144,7 @@ public class TemplateManager {
 			template = parse(new File(folder + "/" + TEMPLATE_METADATA));
 			template.setFolder(folder);
 			template.setIndex(index);
-			templates.set(index, template);
+			templates.put(template.getId(), template);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -149,7 +152,7 @@ public class TemplateManager {
 
 	public void addTemplate(Template template) {
 		template.setIndex(templates.size());
-		templates.add(template);
+		templates.put(template.getId(),template);
 	}
 
 	public void removeTemplate(Template template) {
@@ -157,6 +160,7 @@ public class TemplateManager {
 	}
 
 	public Template getTemplate(String id) {
+		Collection<Template> templates = getTemplates();
 		for (Template template : templates) {
 			if (template.getId().equals(id))
 				return template;
@@ -165,6 +169,7 @@ public class TemplateManager {
 	}
 
 	public Template getBackendTemplate(String id) {
+		Collection<Template> templates = getTemplates();
 		Template template = getTemplate(id);
 		if (template != null && template.isBackend())
 			return template;
@@ -180,6 +185,7 @@ public class TemplateManager {
 	}
 
 	public Template getFrontendTemplate(String id) {
+		Collection<Template> templates = getTemplates();
 		Template template = getTemplate(id);
 		if (template != null && template.isFrontend())
 			return template;
@@ -194,16 +200,13 @@ public class TemplateManager {
 		return null;
 	}
 
-	public void setTemplates(List<Template> templates) {
-		this.templates = templates;
-	}
-
-	public List<Template> getTemplates() {
-		return templates;
+	public Collection<Template> getTemplates() {
+		return templates.values();
 	}
 	
 	public List<Template> getBackendTemplates() {
 		List<Template> list = new ArrayList<Template>();
+		Collection<Template> templates = getTemplates();
 		for (Template current : templates) {
 			if (current.isBackend()) list.add(current);
 		}
@@ -212,6 +215,7 @@ public class TemplateManager {
 	
 	public List<Template> getFrontendTemplates() {
 		List<Template> list = new ArrayList<Template>();
+		Collection<Template> templates = getTemplates();
 		for (Template current : templates) {
 			if (current.isFrontend()) list.add(current);
 		}

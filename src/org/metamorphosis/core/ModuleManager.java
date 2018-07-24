@@ -4,8 +4,11 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +31,7 @@ import groovy.util.GroovyScriptEngine;
 
 public class ModuleManager implements DispatcherListener {
 
-	private List<Module> modules = new ArrayList<Module>();
+	private Map<String,Module> modules = new HashMap<String,Module>();
 	private Logger logger = Logger.getLogger(ModuleManager.class.getName());
 	private Configuration configuration;
 	private ServletContext servletContext;
@@ -241,6 +244,7 @@ public class ModuleManager implements DispatcherListener {
 	}
 
 	public Module getModuleByUrl(String url) {
+		Collection<Module> modules = getModules(); 
 		for(Module module : modules) {
 			if(url.equals("/") && module.isMain() && module.isFrontend()) {
 				return module;
@@ -253,6 +257,7 @@ public class ModuleManager implements DispatcherListener {
 	}
 	
 	public Module getModuleByName(String name) {
+		Collection<Module> modules = getModules(); 
 		for(Module module : modules) {
 			if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
 		}
@@ -333,6 +338,7 @@ public class ModuleManager implements DispatcherListener {
 	}
 
 	public Module getModuleById(String id) {
+		Collection<Module> modules = getModules(); 
 		for(Module module : modules) {
 			if(module.getId().equals(id)) return module;
 		}
@@ -341,11 +347,11 @@ public class ModuleManager implements DispatcherListener {
 
 	public void addModule(Module module) {
 		module.setIndex(modules.size());
-		modules.add(module);
+		modules.put(module.getId(),module);
 	}
 	
 	public void removeModule(Module module) {
-		modules.remove(module.getIndex());
+		modules.remove(module.getId());
 		configuration.removePackageConfig(module.getId());
 		configuration.rebuildRuntimeConfiguration();
 	}
@@ -360,7 +366,7 @@ public class ModuleManager implements DispatcherListener {
 			module.setFolder(folder);
 			module.setIndex(index);
 			initModule(module);
-			modules.set(index, module);
+			modules.put(id,module);
 			configuration.removePackageConfig(id);
 			PackageConfig.Builder packageBuilder = new PackageConfig.Builder(module.getId());
 			packageBuilder.namespace("/" + module.getUrl());
@@ -427,16 +433,13 @@ public class ModuleManager implements DispatcherListener {
 		}
 	}
 
-	public List<Module> getModules() {
-		return modules;
-	}
-
-	public void setModules(List<Module> modules) {
-		this.modules = modules;
+	public Collection<Module> getModules() {
+		return modules.values();
 	}
 
 	public List<Module> getVisibleModules(String type) {
 		List<Module> visibles = new ArrayList<Module>();
+		Collection<Module> modules = getModules(); 
 		for(Module module : modules) {
 			if(module.isVisible() && module.getType().equals(type)) {
 				visibles.add(module);
@@ -446,32 +449,36 @@ public class ModuleManager implements DispatcherListener {
 	}
 
 	public List<Module> getAdminModules() {
-		List<Module> modules = new ArrayList<Module>();
-		for(Module module : this.modules) {
-			if(module.isAdministrable()) modules.add(module);
+		List<Module> admins = new ArrayList<Module>();
+		Collection<Module> modules = getModules(); 
+		for(Module module : modules) {
+			if(module.isAdministrable()) admins.add(module);
 		}
-		return modules;
+		return admins;
 	}
 	
 	public List<Module> getFrontendModules() {
-		List<Module> modules = new ArrayList<Module>();
-		for(Module module : this.modules) {
-			if(module.isFrontend()) modules.add(module);
+		List<Module> list = new ArrayList<Module>();
+		Collection<Module> modules = getModules(); 
+		for(Module module : modules) {
+			if(module.isFrontend()) list.add(module);
 		}
-		Collections.sort(modules);
-		return modules;
+		Collections.sort(list);
+		return list;
 	}
 	
 	public List<Module> getBackendModules() {
-		List<Module> modules = new ArrayList<Module>();
-		for(Module module : this.modules) {
-			if(module.isBackend()) modules.add(module);
+		List<Module> list = new ArrayList<Module>();
+		Collection<Module> modules = getModules();
+		for(Module module : modules) {
+			if(module.isBackend()) list.add(module);
 		}
-		Collections.sort(modules);
-		return modules;
+		Collections.sort(list);
+		return list;
 	}
 
 	public Module getMain() {
+		Collection<Module> modules = getModules();
 		for(Module module : modules) {
 			if(module.isMain() && module.isBackend()) {
 				return module;

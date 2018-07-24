@@ -1,6 +1,7 @@
 package org.metamorphosis.core;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
@@ -48,7 +49,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public Object getService(String service) throws Exception{
 		ModuleManager moduleManager = getModuleManager();
-		List<Module> modules = moduleManager.getModules();
+		Collection<Module> modules = moduleManager.getModules();
 		for(Module module : modules){
 			if(module.getName().equalsIgnoreCase(service)){
 				return getAction(module,null);
