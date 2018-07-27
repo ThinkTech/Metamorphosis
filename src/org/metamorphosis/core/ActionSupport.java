@@ -125,6 +125,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		write(groovy.json.JsonOutput.toJson(object));
 	}
 	
+	public String stringify(Object object) throws IOException{
+		return groovy.json.JsonOutput.toJson(object);
+	}
+	
 	public Object parse(HttpServletRequest request) throws IOException{
 		return new JsonSlurper().parse(request.getInputStream());
 	}
