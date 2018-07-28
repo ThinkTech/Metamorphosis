@@ -1,6 +1,7 @@
 package org.metamorphosis.core;
 
 import javax.mail.PasswordAuthentication;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -9,6 +10,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MailSender {
 	 
@@ -22,10 +24,14 @@ public class MailSender {
     }
     
     public void sendMail(Mail mail)  {
-    	sendMail(mail,false);
+    	try {
+			sendMail(mail,false);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
     }
     
-    public void sendMail(Mail mail,boolean cc)  {
+    public void sendMail(Mail mail,boolean cc) throws UnsupportedEncodingException  {
         Session session = Session.getInstance(config.getProperties(),
       		  new Authenticator() {
       			protected PasswordAuthentication getPasswordAuthentication() {
@@ -42,7 +48,7 @@ public class MailSender {
 	        	message.setRecipients(Message.RecipientType.TO,
 	        			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
 	        }
-	        message.setSubject(mail.getSubject(),"UTF-8");
+	        message.setSubject(StringEscapeUtils.unescapeHtml4(mail.getSubject()));
 	        message.setContent(mail.getContent(),"text/html");
 	        message.setSentDate(new Date());
 	        Thread thread = new Thread(new Runnable() {
