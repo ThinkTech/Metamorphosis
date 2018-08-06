@@ -1,6 +1,7 @@
 package org.metamorphosis.core;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -131,6 +132,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public Object parse(HttpServletRequest request) throws IOException{
 		return new JsonSlurper().parse(request.getInputStream());
+	}
+	
+	public Object parse(InputStream inputStream) throws IOException{
+		return new JsonSlurper().parse(inputStream);
 	}
 	
 	public Object getDataSource(){
