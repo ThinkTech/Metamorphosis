@@ -307,13 +307,13 @@ public class ModuleManager implements DispatcherListener {
 	}
 	
 	private GroovyScriptEngine getScriptEngine(File folder) throws MalformedURLException {
-		URL[] url = {folder.toURI().toURL()};
+		ServletContext context = getServletContext();
+		URL[] url = {folder.toURI().toURL(), new File(context.getRealPath("/")+"/scripts").toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(url);
 		CompilerConfiguration configuration = new CompilerConfiguration();
 		ImportCustomizer importCustomizer = new ImportCustomizer();
 		importCustomizer.addImports("java.text.SimpleDateFormat");
 		importCustomizer.addStarImports("org.metamorphosis.core","groovy.json");
-		ServletContext context = getServletContext();
 		String imports = context.getInitParameter("groovy.imports");
 		if(imports!=null && imports.indexOf(",")!=-1){
 			StringTokenizer st = new StringTokenizer(imports,",");
