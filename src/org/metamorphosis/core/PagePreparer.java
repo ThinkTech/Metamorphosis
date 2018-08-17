@@ -14,14 +14,12 @@ public class PagePreparer implements ViewPreparer {
 		try {
 			ModuleManager moduleManager = ModuleManager.getInstance();
 			TemplateManager templateManager = TemplateManager.getInstance();
-			String id = (String) tilesContext.getSessionScope().get("template");
-			Template template = templateManager.getTemplate(id);
 			Module module = moduleManager.getCurrentModule();
 			if(module!=null && module.isBackend()) {
-				template = template!=null && template.isBackend() ? template : templateManager.getBackendTemplate(null);
+				Template template = templateManager.getBackendTemplate(null);
 				tilesContext.dispatch(template.getIndexPage());
 			}else {
-				template = templateManager.getFrontendTemplate(null);
+				Template template = templateManager.getFrontendTemplate(null);
 				tilesContext.dispatch(template.getIndexPage());
 			}
 		} catch (IOException e) {

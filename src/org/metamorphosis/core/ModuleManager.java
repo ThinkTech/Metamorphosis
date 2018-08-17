@@ -373,7 +373,7 @@ public class ModuleManager implements DispatcherListener {
 			packageBuilder.addParent(configuration.getPackageConfig("root"));
 			for(Menu menu : module.getMenus()) {
 				for(MenuItem item : menu.getMenuItems()) {
-					if(!item.getUrl().equals(module.getUrl())) {
+					if(!item.getUrl().equals(module.getUrl())){
 						String url = item.getUrl().substring(module.getUrl().length() + 1);
 						ActionConfig.Builder actionBuilder = new ActionConfig.Builder(url, url, null);
 						ResultConfig.Builder resultBuilder = new ResultConfig.Builder("success",
@@ -389,15 +389,25 @@ public class ModuleManager implements DispatcherListener {
 					}
 				}
 			}
+			ActionConfig.Builder actionBuilder = new ActionConfig.Builder("index", "index","");
+			ResultConfig.Builder resultBuilder = new ResultConfig.Builder("success",
+					"org.apache.struts2.views.tiles.TilesResult");
+			resultBuilder.addParam("location", module.getUrl()+"/index");
+			actionBuilder.addResultConfig(resultBuilder.build());
+			resultBuilder = new ResultConfig.Builder("error",
+					"org.apache.struts2.dispatcher.ServletRedirectResult");
+			resultBuilder.addParam("location", "/");
+			actionBuilder.addResultConfig(resultBuilder.build());
+			packageBuilder.addActionConfig("index",actionBuilder.build());
 			for(Action action : module.getActions()) {
-				ActionConfig.Builder actionBuilder = new ActionConfig.Builder(action.getUrl(), action.getUrl(),
+				actionBuilder = new ActionConfig.Builder(action.getUrl(), action.getUrl(),
 						action.getClassName());
 				actionBuilder.methodName(action.getMethod());
 				for(Result result : action.getResults()) {
 					if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
 						result.setValue(module.getUrl() + "/" + result.getValue());
 					}
-					ResultConfig.Builder resultBuilder = new ResultConfig.Builder("error",
+					resultBuilder = new ResultConfig.Builder("error",
 							"org.apache.struts2.dispatcher.ServletRedirectResult");
 					resultBuilder.addParam("location", "/");
 					actionBuilder.addResultConfig(resultBuilder.build());
@@ -421,8 +431,7 @@ public class ModuleManager implements DispatcherListener {
 						actionBuilder.addResultConfig(resultBuilder.build());
 					}
 				}
-				ActionConfig actionConfig = actionBuilder.build();
-				packageBuilder.addActionConfig(action.getUrl(), actionConfig);
+				packageBuilder.addActionConfig(action.getUrl(), actionBuilder.build());
 			}
 			PackageConfig packageConfig = packageBuilder.build();
 			configuration.addPackageConfig(module.getId(), packageConfig);
