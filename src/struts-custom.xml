@@ -97,7 +97,6 @@
             <result-type name="dispatcher" class="org.apache.struts2.dispatcher.ServletDispatcherResult" default="true"/>
             <result-type name="redirect" class="org.apache.struts2.dispatcher.ServletRedirectResult"/>
             <result-type name="redirectAction" class="org.apache.struts2.dispatcher.ServletActionRedirectResult"/>
-            <result-type name="stream" class="org.apache.struts2.dispatcher.StreamResult"/>
         </result-types>
 
         <interceptors>
