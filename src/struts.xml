@@ -24,8 +24,7 @@
      <default-class-ref class="org.metamorphosis.core.ActionSupport" />
           
       <action name="{module}" method="navigate">
-	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException"
-	        result="error" />
+	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException" result="error" />
             <result name="success" type="tiles">{1}</result>
             <result name="error" type="redirect">/</result>
       </action>
