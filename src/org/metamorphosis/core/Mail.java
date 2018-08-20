@@ -8,7 +8,6 @@ public class Mail {
 	private String content;
 	
 	public Mail() {
-		
 	}
 	
 	public Mail(String author, String address, String subject, String content) {
