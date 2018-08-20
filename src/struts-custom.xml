@@ -101,17 +101,10 @@
         </result-types>
 
         <interceptors>
-            <interceptor name="exception" class="com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor"/>
-            <interceptor name="actionMappingParams" class="org.apache.struts2.interceptor.ActionMappingParametersInteceptor"/>
-            <interceptor name="checkbox" class="org.apache.struts2.interceptor.CheckboxInterceptor" />
-            <interceptor name="multiselect" class="org.apache.struts2.interceptor.MultiselectInterceptor" />
-            
+            <interceptor name="exception" class="com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor"/> 
             <!-- Default stack -->
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception"/>
-                <interceptor-ref name="checkbox"/>
-                <interceptor-ref name="multiselect"/>
-                <interceptor-ref name="actionMappingParams"/>
             </interceptor-stack>  
        </interceptors>
 
