@@ -9,6 +9,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
 
 	@Override
 	public void visit(int version, int access, String name,String signature, String superName, String[] interfaces) {
+		System.out.println(name + " extends " + superName + " {");
 	}
 
 	@Override

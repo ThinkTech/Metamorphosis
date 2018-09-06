@@ -267,24 +267,24 @@ public class ModuleManager implements DispatcherListener {
 	public Object buildAction(Module module,String url) throws Exception {
 		if(module != null) {
 			Action action = module.getAction(url);
-			if(action != null && action.getScript() != null) {
+			if(action!= null && action.getScript() != null) {
 				File script = new File(module.getFolder() + "/scripts/" + action.getScript());
-				if(script.exists()) {
-					String name =  "scripts/" + script.getName();
-				    GroovyScriptEngine engine = getScriptEngine(module.getFolder());
-					return engine.loadScriptByName(name).newInstance();
-				}
+				return loadScript(module,script);
 			}else{
 				File script = new File(module.getFolder() + "/scripts/" + module.getScript());
-				if(script.exists()) {
-					String name = "scripts/" + script.getName();
-					GroovyScriptEngine engine = getScriptEngine(module.getFolder());
-					return engine.loadScriptByName(name).newInstance();
-				}
+				return loadScript(module,script);
 			}
-			return new ActionSupport();
 		}
 		return null;
+	}
+	
+	private Object loadScript(Module module,File script) throws Exception{
+		if(script.exists()) {
+			String name = "scripts/" + script.getName();
+			GroovyScriptEngine engine = getScriptEngine(module.getFolder());
+			return engine.loadScriptByName(name).newInstance();
+		}
+		return new ActionSupport();
 	}
 	
 	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
