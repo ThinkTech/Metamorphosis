@@ -267,7 +267,7 @@ public class ModuleManager implements DispatcherListener {
 	public Object buildAction(Module module,String url) throws Exception {
 		if(module != null) {
 			Action action = module.getAction(url);
-			if(action!= null && action.getScript() != null) {
+			if(action!= null && action.getScript()!= null) {
 				File script = new File(module.getFolder() + "/scripts/" + action.getScript());
 				return loadScript(module,script);
 			}else{
