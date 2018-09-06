@@ -45,5 +45,4 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
 	@Override
 	public void visitSource(String source, String debug) {
 	}
-
 }
