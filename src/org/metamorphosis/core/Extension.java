@@ -18,7 +18,6 @@ public abstract class Extension implements Comparable<Extension> {
 	protected String details;
 	protected File folder;
 	private boolean visible = true;
-	protected int index;
 	
 	public String getId() {
 		return id;
@@ -110,12 +109,6 @@ public abstract class Extension implements Comparable<Extension> {
 	}
 	public void setVisible(boolean visible) {
 		this.visible = visible;
-	}
-	public int getIndex() {
-		return index;
-	}
-	public void setIndex(int index) {
-		this.index = index;
 	}
 	public int compareTo(Extension extension) {
         return name.compareTo(extension.name);

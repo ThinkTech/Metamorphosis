@@ -139,11 +139,9 @@ public class TemplateManager {
 	private void updateTemplate(Template template) {
 		try {
 			logger.log(Level.INFO, "updating template  : " + template.getId());
-			int index = template.getIndex();
 			File folder = template.getFolder();
 			template = parse(new File(folder + "/" + TEMPLATE_METADATA));
 			template.setFolder(folder);
-			template.setIndex(index);
 			templates.put(template.getId(), template);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,12 +149,11 @@ public class TemplateManager {
 	}
 
 	public void addTemplate(Template template) {
-		template.setIndex(templates.size());
 		templates.put(template.getId(),template);
 	}
 
 	public void removeTemplate(Template template) {
-		templates.remove(template.getIndex());
+		templates.remove(template.getId());
 	}
 
 	public Template getTemplate(String id) {

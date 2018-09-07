@@ -54,9 +54,7 @@ public class ModuleManager implements DispatcherListener {
 			if(folder.isDirectory()) loadModule(folder);
 		  }
 		  String reload = System.getenv("metamorphosis.reload");
-		  if("true".equals(reload)){
-			 monitorRoot(root);
-	      }
+		  if("true".equals(reload)) monitorRoot(root);
 		}
 	}
 
@@ -152,7 +150,6 @@ public class ModuleManager implements DispatcherListener {
 			FileMonitor monitor = new FileMonitor(root);
 			monitor.addListener(new FileListener() {
 				
-				@Override
 				public void onCreated(String file) {
 					File folder = new File(root+"/"+file);
 					if(folder.isDirectory()) {
@@ -165,7 +162,6 @@ public class ModuleManager implements DispatcherListener {
 					}
 				}
 				
-				@Override
 				public void onDeleted(String file) {
 					Module module = getModuleById(file);
 					if(module!=null) {
@@ -185,14 +181,12 @@ public class ModuleManager implements DispatcherListener {
 		    FileMonitor monitor = new FileMonitor(module.getFolder());
 		    monitor.addListener(new FileListener() {
 		    	
-		    	@Override
-				public void onCreated(String file) {
+		    	public void onCreated(String file) {
 		    		if(file.equals(MODULE_METADATA)) {
 						updateModule(module);
 					}
 				}
 		    	
-				@Override
 				public void onDeleted(String file) {
 					
 				}
@@ -221,8 +215,7 @@ public class ModuleManager implements DispatcherListener {
 	
 	private Template getCurrentTemplate(Module module) {
 		TemplateManager templateManager = TemplateManager.getInstance();
-		return module.isBackend() ? templateManager.getBackendTemplate(null)
-				: templateManager.getFrontendTemplate(null);
+		return module.isBackend() ? templateManager.getBackendTemplate(null) : templateManager.getFrontendTemplate(null);
 	}
 	
 	private Definition createDefinition(String name,String parent,String template) {
@@ -346,7 +339,6 @@ public class ModuleManager implements DispatcherListener {
 	}
 
 	public void addModule(Module module) {
-		module.setIndex(modules.size());
 		modules.put(module.getId(),module);
 	}
 	
@@ -360,11 +352,9 @@ public class ModuleManager implements DispatcherListener {
 		try {
 			logger.log(Level.INFO, "updating module  : " + module.getName());
 			File folder = module.getFolder();
-			int index = module.getIndex();
 			String id = module.getId();
 			module = parse(new File(folder + "/"+MODULE_METADATA));
 			module.setFolder(folder);
-			module.setIndex(index);
 			initModule(module);
 			modules.put(id,module);
 			configuration.removePackageConfig(id);
