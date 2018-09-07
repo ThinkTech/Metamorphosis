@@ -19,5 +19,4 @@ public class CachingTilesContainer extends org.apache.tiles.impl.mgmt.CachingTil
 		return definition != null ? definition : super.getDefinition(definitionName, context);
 	}
 	
-
 }
