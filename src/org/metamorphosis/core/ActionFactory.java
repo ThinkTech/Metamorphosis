@@ -14,6 +14,5 @@ public class ActionFactory extends DefaultActionFactory {
 		Object object = "true".equals(reload) ? moduleManager.buildAction(module,url) : moduleManager.buildAndCacheAction(module,url);
 		return object!=null ? object : super.buildAction(url, namespace, config, extraContext);
 	}
-	
 
 }

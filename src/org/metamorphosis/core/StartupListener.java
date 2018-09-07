@@ -166,7 +166,6 @@ public class StartupListener implements ServletContextListener {
 		copyFile(root,"js","metamorphosis.min.js");
 		copyFile(root,"js","jquery-3.1.1.min.js");
 		copyFile(root,"js","dust-full.min.js");
-		if(!new File(root+"/404.jsp").exists()) copyFile(root,"","404.jsp");
 	}
 	
 	
