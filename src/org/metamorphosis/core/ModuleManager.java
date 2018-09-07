@@ -262,16 +262,16 @@ public class ModuleManager implements DispatcherListener {
 			Action action = module.getAction(url);
 			if(action!= null && action.getScript()!= null) {
 				File script = new File(module.getFolder() + "/scripts/" + action.getScript());
-				return loadScript(module,script);
+				return loadScript(script);
 			}else{
 				File script = new File(module.getFolder() + "/scripts/" + module.getScript());
-				return loadScript(module,script);
+				return loadScript(script);
 			}
 		}
 		return null;
 	}
 	
-	private Object loadScript(Module module,File script) throws Exception{
+	private Object loadScript(File script) throws Exception{
 		if(script.exists()) {
 			GroovyScriptEngine engine = getScriptEngine(script.getParentFile());
 			return engine.loadScriptByName(script.getName()).newInstance();
