@@ -30,8 +30,8 @@ public class FileMonitor {
 				WatchService watcher = FileSystems.getDefault().newWatchService();
 				Path dir = Paths.get(directory.getAbsolutePath());
 				dir.register(watcher, ENTRY_CREATE,ENTRY_DELETE);
+				WatchKey key;
 				while(true) {
-					WatchKey key;
 					try {
 						key = watcher.take();
 					} catch (InterruptedException ex) {
