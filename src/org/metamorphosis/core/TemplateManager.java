@@ -87,14 +87,14 @@ public class TemplateManager {
 			monitor.addListener(new FileListener() {
 	
 				@Override
-				public void onCreated(String file) {
+				public void onFileCreated(String file) {
 					if (file.equals(TEMPLATE_METADATA)) {
 						updateTemplate(template);
 					}
 				}
 	
 				@Override
-				public void onDeleted(String file) {
+				public void onFileDeleted(String file) {
 	
 				}
 	
@@ -110,7 +110,7 @@ public class TemplateManager {
 			monitor.addListener(new FileListener() {
 	
 				@Override
-				public void onCreated(String file) {
+				public void onFileCreated(String file) {
 					File folder = new File(root + "/" + file);
 					if (folder.isDirectory()) {
 						logger.log(Level.INFO, "adding template  : " + folder.getName());
@@ -123,7 +123,7 @@ public class TemplateManager {
 				}
 	
 				@Override
-				public void onDeleted(String file) {
+				public void onFileDeleted(String file) {
 					Template template = getTemplate(file);
 					if (template != null) {
 						logger.log(Level.INFO, "removing template  : " + template.getName());

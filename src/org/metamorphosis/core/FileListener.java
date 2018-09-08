@@ -2,7 +2,7 @@ package org.metamorphosis.core;
 
 public interface FileListener {
 
-	public void onCreated(String file);
-	public void onDeleted(String file);
+	public void onFileCreated(String file);
+	public void onFileDeleted(String file);
 	
 }

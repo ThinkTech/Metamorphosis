@@ -150,7 +150,7 @@ public class ModuleManager implements DispatcherListener {
 			FileMonitor monitor = new FileMonitor(root);
 			monitor.addListener(new FileListener() {
 				
-				public void onCreated(String file) {
+				public void onFileCreated(String file) {
 					File folder = new File(root+"/"+file);
 					if(folder.isDirectory()) {
 						logger.log(Level.INFO, "adding module  : " + folder.getName());
@@ -162,7 +162,7 @@ public class ModuleManager implements DispatcherListener {
 					}
 				}
 				
-				public void onDeleted(String file) {
+				public void onFileDeleted(String file) {
 					Module module = getModuleById(file);
 					if(module!=null) {
 						logger.log(Level.INFO, "removing module  : " + module.getName());
@@ -181,13 +181,13 @@ public class ModuleManager implements DispatcherListener {
 		    FileMonitor monitor = new FileMonitor(module.getFolder());
 		    monitor.addListener(new FileListener() {
 		    	
-		    	public void onCreated(String file) {
+		    	public void onFileCreated(String file) {
 		    		if(file.equals(MODULE_METADATA)) {
 						updateModule(module);
 					}
 				}
 		    	
-				public void onDeleted(String file) {
+				public void onFileDeleted(String file) {
 					
 				}
 				

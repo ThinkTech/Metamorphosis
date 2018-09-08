@@ -44,14 +44,10 @@ public class FileMonitor {
 						if(kind == OVERFLOW) {
 							continue;
 						} else if(kind == ENTRY_CREATE) {
-							for(FileListener listener : listeners) {
-								listener.onCreated(file);
-							}
+						  for(FileListener listener : listeners) listener.onFileCreated(file);
 						}
 						else if(kind == ENTRY_DELETE) {
-							for(FileListener listener : listeners) {
-								listener.onDeleted(file);
-							}
+						  for(FileListener listener : listeners) listener.onFileDeleted(file);
 						}
 					}
 					if(!key.reset()) break;
