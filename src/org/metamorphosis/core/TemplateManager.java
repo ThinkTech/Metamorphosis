@@ -24,15 +24,11 @@ public class TemplateManager {
 	public void loadTemplates(final File root) {
 		File[] files = root.listFiles();
 		if (files != null) {
-			for (File folder : root.listFiles()) {
-				if (folder.isDirectory()) {
-					loadTemplate(folder);
-				}
+			for(File folder : root.listFiles()) {
+				if(folder.isDirectory())loadTemplate(folder);
 			}
 			String reload = System.getenv("metamorphosis.reload");
-			if("true".equals(reload)){
-				monitorRoot(root);
-			}
+			if("true".equals(reload)) monitorRoot(root);
 		}
 	}
 
@@ -85,19 +81,11 @@ public class TemplateManager {
 		if("true".equals(reload)){
 			FileMonitor monitor = new FileMonitor(template.getFolder());
 			monitor.addListener(new FileListener() {
-	
-				@Override
 				public void onFileCreated(String file) {
-					if (file.equals(TEMPLATE_METADATA)) {
-						updateTemplate(template);
-					}
+					if(file.equals(TEMPLATE_METADATA)) updateTemplate(template);
 				}
-	
-				@Override
 				public void onFileDeleted(String file) {
-	
 				}
-	
 			});
 			monitor.watch();
 		}
@@ -108,8 +96,6 @@ public class TemplateManager {
 		if("true".equals(reload)){
 			FileMonitor monitor = new FileMonitor(root);
 			monitor.addListener(new FileListener() {
-	
-				@Override
 				public void onFileCreated(String file) {
 					File folder = new File(root + "/" + file);
 					if (folder.isDirectory()) {
@@ -119,18 +105,14 @@ public class TemplateManager {
 						addTemplate(template);
 						monitorTemplate(template);
 					}
-	
 				}
-	
-				@Override
 				public void onFileDeleted(String file) {
 					Template template = getTemplate(file);
 					if (template != null) {
 						logger.log(Level.INFO, "removing template  : " + template.getName());
 						removeTemplate(template);
 					}
-				}
-	
+				}	
 			});
 			monitor.watch();
 		}
@@ -158,9 +140,8 @@ public class TemplateManager {
 
 	public Template getTemplate(String id) {
 		Collection<Template> templates = getTemplates();
-		for (Template template : templates) {
-			if (template.getId().equals(id))
-				return template;
+		for(Template template : templates) {
+			if(template.getId().equals(id)) return template;
 		}
 		return null;
 	}
@@ -168,15 +149,12 @@ public class TemplateManager {
 	public Template getBackendTemplate(String id) {
 		Collection<Template> templates = getTemplates();
 		Template template = getTemplate(id);
-		if (template != null && template.isBackend())
-			return template;
-		for (Template current : templates) {
-			if (current.isSelected() && current.isBackend())
-				return current;
+		if(template != null && template.isBackend()) return template;
+		for(Template current : templates) {
+			if(current.isSelected() && current.isBackend()) return current;
 		}
-		for (Template current : templates) {
-			if (current.isBackend())
-				return current;
+		for(Template current : templates) {
+			if(current.isBackend()) return current;
 		}
 		return null;
 	}
@@ -184,15 +162,12 @@ public class TemplateManager {
 	public Template getFrontendTemplate(String id) {
 		Collection<Template> templates = getTemplates();
 		Template template = getTemplate(id);
-		if (template != null && template.isFrontend())
-			return template;
-		for (Template current : templates) {
-			if (current.isSelected() && current.isFrontend())
-				return current;
+		if(template != null && template.isFrontend()) return template;
+		for(Template current : templates) {
+			if(current.isSelected() && current.isFrontend()) return current;
 		}
-		for (Template current : templates) {
-			if (current.isFrontend())
-				return current;
+		for(Template current : templates) {
+			if(current.isFrontend()) return current;
 		}
 		return null;
 	}
@@ -204,8 +179,8 @@ public class TemplateManager {
 	public List<Template> getBackendTemplates() {
 		List<Template> list = new ArrayList<Template>();
 		Collection<Template> templates = getTemplates();
-		for (Template current : templates) {
-			if (current.isBackend()) list.add(current);
+		for(Template current : templates) {
+			if(current.isBackend()) list.add(current);
 		}
 		return list;
 	}
@@ -213,8 +188,8 @@ public class TemplateManager {
 	public List<Template> getFrontendTemplates() {
 		List<Template> list = new ArrayList<Template>();
 		Collection<Template> templates = getTemplates();
-		for (Template current : templates) {
-			if (current.isFrontend()) list.add(current);
+		for(Template current : templates) {
+			if(current.isFrontend()) list.add(current);
 		}
 		return list;
 	}

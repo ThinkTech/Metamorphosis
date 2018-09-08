@@ -38,9 +38,6 @@ public class ModuleManager implements DispatcherListener {
 	private static ModuleManager instance;
 	private static final String MODULE_METADATA = "module.xml";
 	
-	public ModuleManager() {
-		instance = this;
-	}
 
 	public ModuleManager(ServletContext servletContext) {
 		instance = this;
@@ -249,11 +246,9 @@ public class ModuleManager implements DispatcherListener {
 		if(module != null) {
 			Action action = module.getAction(url);
 			if(action!= null && action.getScript()!= null) {
-				File script = new File(module.getFolder() + "/scripts/" + action.getScript());
-				return loadScript(script);
+				return loadScript(new File(module.getFolder() + "/scripts/" + action.getScript()));
 			}else{
-				File script = new File(module.getFolder() + "/scripts/" + module.getScript());
-				return loadScript(script);
+				return loadScript(new File(module.getFolder() + "/scripts/" + module.getScript()));
 			}
 		}
 		return null;
