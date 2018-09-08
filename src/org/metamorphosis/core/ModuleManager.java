@@ -50,9 +50,7 @@ public class ModuleManager implements DispatcherListener {
 	public void loadModules(final File root) {
 		File[] files = root.listFiles();
 		if(files != null) {
-		  for(File folder : files) {
-			if(folder.isDirectory()) loadModule(folder);
-		  }
+		  for(File folder : files) if(folder.isDirectory()) loadModule(folder);
 		  String reload = System.getenv("metamorphosis.reload");
 		  if("true".equals(reload)) monitorRoot(root);
 		}
@@ -132,9 +130,7 @@ public class ModuleManager implements DispatcherListener {
 	private void initModule(Module module) {
 		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
 		for(Action action : module.getActions()) {
-			if(action.getPage()==null) {
-				action.setPage(action.getUrl());
-			}
+			if(action.getPage()==null) action.setPage(action.getUrl());
 		}
 		for(Menu menu : module.getMenus()) {
 			for(MenuItem item : menu.getMenuItems()) {
@@ -149,7 +145,6 @@ public class ModuleManager implements DispatcherListener {
 		if("true".equals(reload)){
 			FileMonitor monitor = new FileMonitor(root);
 			monitor.addListener(new FileListener() {
-				
 				public void onFileCreated(String file) {
 					File folder = new File(root+"/"+file);
 					if(folder.isDirectory()) {
@@ -161,7 +156,6 @@ public class ModuleManager implements DispatcherListener {
 						monitorModule(module);
 					}
 				}
-				
 				public void onFileDeleted(String file) {
 					Module module = getModuleById(file);
 					if(module!=null) {
@@ -180,17 +174,11 @@ public class ModuleManager implements DispatcherListener {
 		if("true".equals(reload)){
 		    FileMonitor monitor = new FileMonitor(module.getFolder());
 		    monitor.addListener(new FileListener() {
-		    	
 		    	public void onFileCreated(String file) {
-		    		if(file.equals(MODULE_METADATA)) {
-						updateModule(module);
-					}
+		    		if(file.equals(MODULE_METADATA)) updateModule(module);		
 				}
-		    	
 				public void onFileDeleted(String file) {
-					
 				}
-				
 			});
 		    monitor.watch();
 		}
@@ -289,38 +277,33 @@ public class ModuleManager implements DispatcherListener {
 				key = module.getUrl()+"/"+module.getScript();
 			}
 		}
-		ServletContext context = getServletContext();
-		Object object = context.getAttribute(key);
+		Object object = servletContext.getAttribute(key);
 		 if(object==null) {
           object = ModuleManager.getInstance().buildAction(module,url);
-          if(object!=null) context.setAttribute(key,object);  
+          if(object!=null) servletContext.setAttribute(key,object);  
         }
         return object;
 	}
 	
 	private GroovyScriptEngine getScriptEngine(File folder) throws MalformedURLException {
-		ServletContext context = getServletContext();
-		URL[] url = {folder.toURI().toURL(), new File(context.getRealPath("/")+"/scripts").toURI().toURL()};
+		URL[] url = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/scripts").toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(url);
 		CompilerConfiguration configuration = new CompilerConfiguration();
 		ImportCustomizer importCustomizer = new ImportCustomizer();
 		importCustomizer.addImports("java.text.SimpleDateFormat");
 		importCustomizer.addStarImports("org.metamorphosis.core","groovy.json");
-		String imports = context.getInitParameter("groovy.imports");
+		String imports = servletContext.getInitParameter("groovy.imports");
 		if(imports!=null && imports.indexOf(",")!=-1){
 			StringTokenizer st = new StringTokenizer(imports,",");
-			while(st.hasMoreTokens()){
-				importCustomizer.addImports(st.nextToken());
-			}
+			while(st.hasMoreTokens()) importCustomizer.addImports(st.nextToken());
 		}else if(imports!=null){
 			importCustomizer.addImports(imports);
 		}
-		String starImports = context.getInitParameter("groovy.starImports");
+		String starImports = servletContext.getInitParameter("groovy.starImports");
 		if(starImports!=null && starImports.indexOf(",")!=-1){
 			StringTokenizer st = new StringTokenizer(starImports,",");
-			while(st.hasMoreTokens()){
-				importCustomizer.addStarImports(st.nextToken());
-			}
+			while(st.hasMoreTokens()) importCustomizer.addStarImports(st.nextToken());
+			
 		}else if(starImports!=null) {
 			importCustomizer.addStarImports(starImports);
 		}
@@ -445,15 +428,6 @@ public class ModuleManager implements DispatcherListener {
 		}
 		return visibles;
 	}
-
-	public List<Module> getAdminModules() {
-		List<Module> admins = new ArrayList<Module>();
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) {
-			if(module.isAdministrable()) admins.add(module);
-		}
-		return admins;
-	}
 	
 	public List<Module> getFrontendModules() {
 		List<Module> list = new ArrayList<Module>();
@@ -475,7 +449,7 @@ public class ModuleManager implements DispatcherListener {
 		return list;
 	}
 
-	public Module getMain() {
+	public Module getMainModule() {
 		Collection<Module> modules = getModules();
 		for(Module module : modules) {
 			if(module.isMain() && module.isBackend()) {
