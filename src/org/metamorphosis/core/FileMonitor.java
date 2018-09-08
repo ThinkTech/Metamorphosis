@@ -64,7 +64,8 @@ public class FileMonitor {
 		return this;
 	}
 	
-	public void removeListener(FileListener listener) {
+	public FileMonitor removeListener(FileListener listener) {
 		listeners.remove(listener);
+		return this;
 	}
 }
