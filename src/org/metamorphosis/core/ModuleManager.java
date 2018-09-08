@@ -160,8 +160,7 @@ public class ModuleManager implements DispatcherListener {
 					}
 				}
 				
-			});
-			monitor.watch();
+			}).watch();
 		}
 	}
 
@@ -175,8 +174,7 @@ public class ModuleManager implements DispatcherListener {
 				}
 				public void onFileDeleted(String file) {
 				}
-			});
-		    monitor.watch();
+			}).watch();
 		}
 	}
 

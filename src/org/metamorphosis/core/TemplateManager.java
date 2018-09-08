@@ -86,8 +86,7 @@ public class TemplateManager {
 				}
 				public void onFileDeleted(String file) {
 				}
-			});
-			monitor.watch();
+			}).watch();
 		}
 	}
 
@@ -113,8 +112,7 @@ public class TemplateManager {
 						removeTemplate(template);
 					}
 				}	
-			});
-			monitor.watch();
+			}).watch();
 		}
 	}
 

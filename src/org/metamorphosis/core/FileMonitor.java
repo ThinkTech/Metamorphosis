@@ -59,8 +59,9 @@ public class FileMonitor {
 		}).start();
 	}
 	
-	public void addListener(FileListener listener) {
+	public FileMonitor addListener(FileListener listener) {
 		listeners.add(listener);
+		return this;
 	}
 	
 	public void removeListener(FileListener listener) {
