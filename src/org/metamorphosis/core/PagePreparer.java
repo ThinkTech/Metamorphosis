@@ -10,7 +10,6 @@ public class PagePreparer implements ViewPreparer {
 
 	@Override
 	public void execute(TilesRequestContext tilesContext, AttributeContext attributeContext) throws PreparerException {
-		
 		try {
 			ModuleManager moduleManager = ModuleManager.getInstance();
 			TemplateManager templateManager = TemplateManager.getInstance();
