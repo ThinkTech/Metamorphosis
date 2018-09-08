@@ -38,7 +38,6 @@ public class ModuleManager implements DispatcherListener {
 	private static ModuleManager instance;
 	private static final String MODULE_METADATA = "module.xml";
 	
-
 	public ModuleManager(ServletContext servletContext) {
 		instance = this;
 		this.servletContext = servletContext;
