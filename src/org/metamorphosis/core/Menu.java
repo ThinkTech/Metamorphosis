@@ -12,7 +12,6 @@ public class Menu {
 	private List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
 	public Menu() {
-		
 	}
 	public String getLabel() {
 		return label;
