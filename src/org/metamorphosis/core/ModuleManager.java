@@ -139,8 +139,7 @@ public class ModuleManager implements DispatcherListener {
 	private void monitorRoot(final File root) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
-			FileMonitor monitor = new FileMonitor(root);
-			monitor.addListener(new FileListener() {
+			new FileMonitor(root).addListener(new FileListener() {
 				public void onFileCreated(String file) {
 					File folder = new File(root+"/"+file);
 					if(folder.isDirectory()) {
@@ -167,8 +166,7 @@ public class ModuleManager implements DispatcherListener {
 	private void monitorModule(final Module module) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
-		    FileMonitor monitor = new FileMonitor(module.getFolder());
-		    monitor.addListener(new FileListener() {
+			new FileMonitor(module.getFolder()).addListener(new FileListener() {
 		    	public void onFileCreated(String file) {
 		    		if(file.equals(MODULE_METADATA)) updateModule(module);		
 				}

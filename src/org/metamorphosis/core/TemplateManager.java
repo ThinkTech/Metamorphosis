@@ -79,8 +79,7 @@ public class TemplateManager {
 	private void monitorTemplate(final Template template) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
-			FileMonitor monitor = new FileMonitor(template.getFolder());
-			monitor.addListener(new FileListener() {
+			new FileMonitor(template.getFolder()).addListener(new FileListener() {
 				public void onFileCreated(String file) {
 					if(file.equals(TEMPLATE_METADATA)) updateTemplate(template);
 				}
@@ -93,8 +92,7 @@ public class TemplateManager {
 	private void monitorRoot(final File root) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
-			FileMonitor monitor = new FileMonitor(root);
-			monitor.addListener(new FileListener() {
+			new FileMonitor(root).addListener(new FileListener() {
 				public void onFileCreated(String file) {
 					File folder = new File(root + "/" + file);
 					if (folder.isDirectory()) {
