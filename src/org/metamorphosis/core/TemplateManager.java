@@ -39,7 +39,7 @@ public class TemplateManager {
 
 	public Template loadTemplate(File folder) throws Exception {
 		Template template;
-		File metadata = new File(folder + "/" + TEMPLATE_METADATA);
+		File metadata = new File(folder+ "/"+TEMPLATE_METADATA);
 		if(metadata.exists()) {
 			template = parse(metadata);
 		}else {

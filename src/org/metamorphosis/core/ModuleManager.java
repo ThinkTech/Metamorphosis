@@ -62,7 +62,7 @@ public class ModuleManager implements DispatcherListener {
 
 	public Module loadModule(File folder) throws Exception {
 		Module module;
-		File metadata = new File(folder + "/"+MODULE_METADATA);
+		File metadata = new File(folder+"/"+MODULE_METADATA);
 		if(metadata.exists()) {
 		  module = parse(metadata);
 		}else{
