@@ -71,9 +71,7 @@ public class ModuleManager implements DispatcherListener {
 			module.setType("front-end");
 		}
 		module.setFolder(folder);
-		initModule(module);
 		addModule(module);
-		monitorModule(module);
 		return module;
 	}
 	
@@ -143,11 +141,9 @@ public class ModuleManager implements DispatcherListener {
 					File folder = new File(root+"/"+file);
 					if(folder.isDirectory()) {
 						logger.log(Level.INFO, "adding module  : " + folder.getName());
-						final Module module = new Module();
+						Module module = new Module();
 						module.setFolder(folder);
-						initModule(module);
 						addModule(module);
-						monitorModule(module);
 					}
 				}
 				public void onFileDeleted(String file) {
@@ -310,6 +306,8 @@ public class ModuleManager implements DispatcherListener {
 	}
 
 	public void addModule(Module module) {
+		initModule(module);
+		monitorModule(module);
 		modules.put(module.getId(),module);
 	}
 	

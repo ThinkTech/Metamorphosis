@@ -49,7 +49,6 @@ public class TemplateManager {
 		}
 		template.setFolder(folder);
 		addTemplate(template);
-		monitorTemplate(template);
 		return template;
 	}
 
@@ -94,10 +93,9 @@ public class TemplateManager {
 					File folder = new File(root + "/" + file);
 					if (folder.isDirectory()) {
 						logger.log(Level.INFO, "adding template  : " + folder.getName());
-						final Template template = new Template();
+						Template template = new Template();
 						template.setFolder(folder);
 						addTemplate(template);
-						monitorTemplate(template);
 					}
 				}
 				public void onFileDeleted(String file) {
@@ -124,6 +122,7 @@ public class TemplateManager {
 	}
 
 	public void addTemplate(Template template) {
+		monitorTemplate(template);
 		templates.put(template.getId(),template);
 	}
 
