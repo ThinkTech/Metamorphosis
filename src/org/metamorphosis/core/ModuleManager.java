@@ -47,13 +47,13 @@ public class ModuleManager implements DispatcherListener {
 		File[] files = root.listFiles();
 		if(files != null) {
 		  for(File folder : files) {
-			  if(folder.isDirectory()) {
-				  try {
-						loadModule(folder);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-			  }
+			 if(folder.isDirectory()) {
+				 try{
+					 loadModule(folder);
+				 }catch (Exception e) {
+					e.printStackTrace();
+				 }
+			 }
 		  }
 		  String reload = System.getenv("metamorphosis.reload");
 		  if("true".equals(reload)) monitorRoot(root);
@@ -61,15 +61,8 @@ public class ModuleManager implements DispatcherListener {
 	}
 
 	public Module loadModule(File folder) throws Exception {
-		Module module;
 		File metadata = new File(folder+"/"+MODULE_METADATA);
-		if(metadata.exists()) {
-		  module = parse(metadata);
-		}else{
-			module = new Module();
-			module.setName(folder.getName());
-			module.setType("front-end");
-		}
+		Module module = metadata.exists() ? parse(metadata) : new Module();
 		module.setFolder(folder);
 		addModule(module);
 		return module;
@@ -226,9 +219,7 @@ public class ModuleManager implements DispatcherListener {
 	
 	public Module getModuleByName(String name) {
 		Collection<Module> modules = getModules(); 
-		for(Module module : modules) {
-			if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
-		}
+		for(Module module : modules) if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
 		return null;
 	}
 
@@ -299,9 +290,7 @@ public class ModuleManager implements DispatcherListener {
 
 	public Module getModuleById(String id) {
 		Collection<Module> modules = getModules(); 
-		for(Module module : modules) {
-			if(module.getId().equals(id)) return module;
-		}
+		for(Module module : modules) if(module.getId().equals(id)) return module;
 		return null;
 	}
 
@@ -419,9 +408,7 @@ public class ModuleManager implements DispatcherListener {
 	public List<Module> getFrontendModules() {
 		List<Module> list = new ArrayList<Module>();
 		Collection<Module> modules = getModules(); 
-		for(Module module : modules) {
-			if(module.isFrontend()) list.add(module);
-		}
+		for(Module module : modules) if(module.isFrontend()) list.add(module);
 		Collections.sort(list);
 		return list;
 	}
@@ -429,20 +416,14 @@ public class ModuleManager implements DispatcherListener {
 	public List<Module> getBackendModules() {
 		List<Module> list = new ArrayList<Module>();
 		Collection<Module> modules = getModules();
-		for(Module module : modules) {
-			if(module.isBackend()) list.add(module);
-		}
+		for(Module module : modules) if(module.isBackend()) list.add(module);
 		Collections.sort(list);
 		return list;
 	}
 
 	public Module getMainModule() {
 		Collection<Module> modules = getModules();
-		for(Module module : modules) {
-			if(module.isMain() && module.isBackend()) {
-				return module;
-			}
-		}
+		for(Module module : modules) if(module.isMain() && module.isBackend()) return module;
 		return null;
 	}
 

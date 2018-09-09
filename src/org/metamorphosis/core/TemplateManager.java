@@ -38,15 +38,8 @@ public class TemplateManager {
 	}
 
 	public Template loadTemplate(File folder) throws Exception {
-		Template template;
 		File metadata = new File(folder+ "/"+TEMPLATE_METADATA);
-		if(metadata.exists()) {
-			template = parse(metadata);
-		}else {
-			template = new Template();
-			template.setName(folder.getName());
-			template.setType("front-end");
-		}
+		Template template = metadata.exists() ? parse(metadata) : new Template();
 		template.setFolder(folder);
 		addTemplate(template);
 		return template;
@@ -132,9 +125,7 @@ public class TemplateManager {
 
 	public Template getTemplate(String id) {
 		Collection<Template> templates = getTemplates();
-		for(Template template : templates) {
-			if(template.getId().equals(id)) return template;
-		}
+		for(Template template : templates) if(template.getId().equals(id)) return template;
 		return null;
 	}
 
@@ -142,12 +133,8 @@ public class TemplateManager {
 		Collection<Template> templates = getTemplates();
 		Template template = getTemplate(id);
 		if(template != null && template.isBackend()) return template;
-		for(Template current : templates) {
-			if(current.isSelected() && current.isBackend()) return current;
-		}
-		for(Template current : templates) {
-			if(current.isBackend()) return current;
-		}
+		for(Template current : templates) if(current.isSelected() && current.isBackend()) return current;
+		for(Template current : templates) if(current.isBackend()) return current;
 		return null;
 	}
 
@@ -155,12 +142,8 @@ public class TemplateManager {
 		Collection<Template> templates = getTemplates();
 		Template template = getTemplate(id);
 		if(template != null && template.isFrontend()) return template;
-		for(Template current : templates) {
-			if(current.isSelected() && current.isFrontend()) return current;
-		}
-		for(Template current : templates) {
-			if(current.isFrontend()) return current;
-		}
+		for(Template current : templates) if(current.isSelected() && current.isFrontend()) return current;
+		for(Template current : templates) if(current.isFrontend()) return current;
 		return null;
 	}
 
@@ -171,18 +154,14 @@ public class TemplateManager {
 	public List<Template> getBackendTemplates() {
 		List<Template> list = new ArrayList<Template>();
 		Collection<Template> templates = getTemplates();
-		for(Template current : templates) {
-			if(current.isBackend()) list.add(current);
-		}
+		for(Template current : templates) if(current.isBackend()) list.add(current);
 		return list;
 	}
 	
 	public List<Template> getFrontendTemplates() {
 		List<Template> list = new ArrayList<Template>();
 		Collection<Template> templates = getTemplates();
-		for(Template current : templates) {
-			if(current.isFrontend()) list.add(current);
-		}
+		for(Template current : templates) if(current.isFrontend()) list.add(current);
 		return list;
 	}
 

@@ -97,6 +97,7 @@ public abstract class Extension implements Comparable<Extension> {
 	public void setFolder(File folder) {
 		this.folder = folder;
 		id = id!=null ? id : folder.getName();
+		name = name!=null ? name : folder.getName();
 	}
 	public boolean isBackend() {
 		return "back-end".equals(type);
