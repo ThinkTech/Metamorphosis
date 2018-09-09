@@ -25,35 +25,32 @@ public class TemplateManager {
 		File[] files = root.listFiles();
 		if (files != null) {
 			for(File folder : root.listFiles()) {
-				if(folder.isDirectory())loadTemplate(folder);
+				if(folder.isDirectory())
+					try {
+						loadTemplate(folder);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 			}
 			String reload = System.getenv("metamorphosis.reload");
 			if("true".equals(reload)) monitorRoot(root);
 		}
 	}
 
-	public Template loadTemplate(File folder) {
+	public Template loadTemplate(File folder) throws Exception {
+		Template template;
 		File metadata = new File(folder + "/" + TEMPLATE_METADATA);
 		if(metadata.exists()) {
-			try {
-				Template template = parse(metadata);
-				template.setFolder(folder);
-				addTemplate(template);
-				monitorTemplate(template);
-				return template;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			template = parse(metadata);
 		}else {
-			Template template = new Template();
+			template = new Template();
 			template.setName(folder.getName());
 			template.setType("front-end");
-			template.setFolder(folder);
-			addTemplate(template);
-			monitorTemplate(template);
-			return template;
 		}
-		return null;
+		template.setFolder(folder);
+		addTemplate(template);
+		monitorTemplate(template);
+		return template;
 	}
 
 	private Template parse(File metadata) throws Exception {

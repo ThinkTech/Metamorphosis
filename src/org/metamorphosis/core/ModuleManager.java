@@ -46,36 +46,35 @@ public class ModuleManager implements DispatcherListener {
 	public void loadModules(final File root) {
 		File[] files = root.listFiles();
 		if(files != null) {
-		  for(File folder : files) if(folder.isDirectory()) loadModule(folder);
+		  for(File folder : files) {
+			  if(folder.isDirectory()) {
+				  try {
+						loadModule(folder);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			  }
+		  }
 		  String reload = System.getenv("metamorphosis.reload");
 		  if("true".equals(reload)) monitorRoot(root);
 		}
 	}
 
-	public Module loadModule(File folder) {
+	public Module loadModule(File folder) throws Exception {
+		Module module;
 		File metadata = new File(folder + "/"+MODULE_METADATA);
 		if(metadata.exists()) {
-			try {
-				Module module = parse(metadata);
-				module.setFolder(folder);
-				initModule(module);
-				addModule(module);
-				monitorModule(module);
-				return module;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		  module = parse(metadata);
 		}else{
-			Module module = new Module();
+			module = new Module();
 			module.setName(folder.getName());
 			module.setType("front-end");
-			module.setFolder(folder);
-			initModule(module);
-			addModule(module);
-			monitorModule(module);
-			return module;
 		}
-		return null;
+		module.setFolder(folder);
+		initModule(module);
+		addModule(module);
+		monitorModule(module);
+		return module;
 	}
 	
 	private Module parse(File metadata) throws Exception {
