@@ -115,7 +115,6 @@ public class StartupListener implements ServletContextListener {
 		return "/modules/"+module.getFolder().getName()+"/"+temp.getName();
 	}
 
-	
 	private String createModuleConfig(Module module) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE struts PUBLIC '-//Apache Software Foundation//DTD Struts Configuration 2.0//EN' "+
@@ -168,7 +167,6 @@ public class StartupListener implements ServletContextListener {
 		copyFile(root,"js","dust-full.min.js");
 	}
 	
-	
 	private void copyFile(String root,String directory,String file)	{
 		InputStream source = this.getClass().getClassLoader().getResourceAsStream("META-INF/"+file);
 		if(source!=null) {
@@ -183,14 +181,13 @@ public class StartupListener implements ServletContextListener {
 			}
 		}
 	}
+	
 	private void copyFile(InputStream source,File destination) throws Exception {
 		BufferedInputStream br = new BufferedInputStream(source);
 		BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(destination));
 		byte[] buffer = new byte[1024];
 	    int length;
-	    while ((length = br.read(buffer)) > 0) {
-	      bw.write(buffer, 0, length);
-	    }
+	    while((length = br.read(buffer)) > 0) bw.write(buffer, 0, length);
 		br.close();
 		bw.close();
 	}
