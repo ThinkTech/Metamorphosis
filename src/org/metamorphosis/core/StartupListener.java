@@ -23,7 +23,7 @@ public class StartupListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		ServletContext context = event.getServletContext();
+	    ServletContext context = event.getServletContext();
 		context.setAttribute("path",context.getContextPath()+"/");
 		String root = new File(context.getRealPath("/")).getAbsolutePath();
 		FilterRegistration struts2 = context.addFilter("struts2", org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.class);
@@ -34,7 +34,6 @@ public class StartupListener implements ServletContextListener {
 		context.setInitParameter("org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG",buffer.toString());
 		new TilesListener().contextInitialized(event);
 		copyFiles(root);
-		
 	}
 	
 	private String loadTemplates(ServletContext context,String root) {
