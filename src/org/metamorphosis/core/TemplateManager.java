@@ -91,10 +91,13 @@ public class TemplateManager {
 					}
 				}
 				public void onFileDeleted(String file) {
-					Template template = getTemplate(file);
-					if (template != null) {
-						logger.log(Level.INFO, "removing template  : " + template.getName());
-						removeTemplate(template);
+					Collection<Template> templates = getTemplates();
+					for(Template template : templates){
+						if(template.getFolder().getName().equals(file)) {
+							logger.log(Level.INFO, "removing template  : " + template.getName());
+							removeTemplate(template);
+							break;
+						}
 					}
 				}	
 			}).watch();
