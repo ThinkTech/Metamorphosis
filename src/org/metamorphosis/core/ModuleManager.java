@@ -140,10 +140,13 @@ public class ModuleManager implements DispatcherListener {
 					}
 				}
 				public void onFileDeleted(String file) {
-					Module module = getModuleById(file);
-					if(module!=null) {
-						logger.log(Level.INFO, "removing module  : " + module.getName());
-						removeModule(module);
+					Collection<Module> modules = getModules(); 
+					for(Module module : modules) {
+						if(module.getFolder().getName().equals(file)) {
+							logger.log(Level.INFO, "removing module  : " + module.getName());
+							removeModule(module);
+							break;
+						}
 					}
 				}
 				
