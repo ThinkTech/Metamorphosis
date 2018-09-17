@@ -134,8 +134,7 @@ public class ModuleManager implements DispatcherListener {
 					File folder = new File(root+"/"+file);
 					if(folder.isDirectory()) {
 						logger.log(Level.INFO, "adding module  : " + folder.getName());
-						Module module = new Module();
-						module.setFolder(folder);
+						Module module = new Module(folder);
 						addModule(module);
 					}
 				}

@@ -1,5 +1,6 @@
 package org.metamorphosis.core;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,12 @@ public class Module extends Extension {
 	private List<Action> actions = new ArrayList<Action>();
 	private String roles="all";
 	
+	public Module(){
+	}
+	
+	public Module(File folder){
+		setFolder(folder);
+	}
 	
 	public String getUrl() {
 		return url;
