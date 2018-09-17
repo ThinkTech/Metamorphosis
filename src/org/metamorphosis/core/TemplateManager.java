@@ -86,8 +86,7 @@ public class TemplateManager {
 					File folder = new File(root + "/" + file);
 					if (folder.isDirectory()) {
 						logger.log(Level.INFO, "adding template  : " + folder.getName());
-						Template template = new Template(folder);
-						addTemplate(template);
+						addTemplate(new Template(folder));
 					}
 				}
 				public void onFileDeleted(String file) {
