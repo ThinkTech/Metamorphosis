@@ -422,12 +422,6 @@ public class ModuleManager implements DispatcherListener {
 		return list;
 	}
 
-	public Module getMainModule() {
-		Collection<Module> modules = getModules();
-		for(Module module : modules) if(module.isMain() && module.isBackend()) return module;
-		return null;
-	}
-
 	public Configuration getConfiguration() {
 		return configuration;
 	}
