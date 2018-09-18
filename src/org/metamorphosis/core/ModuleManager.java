@@ -316,79 +316,83 @@ public class ModuleManager implements DispatcherListener {
 			module.setFolder(folder);
 			initModule(module);
 			modules.put(id,module);
-			configuration.removePackageConfig(id);
-			PackageConfig.Builder packageBuilder = new PackageConfig.Builder(module.getId());
-			packageBuilder.namespace("/" + module.getUrl());
-			packageBuilder.addParent(configuration.getPackageConfig("root"));
-			for(Menu menu : module.getMenus()) {
-				for(MenuItem item : menu.getMenuItems()) {
-					if(!item.getUrl().equals(module.getUrl())){
-						String url = item.getUrl().substring(module.getUrl().length() + 1);
-						ActionConfig.Builder actionBuilder = new ActionConfig.Builder(url, url, null);
-						ResultConfig.Builder resultBuilder = new ResultConfig.Builder("success",
-								"org.apache.struts2.views.tiles.TilesResult");
-						resultBuilder.addParam("location", item.getUrl());
-						actionBuilder.addResultConfig(resultBuilder.build());
-						resultBuilder = new ResultConfig.Builder("error",
-								"org.apache.struts2.dispatcher.ServletRedirectResult");
-						resultBuilder.addParam("location", "/");
-						actionBuilder.addResultConfig(resultBuilder.build());
-						ActionConfig actionConfig = actionBuilder.build();
-						packageBuilder.addActionConfig(url, actionConfig);
-					}
-				}
-			}
-			ActionConfig.Builder actionBuilder = new ActionConfig.Builder("index", "index","");
-			ResultConfig.Builder resultBuilder = new ResultConfig.Builder("success",
-					"org.apache.struts2.views.tiles.TilesResult");
-			resultBuilder.addParam("location", module.getUrl()+"/index");
-			actionBuilder.addResultConfig(resultBuilder.build());
-			resultBuilder = new ResultConfig.Builder("error",
-					"org.apache.struts2.dispatcher.ServletRedirectResult");
-			resultBuilder.addParam("location", "/");
-			actionBuilder.addResultConfig(resultBuilder.build());
-			packageBuilder.addActionConfig("index",actionBuilder.build());
-			for(Action action : module.getActions()) {
-				actionBuilder = new ActionConfig.Builder(action.getUrl(), action.getUrl(),
-						action.getClassName());
-				actionBuilder.methodName(action.getMethod());
-				for(Result result : action.getResults()) {
-					if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
-						result.setValue(module.getUrl() + "/" + result.getValue());
-					}
-					resultBuilder = new ResultConfig.Builder("error",
-							"org.apache.struts2.dispatcher.ServletRedirectResult");
-					resultBuilder.addParam("location", "/");
-					actionBuilder.addResultConfig(resultBuilder.build());
-					resultBuilder = null;
-					String type = result.getType();
-					if(type.equals("tiles")) {
-						resultBuilder = new ResultConfig.Builder(result.getName(),
-								"org.apache.struts2.views.tiles.TilesResult");
-					} else if(type.equals("redirect")) {
-						resultBuilder = new ResultConfig.Builder(result.getName(),
-								"org.apache.struts2.dispatcher.ServletRedirectResult");
-					} else if(type.equals("redirectAction")) {
-						resultBuilder = new ResultConfig.Builder(result.getName(),
-								"org.apache.struts2.dispatcher.ServletActionRedirectResult");
-					} else if(type.equals("dispatcher")) {
-						resultBuilder = new ResultConfig.Builder(result.getName(),
-								"org.apache.struts2.dispatcher.ServletDispatcherResult");
-					}
-					if(resultBuilder != null) {
-						resultBuilder.addParam("location", result.getValue());
-						actionBuilder.addResultConfig(resultBuilder.build());
-					}
-				}
-				packageBuilder.addActionConfig(action.getUrl(), actionBuilder.build());
-			}
-			PackageConfig packageConfig = packageBuilder.build();
-			configuration.addPackageConfig(module.getId(), packageConfig);
-			configuration.rebuildRuntimeConfiguration();
+			rebuildRuntimeConfiguration(id, module);
 			registerPages(module);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void rebuildRuntimeConfiguration(String id,Module module) {
+		configuration.removePackageConfig(id);
+		PackageConfig.Builder packageBuilder = new PackageConfig.Builder(module.getId());
+		packageBuilder.namespace("/" + module.getUrl());
+		packageBuilder.addParent(configuration.getPackageConfig("root"));
+		for(Menu menu : module.getMenus()) {
+			for(MenuItem item : menu.getMenuItems()) {
+				if(!item.getUrl().equals(module.getUrl())){
+					String url = item.getUrl().substring(module.getUrl().length() + 1);
+					ActionConfig.Builder actionBuilder = new ActionConfig.Builder(url, url, null);
+					ResultConfig.Builder resultBuilder = new ResultConfig.Builder("success",
+							"org.apache.struts2.views.tiles.TilesResult");
+					resultBuilder.addParam("location", item.getUrl());
+					actionBuilder.addResultConfig(resultBuilder.build());
+					resultBuilder = new ResultConfig.Builder("error",
+							"org.apache.struts2.dispatcher.ServletRedirectResult");
+					resultBuilder.addParam("location", "/");
+					actionBuilder.addResultConfig(resultBuilder.build());
+					ActionConfig actionConfig = actionBuilder.build();
+					packageBuilder.addActionConfig(url, actionConfig);
+				}
+			}
+		}
+		ActionConfig.Builder actionBuilder = new ActionConfig.Builder("index", "index","");
+		ResultConfig.Builder resultBuilder = new ResultConfig.Builder("success",
+				"org.apache.struts2.views.tiles.TilesResult");
+		resultBuilder.addParam("location", module.getUrl()+"/index");
+		actionBuilder.addResultConfig(resultBuilder.build());
+		resultBuilder = new ResultConfig.Builder("error",
+				"org.apache.struts2.dispatcher.ServletRedirectResult");
+		resultBuilder.addParam("location", "/");
+		actionBuilder.addResultConfig(resultBuilder.build());
+		packageBuilder.addActionConfig("index",actionBuilder.build());
+		for(Action action : module.getActions()) {
+			actionBuilder = new ActionConfig.Builder(action.getUrl(), action.getUrl(),
+					action.getClassName());
+			actionBuilder.methodName(action.getMethod());
+			for(Result result : action.getResults()) {
+				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
+					result.setValue(module.getUrl() + "/" + result.getValue());
+				}
+				resultBuilder = new ResultConfig.Builder("error",
+						"org.apache.struts2.dispatcher.ServletRedirectResult");
+				resultBuilder.addParam("location", "/");
+				actionBuilder.addResultConfig(resultBuilder.build());
+				resultBuilder = null;
+				String type = result.getType();
+				if(type.equals("tiles")) {
+					resultBuilder = new ResultConfig.Builder(result.getName(),
+							"org.apache.struts2.views.tiles.TilesResult");
+				} else if(type.equals("redirect")) {
+					resultBuilder = new ResultConfig.Builder(result.getName(),
+							"org.apache.struts2.dispatcher.ServletRedirectResult");
+				} else if(type.equals("redirectAction")) {
+					resultBuilder = new ResultConfig.Builder(result.getName(),
+							"org.apache.struts2.dispatcher.ServletActionRedirectResult");
+				} else if(type.equals("dispatcher")) {
+					resultBuilder = new ResultConfig.Builder(result.getName(),
+							"org.apache.struts2.dispatcher.ServletDispatcherResult");
+				}
+				if(resultBuilder != null) {
+					resultBuilder.addParam("location", result.getValue());
+					actionBuilder.addResultConfig(resultBuilder.build());
+				}
+			}
+			packageBuilder.addActionConfig(action.getUrl(), actionBuilder.build());
+		}
+		PackageConfig packageConfig = packageBuilder.build();
+		configuration.addPackageConfig(module.getId(), packageConfig);
+		configuration.rebuildRuntimeConfiguration();
 	}
 
 	public Collection<Module> getModules() {
