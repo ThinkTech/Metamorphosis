@@ -10,7 +10,6 @@ public class Module extends Extension {
 	private String title;
 	private String icon;
 	private boolean main;
-	private boolean administrable = true;
 	private boolean cached;
 	private boolean mandatory;
 	private String indexPage = "index.jsp";
@@ -48,13 +47,6 @@ public class Module extends Extension {
 
 	public void setMain(boolean main) {
 		this.main = main;
-	}
-	public boolean isAdministrable() {
-		return administrable;
-	}
-
-	public void setAdministrable(boolean administrable) {
-		this.administrable = administrable;
 	}
 
 	public boolean isCached() {
