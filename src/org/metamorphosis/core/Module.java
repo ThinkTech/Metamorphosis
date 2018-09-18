@@ -11,7 +11,6 @@ public class Module extends Extension {
 	private String icon;
 	private boolean main;
 	private boolean cached;
-	private boolean mandatory;
 	private String indexPage = "index.jsp";
 	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
@@ -56,14 +55,6 @@ public class Module extends Extension {
 		this.cached = cached;
 	}
 	
-	public boolean isMandatory() {
-		return mandatory;
-	}
-
-	public void setMandatory(boolean mandatory) {
-		this.mandatory = mandatory;
-	}
-
 	public String getIndexPage() {
 		return indexPage;
 	}
