@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Expando extends groovy.util.Expando implements Map<Object,Object>{
+public class Expando extends groovy.util.Expando implements Map<Object,Object> {
 
 	private Map<Object,Object> map = new HashMap<Object,Object>();
 	
-	public Expando(){
+	public Expando() {
 		super();
 	}
 	
-	public Expando(Map<Object,Object> map){
+	public Expando(Map<Object,Object> map) {
 		this.map = map;
 	}
 
@@ -78,7 +78,7 @@ public class Expando extends groovy.util.Expando implements Map<Object,Object>{
 	}
 	
 	@Override
-	public void setProperty(String property,Object newValue){
+	public void setProperty(String property,Object newValue) {
 		super.setProperty(property, newValue);
 		map.put(property, newValue);
 	}

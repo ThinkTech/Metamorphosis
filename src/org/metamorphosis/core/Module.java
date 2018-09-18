@@ -17,10 +17,10 @@ public class Module extends Extension {
 	private List<Action> actions = new ArrayList<Action>();
 	private String roles="all";
 	
-	public Module(){
+	public Module() {
 	}
 	
-	public Module(File folder){
+	public Module(File folder) {
 		setFolder(folder);
 	}
 	
