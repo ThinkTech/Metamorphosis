@@ -18,100 +18,130 @@ public abstract class Extension implements Comparable<Extension> {
 	protected String details;
 	protected File folder;
 	private boolean visible = true;
-	
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
-		return name!=null ? name : folder.getName();
+		return name != null ? name : folder.getName();
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
 	public String getAuthorEmail() {
 		return authorEmail;
 	}
+
 	public void setAuthorEmail(String authorEmail) {
 		this.authorEmail = authorEmail;
 	}
+
 	public String getAuthorUrl() {
 		return authorUrl;
 	}
+
 	public void setAuthorUrl(String authorUrl) {
 		this.authorUrl = authorUrl;
 	}
+
 	public String getCreationDate() {
 		return creationDate;
 	}
+
 	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
+
 	public String getCopyright() {
 		return copyright;
 	}
+
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
 	}
+
 	public String getLicense() {
 		return license;
 	}
+
 	public void setLicense(String license) {
 		this.license = license;
 	}
+
 	public String getVersion() {
 		return version;
 	}
+
 	public void setVersion(String version) {
 		this.version = version;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getDetails() {
 		return details;
 	}
+
 	public void setDetails(String details) {
 		this.details = details;
 	}
+
 	public File getFolder() {
 		return folder;
 	}
+
 	public void setFolder(File folder) {
 		this.folder = folder;
-		id = id!=null ? id : folder.getName();
-		name = name!=null ? name : folder.getName();
+		id = id != null ? id : folder.getName();
+		name = name != null ? name : folder.getName();
 	}
+
 	public boolean isBackend() {
 		return "back-end".equals(type);
 	}
+
 	public boolean isFrontend() {
 		return "front-end".equals(type);
 	}
+
 	public boolean isVisible() {
 		return visible;
 	}
+
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+
 	public int compareTo(Extension extension) {
-        return name.compareTo(extension.name);
-    }
+		return name.compareTo(extension.name);
+	}
 }

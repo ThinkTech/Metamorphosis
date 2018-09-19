@@ -16,9 +16,6 @@ public class MailSender {
 	 
     private MailConfig config;
     
-    public MailSender() {
-    }
-    
     public MailSender(MailConfig config) {
     	this.config = config;
     }
