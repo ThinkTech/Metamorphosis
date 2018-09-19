@@ -18,15 +18,15 @@ public class SecurityFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		String requestPath = httpServletRequest.getRequestURI();
-		if(requestPath.indexOf(".groovy")!=-1 || requestPath.indexOf("module.xml")!=-1 || requestPath.indexOf(".jsp")!=-1) {
+		String requestURI = httpServletRequest.getRequestURI();
+		if(requestURI.indexOf(".groovy")!=-1 || requestURI.indexOf("module.xml")!=-1 || requestURI.indexOf(".jsp")!=-1) {
 			httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
 		}else {
 			String forceHttps = System.getenv("metamorphosis.forceHttps");
 			if("true".equals(forceHttps)){
 				String header = httpServletRequest.getHeader("X-Forwarded-Proto");
 				if(header!=null && header.indexOf("https")!=0) {
-					httpServletResponse.sendRedirect("https://" + request.getServerName() + requestPath);
+					httpServletResponse.sendRedirect("https://" + request.getServerName() + requestURI);
 					return;
 			    }
 			}
