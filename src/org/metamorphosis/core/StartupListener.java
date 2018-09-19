@@ -38,13 +38,13 @@ public class StartupListener implements ServletContextListener {
 	
 	private String loadTemplates(ServletContext context,String root) {
 		TemplateManager templateManager = new TemplateManager();
-		context.setAttribute("templateManager",templateManager);
 		templateManager.loadTemplates(new File(root+"/templates"));
 		String tilesDefinitions="";
 		Template template = templateManager.getBackendTemplate(null);
 		if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
 		template = templateManager.getFrontendTemplate(null);
 		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(root,template);
+		context.setAttribute("templateManager",templateManager);
 		return tilesDefinitions;
 	}
 	
