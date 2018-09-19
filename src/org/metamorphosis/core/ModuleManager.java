@@ -78,7 +78,7 @@ public class ModuleManager implements DispatcherListener {
 		digester.addBeanPropertySetter("module/url");
 		digester.addBeanPropertySetter("module/title");
 		digester.addBeanPropertySetter("module/icon");
-		digester.addBeanPropertySetter("module/index","indexPage");
+		digester.addBeanPropertySetter("module/index","page");
 		digester.addBeanPropertySetter("module/script");
 		digester.addBeanPropertySetter("module/main");
 		digester.addBeanPropertySetter("module/visible");
@@ -166,7 +166,7 @@ public class ModuleManager implements DispatcherListener {
 		CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
 		Template template = getCurrentTemplate(module);
 		Definition definition = createDefinition(module.getUrl(),module.getType(),template.getIndexPage());
-		definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + module.getIndexPage()));
+		definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + module.getPage()));
 		container.register(definition);
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
