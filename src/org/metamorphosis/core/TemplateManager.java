@@ -24,7 +24,7 @@ public class TemplateManager implements TemplateParser {
 	public void loadTemplates(File root) {
 		File[] files = root.listFiles();
 		if (files != null) {
-			for(File folder : root.listFiles()) {
+			for(File folder : files) {
 				if(folder.isDirectory())
 					try {
 						loadTemplate(folder);
