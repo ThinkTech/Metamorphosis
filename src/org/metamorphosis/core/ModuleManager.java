@@ -29,7 +29,7 @@ import com.opensymphony.xwork2.config.entities.PackageConfig;
 import com.opensymphony.xwork2.config.entities.ResultConfig;
 import groovy.util.GroovyScriptEngine;
 
-public class ModuleManager implements DispatcherListener,ModuleParser {
+public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	private Map<String,Module> modules = new HashMap<String,Module>();
 	private Logger logger = Logger.getLogger(ModuleManager.class.getName());
