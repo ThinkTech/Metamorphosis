@@ -21,7 +21,7 @@ public class TemplateManager implements TemplateParser {
 		instance = this;
 	}
 
-	public void loadTemplates(final File root) {
+	public void loadTemplates(File root) {
 		File[] files = root.listFiles();
 		if (files != null) {
 			for(File folder : root.listFiles()) {
@@ -65,7 +65,7 @@ public class TemplateManager implements TemplateParser {
 		return (Template) digester.parse(metadata);
 	}
 
-	private void monitorTemplate(final Template template) {
+	private void monitorTemplate(Template template) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(template.getFolder()).addListener(new FileListener() {
@@ -78,7 +78,7 @@ public class TemplateManager implements TemplateParser {
 		}
 	}
 
-	private void monitorRoot(final File root) {
+	private void monitorRoot(File root) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(root).addListener(new FileListener() {

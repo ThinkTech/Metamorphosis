@@ -43,7 +43,7 @@ public class ModuleManager implements DispatcherListener,ModuleParser {
 		this.servletContext = servletContext;
 	}
 
-	public void loadModules(final File root) {
+	public void loadModules(File root) {
 		File[] files = root.listFiles();
 		if(files != null) {
 		  for(File folder : files) {
@@ -123,7 +123,7 @@ public class ModuleManager implements DispatcherListener,ModuleParser {
 		}
 	}
 	
-	private void monitorRoot(final File root) {
+	private void monitorRoot(File root) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(root).addListener(new FileListener() {
@@ -149,7 +149,7 @@ public class ModuleManager implements DispatcherListener,ModuleParser {
 		}
 	}
 
-	private void monitorModule(final Module module) {
+	private void monitorModule(Module module) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(module.getFolder()).addListener(new FileListener() {
