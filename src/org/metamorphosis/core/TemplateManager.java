@@ -24,10 +24,10 @@ public class TemplateManager implements TemplateParser {
 	public void loadTemplates(File root) {
 		File[] files = root.listFiles();
 		if (files != null) {
-			for(File folder : files) {
-				if(folder.isDirectory())
+			for(File file : files) {
+				if(file.isDirectory())
 					try {
-						loadTemplate(folder);
+						loadTemplate(file);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

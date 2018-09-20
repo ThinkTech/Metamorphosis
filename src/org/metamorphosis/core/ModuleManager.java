@@ -46,10 +46,10 @@ public class ModuleManager implements DispatcherListener,ModuleParser {
 	public void loadModules(File root) {
 		File[] files = root.listFiles();
 		if(files != null) {
-		  for(File folder : files) {
-			 if(folder.isDirectory()) {
+		  for(File file : files) {
+			 if(file.isDirectory()) {
 				 try{
-					 loadModule(folder);
+					 loadModule(file);
 				 }catch (Exception e) {
 					e.printStackTrace();
 				 }
