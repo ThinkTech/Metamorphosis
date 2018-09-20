@@ -11,7 +11,7 @@ public class Module extends Extension {
 	private String icon;
 	private boolean main;
 	private boolean cached;
-	private String page = "index.jsp";
+	private String index = "index.jsp";
 	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<Action> actions = new ArrayList<Action>();
@@ -54,13 +54,13 @@ public class Module extends Extension {
 	public void setCached(boolean cached) {
 		this.cached = cached;
 	}
-	
-	public String getPage() {
-		return page;
+
+	public String getIndex() {
+		return index;
 	}
 
-	public void setPage(String page) {
-		this.page = page;
+	public void setIndex(String index) {
+		this.index = index;
 	}
 
 	public String getScript() {

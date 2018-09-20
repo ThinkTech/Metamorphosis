@@ -78,7 +78,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		digester.addBeanPropertySetter("module/url");
 		digester.addBeanPropertySetter("module/title");
 		digester.addBeanPropertySetter("module/icon");
-		digester.addBeanPropertySetter("module/index","page");
+		digester.addBeanPropertySetter("module/index");
 		digester.addBeanPropertySetter("module/script");
 		digester.addBeanPropertySetter("module/main");
 		digester.addBeanPropertySetter("module/visible");
@@ -166,7 +166,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
 		Template template = getCurrentTemplate(module);
 		Definition definition = createDefinition(module.getUrl(),module.getType(),template.getIndexPage());
-		definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + module.getPage()));
+		definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + module.getIndex()));
 		container.register(definition);
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
@@ -233,7 +233,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return null;
 	}
 	
-	private Object loadScript(File script) throws Exception{
+	private Object loadScript(File script) throws Exception {
 		if(script.exists()) {
 			GroovyScriptEngine engine = getScriptEngine(script.getParentFile());
 			return engine.loadScriptByName(script.getName()).newInstance();
