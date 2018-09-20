@@ -21,8 +21,8 @@ public class TemplateManager implements TemplateParser {
 		instance = this;
 	}
 
-	public void loadTemplates(File root) {
-		File[] files = root.listFiles();
+	public void loadTemplates(File folder) {
+		File[] files = folder.listFiles();
 		if (files != null) {
 			for(File file : files) {
 				if(file.isDirectory())
@@ -33,7 +33,7 @@ public class TemplateManager implements TemplateParser {
 					}
 			}
 			String reload = System.getenv("metamorphosis.reload");
-			if("true".equals(reload)) monitorRoot(root);
+			if("true".equals(reload)) monitorRoot(folder);
 		}
 	}
 

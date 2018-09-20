@@ -43,8 +43,8 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		this.servletContext = servletContext;
 	}
 
-	public void loadModules(File root) {
-		File[] files = root.listFiles();
+	public void loadModules(File folder) {
+		File[] files = folder.listFiles();
 		if(files != null) {
 		  for(File file : files) {
 			 if(file.isDirectory()) {
@@ -56,7 +56,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			 }
 		  }
 		  String reload = System.getenv("metamorphosis.reload");
-		  if("true".equals(reload)) monitorRoot(root);
+		  if("true".equals(reload)) monitorRoot(folder);
 		}
 	}
 
