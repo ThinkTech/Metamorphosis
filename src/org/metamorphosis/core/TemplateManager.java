@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.digester.Digester;
 
-public class TemplateManager {
+public class TemplateManager implements TemplateParser {
 
 	private Map<String,Template> templates = new HashMap<String,Template>();
 	private Logger logger = Logger.getLogger(TemplateManager.class.getName());
@@ -45,7 +45,7 @@ public class TemplateManager {
 		return template;
 	}
 
-	private Template parse(File metadata) throws Exception {
+	public Template parse(File metadata) throws Exception {
 		Digester digester = new Digester();
 		digester.setValidating(false);
 		digester.addObjectCreate("template", Template.class);

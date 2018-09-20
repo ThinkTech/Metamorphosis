@@ -29,7 +29,7 @@ import com.opensymphony.xwork2.config.entities.PackageConfig;
 import com.opensymphony.xwork2.config.entities.ResultConfig;
 import groovy.util.GroovyScriptEngine;
 
-public class ModuleManager implements DispatcherListener {
+public class ModuleManager implements DispatcherListener,ModuleParser {
 
 	private Map<String,Module> modules = new HashMap<String,Module>();
 	private Logger logger = Logger.getLogger(ModuleManager.class.getName());
@@ -68,7 +68,7 @@ public class ModuleManager implements DispatcherListener {
 		return module;
 	}
 	
-	private Module parse(File metadata) throws Exception {
+	public Module parse(File metadata) throws Exception {
 		Digester digester = new Digester();
 		digester.setValidating(false);
 		digester.addObjectCreate("module", Module.class);
