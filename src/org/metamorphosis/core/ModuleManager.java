@@ -309,12 +309,13 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			logger.log(Level.INFO, "updating module  : " + module.getName());
 			File folder = module.getFolder();
 			String id = module.getId();
-			module = parse(new File(folder + "/"+MODULE_METADATA));
+			module = parse(new File(folder+"/"+MODULE_METADATA));
 			module.setFolder(folder);
 			initModule(module);
-			modules.put(id,module);
-			rebuildRuntimeConfiguration(id, module);
+			rebuildRuntimeConfiguration(id,module);
 			registerPages(module);
+			modules.remove(id);
+			modules.put(module.getId(),module);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -332,24 +333,19 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				if(!item.getUrl().equals(module.getUrl())){
 					String url = item.getUrl().substring(module.getUrl().length()+1);
 					actionBuilder = new ActionConfig.Builder(url,url,null);
-					resultBuilder = new ResultConfig.Builder("success","org.apache.struts2.views.tiles.TilesResult");
-					resultBuilder.addParam("location",item.getUrl());
-					actionBuilder.addResultConfig(resultBuilder.build());
-					resultBuilder = new ResultConfig.Builder("error","org.apache.struts2.dispatcher.ServletRedirectResult");
-					resultBuilder.addParam("location","/");
-					actionBuilder.addResultConfig(resultBuilder.build());
-					ActionConfig actionConfig = actionBuilder.build();
-					packageBuilder.addActionConfig(url,actionConfig);
+					resultBuilder = createResultBuilder(new Result("success","tiles"));
+					actionBuilder.addResultConfig(resultBuilder.addParam("location",item.getUrl()).build());
+					resultBuilder = createResultBuilder(new Result("error","redirect"));
+					actionBuilder.addResultConfig(resultBuilder.addParam("location","/").build());
+					packageBuilder.addActionConfig(url,actionBuilder.build());
 				}
 			}
 		}
 		actionBuilder = new ActionConfig.Builder("index","index","");
-		resultBuilder = new ResultConfig.Builder("success","org.apache.struts2.views.tiles.TilesResult");
-		resultBuilder.addParam("location", module.getUrl()+"/index");
-		actionBuilder.addResultConfig(resultBuilder.build());
-		resultBuilder = new ResultConfig.Builder("error","org.apache.struts2.dispatcher.ServletRedirectResult");
-		resultBuilder.addParam("location","/");
-		actionBuilder.addResultConfig(resultBuilder.build());
+		resultBuilder = createResultBuilder(new Result("success","tiles"));
+		actionBuilder.addResultConfig(resultBuilder.addParam("location", module.getUrl()+"/index").build());
+		resultBuilder = createResultBuilder(new Result("error","redirect"));
+		actionBuilder.addResultConfig(resultBuilder.addParam("location","/").build());
 		packageBuilder.addActionConfig("index",actionBuilder.build());
 		for(Action action : module.getActions()) {
 			actionBuilder = new ActionConfig.Builder(action.getUrl(),action.getUrl(),action.getClassName());
@@ -358,19 +354,14 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
 					result.setValue(module.getUrl()+"/"+result.getValue());
 				}
-				resultBuilder = new ResultConfig.Builder("error","org.apache.struts2.dispatcher.ServletRedirectResult");
-				resultBuilder.addParam("location","/");
-				actionBuilder.addResultConfig(resultBuilder.build());
+				resultBuilder = createResultBuilder(new Result("error","redirect"));
+				actionBuilder.addResultConfig(resultBuilder.addParam("location","/").build());
 				resultBuilder = createResultBuilder(result);
-				if(resultBuilder!=null) {
-					resultBuilder.addParam("location",result.getValue());
-					actionBuilder.addResultConfig(resultBuilder.build());
-				}
+				if(resultBuilder!=null) actionBuilder.addResultConfig(resultBuilder.addParam("location",result.getValue()).build());
 			}
 			packageBuilder.addActionConfig(action.getUrl(),actionBuilder.build());
 		}
-		PackageConfig packageConfig = packageBuilder.build();
-		configuration.addPackageConfig(module.getId(),packageConfig);
+		configuration.addPackageConfig(module.getId(),packageBuilder.build());
 		configuration.rebuildRuntimeConfiguration();
 	}
 	

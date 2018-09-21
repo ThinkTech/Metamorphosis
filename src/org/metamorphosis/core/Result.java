@@ -12,6 +12,11 @@ public class Result {
 	public Result(String value) {
 		this.value = value;
 	}
+	
+	public Result(String name,String type) {
+		this.name = name;
+		this.type = type;
+	}
 
 	public String getName() {
 		return name;
