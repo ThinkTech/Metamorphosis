@@ -69,10 +69,10 @@ public class TemplateManager implements TemplateParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(template.getFolder()).addListener(new FileListener() {
-				public void onFileCreated(String file) {
-					if(file.equals(TEMPLATE_METADATA)) updateTemplate(template);
+				public void onFileCreated(String name) {
+					if(name.equals(TEMPLATE_METADATA)) updateTemplate(template);
 				}
-				public void onFileDeleted(String file) {
+				public void onFileDeleted(String name) {
 				}
 			}).watch();
 		}
@@ -82,17 +82,17 @@ public class TemplateManager implements TemplateParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(root).addListener(new FileListener() {
-				public void onFileCreated(String file) {
-					File folder = new File(root + "/" + file);
-					if (folder.isDirectory()) {
-						logger.log(Level.INFO, "adding template  : " + folder.getName());
-						addTemplate(new Template(folder));
+				public void onFileCreated(String name) {
+					File file = new File(root + "/" + name);
+					if (file.isDirectory()) {
+						logger.log(Level.INFO, "adding template  : " + file.getName());
+						addTemplate(new Template(file));
 					}
 				}
-				public void onFileDeleted(String file) {
+				public void onFileDeleted(String name) {
 					Collection<Template> templates = getTemplates();
 					for(Template template : templates){
-						if(template.getFolder().getName().equals(file)) {
+						if(template.getFolder().getName().equals(name)) {
 							logger.log(Level.INFO, "removing template  : " + template.getName());
 							removeTemplate(template);
 							break;

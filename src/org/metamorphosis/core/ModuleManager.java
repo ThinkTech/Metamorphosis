@@ -127,17 +127,17 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(root).addListener(new FileListener() {
-				public void onFileCreated(String file) {
-					File folder = new File(root+"/"+file);
-					if(folder.isDirectory()) {
-						logger.log(Level.INFO, "adding module  : " + folder.getName());
-						addModule(new Module(folder));
+				public void onFileCreated(String name) {
+					File file = new File(root+"/"+name);
+					if(file.isDirectory()) {
+						logger.log(Level.INFO, "adding module  : " + file.getName());
+						addModule(new Module(file));
 					}
 				}
-				public void onFileDeleted(String file) {
+				public void onFileDeleted(String name) {
 					Collection<Module> modules = getModules(); 
 					for(Module module : modules) {
-						if(module.getFolder().getName().equals(file)) {
+						if(module.getFolder().getName().equals(name)) {
 							logger.log(Level.INFO, "removing module  : " + module.getName());
 							removeModule(module);
 							break;
@@ -153,10 +153,10 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(module.getFolder()).addListener(new FileListener() {
-		    	public void onFileCreated(String file) {
-		    		if(file.equals(MODULE_METADATA)) updateModule(module);		
+		    	public void onFileCreated(String name) {
+		    		if(name.equals(MODULE_METADATA)) updateModule(module);		
 				}
-				public void onFileDeleted(String file) {
+				public void onFileDeleted(String name) {
 				}
 			}).watch();
 		}
