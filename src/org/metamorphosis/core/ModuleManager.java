@@ -312,8 +312,8 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			module = parse(new File(folder+"/"+MODULE_METADATA));
 			module.setFolder(folder);
 			initModule(module);
-			rebuildRuntimeConfiguration(id,module);
 			registerPages(module);
+			rebuildRuntimeConfiguration(id,module);
 			modules.remove(id);
 			modules.put(module.getId(),module);
 		} catch (Exception e) {
