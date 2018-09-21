@@ -113,6 +113,11 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		getRequest().setAttribute(key,object);
 	}
 	
+	public void forward(String location) throws ServletException, IOException {
+		HttpServletRequest request = getRequest();
+		request.getRequestDispatcher(location).forward(request, getResponse());
+	}
+	
 	public void redirect(String location) throws IOException {
 		getResponse().sendRedirect(location);
 	}
