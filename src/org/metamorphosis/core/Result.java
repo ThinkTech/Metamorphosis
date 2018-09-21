@@ -5,6 +5,13 @@ public class Result {
 	private String name = "success";
 	private String type = "tiles";
 	private String value = "";
+	
+	public Result() {
+	}
+	
+	public Result(String value) {
+		this.value = value;
+	}
 
 	public String getName() {
 		return name;

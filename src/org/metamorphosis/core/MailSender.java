@@ -20,7 +20,7 @@ public class MailSender {
     	this.config = config;
     }
     
-    public void sendMail(Mail mail)  {
+    public void sendMail(Mail mail) {
     	try {
 			sendMail(mail,false);
 		} catch (UnsupportedEncodingException e) {
@@ -28,7 +28,7 @@ public class MailSender {
 		}
     }
     
-    public void sendMail(Mail mail,boolean cc) throws UnsupportedEncodingException  {
+    public void sendMail(Mail mail,boolean cc) throws UnsupportedEncodingException {
         Session session = Session.getInstance(config.getProperties(),
       		  new Authenticator() {
       			protected PasswordAuthentication getPasswordAuthentication() {
