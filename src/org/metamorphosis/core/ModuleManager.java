@@ -357,7 +357,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				resultBuilder = createResultBuilder(new Result("error","redirect"));
 				actionBuilder.addResultConfig(resultBuilder.addParam("location","/").build());
 				resultBuilder = createResultBuilder(result);
-				if(resultBuilder!=null) actionBuilder.addResultConfig(resultBuilder.addParam("location",result.getValue()).build());
+				actionBuilder.addResultConfig(resultBuilder.addParam("location",result.getValue()).build());
 			}
 			packageBuilder.addActionConfig(action.getUrl(),actionBuilder.build());
 		}
@@ -387,9 +387,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		List<Module> visibles = new ArrayList<Module>();
 		Collection<Module> modules = getModules(); 
 		for(Module module : modules) {
-			if(module.isVisible() && module.getType().equals(type)) {
-				visibles.add(module);
-			}
+			if(module.isVisible() && module.getType().equals(type)) visibles.add(module);
 		}
 		return visibles;
 	}
