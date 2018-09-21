@@ -105,11 +105,13 @@ public class TemplateManager implements TemplateParser {
 
 	private void updateTemplate(Template template) {
 		try {
-			logger.log(Level.INFO, "updating template  : " + template.getId());
+			logger.log(Level.INFO, "updating template  : " + template.getName());
 			File folder = template.getFolder();
-			template = parse(new File(folder + "/" + TEMPLATE_METADATA));
+			String id = template.getId();
+			template = parse(new File(folder+"/"+TEMPLATE_METADATA));
 			template.setFolder(folder);
-			templates.put(template.getId(), template);
+			templates.remove(id);
+			templates.put(template.getId(),template);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
