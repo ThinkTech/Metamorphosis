@@ -84,7 +84,7 @@ public class TemplateManager implements TemplateParser {
 			new FileMonitor(root).addListener(new FileListener() {
 				public void onFileCreated(String name) {
 					File file = new File(root + "/" + name);
-					if (file.isDirectory()) {
+					if(file.isDirectory()) {
 						logger.log(Level.INFO, "adding template  : " + file.getName());
 						addTemplate(new Template(file));
 					}
