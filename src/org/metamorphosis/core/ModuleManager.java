@@ -362,7 +362,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				resultBuilder.addParam("location","/");
 				actionBuilder.addResultConfig(resultBuilder.build());
 				resultBuilder = createResultBuilder(result);
-				if(resultBuilder != null) {
+				if(resultBuilder!=null) {
 					resultBuilder.addParam("location",result.getValue());
 					actionBuilder.addResultConfig(resultBuilder.build());
 				}
