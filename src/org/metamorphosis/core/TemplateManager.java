@@ -33,8 +33,7 @@ public class TemplateManager implements TemplateParser {
 						e.printStackTrace();
 					}
 			}
-			String reload = System.getenv("metamorphosis.reload");
-			if("true".equals(reload)) monitorFolder(folder);
+			monitorFolder(folder);
 		}
 	}
 
