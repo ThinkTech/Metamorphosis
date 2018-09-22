@@ -1,7 +1,7 @@
 package org.metamorphosis.core;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +24,7 @@ public class WelcomeServlet extends HttpServlet {
 	
 	private Module getMainModule() {
 		ModuleManager moduleManager = ModuleManager.getInstance();
-		List<Module> modules = moduleManager.getFrontendModules();
+		Collection<Module> modules = moduleManager.getFrontendModules();
 		for(Module module : modules) if(module.isMain()) return module;
 		return null;	
 	}
