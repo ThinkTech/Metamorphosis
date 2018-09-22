@@ -126,15 +126,21 @@ public class TemplateManager implements TemplateParser {
 		templates.remove(template.getId());
 	}
 
-	public Template getTemplate(String id) {
+	public Template getTemplateById(String id) {
 		Collection<Template> templates = getTemplates();
 		for(Template template : templates) if(template.getId().equals(id)) return template;
+		return null;
+	}
+	
+	public Template getTemplateByName(String name) {
+		Collection<Template> templates = getTemplates();
+		for(Template template : templates) if(template.getName().toLowerCase().equals(name.toLowerCase())) return template;
 		return null;
 	}
 
 	public Template getBackendTemplate(String id) {
 		Collection<Template> templates = getTemplates();
-		Template template = getTemplate(id);
+		Template template = getTemplateById(id);
 		if(template != null && template.isBackend()) return template;
 		for(Template current : templates) if(current.isSelected() && current.isBackend()) return current;
 		for(Template current : templates) if(current.isBackend()) return current;
@@ -143,7 +149,7 @@ public class TemplateManager implements TemplateParser {
 
 	public Template getFrontendTemplate(String id) {
 		Collection<Template> templates = getTemplates();
-		Template template = getTemplate(id);
+		Template template = getTemplateById(id);
 		if(template != null && template.isFrontend()) return template;
 		for(Template current : templates) if(current.isSelected() && current.isFrontend()) return current;
 		for(Template current : templates) if(current.isFrontend()) return current;
