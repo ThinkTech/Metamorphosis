@@ -3,6 +3,7 @@ package org.metamorphosis.core;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -160,17 +161,19 @@ public class TemplateManager implements TemplateParser {
 		return templates.values();
 	}
 	
-	public List<Template> getBackendTemplates() {
+	public Collection<Template> getBackendTemplates() {
 		List<Template> list = new ArrayList<Template>();
 		Collection<Template> templates = getTemplates();
 		for(Template current : templates) if(current.isBackend()) list.add(current);
+		Collections.sort(list);
 		return list;
 	}
 	
-	public List<Template> getFrontendTemplates() {
+	public Collection<Template> getFrontendTemplates() {
 		List<Template> list = new ArrayList<Template>();
 		Collection<Template> templates = getTemplates();
 		for(Template current : templates) if(current.isFrontend()) list.add(current);
+		Collections.sort(list);
 		return list;
 	}
 

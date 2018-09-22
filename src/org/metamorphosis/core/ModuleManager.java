@@ -367,16 +367,14 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return modules.values();
 	}
 
-	public List<Module> getVisibleModules(String type) {
-		List<Module> visibles = new ArrayList<Module>();
+	public Collection<Module> getVisibleModules(String type) {
+		Collection<Module> visibles = new ArrayList<Module>();
 		Collection<Module> modules = getModules(); 
-		for(Module module : modules) {
-			if(module.isVisible() && module.getType().equals(type)) visibles.add(module);
-		}
+		for(Module module : modules) if(module.isVisible() && module.getType().equals(type)) visibles.add(module);
 		return visibles;
 	}
 	
-	public List<Module> getFrontendModules() {
+	public Collection<Module> getFrontendModules() {
 		List<Module> list = new ArrayList<Module>();
 		Collection<Module> modules = getModules(); 
 		for(Module module : modules) if(module.isFrontend()) list.add(module);
@@ -384,7 +382,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return list;
 	}
 	
-	public List<Module> getBackendModules() {
+	public Collection<Module> getBackendModules() {
 		List<Module> list = new ArrayList<Module>();
 		Collection<Module> modules = getModules();
 		for(Module module : modules) if(module.isBackend()) list.add(module);
