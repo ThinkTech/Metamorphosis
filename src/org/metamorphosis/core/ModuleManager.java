@@ -56,7 +56,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			 }
 		  }
 		  String reload = System.getenv("metamorphosis.reload");
-		  if("true".equals(reload)) monitorRoot(folder);
+		  if("true".equals(reload)) monitorFolder(folder);
 		}
 	}
 
@@ -123,12 +123,12 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	private void monitorRoot(File root) {
+	private void monitorFolder(File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
-			new FileMonitor(root).addListener(new FileListener() {
+			new FileMonitor(folder).addListener(new FileListener() {
 				public void onFileCreated(String name) {
-					File file = new File(root+"/"+name);
+					File file = new File(folder+"/"+name);
 					if(file.isDirectory()) {
 						logger.log(Level.INFO, "adding module  : " + file.getName());
 						addModule(new Module(file));
