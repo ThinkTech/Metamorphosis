@@ -327,25 +327,20 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		packageBuilder.namespace("/"+module.getUrl());
 		packageBuilder.addParent(configuration.getPackageConfig("root"));
 		ActionConfig.Builder actionBuilder;
-		ResultConfig.Builder resultBuilder;
 		for(Menu menu : module.getMenus()) {
 			for(MenuItem item : menu.getMenuItems()) {
 				if(!item.getUrl().equals(module.getUrl())){
 					String url = item.getUrl().substring(module.getUrl().length()+1);
 					actionBuilder = new ActionConfig.Builder(url,url,null);
-					resultBuilder = createResultBuilder(new Result("success","tiles"));
-					actionBuilder.addResultConfig(resultBuilder.addParam("location",item.getUrl()).build());
-					resultBuilder = createResultBuilder(new Result("error","redirect"));
-					actionBuilder.addResultConfig(resultBuilder.addParam("location","/").build());
+					actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",item.getUrl())).build());
+					actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
 					packageBuilder.addActionConfig(url,actionBuilder.build());
 				}
 			}
 		}
 		actionBuilder = new ActionConfig.Builder("index","index","");
-		resultBuilder = createResultBuilder(new Result("success","tiles"));
-		actionBuilder.addResultConfig(resultBuilder.addParam("location", module.getUrl()+"/index").build());
-		resultBuilder = createResultBuilder(new Result("error","redirect"));
-		actionBuilder.addResultConfig(resultBuilder.addParam("location","/").build());
+	    actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",module.getUrl()+"/index")).build());
+		actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
 		packageBuilder.addActionConfig("index",actionBuilder.build());
 		for(Action action : module.getActions()) {
 			actionBuilder = new ActionConfig.Builder(action.getUrl(),action.getUrl(),action.getClassName());
@@ -354,10 +349,8 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
 					result.setValue(module.getUrl()+"/"+result.getValue());
 				}
-				resultBuilder = createResultBuilder(new Result("error","redirect"));
-				actionBuilder.addResultConfig(resultBuilder.addParam("location","/").build());
-				resultBuilder = createResultBuilder(result);
-				actionBuilder.addResultConfig(resultBuilder.addParam("location",result.getValue()).build());
+				actionBuilder.addResultConfig(createResultBuilder(result).build());
+				actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
 			}
 			packageBuilder.addActionConfig(action.getUrl(),actionBuilder.build());
 		}
@@ -366,17 +359,18 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	private ResultConfig.Builder createResultBuilder(Result result){
+		ResultConfig.Builder builder = null;
 		String type = result.getType();
 		if(type.equals("tiles")) {
-			return new ResultConfig.Builder(result.getName(),"org.apache.struts2.views.tiles.TilesResult");
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.views.tiles.TilesResult");
 		} else if(type.equals("redirect")) {
-			return new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletRedirectResult");
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletRedirectResult");
 		} else if(type.equals("redirectAction")) {
-			return new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletActionRedirectResult");
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletActionRedirectResult");
 		} else if(type.equals("dispatcher")) {
-			return new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletDispatcherResult");
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletDispatcherResult");
 		}
-		return null;
+		return builder.addParam("location",result.getValue());
 	}
 	
 	public Collection<Module> getModules() {

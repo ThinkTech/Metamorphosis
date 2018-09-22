@@ -18,6 +18,12 @@ public class Result {
 		this.type = type;
 	}
 
+	public Result(String name,String type,String value) {
+		this.name = name;
+		this.type = type;
+		this.value = value;
+	}
+	
 	public String getName() {
 		return name;
 	}
