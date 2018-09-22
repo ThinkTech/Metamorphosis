@@ -11,8 +11,8 @@ public class PagePreparer implements ViewPreparer {
 	@Override
 	public void execute(TilesRequestContext tilesContext, AttributeContext attributeContext) throws PreparerException {
 		try {
-			ModuleManager moduleManager = ModuleManager.getInstance();
 			TemplateManager templateManager = TemplateManager.getInstance();
+			ModuleManager moduleManager = ModuleManager.getInstance();
 			Module module = moduleManager.getCurrentModule();
 			if(module!=null && module.isBackend()) {
 				Template template = templateManager.getBackendTemplate(null);

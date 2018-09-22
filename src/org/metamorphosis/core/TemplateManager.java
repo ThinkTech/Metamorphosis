@@ -26,12 +26,13 @@ public class TemplateManager implements TemplateParser {
 		File[] files = folder.listFiles();
 		if(files!=null) {
 			for(File file : files) {
-				if(file.isDirectory())
+				if(file.isDirectory()) {
 					try {
 						loadTemplate(file);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+				}
 			}
 			monitorFolder(folder);
 		}
