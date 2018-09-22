@@ -23,7 +23,7 @@ public class TemplateManager implements TemplateParser {
 
 	public void loadTemplates(File folder) {
 		File[] files = folder.listFiles();
-		if (files != null) {
+		if(files!=null) {
 			for(File file : files) {
 				if(file.isDirectory())
 					try {
@@ -38,7 +38,7 @@ public class TemplateManager implements TemplateParser {
 	}
 
 	public Template loadTemplate(File folder) throws Exception {
-		File metadata = new File(folder+ "/"+TEMPLATE_METADATA);
+		File metadata = new File(folder+"/"+TEMPLATE_METADATA);
 		Template template = metadata.exists() ? parse(metadata) : new Template();
 		template.setFolder(folder);
 		addTemplate(template);
@@ -85,7 +85,7 @@ public class TemplateManager implements TemplateParser {
 				public void onFileCreated(String name) {
 					File file = new File(folder+"/"+name);
 					if(file.isDirectory()) {
-						logger.log(Level.INFO, "adding template  : " + file.getName());
+						logger.log(Level.INFO, "adding template from folder : " + file.getName());
 						addTemplate(new Template(file));
 					}
 				}

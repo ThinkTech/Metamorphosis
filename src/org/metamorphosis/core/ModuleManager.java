@@ -130,7 +130,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				public void onFileCreated(String name) {
 					File file = new File(folder+"/"+name);
 					if(file.isDirectory()) {
-						logger.log(Level.INFO, "adding module  : " + file.getName());
+						logger.log(Level.INFO, "adding module from folder  : " + file.getName());
 						addModule(new Module(file));
 					}
 				}
