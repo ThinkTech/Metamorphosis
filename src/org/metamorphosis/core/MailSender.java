@@ -48,7 +48,7 @@ public class MailSender {
 	        message.setSubject(StringEscapeUtils.unescapeHtml4(mail.getSubject()));
 	        message.setContent(mail.getContent(),"text/html");
 	        message.setSentDate(new Date());
-	        Thread thread = new Thread(new Runnable() {
+	        new Thread(new Runnable() {
 				public void run() {
 					try {
 						Transport.send(message);
@@ -56,8 +56,7 @@ public class MailSender {
 						e.printStackTrace();
 					}
 				}	
-			});	
-			thread.start();
+			}).start();
         } catch (MessagingException e) {
         	e.printStackTrace();
         }
