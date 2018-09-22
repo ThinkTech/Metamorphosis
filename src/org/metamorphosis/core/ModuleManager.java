@@ -220,36 +220,32 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		for(Module module : modules) if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
 		return null;
 	}
+	
+	public Module getModuleById(String id) {
+		Collection<Module> modules = getModules(); 
+		for(Module module : modules) if(module.getId().equals(id)) return module;
+		return null;
+	}
 
 	public Object buildAction(Module module,String url) throws Exception {
 		if(module != null) {
 			Action action = module.getAction(url);
-			if(action!= null && action.getScript()!= null) {
-				return loadScript(new File(module.getFolder() + "/scripts/" + action.getScript()));
-			}else{
-				return loadScript(new File(module.getFolder() + "/scripts/" + module.getScript()));
-			}
+			File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/scripts/"+action.getScript())
+			 : 	new File(module.getFolder()+"/scripts/"+module.getScript());
+			return loadScript(file);
 		}
 		return null;
 	}
 	
 	private Object loadScript(File script) throws Exception {
-		if(script.exists()) {
-			GroovyScriptEngine engine = getScriptEngine(script.getParentFile());
-			return engine.loadScriptByName(script.getName()).newInstance();
-		}
-		return new ActionSupport();
+		return script.exists() ? getScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance() : new ActionSupport();
 	}
 	
 	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
 		String key = url;
 		if(module!=null){
 			Action action = module.getAction(url);
-			if(action != null && action.getScript() != null) {
-				key = module.getUrl()+"/"+action.getScript();
-			}else{
-				key = module.getUrl()+"/"+module.getScript();
-			}
+			key = action != null && action.getScript() != null ? module.getUrl()+"/"+action.getScript() : module.getUrl()+"/"+module.getScript();
 		}
 		Object object = servletContext.getAttribute(key);
 		if(object==null) {
@@ -284,12 +280,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		configuration.addCompilationCustomizers(importCustomizer);
 		engine.setConfig(configuration);
 		return engine;
-	}
-
-	public Module getModuleById(String id) {
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) if(module.getId().equals(id)) return module;
-		return null;
 	}
 
 	public void addModule(Module module) {
