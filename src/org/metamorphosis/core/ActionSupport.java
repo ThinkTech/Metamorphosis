@@ -3,7 +3,6 @@ package org.metamorphosis.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -163,7 +162,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		String actionURL = (String) request.getAttribute("actionURL");
 		if(actionURL!=null) {
 			ModuleManager moduleManager = ModuleManager.getInstance();
-			List<Module> modules = moduleManager.getVisibleModules("front-end");
+			Collection<Module> modules = moduleManager.getVisibleModules("front-end");
 			for(Module module : modules) {
 				if(module.isMain()) {
 					String url = module.getUrl()+"/"+actionURL;
