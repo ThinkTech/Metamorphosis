@@ -67,7 +67,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return module;
 	}
 	
-	public ModuleParser createParser() {
+	private ModuleParser createParser() {
 		ModuleParser parser = this;
 		return parser;
 	}

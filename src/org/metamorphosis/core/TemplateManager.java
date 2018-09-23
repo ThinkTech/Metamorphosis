@@ -46,7 +46,7 @@ public class TemplateManager implements TemplateParser {
 		return template;
 	}
 	
-	public TemplateParser createParser() {
+	private TemplateParser createParser() {
 		TemplateParser parser = this;
 		return parser;
 	}
