@@ -136,7 +136,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 					}
 				}
 				
-			}).watch();
+			}).monitor();
 		}
 	}
 	
@@ -168,7 +168,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				}
 				public void onFileDeleted(String name) {
 				}
-			}).watch();
+			}).monitor();
 		}
 	}
 	
@@ -180,7 +180,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	
 	public void updateModule(Module module) {
 		try {
-			logger.log(Level.INFO, "updating module  : " + module.getName());
+			logger.log(Level.INFO, "updating module from folder : " + module.getFolder().getName());
 			String id = module.getId();
 			File folder = module.getFolder();
 			module = parse(new File(folder+"/"+MODULE_METADATA));
@@ -296,8 +296,8 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 		Object object = servletContext.getAttribute(key);
 		if(object==null) {
-          object = ModuleManager.getInstance().buildAction(module,url);
-          if(object!=null) servletContext.setAttribute(key,object);  
+		  object = ModuleManager.getInstance().buildAction(module,url);
+		  if(object!=null) servletContext.setAttribute(key,object);  
         }
         return object;
 	}

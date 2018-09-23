@@ -23,7 +23,7 @@ public class FileMonitor {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void watch() {
+	public void monitor() {
 		new Thread(new Runnable() {
 		  public void run() {
 			try {

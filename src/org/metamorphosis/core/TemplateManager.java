@@ -92,7 +92,7 @@ public class TemplateManager implements TemplateParser {
 						}
 					}
 				}	
-			}).watch();
+			}).monitor();
 		}
 	}
 
@@ -110,13 +110,13 @@ public class TemplateManager implements TemplateParser {
 				}
 				public void onFileDeleted(String name) {
 				}
-			}).watch();
+			}).monitor();
 		}
 	}
 
 	private void updateTemplate(Template template) {
 		try {
-			logger.log(Level.INFO, "updating template  : " + template.getName());
+			logger.log(Level.INFO, "updating template from folder : " + template.getFolder().getName());
 			String id = template.getId();
 			File folder = template.getFolder();
 			template = parse(new File(folder+"/"+TEMPLATE_METADATA));
