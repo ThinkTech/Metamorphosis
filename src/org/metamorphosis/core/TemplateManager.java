@@ -73,7 +73,7 @@ public class TemplateManager implements TemplateParser {
 				public void onFileCreated(String name) {
 					File file = new File(folder+"/"+name);
 					if(file.isDirectory()) {
-						logger.log(Level.INFO, "adding template from folder : " + file.getName());
+						logger.log(Level.INFO, "adding template from folder : " + name);
 						addTemplate(new Template(file));
 					}
 				}
@@ -81,7 +81,7 @@ public class TemplateManager implements TemplateParser {
 					Collection<Template> templates = getTemplates();
 					for(Template template : templates){
 						if(template.getFolder().getName().equals(name)) {
-							logger.log(Level.INFO, "removing template  : " + template.getName());
+							logger.log(Level.INFO, "removing template from folder : " + name);
 							removeTemplate(template);
 							break;
 						}

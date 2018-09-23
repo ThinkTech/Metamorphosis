@@ -116,7 +116,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				public void onFileCreated(String name) {
 					File file = new File(folder+"/"+name);
 					if(file.isDirectory()) {
-						logger.log(Level.INFO, "adding module from folder  : " + file.getName());
+						logger.log(Level.INFO, "adding module from folder  : " + name);
 						addModule(new Module(file));
 					}
 				}
@@ -124,7 +124,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 					Collection<Module> modules = getModules(); 
 					for(Module module : modules) {
 						if(module.getFolder().getName().equals(name)) {
-							logger.log(Level.INFO, "removing module  : " + module.getName());
+							logger.log(Level.INFO, "removing module from folder : " + name);
 							removeModule(module);
 							break;
 						}
