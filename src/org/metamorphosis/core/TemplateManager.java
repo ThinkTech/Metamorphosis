@@ -66,7 +66,7 @@ public class TemplateManager implements TemplateParser {
 		return (Template) digester.parse(metadata);
 	}
 
-	private void monitorFolder(File folder) {
+	private void monitorFolder(final File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(folder).addListener(new FileListener() {
@@ -96,7 +96,7 @@ public class TemplateManager implements TemplateParser {
 		templates.put(template.getId(),template);
 	}
 	
-	private void monitorTemplate(Template template) {
+	private void monitorTemplate(final Template template) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(template.getFolder()).addListener(new FileListener() {

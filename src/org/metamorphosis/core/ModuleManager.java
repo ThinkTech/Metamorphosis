@@ -109,7 +109,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return (Module) digester.parse(metadata);
 	}
 	
-	private void monitorFolder(File folder) {
+	private void monitorFolder(final File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(folder).addListener(new FileListener() {
@@ -154,7 +154,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	private void monitorModule(Module module) {
+	private void monitorModule(final Module module) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(module.getFolder()).addListener(new FileListener() {
