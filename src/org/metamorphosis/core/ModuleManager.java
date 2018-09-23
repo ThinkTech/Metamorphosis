@@ -134,10 +134,66 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			}).watch();
 		}
 	}
-
+	
+	public void addModule(Module module) {
+		initModule(module);
+		monitorModule(module);
+		modules.put(module.getId(),module);
+	}
+	
+	private void initModule(Module module) {
+		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
+		for(Action action : module.getActions()) {
+			if(action.getPage()==null) action.setPage(action.getUrl());
+		}
+		for(Menu menu : module.getMenus()) {
+			for(MenuItem item : menu.getMenuItems()) {
+				String url = item.getUrl() != null ? module.getUrl() + "/" + item.getUrl() : module.getUrl();
+				item.setUrl(url);
+			}
+		}
+	}
+	
+	private void monitorModule(Module module) {
+		String reload = System.getenv("metamorphosis.reload");
+		if("true".equals(reload)){
+			new FileMonitor(module.getFolder()).addListener(new FileListener() {
+		    	public void onFileCreated(String name) {
+		    		if(name.equals(MODULE_METADATA)) updateModule(module);		
+				}
+				public void onFileDeleted(String name) {
+				}
+			}).watch();
+		}
+	}
+	
+	public void removeModule(Module module) {
+		modules.remove(module.getId());
+		configuration.removePackageConfig(module.getId());
+		configuration.rebuildRuntimeConfiguration();
+	}
+	
+	public void updateModule(Module module) {
+		try {
+			logger.log(Level.INFO, "updating module  : " + module.getName());
+			File folder = module.getFolder();
+			String id = module.getId();
+			module = parse(new File(folder+"/"+MODULE_METADATA));
+			module.setFolder(folder);
+			initModule(module);
+			registerPages(module);
+			rebuildRuntimeConfiguration(id,module);
+			modules.remove(id);
+			modules.put(module.getId(),module);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void registerPages(Module module) throws Exception {
 		CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
-		Template template = getCurrentTemplate(module);
+		TemplateManager templateManager = TemplateManager.getInstance();
+		Template template = module.isBackend() ? templateManager.getBackendTemplate(null) : templateManager.getFrontendTemplate(null);
 		Definition definition = createDefinition(module.getUrl(),module.getType(),template.getIndexPage());
 		definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + module.getIndex()));
 		container.register(definition);
@@ -152,11 +208,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	private Template getCurrentTemplate(Module module) {
-		TemplateManager templateManager = TemplateManager.getInstance();
-		return module.isBackend() ? templateManager.getBackendTemplate(null) : templateManager.getFrontendTemplate(null);
-	}
-	
 	private Definition createDefinition(String name,String parent,String template) {
 		Definition definition = new Definition();
 		definition.setName(name);
@@ -165,16 +216,59 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		definition.setPreparer("org.metamorphosis.core.PagePreparer");
 		return definition;
 	}
-
-	public Module getCurrentModule() {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String uri = request.getRequestURI();
-		String url = uri.substring(request.getContextPath().length() + 1, uri.length());
-		url = url.indexOf("/") != -1 ? url.substring(0, url.indexOf("/")) : url;
-		Module module = getModuleByUrl(url);
-		return module != null ? module : getModuleByUrl("/");
+	
+	private void rebuildRuntimeConfiguration(String id,Module module) {
+		configuration.removePackageConfig(id);
+		PackageConfig.Builder packageBuilder = new PackageConfig.Builder(module.getId());
+		packageBuilder.namespace("/"+module.getUrl());
+		packageBuilder.addParent(configuration.getPackageConfig("root"));
+		ActionConfig.Builder actionBuilder;
+		for(Menu menu : module.getMenus()) {
+			for(MenuItem item : menu.getMenuItems()) {
+				if(!item.getUrl().equals(module.getUrl())){
+					String url = item.getUrl().substring(module.getUrl().length()+1);
+					actionBuilder = new ActionConfig.Builder(url,url,null);
+					actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",item.getUrl())).build());
+					actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
+					packageBuilder.addActionConfig(url,actionBuilder.build());
+				}
+			}
+		}
+		actionBuilder = new ActionConfig.Builder("index","index","");
+	    actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",module.getUrl()+"/index")).build());
+		actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
+		packageBuilder.addActionConfig("index",actionBuilder.build());
+		for(Action action : module.getActions()) {
+			actionBuilder = new ActionConfig.Builder(action.getUrl(),action.getUrl(),action.getClassName());
+			actionBuilder.methodName(action.getMethod());
+			for(Result result : action.getResults()) {
+				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
+					result.setValue(module.getUrl()+"/"+result.getValue());
+				}
+				actionBuilder.addResultConfig(createResultBuilder(result).build());
+				actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
+			}
+			packageBuilder.addActionConfig(action.getUrl(),actionBuilder.build());
+		}
+		configuration.addPackageConfig(module.getId(),packageBuilder.build());
+		configuration.rebuildRuntimeConfiguration();
 	}
-
+	
+	private ResultConfig.Builder createResultBuilder(Result result){
+		ResultConfig.Builder builder = null;
+		String type = result.getType();
+		if(type.equals("tiles")) {
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.views.tiles.TilesResult");
+		} else if(type.equals("redirect")) {
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletRedirectResult");
+		} else if(type.equals("redirectAction")) {
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletActionRedirectResult");
+		} else if(type.equals("dispatcher")) {
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletDispatcherResult");
+		}
+		return builder.addParam("location",result.getValue());
+	}
+	
 	public Object buildAction(Module module,String url) throws Exception {
 		if(module != null) {
 			Action action = module.getAction(url);
@@ -233,112 +327,14 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 		return importCustomizer;
 	}
-
-	public void addModule(Module module) {
-		initModule(module);
-		monitorModule(module);
-		modules.put(module.getId(),module);
-	}
 	
-	private void initModule(Module module) {
-		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
-		for(Action action : module.getActions()) {
-			if(action.getPage()==null) action.setPage(action.getUrl());
-		}
-		for(Menu menu : module.getMenus()) {
-			for(MenuItem item : menu.getMenuItems()) {
-				String url = item.getUrl() != null ? module.getUrl() + "/" + item.getUrl() : module.getUrl();
-				item.setUrl(url);
-			}
-		}
-	}
-	
-	private void monitorModule(Module module) {
-		String reload = System.getenv("metamorphosis.reload");
-		if("true".equals(reload)){
-			new FileMonitor(module.getFolder()).addListener(new FileListener() {
-		    	public void onFileCreated(String name) {
-		    		if(name.equals(MODULE_METADATA)) updateModule(module);		
-				}
-				public void onFileDeleted(String name) {
-				}
-			}).watch();
-		}
-	}
-	
-	public void removeModule(Module module) {
-		modules.remove(module.getId());
-		configuration.removePackageConfig(module.getId());
-		configuration.rebuildRuntimeConfiguration();
-	}
-	
-	public void updateModule(Module module) {
-		try {
-			logger.log(Level.INFO, "updating module  : " + module.getName());
-			File folder = module.getFolder();
-			String id = module.getId();
-			module = parse(new File(folder+"/"+MODULE_METADATA));
-			module.setFolder(folder);
-			initModule(module);
-			registerPages(module);
-			rebuildRuntimeConfiguration(id,module);
-			modules.remove(id);
-			modules.put(module.getId(),module);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void rebuildRuntimeConfiguration(String id,Module module) {
-		configuration.removePackageConfig(id);
-		PackageConfig.Builder packageBuilder = new PackageConfig.Builder(module.getId());
-		packageBuilder.namespace("/"+module.getUrl());
-		packageBuilder.addParent(configuration.getPackageConfig("root"));
-		ActionConfig.Builder actionBuilder;
-		for(Menu menu : module.getMenus()) {
-			for(MenuItem item : menu.getMenuItems()) {
-				if(!item.getUrl().equals(module.getUrl())){
-					String url = item.getUrl().substring(module.getUrl().length()+1);
-					actionBuilder = new ActionConfig.Builder(url,url,null);
-					actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",item.getUrl())).build());
-					actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
-					packageBuilder.addActionConfig(url,actionBuilder.build());
-				}
-			}
-		}
-		actionBuilder = new ActionConfig.Builder("index","index","");
-	    actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",module.getUrl()+"/index")).build());
-		actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
-		packageBuilder.addActionConfig("index",actionBuilder.build());
-		for(Action action : module.getActions()) {
-			actionBuilder = new ActionConfig.Builder(action.getUrl(),action.getUrl(),action.getClassName());
-			actionBuilder.methodName(action.getMethod());
-			for(Result result : action.getResults()) {
-				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
-					result.setValue(module.getUrl()+"/"+result.getValue());
-				}
-				actionBuilder.addResultConfig(createResultBuilder(result).build());
-				actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
-			}
-			packageBuilder.addActionConfig(action.getUrl(),actionBuilder.build());
-		}
-		configuration.addPackageConfig(module.getId(),packageBuilder.build());
-		configuration.rebuildRuntimeConfiguration();
-	}
-	
-	private ResultConfig.Builder createResultBuilder(Result result){
-		ResultConfig.Builder builder = null;
-		String type = result.getType();
-		if(type.equals("tiles")) {
-			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.views.tiles.TilesResult");
-		} else if(type.equals("redirect")) {
-			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletRedirectResult");
-		} else if(type.equals("redirectAction")) {
-			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletActionRedirectResult");
-		} else if(type.equals("dispatcher")) {
-			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletDispatcherResult");
-		}
-		return builder.addParam("location",result.getValue());
+	public Module getCurrentModule() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String uri = request.getRequestURI();
+		String url = uri.substring(request.getContextPath().length() + 1, uri.length());
+		url = url.indexOf("/") != -1 ? url.substring(0, url.indexOf("/")) : url;
+		Module module = getModuleByUrl(url);
+		return module != null ? module : getModuleByUrl("/");
 	}
 	
 	public Collection<Module> getModules() {
