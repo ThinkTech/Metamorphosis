@@ -109,19 +109,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return (Module) digester.parse(metadata);
 	}
 	
-	private void initModule(Module module) {
-		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
-		for(Action action : module.getActions()) {
-			if(action.getPage()==null) action.setPage(action.getUrl());
-		}
-		for(Menu menu : module.getMenus()) {
-			for(MenuItem item : menu.getMenuItems()) {
-				String url = item.getUrl() != null ? module.getUrl() + "/" + item.getUrl() : module.getUrl();
-				item.setUrl(url);
-			}
-		}
-	}
-	
 	private void monitorFolder(File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
@@ -144,19 +131,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 					}
 				}
 				
-			}).watch();
-		}
-	}
-
-	private void monitorModule(Module module) {
-		String reload = System.getenv("metamorphosis.reload");
-		if("true".equals(reload)){
-			new FileMonitor(module.getFolder()).addListener(new FileListener() {
-		    	public void onFileCreated(String name) {
-		    		if(name.equals(MODULE_METADATA)) updateModule(module);		
-				}
-				public void onFileDeleted(String name) {
-				}
 			}).watch();
 		}
 	}
@@ -199,31 +173,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		url = url.indexOf("/") != -1 ? url.substring(0, url.indexOf("/")) : url;
 		Module module = getModuleByUrl(url);
 		return module != null ? module : getModuleByUrl("/");
-	}
-
-	public Module getModuleByUrl(String url) {
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) {
-			if(url.equals("/") && module.isMain() && module.isFrontend()) {
-				return module;
-			}
-			else if(module.getUrl().equals(url)) {
-				return module;
-			}
-		}
-		return null;
-	}
-	
-	public Module getModuleByName(String name) {
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
-		return null;
-	}
-	
-	public Module getModuleById(String id) {
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) if(module.getId().equals(id)) return module;
-		return null;
 	}
 
 	public Object buildAction(Module module,String url) throws Exception {
@@ -289,6 +238,32 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		initModule(module);
 		monitorModule(module);
 		modules.put(module.getId(),module);
+	}
+	
+	private void initModule(Module module) {
+		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
+		for(Action action : module.getActions()) {
+			if(action.getPage()==null) action.setPage(action.getUrl());
+		}
+		for(Menu menu : module.getMenus()) {
+			for(MenuItem item : menu.getMenuItems()) {
+				String url = item.getUrl() != null ? module.getUrl() + "/" + item.getUrl() : module.getUrl();
+				item.setUrl(url);
+			}
+		}
+	}
+	
+	private void monitorModule(Module module) {
+		String reload = System.getenv("metamorphosis.reload");
+		if("true".equals(reload)){
+			new FileMonitor(module.getFolder()).addListener(new FileListener() {
+		    	public void onFileCreated(String name) {
+		    		if(name.equals(MODULE_METADATA)) updateModule(module);		
+				}
+				public void onFileDeleted(String name) {
+				}
+			}).watch();
+		}
 	}
 	
 	public void removeModule(Module module) {
@@ -391,6 +366,31 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		for(Module module : modules) if(module.isBackend()) list.add(module);
 		Collections.sort(list);
 		return list;
+	}
+	
+	public Module getModuleByUrl(String url) {
+		Collection<Module> modules = getModules(); 
+		for(Module module : modules) {
+			if(url.equals("/") && module.isMain() && module.isFrontend()) {
+				return module;
+			}
+			else if(module.getUrl().equals(url)) {
+				return module;
+			}
+		}
+		return null;
+	}
+	
+	public Module getModuleByName(String name) {
+		Collection<Module> modules = getModules(); 
+		for(Module module : modules) if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
+		return null;
+	}
+	
+	public Module getModuleById(String id) {
+		Collection<Module> modules = getModules(); 
+		for(Module module : modules) if(module.getId().equals(id)) return module;
+		return null;
 	}
 
 	public Configuration getConfiguration() {
