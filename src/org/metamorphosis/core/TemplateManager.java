@@ -66,19 +66,6 @@ public class TemplateManager implements TemplateParser {
 		return (Template) digester.parse(metadata);
 	}
 
-	private void monitorTemplate(Template template) {
-		String reload = System.getenv("metamorphosis.reload");
-		if("true".equals(reload)){
-			new FileMonitor(template.getFolder()).addListener(new FileListener() {
-				public void onFileCreated(String name) {
-					if(name.equals(TEMPLATE_METADATA)) updateTemplate(template);
-				}
-				public void onFileDeleted(String name) {
-				}
-			}).watch();
-		}
-	}
-
 	private void monitorFolder(File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
@@ -104,6 +91,24 @@ public class TemplateManager implements TemplateParser {
 		}
 	}
 
+	public void addTemplate(Template template) {
+		monitorTemplate(template);
+		templates.put(template.getId(),template);
+	}
+	
+	private void monitorTemplate(Template template) {
+		String reload = System.getenv("metamorphosis.reload");
+		if("true".equals(reload)){
+			new FileMonitor(template.getFolder()).addListener(new FileListener() {
+				public void onFileCreated(String name) {
+					if(name.equals(TEMPLATE_METADATA)) updateTemplate(template);
+				}
+				public void onFileDeleted(String name) {
+				}
+			}).watch();
+		}
+	}
+
 	private void updateTemplate(Template template) {
 		try {
 			logger.log(Level.INFO, "updating template  : " + template.getName());
@@ -117,12 +122,7 @@ public class TemplateManager implements TemplateParser {
 			e.printStackTrace();
 		}
 	}
-
-	public void addTemplate(Template template) {
-		monitorTemplate(template);
-		templates.put(template.getId(),template);
-	}
-
+	
 	public void removeTemplate(Template template) {
 		templates.remove(template.getId());
 	}
