@@ -117,8 +117,8 @@ public class TemplateManager implements TemplateParser {
 	private void updateTemplate(Template template) {
 		try {
 			logger.log(Level.INFO, "updating template  : " + template.getName());
-			File folder = template.getFolder();
 			String id = template.getId();
+			File folder = template.getFolder();
 			template = parse(new File(folder+"/"+TEMPLATE_METADATA));
 			template.setFolder(folder);
 			templates.remove(id);

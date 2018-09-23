@@ -181,8 +181,8 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	public void updateModule(Module module) {
 		try {
 			logger.log(Level.INFO, "updating module  : " + module.getName());
-			File folder = module.getFolder();
 			String id = module.getId();
+			File folder = module.getFolder();
 			module = parse(new File(folder+"/"+MODULE_METADATA));
 			module.setFolder(folder);
 			initModule(module);
