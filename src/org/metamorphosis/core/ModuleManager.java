@@ -255,9 +255,15 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	private GroovyScriptEngine getScriptEngine(File folder) throws MalformedURLException {
-		URL[] url = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/scripts").toURI().toURL()};
-		GroovyScriptEngine engine = new GroovyScriptEngine(url);
+		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/scripts").toURI().toURL()};
+		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
 		CompilerConfiguration configuration = new CompilerConfiguration();
+		configuration.addCompilationCustomizers(createCompilationCustomizer());
+		engine.setConfig(configuration);
+		return engine;
+	}
+	
+	private ImportCustomizer createCompilationCustomizer() {
 		ImportCustomizer importCustomizer = new ImportCustomizer();
 		importCustomizer.addImports("java.text.SimpleDateFormat");
 		importCustomizer.addStarImports("org.metamorphosis.core","groovy.json");
@@ -276,9 +282,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}else if(starImports!=null) {
 			importCustomizer.addStarImports(starImports);
 		}
-		configuration.addCompilationCustomizers(importCustomizer);
-		engine.setConfig(configuration);
-		return engine;
+		return importCustomizer;
 	}
 
 	public void addModule(Module module) {
