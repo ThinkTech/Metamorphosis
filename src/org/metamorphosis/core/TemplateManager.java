@@ -40,10 +40,15 @@ public class TemplateManager implements TemplateParser {
 
 	public Template loadTemplate(File folder) throws Exception {
 		File metadata = new File(folder+"/"+TEMPLATE_METADATA);
-		Template template = metadata.exists() ? parse(metadata) : new Template();
+		Template template = metadata.exists() ? createParser().parse(metadata) : new Template();
 		template.setFolder(folder);
 		addTemplate(template);
 		return template;
+	}
+	
+	public TemplateParser createParser() {
+		TemplateParser parser = this;
+		return parser;
 	}
 
 	public Template parse(File metadata) throws Exception {

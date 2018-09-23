@@ -61,10 +61,15 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	public Module loadModule(File folder) throws Exception {
 		File metadata = new File(folder+"/"+MODULE_METADATA);
-		Module module = metadata.exists() ? parse(metadata) : new Module();
+		Module module = metadata.exists() ? createParser().parse(metadata) : new Module();
 		module.setFolder(folder);
 		addModule(module);
 		return module;
+	}
+	
+	public ModuleParser createParser() {
+		ModuleParser parser = this;
+		return parser;
 	}
 	
 	public Module parse(File metadata) throws Exception {
