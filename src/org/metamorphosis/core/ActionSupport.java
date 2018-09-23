@@ -50,11 +50,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public Object getService(String name) throws Exception{
 		ModuleManager moduleManager = getModuleManager();
 		Collection<Module> modules = moduleManager.getModules();
-		for(Module module : modules){
-			if(module.getName().equalsIgnoreCase(name)){
-				return getAction(module,null);
-			}
-		}
+		for(Module module : modules) if(module.getName().equalsIgnoreCase(name)) return getAction(module,null);
 		return null;
 	}
 	
