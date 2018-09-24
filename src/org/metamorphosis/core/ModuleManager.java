@@ -48,9 +48,9 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		if(files != null) {
 		  for(File file : files) {
 			 if(file.isDirectory()) {
-				 try{
+				 try {
 					 loadModule(file);
-				 }catch (Exception e) {
+				 }catch(Exception e) {
 					e.printStackTrace();
 				 }
 			 }
@@ -148,9 +148,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	
 	private void initModule(Module module) {
 		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
-		for(Action action : module.getActions()) {
-			if(action.getPage()==null) action.setPage(action.getUrl());
-		}
+		for(Action action : module.getActions()) if(action.getPage()==null) action.setPage(action.getUrl());
 		for(Menu menu : module.getMenus()) {
 			for(MenuItem item : menu.getMenuItems()) {
 				String url = item.getUrl() != null ? module.getUrl() + "/" + item.getUrl() : module.getUrl();
