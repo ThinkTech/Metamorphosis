@@ -15,11 +15,9 @@ public class PagePreparer implements ViewPreparer {
 			ModuleManager moduleManager = ModuleManager.getInstance();
 			Module module = moduleManager.getCurrentModule();
 			if(module!=null && module.isBackend()) {
-				Template template = templateManager.getBackendTemplate(null);
-				tilesContext.dispatch(template.getIndexPage());
+				tilesContext.dispatch(templateManager.getBackendTemplate(null).getIndexPage());
 			}else {
-				Template template = templateManager.getFrontendTemplate(null);
-				tilesContext.dispatch(template.getIndexPage());
+				tilesContext.dispatch(templateManager.getFrontendTemplate(null).getIndexPage());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
