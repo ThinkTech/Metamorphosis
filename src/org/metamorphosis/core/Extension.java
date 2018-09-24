@@ -28,7 +28,7 @@ public abstract class Extension implements Comparable<Extension> {
 	}
 
 	public String getName() {
-		return name != null ? name : folder.getName();
+		return name;
 	}
 
 	public void setName(String name) {
