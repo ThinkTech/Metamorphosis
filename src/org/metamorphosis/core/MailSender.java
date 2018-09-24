@@ -34,31 +34,27 @@ public class MailSender {
       				return new PasswordAuthentication(config.getUser(), config.getPassword());
       			}
         });
-        try {
-	        final MimeMessage message = new MimeMessage(session);
-	        message.setFrom(new InternetAddress(config.getUser()));
-	        if(cc) {
-	        	message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"+","+config.getUser()));
-	        } else {
-	        	message.setRecipients(Message.RecipientType.TO,
-	        			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
-	        }
-	        message.setSubject(StringEscapeUtils.unescapeHtml4(mail.getSubject()));
-	        message.setContent(mail.getContent(),"text/html");
-	        message.setSentDate(new Date());
-	        new Thread(new Runnable() {
-				public void run() {
-					try {
-						Transport.send(message);
-					} catch (MessagingException e) {
-						e.printStackTrace();
-					}
-				}	
-			}).start();
-        } catch (MessagingException e) {
-        	e.printStackTrace();
+        final MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(config.getUser()));
+        if(cc) {
+        	message.setRecipients(Message.RecipientType.TO,
+			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"+","+config.getUser()));
+        } else {
+        	message.setRecipients(Message.RecipientType.TO,
+        			InternetAddress.parse(mail.getAuthor()+"<"+mail.getAddress()+">"));
         }
+        message.setSubject(StringEscapeUtils.unescapeHtml4(mail.getSubject()));
+        message.setContent(mail.getContent(),"text/html");
+        message.setSentDate(new Date());
+        new Thread(new Runnable() {
+			public void run() {
+				try {
+					Transport.send(message);
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			}	
+		}).start();       
     }
 
 	public MailConfig getConfig() {
