@@ -124,6 +124,14 @@ public abstract class Extension implements Comparable<Extension> {
 		id = id != null ? id : folder.getName();
 		name = name != null ? name : folder.getName();
 	}
+	
+	public String getPath() {
+		return "/" + folder.getParentFile().getName() + "/" + folder.getName();
+	}
+	
+	public String getPath(String name) {
+		return getPath() + "/" + name;
+	}
 
 	public boolean isBackend() {
 		return "back-end".equals(type);

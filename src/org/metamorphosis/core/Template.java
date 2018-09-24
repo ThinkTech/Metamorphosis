@@ -23,7 +23,7 @@ public class Template extends Extension {
 	}
 
 	public String getThumbnail() {
-		return "templates/"+folder.getName()+"/thumbnail.png";
+		return getPath("thumbnail.png");
 	}
 	
 	
@@ -32,7 +32,7 @@ public class Template extends Extension {
 	}
 
 	public String getIndex() {
-		return "/templates/"+folder.getName()+"/"+index;
+		return getPath(index);
 	}
 	
 }
