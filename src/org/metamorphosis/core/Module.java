@@ -56,7 +56,7 @@ public class Module extends Extension {
 	}
 
 	public String getIndex() {
-		return index;
+		return "/modules/"+folder.getName()+"/"+index;
 	}
 
 	public void setIndex(String index) {
@@ -122,7 +122,11 @@ public class Module extends Extension {
 	}
 
 	public String getPath() {
-		return "modules/" + folder.getName();
+		return "/modules/" + folder.getName();
+	}
+	
+	public String getPath(String name) {
+		return getPath() + "/" + name;
 	}
 	
 	public String getRoles() {

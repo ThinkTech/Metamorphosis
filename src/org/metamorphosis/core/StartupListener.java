@@ -90,14 +90,14 @@ public class StartupListener implements ServletContextListener {
 				"<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN' "+
 				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>"+
 				"<tiles-definitions><definition name='"+module.getUrl()+"' extends='"+module.getType()+"'>"+
-				"<put-attribute name='content' value='/modules/"+module.getFolder().getName()+"/"+module.getIndex()+"'/>"+
+				"<put-attribute name='content' value='"+module.getIndex()+"'/>"+
 				"</definition>";
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
 			if(file.isFile() && (name.endsWith(".jsp") || name.endsWith(".html"))) {
 				String prefix = name.endsWith(".jsp") ? name.substring(0, name.length() - 4) : name.substring(0, name.length() - 5);
 				content+="<definition name='"+module.getUrl()+"/"+prefix+"' extends='"+module.getUrl()+"'>";
-				content+="<put-attribute name='content' value='/modules/"+module.getFolder().getName()+"/"+name+"'/>";
+				content+="<put-attribute name='content' value='"+module.getPath(name)+"'/>";
 				content+="</definition>";
 			}
 		}
@@ -111,7 +111,7 @@ public class StartupListener implements ServletContextListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/modules/"+module.getFolder().getName()+"/"+temp.getName();
+		return module.getPath(temp.getName());
 	}
 
 	private String createModuleConfig(Module module) {
