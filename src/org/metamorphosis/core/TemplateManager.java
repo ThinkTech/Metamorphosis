@@ -57,6 +57,7 @@ public class TemplateManager implements TemplateParser {
 		digester.addObjectCreate("template", Template.class);
 		digester.addBeanPropertySetter("template/id");
 		digester.addBeanPropertySetter("template/name");
+		digester.addBeanPropertySetter("template/index");
 		digester.addBeanPropertySetter("template/type");
 		digester.addBeanPropertySetter("template/selected");
 		digester.addBeanPropertySetter("template/author");

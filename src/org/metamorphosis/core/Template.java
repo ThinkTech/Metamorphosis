@@ -4,8 +4,9 @@ import java.io.File;
 
 public class Template extends Extension {
 
+	private String index = "index.jsp";
 	protected boolean selected;
-    
+	
 	public Template(){
 	}
 	
@@ -22,11 +23,16 @@ public class Template extends Extension {
 	}
 
 	public String getThumbnail() {
-		return "templates/"+id+"/thumbnail.png";
+		return "templates/"+folder.getName()+"/thumbnail.png";
 	}
 	
+	
+	public void setIndex(String index) {
+		this.index = index;
+	}
+
 	public String getIndex() {
-		return "/templates/"+id+"/index.jsp";
+		return "/templates/"+folder.getName()+"/"+index;
 	}
 	
 }
