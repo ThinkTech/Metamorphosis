@@ -40,10 +40,10 @@ public class StartupListener implements ServletContextListener {
 		TemplateManager templateManager = new TemplateManager();
 		templateManager.loadTemplates(new File(root+"/templates"));
 		String tilesDefinitions="";
-		Template template = templateManager.getBackendTemplate(null);
-		if(template!=null)tilesDefinitions = createTemplateTiles(root,template);
-		template = templateManager.getFrontendTemplate(null);
-		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(root,template);
+		Template template = templateManager.getFrontendTemplate(null);
+		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(template);
+		template = templateManager.getBackendTemplate(null);
+		if(template!=null)tilesDefinitions = createTemplateTiles(template);
 		context.setAttribute("templateManager",templateManager);
 		return tilesDefinitions;
 	}
@@ -56,13 +56,12 @@ public class StartupListener implements ServletContextListener {
 		for(Module module : moduleManager.getModules()) {
 			buffer.append(","+createModuleTiles(module));
 			config +=","+createModuleConfig(module);
-			if(module.getId().equals("users")) context.setAttribute("security",true);
 		}
 		context.setAttribute("moduleManager",moduleManager);
 		return config;
 	}
 
-	private String createTemplateTiles(String root,Template template) {
+	private String createTemplateTiles(Template template) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN' "+
 				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>"+
@@ -75,14 +74,14 @@ public class StartupListener implements ServletContextListener {
 		content +="</tiles-definitions>";
 		File temp=null;
 		try {
-			temp = new File(root+"/templates"+"/tiles-"+template.getType()+".xml");
+			temp = new File(template.getFolder()+"/tiles-generated.xml");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
 			bw.write(content);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/templates/"+temp.getName();
+		return template.getPath(temp.getName());
 	}
 
 	private String createModuleTiles(Module module) {
