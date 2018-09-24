@@ -199,14 +199,14 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
 		TemplateManager templateManager = TemplateManager.getInstance();
 		Template template = module.isBackend() ? templateManager.getBackendTemplate(null) : templateManager.getFrontendTemplate(null);
-		Definition definition = createDefinition(module.getUrl(),module.getType(),template.getIndexPage());
+		Definition definition = createDefinition(module.getUrl(),module.getType(),template.getIndex());
 		definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + module.getIndex()));
 		container.register(definition);
 		for(File file : module.getFolder().listFiles()) {
 			String name = file.getName();
 			if(file.isFile() && name.endsWith(".jsp")) {
 				String prefix = name.endsWith(".jsp") ? name.substring(0, name.length() - 4) : name.substring(0, name.length() - 5);
-				definition = createDefinition(module.getUrl() + "/" + prefix,module.getUrl(),template.getIndexPage());
+				definition = createDefinition(module.getUrl() + "/" + prefix,module.getUrl(),template.getIndex());
 				definition.putAttribute("content", new Attribute("/modules/" + module.getId() + "/" + name));
 				container.register(definition);
 			}
