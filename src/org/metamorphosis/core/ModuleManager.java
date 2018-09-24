@@ -283,14 +283,16 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	private Object loadScript(File script) throws Exception {
-		return script.exists() ? getScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance() : new ActionSupport();
+		return script.exists() ? getScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance()
+				: new ActionSupport();
 	}
 	
 	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
 		String key = url;
 		if(module!=null){
 			Action action = module.getAction(url);
-			key = action != null && action.getScript() != null ? module.getUrl()+"/"+action.getScript() : module.getUrl()+"/"+module.getScript();
+			key = action != null && action.getScript() != null ? module.getUrl()+"/"+action.getScript() : 
+				module.getUrl()+"/"+module.getScript();
 		}
 		Object object = servletContext.getAttribute(key);
 		if(object==null) {
