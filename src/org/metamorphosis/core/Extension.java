@@ -7,7 +7,7 @@ public abstract class Extension implements Comparable<Extension> {
 	protected String id;
 	protected String name;
 	protected String type = "front-end";
-	private String index = "index.jsp";
+	protected String index = "index.jsp";
 	protected String author;
 	protected String authorEmail;
 	protected String authorUrl;
@@ -17,7 +17,7 @@ public abstract class Extension implements Comparable<Extension> {
 	protected String version;
 	protected String description;
 	protected String details;
-	private boolean visible = true;
+	protected boolean visible = true;
 	protected File folder;
 	
 	public String getId() {
