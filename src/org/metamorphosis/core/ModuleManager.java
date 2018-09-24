@@ -393,6 +393,12 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		for(Module module : modules) if(module.getId().equals(id)) return module;
 		return null;
 	}
+	
+	public Module getMainModule(String type) {
+		Collection<Module> modules = getModules();
+		for(Module module : modules) if(module.isMain() && module.getType().equals(type)) return module;
+		return null;	
+	}
 
 	public Configuration getConfiguration() {
 		return configuration;

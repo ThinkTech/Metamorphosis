@@ -1,7 +1,6 @@
 package org.metamorphosis.core;
 
 import java.io.IOException;
-import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,15 +17,8 @@ public class WelcomeServlet extends HttpServlet {
 		forward(request, response);
 	}
 	
-	private Module getMainModule() {
-		ModuleManager moduleManager = ModuleManager.getInstance();
-		Collection<Module> modules = moduleManager.getFrontendModules();
-		for(Module module : modules) if(module.isMain()) return module;
-		return null;	
-	}
-	
 	private void forward(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		Module module = getMainModule();
+		Module module =  ModuleManager.getInstance().getMainModule("front-end");
 		if(module!=null)
 			request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 		else
