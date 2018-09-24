@@ -15,11 +15,7 @@ public class WelcomeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {	
 		String cache = System.getenv("metamorphosis.cache");
 		if(cache!=null) response.setHeader("Cache-control", "private, max-age="+cache);
-		Module module = getMainModule();
-		if(module!=null)
-			request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
-		else
-			request.getRequestDispatcher("index").forward(request, response);
+		forward(request, response);
 	}
 	
 	private Module getMainModule() {
@@ -27,6 +23,14 @@ public class WelcomeServlet extends HttpServlet {
 		Collection<Module> modules = moduleManager.getFrontendModules();
 		for(Module module : modules) if(module.isMain()) return module;
 		return null;	
+	}
+	
+	private void forward(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		Module module = getMainModule();
+		if(module!=null)
+			request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
+		else
+			request.getRequestDispatcher("index").forward(request, response);
 	}
 	
 }
