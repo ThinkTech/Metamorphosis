@@ -11,7 +11,6 @@ public class Module extends Extension {
 	private String icon;
 	private boolean main;
 	private boolean cached;
-	private String index = "index.jsp";
 	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<Action> actions = new ArrayList<Action>();
@@ -55,14 +54,6 @@ public class Module extends Extension {
 		this.cached = cached;
 	}
 
-	public String getIndex() {
-		return getPath(index);
-	}
-
-	public void setIndex(String index) {
-		this.index = index;
-	}
-
 	public String getScript() {
 		return script;
 	}
@@ -84,11 +75,7 @@ public class Module extends Extension {
 	
 	public List<Menu> getMenus(String position) {
 		List<Menu> menus = new ArrayList<Menu>();
-		for(Menu menu : this.menus) {
-			if(menu.getPosition().equals(position)) {
-				menus.add(menu);
-			}
-		}
+		for(Menu menu : this.menus) if(menu.getPosition().equals(position)) menus.add(menu);
 		return menus;
 	}
 
@@ -105,11 +92,7 @@ public class Module extends Extension {
 	}
 	
 	public Action getAction(String url) {
-		for(Action action : actions) {
-			if(action.getUrl()!=null && action.getUrl().equals(url)) {
-				return action;
-			}
-		}
+		for(Action action : actions) if(action.getUrl()!=null && action.getUrl().equals(url)) return action;
 		return null;
 	}
 	

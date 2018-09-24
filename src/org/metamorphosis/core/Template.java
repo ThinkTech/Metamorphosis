@@ -3,8 +3,7 @@ package org.metamorphosis.core;
 import java.io.File;
 
 public class Template extends Extension {
-
-	private String index = "index.jsp";
+	
 	protected boolean selected;
 	
 	public Template(){
@@ -24,15 +23,6 @@ public class Template extends Extension {
 
 	public String getThumbnail() {
 		return getPath("thumbnail.png");
-	}
-	
-	
-	public void setIndex(String index) {
-		this.index = index;
-	}
-
-	public String getIndex() {
-		return getPath(index);
 	}
 	
 }

@@ -7,6 +7,7 @@ public abstract class Extension implements Comparable<Extension> {
 	protected String id;
 	protected String name;
 	protected String type = "front-end";
+	private String index = "index.jsp";
 	protected String author;
 	protected String authorEmail;
 	protected String authorUrl;
@@ -41,6 +42,14 @@ public abstract class Extension implements Comparable<Extension> {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public void setIndex(String index) {
+		this.index = index;
+	}
+
+	public String getIndex() {
+		return getPath(index);
 	}
 
 	public String getAuthor() {
