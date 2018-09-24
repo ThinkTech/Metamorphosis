@@ -16,9 +16,9 @@ public abstract class Extension implements Comparable<Extension> {
 	protected String version;
 	protected String description;
 	protected String details;
-	protected File folder;
 	private boolean visible = true;
-
+	protected File folder;
+	
 	public String getId() {
 		return id;
 	}
