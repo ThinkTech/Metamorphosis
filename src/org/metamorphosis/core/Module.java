@@ -118,7 +118,7 @@ public class Module extends Extension {
 	}
 
 	public String getIcon() {
-		return icon!=null ? icon : getPath("/images/icon-16.png");
+		return icon!=null ? icon : getPath("images/icon-16.png");
 	}
 
 	public String getPath() {
