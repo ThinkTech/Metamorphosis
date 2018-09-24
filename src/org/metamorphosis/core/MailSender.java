@@ -1,7 +1,6 @@
 package org.metamorphosis.core;
 
 import javax.mail.PasswordAuthentication;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -23,12 +22,12 @@ public class MailSender {
     public void sendMail(Mail mail) {
     	try {
 			sendMail(mail,false);
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
     
-    public void sendMail(Mail mail,boolean cc) throws UnsupportedEncodingException {
+    public void sendMail(Mail mail,boolean cc) throws Exception {
         Session session = Session.getInstance(config.getProperties(),
       		  new Authenticator() {
       			protected PasswordAuthentication getPasswordAuthentication() {
