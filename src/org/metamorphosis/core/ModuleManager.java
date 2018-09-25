@@ -195,7 +195,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	private void registerPages(Module module) throws Exception {
 		CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
 		TemplateManager templateManager = TemplateManager.getInstance();
-		Template template = module.isBackend() ? templateManager.getBackendTemplate(null) : templateManager.getFrontendTemplate(null);
+		Template template = module.isBackend() ? templateManager.getBackendTemplate() : templateManager.getFrontendTemplate();
 		Definition definition = createDefinition(module.getUrl(),module.getType(),template.getIndex());
 		definition.putAttribute("content", new Attribute(module.getIndex()));
 		container.register(definition);

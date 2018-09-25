@@ -145,18 +145,18 @@ public class TemplateManager implements TemplateParser {
 		return null;
 	}
 
-	public Template getBackendTemplate(String id) {
+	public Template getBackendTemplate(String... id) {
 		Collection<Template> templates = getTemplates();
-		Template template = getTemplateById(id);
+		Template template = getTemplateById(id[0]);
 		if(template != null && template.isBackend()) return template;
 		for(Template current : templates) if(current.isSelected() && current.isBackend()) return current;
 		for(Template current : templates) if(current.isBackend()) return current;
 		return null;
 	}
 
-	public Template getFrontendTemplate(String id) {
+	public Template getFrontendTemplate(String... id) {
 		Collection<Template> templates = getTemplates();
-		Template template = getTemplateById(id);
+		Template template = getTemplateById(id[0]);
 		if(template != null && template.isFrontend()) return template;
 		for(Template current : templates) if(current.isSelected() && current.isFrontend()) return current;
 		for(Template current : templates) if(current.isFrontend()) return current;
