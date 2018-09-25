@@ -298,9 +298,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	private GroovyScriptEngine createScriptEngine(File folder) throws MalformedURLException {
 		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/"+SCRIPTS_FOLDER).toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
-		CompilerConfiguration configuration = new CompilerConfiguration();
-		configuration.addCompilationCustomizers(createCompilationCustomizer());
-		engine.setConfig(configuration);
+		engine.setConfig(new CompilerConfiguration().addCompilationCustomizers(createCompilationCustomizer()));
 		return engine;
 	}
 	
