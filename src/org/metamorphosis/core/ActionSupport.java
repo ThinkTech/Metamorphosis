@@ -37,28 +37,28 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return (Map) ActionContext.getContext().get("application");
 	}
 	
-	public Object getAction(Module module,String url) throws Exception{
+	public Object getAction(Module module,String url) throws Exception {
 		String reload = System.getenv("metamorphosis.reload");
 		ModuleManager moduleManager = getModuleManager();
 		return "true".equals(reload) ? moduleManager.buildAction(module,url) : moduleManager.buildAndCacheAction(module,url);
 	}
 	
-	public Object getAction(Module module) throws Exception{
+	public Object getAction(Module module) throws Exception {
 		return getAction(module,null);
 	}
 	
-	public Object getService(Module module) throws Exception{
+	public Object getService(Module module) throws Exception {
 		return getAction(module,null);
 	}
 	
-	public Object getService(String name) throws Exception{
+	public Object getService(String name) throws Exception {
 		ModuleManager moduleManager = getModuleManager();
 		Collection<Module> modules = moduleManager.getModules();
 		for(Module module : modules) if(module.getName().equalsIgnoreCase(name)) return getAction(module,null);
 		return null;
 	}
 	
-	public void sendMail(String name,String email,String subject,String content){
+	public void sendMail(String name,String email,String subject,String content) {
 		 MailConfig mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"));
 		 MailSender mailSender = new MailSender(mailConfig);
 		 Mail mail = new Mail(name,email,subject,content);
@@ -77,7 +77,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return getModuleManager().getCurrentModule();
 	}
 	
-	public Module getModule(String name){
+	public Module getModule(String name) {
 		return getModuleManager().getModuleByName(name);
 	}
 	
@@ -128,24 +128,24 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		getResponse().getWriter().write(content);
 	}
 	
-	public void json(Object object) throws IOException{
+	public void json(Object object) throws IOException {
 		getResponse().setHeader("Content-Type", "application/json");
 		write(groovy.json.JsonOutput.toJson(object));
 	}
 	
-	public String stringify(Object object) throws IOException{
+	public String stringify(Object object) throws IOException {
 		return groovy.json.JsonOutput.toJson(object);
 	}
 	
-	public Object parse(HttpServletRequest request) throws IOException{
+	public Object parse(HttpServletRequest request) throws IOException {
 		return new JsonSlurper().parse(request.getInputStream());
 	}
 	
-	public Object parse(InputStream inputStream) throws IOException{
+	public Object parse(InputStream inputStream) throws IOException {
 		return new JsonSlurper().parse(inputStream);
 	}
 	
-	public Object getDataSource(){
+	public Object getDataSource() {
 		return getContext().getAttribute("datasource");
 	}
 
