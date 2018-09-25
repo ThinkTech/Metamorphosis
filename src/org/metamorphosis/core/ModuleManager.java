@@ -37,6 +37,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	private ServletContext servletContext;
 	private static ModuleManager instance;
 	private static final String MODULE_METADATA = "module.xml";
+	private static final String SCRIPTS_FOLDER = "scripts";
 	
 	public ModuleManager(ServletContext servletContext) {
 		instance = this;
@@ -275,8 +276,8 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	public Object buildAction(Module module,String url) throws Exception {
 		if(module != null) {
 			Action action = module.getAction(url);
-			File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/scripts/"+action.getScript())
-			 : 	new File(module.getFolder()+"/scripts/"+module.getScript());
+			File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+action.getScript())
+			 : 	new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+module.getScript());
 			return loadScript(file);
 		}
 		return null;
@@ -303,7 +304,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	private GroovyScriptEngine getScriptEngine(File folder) throws MalformedURLException {
-		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/scripts").toURI().toURL()};
+		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/"+SCRIPTS_FOLDER).toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
 		CompilerConfiguration configuration = new CompilerConfiguration();
 		configuration.addCompilationCustomizers(createCompilationCustomizer());
