@@ -283,7 +283,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	private Object loadScript(File script) throws Exception {
-		return script.exists() ? getScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance()
+		return script.exists() ? createScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance()
 				: new ActionSupport();
 	}
 	
@@ -302,7 +302,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
         return object;
 	}
 	
-	private GroovyScriptEngine getScriptEngine(File folder) throws MalformedURLException {
+	private GroovyScriptEngine createScriptEngine(File folder) throws MalformedURLException {
 		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/"+SCRIPTS_FOLDER).toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
 		CompilerConfiguration configuration = new CompilerConfiguration();
