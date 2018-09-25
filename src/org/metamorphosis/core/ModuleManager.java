@@ -257,7 +257,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		configuration.rebuildRuntimeConfiguration();
 	}
 	
-	private ResultConfig.Builder createResultBuilder(Result result){
+	private ResultConfig.Builder createResultBuilder(Result result) {
 		ResultConfig.Builder builder = null;
 		String type = result.getType();
 		if(type.equals("tiles")) {
