@@ -272,13 +272,10 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	public Object buildAction(Module module,String url) throws Exception {
-		if(module != null) {
-			Action action = module.getAction(url);
-			File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+action.getScript())
-			 : 	new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+module.getScript());
-			return loadScript(file);
-		}
-		return null;
+		Action action = module.getAction(url);
+		File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+action.getScript())
+		 : 	new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+module.getScript());
+		return loadScript(file);
 	}
 	
 	private Object loadScript(File script) throws Exception {
@@ -288,11 +285,9 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	
 	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
 		String key = url;
-		if(module!=null){
-			Action action = module.getAction(url);
-			key = action != null && action.getScript() != null ? module.getUrl()+"/"+action.getScript() : 
-				module.getUrl()+"/"+module.getScript();
-		}
+		Action action = module.getAction(url);
+		key = action != null && action.getScript() != null ? module.getUrl()+"/"+action.getScript() : 
+			module.getUrl()+"/"+module.getScript();
 		Object object = servletContext.getAttribute(key);
 		if(object==null) {
 		  object = buildAction(module,url);
