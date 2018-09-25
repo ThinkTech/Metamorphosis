@@ -41,9 +41,9 @@ public class StartupListener implements ServletContextListener {
 		templateManager.loadTemplates(new File(root+"/templates"));
 		String tilesDefinitions="";
 		Template template = templateManager.getFrontendTemplate(null);
-		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(template);
+		if(template!=null) tilesDefinitions = createTemplateTiles(template);
 		template = templateManager.getBackendTemplate(null);
-		if(template!=null)tilesDefinitions = createTemplateTiles(template);
+		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(template);
 		context.setAttribute("templateManager",templateManager);
 		return tilesDefinitions;
 	}
