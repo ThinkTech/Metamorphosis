@@ -13,7 +13,6 @@ public class Module extends Extension {
 	private String script = "module.groovy";
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<Action> actions = new ArrayList<Action>();
-	private String roles="all";
 	
 	public Module() {
 	}
@@ -95,14 +94,4 @@ public class Module extends Extension {
 		return null;
 	}
 	
-	public String getIcon() {
-		return getPath("images/icon-16.png");
-	}
-	
-	public String getRoles() {
-		return roles;
-	}
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
 }
