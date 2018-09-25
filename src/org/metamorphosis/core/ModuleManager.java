@@ -162,7 +162,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(module.getFolder()).addListener(new FileListener() {
-		    	public void onFileCreated(String name) {
+		        public void onFileCreated(String name) {
 		    		if(name.equals(MODULE_METADATA)) updateModule(module);		
 				}
 				public void onFileDeleted(String name) {
