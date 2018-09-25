@@ -28,6 +28,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return ServletActionContext.getResponse();
 	}
 	
+	public ServletContext getServletContext() {
+		return ServletActionContext.getServletContext();
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public Map getApplication() {
 		return (Map) ActionContext.getContext().get("application");
