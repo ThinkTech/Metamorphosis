@@ -28,7 +28,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return ServletActionContext.getResponse();
 	}
 	
-	public ServletContext getServletContext() {
+	public ServletContext getContext() {
 		return ServletActionContext.getServletContext();
 	}
 	
@@ -63,10 +63,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		 MailSender mailSender = new MailSender(mailConfig);
 		 Mail mail = new Mail(name,email,subject,content);
 		 mailSender.sendMail(mail);
-	}
-	
-	public ServletContext getContext() {
-		return getModuleManager().getServletContext();
 	}
 	
 	public ModuleManager getModuleManager() {
@@ -109,10 +105,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public String getContextPath() {
 		return getRequest().getContextPath();
-	}
-	
-	public void setAttribute(String key,Object object) {
-		getRequest().setAttribute(key,object);
 	}
 	
 	public void forward(String location) throws ServletException, IOException {
