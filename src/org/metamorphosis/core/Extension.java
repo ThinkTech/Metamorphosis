@@ -157,6 +157,10 @@ public abstract class Extension implements Comparable<Extension> {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	public String getThumbnail() {
+		return getPath("thumbnail.png");
+	}
 
 	public int compareTo(Extension extension) {
 		return name.compareTo(extension.name);

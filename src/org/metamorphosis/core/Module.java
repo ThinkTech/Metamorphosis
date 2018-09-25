@@ -8,7 +8,6 @@ public class Module extends Extension {
 	
 	private String url;
 	private String title;
-	private String icon;
 	private boolean main;
 	private boolean cached;
 	private String script = "module.groovy";
@@ -96,12 +95,8 @@ public class Module extends Extension {
 		return null;
 	}
 	
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
 	public String getIcon() {
-		return icon!=null ? icon : getPath("images/icon-16.png");
+		return getPath("images/icon-16.png");
 	}
 	
 	public String getRoles() {

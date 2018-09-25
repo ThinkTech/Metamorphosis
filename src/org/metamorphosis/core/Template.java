@@ -20,9 +20,5 @@ public class Template extends Extension {
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
-
-	public String getThumbnail() {
-		return getPath("thumbnail.png");
-	}
 	
 }

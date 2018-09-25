@@ -82,7 +82,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		digester.addBeanPropertySetter("module/type");
 		digester.addBeanPropertySetter("module/url");
 		digester.addBeanPropertySetter("module/title");
-		digester.addBeanPropertySetter("module/icon");
 		digester.addBeanPropertySetter("module/index");
 		digester.addBeanPropertySetter("module/script");
 		digester.addBeanPropertySetter("module/main");
