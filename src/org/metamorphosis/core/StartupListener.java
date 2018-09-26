@@ -41,9 +41,9 @@ public class StartupListener implements ServletContextListener {
 		templateManager.loadTemplates(new File(root+"/templates"));
 		String tilesDefinitions="";
 		Template template = templateManager.getFrontendTemplate();
-		if(template!=null) tilesDefinitions = createTemplateTiles(template);
+		if(template!=null) tilesDefinitions = createTiles(template);
 		template = templateManager.getBackendTemplate();
-		if(template!=null) tilesDefinitions += ","+ createTemplateTiles(template);
+		if(template!=null) tilesDefinitions += ","+ createTiles(template);
 		context.setAttribute("templateManager",templateManager);
 		return tilesDefinitions;
 	}
@@ -54,14 +54,14 @@ public class StartupListener implements ServletContextListener {
 		moduleManager.loadModules(new File(root+"/modules"));
 		Dispatcher.addDispatcherListener(moduleManager);
 		for(Module module : moduleManager.getModules()) {
-			buffer.append(","+createModuleTiles(module));
-			config +=","+createModuleConfig(module);
+			buffer.append(","+createTiles(module));
+			config +=","+createConfig(module);
 		}
 		context.setAttribute("moduleManager",moduleManager);
 		return config;
 	}
 
-	private String createTemplateTiles(Template template) {
+	private String createTiles(Template template) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN' "+
 				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>"+
@@ -84,7 +84,7 @@ public class StartupListener implements ServletContextListener {
 		return template.getPath(file.getName());
 	}
 
-	private String createModuleTiles(Module module) {
+	private String createTiles(Module module) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE tiles-definitions PUBLIC '-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN' "+
 				"'http://tiles.apache.org/dtds/tiles-config_2_0.dtd'>"+
@@ -113,7 +113,7 @@ public class StartupListener implements ServletContextListener {
 		return module.getPath(file.getName());
 	}
 
-	private String createModuleConfig(Module module) {
+	private String createConfig(Module module) {
 		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+
 				"<!DOCTYPE struts PUBLIC '-//Apache Software Foundation//DTD Struts Configuration 2.0//EN' "+
 				"'http://struts.apache.org/dtds/struts-2.0.dtd'>"+
