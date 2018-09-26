@@ -64,7 +64,8 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		File metadata = new File(folder+"/"+MODULE_METADATA);
 		Module module = metadata.exists() ? createParser().parse(metadata) : new Module();
 		module.setFolder(folder);
-		return addModule(module);
+		addModule(module);
+		return module;
 	}
 	
 	private ModuleParser createParser() {
@@ -137,11 +138,10 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	public Module addModule(Module module) {
+	public void addModule(Module module) {
 		initModule(module);
 		monitorModule(module);
 		modules.put(module.getId(),module);
-		return module;
 	}
 	
 	private void initModule(Module module) {
