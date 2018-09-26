@@ -278,7 +278,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			 : 	new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+module.getScript());
 			return loadScript(file);
 		}
-		return null;
+		return new ActionSupport();
 	}
 	
 	private Object loadScript(File script) throws Exception {
