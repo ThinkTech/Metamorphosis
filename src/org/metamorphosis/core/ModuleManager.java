@@ -276,14 +276,13 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			Action action = module.getAction(url);
 			File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+action.getScript())
 			 : 	new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+module.getScript());
-			return loadScript(file);
+			if(file.exists()) return loadScript(file);
 		}
 		return new ActionSupport();
 	}
 	
 	private Object loadScript(File script) throws Exception {
-		return script.exists() ? createScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance()
-				: new ActionSupport();
+		return createScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance();
 	}
 	
 	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
