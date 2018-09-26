@@ -124,8 +124,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 					}
 				}
 				public void onFileDeleted(String name) {
-					Collection<Module> modules = getModules(); 
-					for(Module module : modules) {
+					for(Module module : getModules()) {
 						if(module.getFolder().getName().equals(name)) {
 							logger.log(Level.INFO, "removing module from folder : " + name);
 							removeModule(module);
