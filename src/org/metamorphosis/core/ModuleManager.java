@@ -295,7 +295,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		Object object = servletContext.getAttribute(key);
 		if(object==null) {
 		  object = buildAction(module,url);
-		  if(object!=null) servletContext.setAttribute(key,object);  
+		  servletContext.setAttribute(key,object);  
         }
         return object;
 	}
