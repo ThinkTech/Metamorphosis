@@ -341,23 +341,23 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 
 	public Collection<Module> getVisibleModules(String type) {
-		Collection<Module> visibles = new ArrayList<Module>();
-		for(Module module : getModules()) if(module.isVisible() && module.getType().equals(type)) visibles.add(module);
-		return visibles;
+		Collection<Module> modules = new ArrayList<Module>();
+		for(Module module : getModules()) if(module.isVisible() && module.getType().equals(type)) modules.add(module);
+		return modules;
 	}
 	
 	public Collection<Module> getFrontendModules() {
-		List<Module> list = new ArrayList<Module>();
-		for(Module module : getModules()) if(module.isFrontend()) list.add(module);
-		Collections.sort(list);
-		return list;
+		List<Module> modules = new ArrayList<Module>();
+		for(Module module : getModules()) if(module.isFrontend()) modules.add(module);
+		Collections.sort(modules);
+		return modules;
 	}
 	
 	public Collection<Module> getBackendModules() {
-		List<Module> list = new ArrayList<Module>();
-		for(Module module : getModules()) if(module.isBackend()) list.add(module);
-		Collections.sort(list);
-		return list;
+		List<Module> modules = new ArrayList<Module>();
+		for(Module module : getModules()) if(module.isBackend()) modules.add(module);
+		Collections.sort(modules);
+		return modules;
 	}
 	
 	public Module getModuleByUrl(String url) {

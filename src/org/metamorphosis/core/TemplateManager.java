@@ -162,17 +162,17 @@ public class TemplateManager implements TemplateParser {
 	}
 	
 	public Collection<Template> getBackendTemplates() {
-		List<Template> list = new ArrayList<Template>();
-		for(Template current : getTemplates()) if(current.isBackend()) list.add(current);
-		Collections.sort(list);
-		return list;
+		List<Template> templates = new ArrayList<Template>();
+		for(Template template : getTemplates()) if(template.isBackend()) templates.add(template);
+		Collections.sort(templates);
+		return templates;
 	}
 	
 	public Collection<Template> getFrontendTemplates() {
-		List<Template> list = new ArrayList<Template>();
-		for(Template current : getTemplates()) if(current.isFrontend()) list.add(current);
-		Collections.sort(list);
-		return list;
+		List<Template> templates = new ArrayList<Template>();
+		for(Template template : getTemplates()) if(template.isFrontend()) templates.add(template);
+		Collections.sort(templates);
+		return templates;
 	}
 
 	public static TemplateManager getInstance() {
