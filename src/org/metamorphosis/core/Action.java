@@ -10,7 +10,7 @@ public class Action {
 	private String className = "";
 	private String method = "execute";
 	private String page;
-	private String script = "module.groovy";
+	private String script;
 	private List<Result> results = new ArrayList<Result>();
 
 	public String getTitle() {
