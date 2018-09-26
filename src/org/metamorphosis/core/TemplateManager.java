@@ -134,14 +134,12 @@ public class TemplateManager implements TemplateParser {
 	}
 
 	public Template getTemplateById(String id) {
-		Collection<Template> templates = getTemplates();
-		for(Template template : templates) if(template.getId().equals(id)) return template;
+		for(Template template : getTemplates()) if(template.getId().equals(id)) return template;
 		return null;
 	}
 	
 	public Template getTemplateByName(String name) {
-		Collection<Template> templates = getTemplates();
-		for(Template template : templates) if(template.getName().toLowerCase().equals(name.toLowerCase())) return template;
+		for(Template template : getTemplates()) if(template.getName().toLowerCase().equals(name.toLowerCase())) return template;
 		return null;
 	}
 
@@ -165,16 +163,14 @@ public class TemplateManager implements TemplateParser {
 	
 	public Collection<Template> getBackendTemplates() {
 		List<Template> list = new ArrayList<Template>();
-		Collection<Template> templates = getTemplates();
-		for(Template current : templates) if(current.isBackend()) list.add(current);
+		for(Template current : getTemplates()) if(current.isBackend()) list.add(current);
 		Collections.sort(list);
 		return list;
 	}
 	
 	public Collection<Template> getFrontendTemplates() {
 		List<Template> list = new ArrayList<Template>();
-		Collection<Template> templates = getTemplates();
-		for(Template current : templates) if(current.isFrontend()) list.add(current);
+		for(Template current : getTemplates()) if(current.isFrontend()) list.add(current);
 		Collections.sort(list);
 		return list;
 	}

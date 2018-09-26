@@ -343,30 +343,26 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	public Collection<Module> getVisibleModules(String type) {
 		Collection<Module> visibles = new ArrayList<Module>();
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) if(module.isVisible() && module.getType().equals(type)) visibles.add(module);
+		for(Module module : getModules()) if(module.isVisible() && module.getType().equals(type)) visibles.add(module);
 		return visibles;
 	}
 	
 	public Collection<Module> getFrontendModules() {
 		List<Module> list = new ArrayList<Module>();
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) if(module.isFrontend()) list.add(module);
+		for(Module module : getModules()) if(module.isFrontend()) list.add(module);
 		Collections.sort(list);
 		return list;
 	}
 	
 	public Collection<Module> getBackendModules() {
 		List<Module> list = new ArrayList<Module>();
-		Collection<Module> modules = getModules();
-		for(Module module : modules) if(module.isBackend()) list.add(module);
+		for(Module module : getModules()) if(module.isBackend()) list.add(module);
 		Collections.sort(list);
 		return list;
 	}
 	
 	public Module getModuleByUrl(String url) {
-		Collection<Module> modules = getModules();
-		for(Module module : modules) {
+		for(Module module : getModules()) {
 			if(url.equals("/") && module.isMain() && module.isFrontend()) {
 				return module;
 			} else if(module.getUrl().equals(url)) {
@@ -377,20 +373,17 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	public Module getModuleByName(String name) {
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
+		for(Module module : getModules()) if(module.getName().toLowerCase().equals(name.toLowerCase())) return module;
 		return null;
 	}
 	
 	public Module getModuleById(String id) {
-		Collection<Module> modules = getModules(); 
-		for(Module module : modules) if(module.getId().equals(id)) return module;
+		for(Module module : getModules()) if(module.getId().equals(id)) return module;
 		return null;
 	}
 	
 	public Module getMainModule(String type) {
-		Collection<Module> modules = getModules();
-		for(Module module : modules) if(module.isMain() && module.getType().equals(type)) return module;
+		for(Module module : getModules()) if(module.isMain() && module.getType().equals(type)) return module;
 		return null;	
 	}
 

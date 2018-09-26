@@ -52,12 +52,12 @@ public class StartupListener implements ServletContextListener {
 		String config = "struts-custom.xml,struts-plugin.xml,struts.xml";
 		ModuleManager moduleManager = new ModuleManager(context);
 		moduleManager.loadModules(new File(root+"/modules"));
-		Dispatcher.addDispatcherListener(moduleManager);
 		for(Module module : moduleManager.getModules()) {
 			buffer.append(","+createTiles(module));
 			config +=","+createConfig(module);
 		}
 		context.setAttribute("moduleManager",moduleManager);
+		Dispatcher.addDispatcherListener(moduleManager);
 		return config;
 	}
 
