@@ -297,7 +297,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		  object = buildAction(module,url);
 		  servletContext.setAttribute(key,object);
 		}
-        return object;
+		return object;
 	}
 	
 	private GroovyScriptEngine createScriptEngine(File folder) throws MalformedURLException {
