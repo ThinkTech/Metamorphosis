@@ -72,9 +72,8 @@ public class StartupListener implements ServletContextListener {
 			content+="</definition>";
 		}
 		content +="</tiles-definitions>";
-		File file=null;
+		File file = new File(template.getFolder()+"/tiles.xml");
 		try {
-			file = new File(template.getFolder()+"/tiles.xml");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write(content);
 			bw.close();
@@ -101,9 +100,8 @@ public class StartupListener implements ServletContextListener {
 			}
 		}
 		content +="</tiles-definitions>";
-		File file=null;
+		File file = new File(module.getFolder()+"/tiles.xml");
 		try {
-			file = new File(module.getFolder()+"/tiles.xml");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write(content);
 			bw.close();
@@ -146,9 +144,8 @@ public class StartupListener implements ServletContextListener {
 			content+="</action>";
 		}
 		content +="</package></struts>";
-		File file=null;
+		File file = new File(module.getFolder()+"/struts.xml");
 		try {
-			file = new File(module.getFolder()+"/struts.xml");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write(content);
 			bw.close();
