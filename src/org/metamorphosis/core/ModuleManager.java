@@ -365,12 +365,11 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	public Module getModuleByUrl(String url) {
-		Collection<Module> modules = getModules(); 
+		Collection<Module> modules = getModules();
 		for(Module module : modules) {
 			if(url.equals("/") && module.isMain() && module.isFrontend()) {
 				return module;
-			}
-			else if(module.getUrl().equals(url)) {
+			} else if(module.getUrl().equals(url)) {
 				return module;
 			}
 		}
