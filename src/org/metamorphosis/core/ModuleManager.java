@@ -160,7 +160,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		if("true".equals(reload)) {
 			new FileMonitor(module.getFolder()).addListener(new FileListener() {
 				public void onFileCreated(String name) {
-		    		if(name.equals(MODULE_METADATA)) updateModule(module);		
+					if(name.equals(MODULE_METADATA)) updateModule(module);		
 				}
 				public void onFileDeleted(String name) {
 				}
