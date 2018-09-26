@@ -7,7 +7,7 @@ import com.opensymphony.xwork2.factory.DefaultActionFactory;
 public class ActionFactory extends DefaultActionFactory {
 
 	@Override
-	public Object buildAction(String url, String namespace, ActionConfig config,Map<String, Object> extraContext) throws Exception {
+	public Object buildAction(String url, String namespace, ActionConfig config, Map<String, Object> extraContext) throws Exception {
 		ModuleManager moduleManager = ModuleManager.getInstance();
 		Module module = moduleManager.getCurrentModule();
 		String reload = System.getenv("metamorphosis.reload");
