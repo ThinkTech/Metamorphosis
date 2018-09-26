@@ -322,7 +322,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		if(starImports!=null && starImports.indexOf(",")!=-1){
 			StringTokenizer st = new StringTokenizer(starImports,",");
 			while(st.hasMoreTokens()) importCustomizer.addStarImports(st.nextToken());
-			
 		}else if(starImports!=null) {
 			importCustomizer.addStarImports(starImports);
 		}
