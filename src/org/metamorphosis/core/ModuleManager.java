@@ -237,7 +237,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			}
 		}
 		actionBuilder = new ActionConfig.Builder("index","index","");
-	    actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",module.getUrl()+"/index")).build());
+		actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",module.getUrl()+"/index")).build());
 		actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
 		packageBuilder.addActionConfig("index",actionBuilder.build());
 		for(Action action : module.getActions()) {
