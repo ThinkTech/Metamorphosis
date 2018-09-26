@@ -72,16 +72,16 @@ public class StartupListener implements ServletContextListener {
 			content+="</definition>";
 		}
 		content +="</tiles-definitions>";
-		File temp=null;
+		File file=null;
 		try {
-			temp = new File(template.getFolder()+"/tiles.xml");
-			BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+			file = new File(template.getFolder()+"/tiles.xml");
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write(content);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return template.getPath(temp.getName());
+		return template.getPath(file.getName());
 	}
 
 	private String createModuleTiles(Module module) {
@@ -101,16 +101,16 @@ public class StartupListener implements ServletContextListener {
 			}
 		}
 		content +="</tiles-definitions>";
-		File temp=null;
+		File file=null;
 		try {
-			temp = new File(module.getFolder()+"/tiles.xml");
-			BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+			file = new File(module.getFolder()+"/tiles.xml");
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write(content);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return module.getPath(temp.getName());
+		return module.getPath(file.getName());
 	}
 
 	private String createModuleConfig(Module module) {
@@ -146,16 +146,16 @@ public class StartupListener implements ServletContextListener {
 			content+="</action>";
 		}
 		content +="</package></struts>";
-		File temp=null;
+		File file=null;
 		try {
-			temp = new File(module.getFolder()+"/struts.xml");
-			BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+			file = new File(module.getFolder()+"/struts.xml");
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write(content);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return temp.getAbsolutePath();
+		return file.getAbsolutePath();
 	}
 	
 	private void copyFiles(String root) {
