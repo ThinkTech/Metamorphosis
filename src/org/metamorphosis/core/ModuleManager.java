@@ -285,21 +285,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return createScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance();
 	}
 	
-	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
-		String key = url;
-		if(module!= null) {	
-			Action action = module.getAction(url);
-			key = action != null && action.getScript() != null ? module.getUrl()+"/"+action.getScript() : 
-				module.getUrl()+"/"+module.getScript();
-		}
-		Object object = servletContext.getAttribute(key);
-		if(object==null) {
-		  object = buildAction(module,url);
-		  servletContext.setAttribute(key,object);
-		}
-		return object;
-	}
-	
 	private GroovyScriptEngine createScriptEngine(File folder) throws MalformedURLException {
 		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/"+SCRIPTS_FOLDER).toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
@@ -326,6 +311,21 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			importCustomizer.addStarImports(starImports);
 		}
 		return importCustomizer;
+	}
+	
+	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
+		String key = url;
+		if(module!= null) {	
+			Action action = module.getAction(url);
+			key = action != null && action.getScript() != null ? module.getUrl()+"/"+action.getScript() : 
+				module.getUrl()+"/"+module.getScript();
+		}
+		Object object = servletContext.getAttribute(key);
+		if(object==null) {
+		  object = buildAction(module,url);
+		  servletContext.setAttribute(key,object);
+		}
+		return object;
 	}
 	
 	public Module getCurrentModule() {
