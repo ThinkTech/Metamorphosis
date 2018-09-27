@@ -124,8 +124,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public String readFile(Module module,String fileName) throws Exception {
-		File file = new File(module.getFolder()+"/"+fileName);
-		BufferedReader reader = new BufferedReader(new FileReader(file),1024);
+		BufferedReader reader = new BufferedReader(new FileReader(new File(module.getFolder()+"/"+fileName)),1024);
 	    String content;
 	    StringBuffer buffer = new StringBuffer();
 	    while((content = reader.readLine()) != null) buffer.append(content);
