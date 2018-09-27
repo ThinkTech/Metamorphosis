@@ -143,14 +143,14 @@ public class TemplateManager implements TemplateParser {
 		return null;
 	}
 
-	public Template getBackendTemplate() {
+	public Template getBackend() {
 		Collection<Template> templates = getTemplates();
 		for(Template template : templates) if(template.isSelected() && template.isBackend()) return template;
 		for(Template template : templates) if(template.isBackend()) return template;
 		return null;
 	}
 
-	public Template getFrontendTemplate() {
+	public Template getFrontend() {
 		Collection<Template> templates = getTemplates();
 		for(Template template : templates) if(template.isSelected() && template.isFrontend()) return template;
 		for(Template template : templates) if(template.isFrontend()) return template;
