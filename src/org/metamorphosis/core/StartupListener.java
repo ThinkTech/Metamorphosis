@@ -73,13 +73,7 @@ public class StartupListener implements ServletContextListener {
 		}
 		content +="</tiles-definitions>";
 		File file = new File(template.getFolder()+"/tiles.xml");
-		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			bw.write(content);
-			bw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		writeFile(file,content);
 		return template.getPath(file.getName());
 	}
 
@@ -101,13 +95,7 @@ public class StartupListener implements ServletContextListener {
 		}
 		content +="</tiles-definitions>";
 		File file = new File(module.getFolder()+"/tiles.xml");
-		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			bw.write(content);
-			bw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		writeFile(file,content);
 		return module.getPath(file.getName());
 	}
 
@@ -145,6 +133,11 @@ public class StartupListener implements ServletContextListener {
 		}
 		content +="</package></struts>";
 		File file = new File(module.getFolder()+"/struts.xml");
+		writeFile(file,content);
+		return file.getAbsolutePath();
+	}
+	
+	private void writeFile(File file,String content) {
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write(content);
@@ -152,7 +145,6 @@ public class StartupListener implements ServletContextListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return file.getAbsolutePath();
 	}
 	
 	private void copyFiles(String root) {
