@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -56,9 +55,8 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public Object getService(String name) throws Exception {
 		ModuleManager moduleManager = getModuleManager();
-		Collection<Module> modules = moduleManager.getModules();
-		for(Module module : modules) if(module.getName().equalsIgnoreCase(name)) return getAction(module,null);
-		return null;
+		Module module = moduleManager.getModuleByName(name);
+		return module != null ? getAction(module,null) : null;
 	}
 	
 	public void sendMail(String name,String email,String subject,String content) {
@@ -170,8 +168,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		String actionURL = (String) request.getAttribute("actionURL");
 		if(actionURL!=null) {
 			ModuleManager moduleManager = ModuleManager.getInstance();
-			Collection<Module> modules = moduleManager.getVisibleModules("front-end");
-			for(Module module : modules) {
+			for(Module module : moduleManager.getVisibleModules("front-end")) {
 				if(module.isMain()) {
 					String url = module.getUrl()+"/"+actionURL;
 					Action action = module.getAction(actionURL);
