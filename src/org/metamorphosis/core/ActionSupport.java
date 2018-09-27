@@ -1,5 +1,8 @@
 package org.metamorphosis.core;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -119,6 +122,20 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public void write(String content) throws IOException {
 		getResponse().getWriter().write(content);
 	}
+	
+	public String readFile(Module module,String fileName) throws Exception {
+		File file = new File(module.getFolder()+"/"+fileName);
+		BufferedReader reader = new BufferedReader(new FileReader(file),1024);
+	    String content;
+	    StringBuffer buffer = new StringBuffer();
+	    while((content = reader.readLine()) != null) buffer.append(content);
+	    reader.close();
+	    return buffer.toString();
+	}
+	
+	public String readFile(String fileName) throws Exception {
+		return readFile(getCurrentModule(),fileName);
+	} 
 	
 	public void json(Object object) throws IOException {
 		getResponse().setHeader("Content-Type", "application/json");
