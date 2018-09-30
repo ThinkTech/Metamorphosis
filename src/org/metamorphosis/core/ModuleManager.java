@@ -50,7 +50,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	public ModuleManager(ServletContext servletContext, File folder) {
+	public ModuleManager(ServletContext servletContext,File folder) {
 		this(servletContext);
 		loadModules(folder);
 	}

@@ -33,7 +33,7 @@ public class TemplateManager implements TemplateParser {
 		}
 	}
 	
-	public TemplateManager(ServletContext servletContext, File folder) {
+	public TemplateManager(ServletContext servletContext,File folder) {
 		this(servletContext);
 		loadTemplates(folder);
 	}
