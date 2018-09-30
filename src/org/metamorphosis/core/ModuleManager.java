@@ -36,12 +36,18 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	private Configuration configuration;
 	private ServletContext servletContext;
 	private static ModuleManager instance;
+	private ModuleParser parser;
 	private static final String MODULE_METADATA = "module.xml";
 	private static final String SCRIPTS_FOLDER = "scripts";
 	
 	public ModuleManager(ServletContext servletContext) {
 		instance = this;
 		this.servletContext = servletContext;
+		try {
+			parser = createParser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void loadModules(File folder) {
@@ -62,15 +68,15 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	public Module loadModule(File folder) throws Exception {
 		File metadata = new File(folder+"/"+MODULE_METADATA);
-		Module module = metadata.exists() ? createParser().parse(metadata) : new Module();
+		Module module = metadata.exists() ? parser.parse(metadata) : new Module();
 		module.setFolder(folder);
 		addModule(module);
 		return module;
 	}
 	
-	private ModuleParser createParser() {
-		ModuleParser parser = this;
-		return parser;
+	private ModuleParser createParser() throws Exception {
+		String parserClass = servletContext.getInitParameter("metamorphosis.module_parser");
+		return  parserClass != null ? (ModuleParser) Class.forName(parserClass).newInstance() : this;
 	}
 	
 	public Module parse(File metadata) throws Exception {
