@@ -9,17 +9,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.servlet.ServletContext;
+
 import org.apache.commons.digester.Digester;
 
 public class TemplateManager implements TemplateParser {
 
 	private Map<String,Template> templates = new HashMap<String,Template>();
 	private Logger logger = Logger.getLogger(TemplateManager.class.getName());
+	private ServletContext servletContext;
 	private static TemplateManager instance;
+	private TemplateParser parser;
 	private static final String TEMPLATE_METADATA = "template.xml";
 
-	public TemplateManager() {
+	public TemplateManager(ServletContext servletContext) {
 		instance = this;
+		this.servletContext = servletContext;
+		try {
+			parser = createParser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public TemplateManager(ServletContext servletContext, File folder) {
+		this(servletContext);
+		loadTemplates(folder);
 	}
 
 	public void loadTemplates(File folder) {
@@ -40,15 +56,15 @@ public class TemplateManager implements TemplateParser {
 
 	public Template loadTemplate(File folder) throws Exception {
 		File metadata = new File(folder+"/"+TEMPLATE_METADATA);
-		Template template = metadata.exists() ? createParser().parse(metadata) : new Template();
+		Template template = metadata.exists() ? parser.parse(metadata) : new Template();
 		template.setFolder(folder);
 		addTemplate(template);
 		return template;
 	}
 	
-	private TemplateParser createParser() {
-		TemplateParser parser = this;
-		return parser;
+	private TemplateParser createParser() throws Exception {
+		String parserClass = servletContext.getInitParameter("metamorphosis.template_parser");
+		return  parserClass != null ? (TemplateParser) Class.forName(parserClass).newInstance() : this;
 	}
 
 	public Template parse(File metadata) throws Exception {

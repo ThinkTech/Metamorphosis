@@ -37,8 +37,7 @@ public class StartupListener implements ServletContextListener {
 	}
 	
 	private String loadTemplates(ServletContext context,String root) {
-		TemplateManager templateManager = new TemplateManager();
-		templateManager.loadTemplates(new File(root+"/templates"));
+		TemplateManager templateManager = new TemplateManager(context,new File(root+"/templates"));
 		String tilesDefinitions="";
 		Template template = templateManager.getFrontend();
 		if(template!=null) tilesDefinitions = createTiles(template);
@@ -50,8 +49,7 @@ public class StartupListener implements ServletContextListener {
 	
 	private String loadModules(ServletContext context,String root,StringBuffer buffer) {
 		String config = "struts-custom.xml,struts-plugin.xml,struts.xml";
-		ModuleManager moduleManager = new ModuleManager(context);
-		moduleManager.loadModules(new File(root+"/modules"));
+		ModuleManager moduleManager = new ModuleManager(context,new File(root+"/modules"));
 		for(Module module : moduleManager.getModules()) {
 			buffer.append(","+createTiles(module));
 			config +=","+createConfig(module);

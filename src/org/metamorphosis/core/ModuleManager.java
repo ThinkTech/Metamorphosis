@@ -49,6 +49,11 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			e.printStackTrace();
 		}
 	}
+	
+	public ModuleManager(ServletContext servletContext, File folder) {
+		this(servletContext);
+		loadModules(folder);
+	}
 
 	public void loadModules(File folder) {
 		File[] files = folder.listFiles();
