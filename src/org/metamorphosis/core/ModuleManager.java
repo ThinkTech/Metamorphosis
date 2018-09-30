@@ -393,14 +393,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	public void setConfiguration(Configuration configuration) {
 		this.configuration = configuration;
 	}
-
-	public ServletContext getServletContext() {
-		return servletContext;
-	}
-
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
 	
 	@Override
 	public void dispatcherInitialized(Dispatcher dispatcher) {
