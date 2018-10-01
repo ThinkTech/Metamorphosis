@@ -18,11 +18,7 @@ public class MailConfig {
     }
     
     public MailConfig(String user,String password,String host,String port) {
-    	this.user = user;
-    	this.password = password;
-    	properties.put("mail.smtp.auth", "true");
- 		properties.put("mail.smtp.starttls.enable", "true");
- 		properties.put("mail.smtp.host", host);
+    	this(user,password,host);
  		properties.put("mail.smtp.port", port);
     }
 
