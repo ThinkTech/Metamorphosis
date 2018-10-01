@@ -40,11 +40,10 @@ public class StartupListener implements ServletContextListener {
 		String folder = context.getInitParameter("metamorphosis.templates_folder");
 		folder = folder!=null ? folder : "templates";
 		TemplateManager templateManager = new TemplateManager(context,new File(root+"/"+folder));
-		String tilesDefinitions="";
 		Template template = templateManager.getFrontend();
-		if(template!=null) tilesDefinitions = createTiles(template);
+		String tilesDefinitions = template!=null ? createTiles(template) : "" ;
 		template = templateManager.getBackend();
-		if(template!=null) tilesDefinitions += ","+ createTiles(template);
+		tilesDefinitions += template!=null ? ","+ createTiles(template) : tilesDefinitions;
 		context.setAttribute("templateManager",templateManager);
 		return tilesDefinitions;
 	}
