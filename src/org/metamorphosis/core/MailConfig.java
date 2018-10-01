@@ -6,7 +6,7 @@ public class MailConfig {
 	
 	private String user;
     private String password;
-    Properties properties = new Properties();
+    private final Properties properties = new Properties();
     
     public MailConfig(String user,String password,String host) {
     	this.user = user;
@@ -41,9 +41,4 @@ public class MailConfig {
 	public Properties getProperties() {
 		return properties;
 	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
-    
 }
