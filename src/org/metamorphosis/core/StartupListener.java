@@ -37,7 +37,9 @@ public class StartupListener implements ServletContextListener {
 	}
 	
 	private String loadTemplates(ServletContext context,String root) {
-		TemplateManager templateManager = new TemplateManager(context,new File(root+"/templates"));
+		String folder = context.getInitParameter("metamorphosis.templates_folder");
+		folder = folder!=null ? folder : "templates";
+		TemplateManager templateManager = new TemplateManager(context,new File(root+"/"+folder));
 		String tilesDefinitions="";
 		Template template = templateManager.getFrontend();
 		if(template!=null) tilesDefinitions = createTiles(template);
@@ -49,7 +51,9 @@ public class StartupListener implements ServletContextListener {
 	
 	private String loadModules(ServletContext context,String root,StringBuffer buffer) {
 		String config = "struts-custom.xml,struts-plugin.xml,struts.xml";
-		ModuleManager moduleManager = new ModuleManager(context,new File(root+"/modules"));
+		String folder = context.getInitParameter("metamorphosis.modules_folder");
+		folder = folder!=null ? folder : "modules";
+		ModuleManager moduleManager = new ModuleManager(context,new File(root+"/"+folder));
 		for(Module module : moduleManager.getModules()) {
 			buffer.append(","+createTiles(module));
 			config +=","+createConfig(module);
