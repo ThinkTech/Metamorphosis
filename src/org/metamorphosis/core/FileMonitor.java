@@ -16,10 +16,10 @@ import java.util.List;
 public class FileMonitor {
 
 	private List<FileListener> listeners = new ArrayList<FileListener>();
-	private File directory;
+	private File folder;
 
-	public FileMonitor(File directory) {
-	    this.directory = directory;
+	public FileMonitor(File folder) {
+	    this.folder = folder;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -28,7 +28,7 @@ public class FileMonitor {
 		  public void run() {
 			try {
 				WatchService watcher = FileSystems.getDefault().newWatchService();
-				Path dir = Paths.get(directory.getAbsolutePath());
+				Path dir = Paths.get(folder.getAbsolutePath());
 				dir.register(watcher,ENTRY_CREATE,ENTRY_DELETE);
 				WatchKey key;
 				while(true) {
