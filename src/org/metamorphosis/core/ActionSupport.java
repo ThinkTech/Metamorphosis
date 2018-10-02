@@ -5,14 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
-import com.opensymphony.xwork2.ActionContext;
 import groovy.json.JsonSlurper;
 import javax.sql.DataSource;
 
@@ -33,11 +31,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public ServletContext getContext() {
 		return ServletActionContext.getServletContext();
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public Map getApplication() {
-		return (Map) ActionContext.getContext().get("application");
 	}
 	
 	public Object getAction(Module module,String url) throws Exception {
