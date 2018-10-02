@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import groovy.json.JsonSlurper;
+import javax.sql.DataSource;
 
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
@@ -151,8 +152,8 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return new JsonSlurper().parse(inputStream);
 	}
 	
-	public Object getDataSource() {
-		return getContext().getAttribute("datasource");
+	public DataSource getDataSource() {
+		return (DataSource) getContext().getAttribute("datasource");
 	}
 
 	public String getReferer() {
