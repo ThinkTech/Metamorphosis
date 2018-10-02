@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import groovy.json.JsonSlurper;
 import javax.sql.DataSource;
+import static groovy.json.JsonOutput.toJson;
+
 
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
@@ -130,15 +132,15 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public void json(Object object) throws IOException {
 		getResponse().setHeader("Content-Type", "application/json");
-		write(groovy.json.JsonOutput.toJson(object));
+		write(toJson(object));
 	}
 	
 	public String stringify(Object object) throws IOException {
-		return groovy.json.JsonOutput.toJson(object);
+		return toJson(object);
 	}
 	
 	public Object parse(HttpServletRequest request) throws IOException {
-		return new JsonSlurper().parse(request.getInputStream());
+		return parse(request.getInputStream());
 	}
 	
 	public Object parse(InputStream inputStream) throws IOException {
