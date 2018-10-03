@@ -34,9 +34,9 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
 				request.setAttribute("module",module);
 				request.setAttribute("url",module.getUrl());
-				request.setAttribute("js",module.getPath("js"));
-				request.setAttribute("css",module.getPath("css"));
-				request.setAttribute("images",module.getPath("images"));
+				request.setAttribute("js",module.getPath("js").substring(1));
+				request.setAttribute("css",module.getPath("css").substring(1));
+				request.setAttribute("images",module.getPath("images").substring(1));
 				for(Menu menu : module.getMenus()) {
 					for(MenuItem item : menu.getMenuItems()) {
 						if(item.getUrl().equals(actionURL)) {
