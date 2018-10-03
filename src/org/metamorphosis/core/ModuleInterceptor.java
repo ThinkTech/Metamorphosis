@@ -1,5 +1,6 @@
 package org.metamorphosis.core;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,13 +31,14 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					Object user = (Object) session.getAttribute("user");
 					if(user==null) return "error";
 				}
+				ServletContext context = ServletActionContext.getServletContext();
 				ValueStack stack = ActionContext.getContext().getValueStack();
 				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
 				request.setAttribute("module",module);
 				request.setAttribute("url",module.getUrl());
-				request.setAttribute("js",module.getPath("js"));
-				request.setAttribute("css",module.getPath("css"));
-				request.setAttribute("images",module.getPath("images"));
+				request.setAttribute("js",context.getContextPath()+module.getPath("js"));
+				request.setAttribute("css",context.getContextPath()+module.getPath("css"));
+				request.setAttribute("images",context.getContextPath()+module.getPath("images"));
 				for(Menu menu : module.getMenus()) {
 					for(MenuItem item : menu.getMenuItems()) {
 						if(item.getUrl().equals(actionURL)) {
