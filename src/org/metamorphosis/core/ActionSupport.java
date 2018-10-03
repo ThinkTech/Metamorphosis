@@ -65,7 +65,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return ModuleManager.getInstance();
 	}
 	
-	public Module getCurrentModule() {
+	public Module getModule() {
 		return getModuleManager().getCurrentModule();
 	}
 	
@@ -126,7 +126,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public String readFile(String fileName) throws Exception {
-		return readFile(getCurrentModule(),fileName);
+		return readFile(getModule(),fileName);
 	} 
 	
 	public void json(Object object) throws IOException {
