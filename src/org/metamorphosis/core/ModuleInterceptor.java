@@ -4,10 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.opensymphony.xwork2.util.ValueStack;
 
 @SuppressWarnings("serial")
 public class ModuleInterceptor extends AbstractInterceptor {
@@ -30,8 +28,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					Object user = (Object) session.getAttribute("user");
 					if(user==null) return "error";
 				}
-				ValueStack stack = ActionContext.getContext().getValueStack();
-				stack.set("modules",moduleManager.getVisibleModules(module.getType()));
+				request.setAttribute("modules",moduleManager.getVisibleModules(module.getType()));
 				request.setAttribute("module",module);
 				request.setAttribute("url",module.getUrl());
 				request.setAttribute("js",module.getPath("js"));
