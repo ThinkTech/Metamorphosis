@@ -20,7 +20,13 @@ import static groovy.json.JsonOutput.toJson;
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
 	public HttpServletRequest getRequest() {
-		return ServletActionContext.getRequest();
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletRequest wrapper = (HttpServletRequest) request.getAttribute("requestWrapper");
+		if(wrapper == null) {
+		  wrapper = new RequestWrapper(request);
+		  request.setAttribute("requestWrapper",wrapper);
+		}
+		return wrapper;
 	}
 	
 	public HttpSession getSession() {
@@ -92,11 +98,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
     }
 	
 	public String getInitParameter(String name) {
-		return getRequest().getServletContext().getInitParameter(name);
-	}
-	
-	public String getParameter(String name) {
-		return getRequest().getParameter(name);
+		return getContext().getInitParameter(name);
 	}
 	
 	public String getContextPath() {
