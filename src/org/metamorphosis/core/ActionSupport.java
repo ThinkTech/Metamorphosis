@@ -19,13 +19,16 @@ import static groovy.json.JsonOutput.toJson;
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
-	public HttpServletRequest getRequest() throws IOException {
+	public HttpServletRequest getRequest() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletRequest wrapper = (HttpServletRequest) request.getAttribute("requestWrapper");
 		if(wrapper == null) {
 		  wrapper = new RequestWrapper(request);
 		  request.setAttribute("requestWrapper",wrapper);
-		  request.setAttribute("body",parse(request));
+		  try {
+			request.setAttribute("body",parse(request));
+		  } catch (IOException e) {
+		 }
 		}
 		return wrapper;
 	}
