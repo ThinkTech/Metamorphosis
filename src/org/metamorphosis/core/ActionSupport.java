@@ -25,10 +25,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		if(wrapper == null) {
 		  wrapper = new RequestWrapper(request);
 		  request.setAttribute("requestWrapper",wrapper);
-		  try {
-			request.setAttribute("body",parse(request));
-		  } catch (IOException e) {
-		 }
 		}
 		return wrapper;
 	}
