@@ -19,18 +19,19 @@ import static groovy.json.JsonOutput.toJson;
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
-	public HttpServletRequest getRequest() {
+	public HttpServletRequest getRequest() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletRequest wrapper = (HttpServletRequest) request.getAttribute("requestWrapper");
 		if(wrapper == null) {
 		  wrapper = new RequestWrapper(request);
 		  request.setAttribute("requestWrapper",wrapper);
+		  request.setAttribute("body",parse(request));
 		}
 		return wrapper;
 	}
 	
 	public HttpSession getSession() {
-		return getRequest().getSession(true);
+		return ServletActionContext.getRequest().getSession(true);
 	}
 	
 	public HttpServletResponse getResponse() {
@@ -88,7 +89,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public String getBaseUrl() {
-		HttpServletRequest request = getRequest();
+		HttpServletRequest request = ServletActionContext.getRequest();
 		String forceHttps = System.getenv("metamorphosis.forceHttps");
 	    String scheme = "true".equals(forceHttps) ? "https://" : "http://";
 	    String serverName = request.getServerName();
@@ -102,7 +103,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public String getContextPath() {
-		return getRequest().getContextPath();
+		return ServletActionContext.getRequest().getContextPath();
 	}
 	
 	public void forward(String location) throws ServletException, IOException {
@@ -153,11 +154,11 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 
 	public String getReferer() {
-		return getRequest().getHeader("referer");
+		return ServletActionContext.getRequest().getHeader("referer");
 	}
 	
 	public String getLanguage() {
-		return getRequest().getLocale().getLanguage();
+		return ServletActionContext.getRequest().getLocale().getLanguage();
 	}
 	
 	public String navigate() throws ServletException, IOException {
