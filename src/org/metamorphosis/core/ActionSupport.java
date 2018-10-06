@@ -140,10 +140,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return toJson(object);
 	}
 	
-	public Object parse(HttpServletRequest request) throws IOException {
-		return parse(request.getInputStream());
-	}
-	
 	public Object parse(InputStream inputStream) throws IOException {
 		return new JsonSlurper().parse(inputStream);
 	}
