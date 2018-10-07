@@ -90,7 +90,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public Object getUser() {
-		return ServletActionContext.getRequest().getSession().getAttribute("user");
+		return getSession().getAttribute("user");
 	}
 	
 	public String getBaseUrl() {
