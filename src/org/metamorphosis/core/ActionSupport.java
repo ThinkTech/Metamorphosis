@@ -30,7 +30,13 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public HttpSession getSession() {
-		return ServletActionContext.getRequest().getSession(true);
+		HttpSession session = ServletActionContext.getRequest().getSession(true);
+		HttpSession wrapper = (HttpSession) session.getAttribute("sessionWrapper");
+		if(wrapper == null) {
+		  wrapper = new SessionWrapper(session);
+		  session.setAttribute("sessionWrapper",wrapper);
+		}
+		return wrapper;
 	}
 	
 	public HttpServletResponse getResponse() {
@@ -84,7 +90,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public Object getUser() {
-		return getSession().getAttribute("user");
+		return ServletActionContext.getRequest().getSession().getAttribute("user");
 	}
 	
 	public String getBaseUrl() {
