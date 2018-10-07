@@ -5,6 +5,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
+
+@SuppressWarnings("deprecation")
 public class SessionWrapper implements HttpSession {
 
     private HttpSession session;
