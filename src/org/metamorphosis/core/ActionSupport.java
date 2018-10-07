@@ -44,7 +44,13 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public ServletContext getContext() {
-		return ServletActionContext.getServletContext();
+		ServletContext context = ServletActionContext.getServletContext();
+		ServletContext wrapper = (ServletContext) context.getAttribute("contextWrapper");
+		if(wrapper == null) {
+		  wrapper = new ServletContextWrapper(context);
+		  context.setAttribute("contextWrapper",wrapper);
+		}
+		return wrapper;
 	}
 	
 	public Object getAction(Module module,String url) throws Exception {
