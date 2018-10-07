@@ -43,9 +43,8 @@ public class ServletContextWrapper implements ServletContext {
 		return context.addFilter(arg0, arg1);
 	}
 
-	@Override
 	public javax.servlet.ServletRegistration.Dynamic addJspFile(String arg0, String arg1) {
-		return context.addJspFile(arg0, arg1);
+		return null;
 	}
 
 	@Override
@@ -193,9 +192,8 @@ public class ServletContextWrapper implements ServletContext {
 		return context.getRealPath(arg0);
 	}
 
-	@Override
 	public String getRequestCharacterEncoding() {
-		return context.getRequestCharacterEncoding();
+		return null;
 	}
 
 	@Override
@@ -218,9 +216,8 @@ public class ServletContextWrapper implements ServletContext {
 		return context.getResourcePaths(arg0);
 	}
 
-	@Override
 	public String getResponseCharacterEncoding() {
-		return context.getResponseCharacterEncoding();
+		return null;
 	}
 
 	@Override
@@ -263,14 +260,13 @@ public class ServletContextWrapper implements ServletContext {
 		return context.getSessionCookieConfig();
 	}
 
-	@Override
+	
 	public int getSessionTimeout() {
-		return context.getSessionTimeout();
+		return 0;
 	}
 
-	@Override
 	public String getVirtualServerName() {
-		return context.getVirtualServerName();
+		return null;
 	}
 
 	@Override
@@ -303,24 +299,16 @@ public class ServletContextWrapper implements ServletContext {
 		return context.setInitParameter(arg0, arg1);
 	}
 
-	@Override
 	public void setRequestCharacterEncoding(String arg0) {
-		context.setRequestCharacterEncoding(arg0);
 	}
 
-	@Override
 	public void setResponseCharacterEncoding(String arg0) {
-		context.setResponseCharacterEncoding(arg0);
 	}
 
-	@Override
 	public void setSessionTimeout(int arg0) {
-		context.setSessionTimeout(arg0);
 	}
 
-	@Override
 	public void setSessionTrackingModes(Set<SessionTrackingMode> arg0) {
-		context.setSessionTrackingModes(arg0);
 	}
 	
 	public void propertyMissing(String property,Object value) {
