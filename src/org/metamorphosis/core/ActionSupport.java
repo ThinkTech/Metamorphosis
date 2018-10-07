@@ -110,7 +110,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
     }
 	
 	public String getInitParameter(String name) {
-		return getContext().getInitParameter(name);
+		return ServletActionContext.getServletContext().getInitParameter(name);
 	}
 	
 	public String getContextPath() {
