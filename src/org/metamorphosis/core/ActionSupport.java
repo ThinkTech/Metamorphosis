@@ -118,7 +118,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public void forward(String location) throws ServletException, IOException {
-		HttpServletRequest request = getRequest();
+		HttpServletRequest request = ServletActionContext.getRequest();
 		request.getRequestDispatcher(location).forward(request, getResponse());
 	}
 	
@@ -159,6 +159,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public DataSource getDataSource() {
 		return (DataSource) getContext().getAttribute("datasource");
 	}
+	
+	public Object getConnection()  {
+		 return ServletActionContext.getRequest().getAttribute("connection");
+    }
 
 	public String getReferer() {
 		return ServletActionContext.getRequest().getHeader("referer");
