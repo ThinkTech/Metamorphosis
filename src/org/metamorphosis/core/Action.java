@@ -59,6 +59,7 @@ public class Action {
 	}
 
 	public void setScript(String script) {
+		if(!script.endsWith(".groovy")) script+=".groovy";
 		this.script = script;
 	}
 

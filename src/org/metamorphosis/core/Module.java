@@ -56,6 +56,7 @@ public class Module extends Extension {
 		return script;
 	}
 	public void setScript(String script) {
+		if(!script.endsWith(".groovy")) script+=".groovy";
 		this.script = script;
 	}
 	public List<Menu> getMenus() {
