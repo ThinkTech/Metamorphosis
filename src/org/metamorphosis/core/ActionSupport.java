@@ -15,7 +15,6 @@ import groovy.json.JsonSlurper;
 import javax.sql.DataSource;
 import static groovy.json.JsonOutput.toJson;
 
-
 @SuppressWarnings("serial")
 public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 
@@ -172,7 +171,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public String navigate() throws ServletException, IOException {
-		HttpServletRequest request = getRequest();
+		HttpServletRequest request = ServletActionContext.getRequest();
 		String actionURL = (String) request.getAttribute("actionURL");
 		if(actionURL!=null) {
 			ModuleManager moduleManager = ModuleManager.getInstance();
