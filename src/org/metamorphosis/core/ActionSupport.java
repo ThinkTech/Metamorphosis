@@ -39,10 +39,6 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return wrapper;
 	}
 	
-	public HttpServletResponse getResponse() {
-		return ServletActionContext.getResponse();
-	}
-	
 	public ServletContext getContext() {
 		ServletContext context = ServletActionContext.getServletContext();
 		ServletContext wrapper = (ServletContext) context.getAttribute("contextWrapper");
@@ -51,6 +47,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		  context.setAttribute("contextWrapper",wrapper);
 		}
 		return wrapper;
+	}
+	
+	public HttpServletResponse getResponse() {
+		return ServletActionContext.getResponse();
 	}
 	
 	public Object getAction(Module module,String url) throws Exception {
@@ -75,8 +75,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public void sendMail(String name,String email,String subject,String content) {
 		 MailConfig mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"));
-		 MailSender mailSender = new MailSender(mailConfig);
-		 mailSender.sendMail(new Mail(name,email,subject,content));
+		 new MailSender(mailConfig).sendMail(new Mail(name,email,subject,content));
 	}
 	
 	public ModuleManager getModuleManager() {
@@ -182,13 +181,13 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 					String url = module.getUrl()+"/"+actionURL;
 					Action action = module.getAction(actionURL);
 					if(action!=null) { 
-					    request.getRequestDispatcher(url).forward(request, getResponse());
+						forward(url);
 					    return null;
 					}else {
 						for(Menu menu : module.getMenus()) {
 							for(MenuItem item : menu.getMenuItems()) {
 								if(item.getUrl().equals(actionURL)) {
-									request.getRequestDispatcher(url).forward(request, getResponse());
+									forward(url);
 								    return null;
 								}
 							}
