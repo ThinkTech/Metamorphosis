@@ -23,10 +23,10 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				if(module.isCached() && !module.isBackend()) {
 					response.setHeader("Cache-control", "private, max-age=7200");
 				}else if(module.isBackend() && !actionURL.startsWith("users/")) {
-					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
 					HttpSession session = request.getSession();
 					Object user = (Object) session.getAttribute("user");
 					if(user==null) return "error";
+					response.setHeader("Cache-control","no-cache, no-store, must-revalidate");
 				}
 				request.setAttribute("modules",moduleManager.getVisibleModules(module.getType()));
 				request.setAttribute("module",module);
