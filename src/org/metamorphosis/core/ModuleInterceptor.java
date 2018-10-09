@@ -14,8 +14,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation)  {
 		try {
 			HttpServletRequest request = ServletActionContext.getRequest();
-			String uri = request.getRequestURI();
-			String actionURL = uri.substring(request.getContextPath().length()+1,uri.length());
+			String actionURL = request.getRequestURI().substring(request.getContextPath().length()+1);
 			ModuleManager moduleManager = ModuleManager.getInstance();
 		    Module module = moduleManager.getCurrentModule();
 			if(module!=null) {
