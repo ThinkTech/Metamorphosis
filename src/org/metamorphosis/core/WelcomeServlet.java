@@ -20,9 +20,9 @@ public class WelcomeServlet extends HttpServlet {
 	private void forward(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		Module module =  ModuleManager.getInstance().getMainModule("front-end");
 		if(module!=null)
-			request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
+			request.getRequestDispatcher(module.getUrl()+"/index").forward(request,response);
 		else
-			request.getRequestDispatcher("index").forward(request, response);
+			request.getRequestDispatcher("index").forward(request,response);
 	}
 	
 }
