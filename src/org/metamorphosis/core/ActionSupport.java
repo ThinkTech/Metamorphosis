@@ -62,6 +62,10 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return getAction(module,null);
 	}
 	
+	public Object getAction(String url) throws Exception {
+		return getAction(getModule(),url);
+	}
+	
 	public Object getService(Module module) throws Exception {
 		return getAction(module,null);
 	}
