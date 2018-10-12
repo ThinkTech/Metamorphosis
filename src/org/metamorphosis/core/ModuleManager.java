@@ -84,6 +84,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return  parserClass != null ? (ModuleParser) Class.forName(parserClass).newInstance() : this;
 	}
 	
+	@Override
 	public Module parse(File metadata) throws Exception {
 		Digester digester = new Digester();
 		digester.setValidating(false);

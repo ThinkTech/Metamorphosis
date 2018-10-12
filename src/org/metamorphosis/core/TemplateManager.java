@@ -67,6 +67,7 @@ public class TemplateManager implements TemplateParser {
 		return  parserClass != null ? (TemplateParser) Class.forName(parserClass).newInstance() : this;
 	}
 
+	@Override
 	public Template parse(File metadata) throws Exception {
 		Digester digester = new Digester();
 		digester.setValidating(false);
