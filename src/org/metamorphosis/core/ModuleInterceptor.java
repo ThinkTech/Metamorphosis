@@ -16,7 +16,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 			HttpServletRequest request = ServletActionContext.getRequest();
 			String actionURL = request.getRequestURI().substring(request.getContextPath().length()+1);
 			ModuleManager moduleManager = ModuleManager.getInstance();
-		    Module module = moduleManager.getCurrentModule();
+			Module module = moduleManager.getCurrentModule();
 			if(module!=null) {
 				HttpServletResponse response = ServletActionContext.getResponse();
 				if(module.isCached() && !module.isBackend()) {
