@@ -98,7 +98,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public Object getUser() {
-		return getSession().getAttribute("user");
+		return ServletActionContext.getRequest().getSession().getAttribute("user");
 	}
 	
 	public String getBaseUrl() {
@@ -159,7 +159,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public DataSource getDataSource() {
-		return (DataSource) getContext().getAttribute("datasource");
+		return (DataSource) ServletActionContext.getServletContext().getAttribute("datasource");
 	}
 	
 	public Object getConnection()  {
