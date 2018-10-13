@@ -43,23 +43,17 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					}
 				}
 				if(module.getUrl().equals(actionURL)) {
-					String title = module.getTitle()!=null ? module.getTitle() : actionURL;
-					request.setAttribute("title",title);
+					request.setAttribute("title",module.getTitle());
+					request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 				}else {
-					request.setAttribute("title",actionURL.substring(0, 1).toUpperCase() + actionURL.substring(1));
 					for(Action action : module.getActions()) {
 						String url = module.getUrl()+"/"+action.getUrl();
-						if(url.equals(actionURL) && action.getTitle()!=null) {
-							request.setAttribute("title",action.getTitle());
-						}
+						if(url.equals(actionURL)) request.setAttribute("title",action.getTitle());
 					}
-				}
-				if(actionURL.equals(module.getUrl())){
-					request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 				}
 			}else {
 				request.setAttribute("title",actionURL.substring(0, 1).toUpperCase() + actionURL.substring(1));
-				request.setAttribute("actionURL", actionURL);
+				request.setAttribute("actionURL",actionURL);
 			}
 			return invocation.invoke();
 		}catch(Exception e) {
