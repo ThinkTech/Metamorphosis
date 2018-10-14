@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MailSender {
 	 
-    private MailConfig config;
+    private final MailConfig config;
     
     public MailSender(MailConfig config) {
     	this.config = config;
@@ -59,10 +59,6 @@ public class MailSender {
 
 	public MailConfig getConfig() {
 		return config;
-	}
-
-	public void setConfig(MailConfig config) {
-		this.config = config;
 	}
    
 }

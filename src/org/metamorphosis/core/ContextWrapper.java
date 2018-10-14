@@ -22,7 +22,7 @@ import javax.servlet.descriptor.JspConfigDescriptor;
 @SuppressWarnings("deprecation")
 public class ContextWrapper implements ServletContext {
 
-	private ServletContext context;
+	private final ServletContext context;
 	
 	public ContextWrapper(ServletContext context) {
 		this.context = context;
