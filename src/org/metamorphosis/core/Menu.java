@@ -9,7 +9,7 @@ public class Menu {
 	private String icon;
 	private boolean visible = true;
 	private String position;
-	private List<MenuItem> menuItems = new ArrayList<MenuItem>();
+	private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
 	public Menu() {
 	}
@@ -46,20 +46,12 @@ public class Menu {
 		this.position = position;
 	}
 
-	public Menu(List<MenuItem> menuItems) {
-		this.menuItems = menuItems;
-	}
-
 	public void addMenuItem(MenuItem item) {
 		menuItems.add(item);
 	}
 
 	public List<MenuItem> getMenuItems() {
 		return menuItems;
-	}
-
-	public void setMenuItems(List<MenuItem> menuItems) {
-		this.menuItems = menuItems;
 	}
 
 }

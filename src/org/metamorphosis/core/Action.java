@@ -10,7 +10,7 @@ public class Action {
 	private String method;
 	private String page;
 	private String script;
-	private List<Result> results = new ArrayList<Result>();
+	private final List<Result> results = new ArrayList<Result>();
 
 	public String getTitle() {
 		return title;
@@ -61,8 +61,5 @@ public class Action {
 	public List<Result> getResults() {
 		return results;
 	}
-
-	public void setResults(List<Result> results) {
-		this.results = results;
-	}
+	
 }
