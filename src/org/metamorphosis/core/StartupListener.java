@@ -140,9 +140,9 @@ public class StartupListener implements ServletContextListener {
 	
 	private void writeFile(File file,String content) {
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			bw.write(content);
-			bw.close();
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(content);
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
