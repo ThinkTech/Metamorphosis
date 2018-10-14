@@ -33,7 +33,7 @@ public class Result {
 	}
 
 	public String getType() {
-		return type != null ? name : "tiles";
+		return type != null ? type : "tiles";
 	}
 
 	public void setType(String type) {
@@ -41,7 +41,7 @@ public class Result {
 	}
 
 	public String getValue() {
-		return value != null ? name : "";
+		return value != null ? value : "";
 	}
 
 	public void setValue(String value) {
