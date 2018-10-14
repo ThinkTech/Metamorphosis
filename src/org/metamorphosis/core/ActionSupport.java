@@ -69,8 +69,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public Object getService(String name) throws Exception {
-		ModuleManager moduleManager = getModuleManager();
-		Module module = moduleManager.getModuleByName(name);
+		Module module = getModuleManager().getModuleByName(name);
 		return module != null ? getAction(module,null) : null;
 	}
 	
@@ -132,7 +131,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	
 	public String readFile(Module module,String fileName) throws Exception {
 		BufferedReader reader = new BufferedReader(new FileReader(new File(module.getFolder()+"/"+fileName)),1024);
-	    String content;
+	    String content = "";
 	    StringBuffer buffer = new StringBuffer();
 	    while((content = reader.readLine()) != null) buffer.append(content);
 	    reader.close();
