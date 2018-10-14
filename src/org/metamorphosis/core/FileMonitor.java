@@ -15,11 +15,12 @@ import java.util.List;
 
 public class FileMonitor {
 
-	private List<FileListener> listeners = new ArrayList<FileListener>();
-	private File folder;
+	private final File folder;
+	private final List<FileListener> listeners;
 
 	public FileMonitor(File folder) {
 	    this.folder = folder;
+	    listeners = new ArrayList<FileListener>();
 	}
 	
 	@SuppressWarnings("unchecked")
