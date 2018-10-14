@@ -171,33 +171,4 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	public String getLanguage() {
 		return ServletActionContext.getRequest().getLocale().getLanguage();
 	}
-	
-	public String navigate() throws ServletException, IOException {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String actionURL = (String) request.getAttribute("actionURL");
-		if(actionURL!=null) {
-			ModuleManager moduleManager = ModuleManager.getInstance();
-			for(Module module : moduleManager.getVisibleModules("front-end")) {
-				if(module.isMain()) {
-					String url = module.getUrl()+"/"+actionURL;
-					Action action = module.getAction(actionURL);
-					if(action!=null) { 
-						forward(url);
-					    return null;
-					}else {
-						for(Menu menu : module.getMenus()) {
-							for(MenuItem item : menu.getMenuItems()) {
-								if(item.getUrl().equals(actionURL)) {
-									forward(url);
-								    return null;
-								}
-							}
-						}
-					}
-				}
-			}
-			
-		}
-		return SUCCESS;
-	}
 }

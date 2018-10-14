@@ -350,7 +350,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		String url = request.getRequestURI().substring(request.getContextPath().length() + 1);
 		url = url.indexOf("/") != -1 ? url.substring(0, url.indexOf("/")) : url;
 		Module module = getModuleByUrl(url);
-		return module != null ? module : getModuleByUrl("/");
+		return module != null ? module : getMainModule("front-end");
 	}
 	
 	public Collection<Module> getModules() {
@@ -379,11 +379,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	
 	public Module getModuleByUrl(String url) {
 		for(Module module : getModules()) {
-			if(url.equals("/") && module.isMain() && module.isFrontend()) {
-				return module;
-			} else if(module.getUrl().equals(url)) {
-				return module;
-			}
+			if(module.getUrl().equals(url)) return module;
 		}
 		return null;
 	}

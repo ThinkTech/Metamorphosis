@@ -51,11 +51,8 @@ public class ModuleInterceptor extends AbstractInterceptor {
 						if(url.equals(actionURL)) request.setAttribute("title",action.getTitle());
 					}
 				}
-			}else {
-				request.setAttribute("title",actionURL.substring(0, 1).toUpperCase() + actionURL.substring(1));
-				request.setAttribute("actionURL",actionURL);
+			  return invocation.invoke();
 			}
-			return invocation.invoke();
 		}catch(Exception e) {
 		}
 		return "error";
