@@ -171,13 +171,13 @@ public class StartupListener implements ServletContextListener {
 	}
 	
 	private void copyFile(InputStream source,File destination) throws Exception {
-		BufferedInputStream br = new BufferedInputStream(source);
-		BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(destination));
+		BufferedInputStream in = new BufferedInputStream(source);
+		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destination));
 		byte[] buffer = new byte[1024];
 	    int length;
-	    while((length = br.read(buffer)) > 0) bw.write(buffer, 0, length);
-		br.close();
-		bw.close();
+	    while((length = in.read(buffer)) > 0) out.write(buffer, 0, length);
+		in.close();
+		out.close();
 	}
 
 	@Override
