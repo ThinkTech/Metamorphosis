@@ -274,8 +274,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.views.tiles.TilesResult");
 		} else if(type.equals("redirect")) {
 			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletRedirectResult");
-		} else if(type.equals("redirectAction")) {
-			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletActionRedirectResult");
 		} else if(type.equals("dispatcher")) {
 			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletDispatcherResult");
 		}
@@ -337,6 +335,15 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		  servletContext.setAttribute(key,object);
 		}
 		return object;
+	}
+	
+	public Object getAction(Module module,String url) throws Exception {
+		String reload = System.getenv("metamorphosis.reload");
+		return "true".equals(reload) ? buildAction(module,url) : buildAndCacheAction(module,url);
+	}
+	
+	public Object getAction(String url) throws Exception {
+		return getAction(getCurrentModule(),url);
 	}
 	
 	public Module getCurrentModule() {

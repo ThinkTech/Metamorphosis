@@ -53,9 +53,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public Object getAction(Module module,String url) throws Exception {
-		String reload = System.getenv("metamorphosis.reload");
-		ModuleManager moduleManager = getModuleManager();
-		return "true".equals(reload) ? moduleManager.buildAction(module,url) : moduleManager.buildAndCacheAction(module,url);
+		return  getModuleManager().getAction(module,url);
 	}
 	
 	public Object getAction(Module module) throws Exception {
