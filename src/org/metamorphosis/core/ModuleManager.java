@@ -349,8 +349,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String url = request.getRequestURI().substring(request.getContextPath().length() + 1);
 		url = url.indexOf("/") != -1 ? url.substring(0, url.indexOf("/")) : url;
-		Module module = getModuleByUrl(url);
-		return module != null ? module : getMainModule("front-end");
+		return getModuleByUrl(url);
 	}
 	
 	public Collection<Module> getModules() {
