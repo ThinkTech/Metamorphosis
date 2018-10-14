@@ -2,9 +2,9 @@ package org.metamorphosis.core;
 
 public class Result {
 
-	private String name = "success";
-	private String type = "tiles";
-	private String value = "";
+	private String name;
+	private String type;
+	private String value;
 	
 	public Result() {
 	}
@@ -25,7 +25,7 @@ public class Result {
 	}
 	
 	public String getName() {
-		return name;
+		return name != null ? name : "success";
 	}
 
 	public void setName(String name) {
@@ -33,7 +33,7 @@ public class Result {
 	}
 
 	public String getType() {
-		return type;
+		return type != null ? name : "tiles";
 	}
 
 	public void setType(String type) {
@@ -41,7 +41,7 @@ public class Result {
 	}
 
 	public String getValue() {
-		return value;
+		return value != null ? name : "";
 	}
 
 	public void setValue(String value) {
