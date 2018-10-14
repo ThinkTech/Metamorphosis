@@ -11,8 +11,8 @@ public class Module extends Extension {
 	protected boolean main;
 	protected boolean cached;
 	protected String script = "module.groovy";
-	protected List<Menu> menus = new ArrayList<Menu>();
-	protected List<Action> actions = new ArrayList<Action>();
+	protected final List<Menu> menus = new ArrayList<Menu>();
+	protected final List<Action> actions = new ArrayList<Action>();
 	
 	public Module() {
 	}
@@ -62,10 +62,6 @@ public class Module extends Extension {
 	public List<Menu> getMenus() {
 		return menus;
 	}
-
-	public void setMenus(List<Menu> menus) {
-		this.menus = menus;
-	}
 	
 	public void addMenu(Menu menu) {
 		if(menu.getLabel()==null) menu.setLabel(name);
@@ -80,10 +76,6 @@ public class Module extends Extension {
 
 	public List<Action> getActions() {
 		return actions;
-	}
-
-	public void setActions(List<Action> actions) {
-		this.actions = actions;
 	}
 
 	public void addAction(Action action) {

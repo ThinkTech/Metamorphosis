@@ -31,10 +31,10 @@ import groovy.util.GroovyScriptEngine;
 
 public class ModuleManager implements DispatcherListener, ModuleParser {
 
-	private Map<String,Module> modules = new HashMap<String,Module>();
-	private Logger logger = Logger.getLogger(ModuleManager.class.getName());
+	private final Map<String,Module> modules = new HashMap<String,Module>();
+	private final Logger logger = Logger.getLogger(ModuleManager.class.getName());
 	private Configuration configuration;
-	private ServletContext servletContext;
+	private final ServletContext servletContext;
 	private static ModuleManager instance;
 	private ModuleParser parser;
 	private static final String MODULE_METADATA = "module.xml";
