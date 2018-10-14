@@ -8,7 +8,7 @@ public class Menu {
 	private String label;
 	private String icon;
 	private boolean visible = true;
-	private String position = "main";
+	private String position;
 	private List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
 	public Menu() {
@@ -39,7 +39,7 @@ public class Menu {
 	}
 
 	public String getPosition() {
-		return position;
+		return position != null ? position : "main";
 	}
 
 	public void setPosition(String position) {

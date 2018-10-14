@@ -7,8 +7,8 @@ public class Action {
 
 	private String title;
 	private String url;
-	private String className = "";
-	private String method = "execute";
+	private String className;
+	private String method;
 	private String page;
 	private String script;
 	private List<Result> results = new ArrayList<Result>();
@@ -30,7 +30,7 @@ public class Action {
 	}
 
 	public String getClassName() {
-		return className;
+		return className != null ? className : "";
 	}
 
 	public void setClassName(String className) {
@@ -38,7 +38,7 @@ public class Action {
 	}
 
 	public String getMethod() {
-		return method;
+		return method != null ? method : "execute";
 	}
 
 	public void setMethod(String method) {
