@@ -42,7 +42,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		ServletContext context = ServletActionContext.getServletContext();
 		ServletContext wrapper = (ServletContext) context.getAttribute("contextWrapper");
 		if(wrapper == null) {
-		  wrapper = new ServletContextWrapper(context);
+		  wrapper = new ContextWrapper(context);
 		  context.setAttribute("contextWrapper",wrapper);
 		}
 		return wrapper;

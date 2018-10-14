@@ -20,11 +20,11 @@ import javax.servlet.SessionTrackingMode;
 import javax.servlet.descriptor.JspConfigDescriptor;
 
 @SuppressWarnings("deprecation")
-public class ServletContextWrapper implements ServletContext {
+public class ContextWrapper implements ServletContext {
 
 	private ServletContext context;
 	
-	public ServletContextWrapper(ServletContext context) {
+	public ContextWrapper(ServletContext context) {
 		this.context = context;
 	}
 	
