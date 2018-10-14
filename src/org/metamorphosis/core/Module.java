@@ -6,13 +6,13 @@ import java.util.List;
 
 public class Module extends Extension {
 	
-	private String url;
-	private String title;
-	private boolean main;
-	private boolean cached;
-	private String script = "module.groovy";
-	private List<Menu> menus = new ArrayList<Menu>();
-	private List<Action> actions = new ArrayList<Action>();
+	protected String url;
+	protected String title;
+	protected boolean main;
+	protected boolean cached;
+	protected String script = "module.groovy";
+	protected List<Menu> menus = new ArrayList<Menu>();
+	protected List<Action> actions = new ArrayList<Action>();
 	
 	public Module() {
 	}
