@@ -121,7 +121,7 @@ public class StartupListener implements ServletContextListener {
 			}
 		}
 		for(Action action : module.getActions()) {
-			content+="<action name='"+action.getUrl()+"' class='"+action.getClassName()+"' method='"+action.getMethod()+"'>";
+			content+="<action name='"+action.getUrl()+"' method='"+action.getMethod()+"'>";
 			for(Result result : action.getResults()) {
 				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
 					result.setValue(module.getUrl()+"/"+result.getValue());

@@ -7,7 +7,6 @@ public class Action {
 
 	private String title;
 	private String url;
-	private String className;
 	private String method;
 	private String page;
 	private String script;
@@ -27,14 +26,6 @@ public class Action {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public String getClassName() {
-		return className != null ? className : "";
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
 	}
 
 	public String getMethod() {

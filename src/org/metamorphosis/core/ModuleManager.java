@@ -116,7 +116,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		digester.addSetNext("module/menus/menu", "addMenu");
 		digester.addObjectCreate("module/actions/action", Action.class);
 		digester.addSetProperties("module/actions/action");
-		digester.addSetProperties("module/actions/action", "class", "className");
 		digester.addObjectCreate("module/actions/action/result", Result.class);
 		digester.addSetProperties("module/actions/action/result");
 		digester.addSetNext("module/actions/action/result", "addResult");
@@ -252,7 +251,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
 		packageBuilder.addActionConfig("index",actionBuilder.build());
 		for(Action action : module.getActions()) {
-			actionBuilder = new ActionConfig.Builder(action.getUrl(),action.getUrl(),action.getClassName());
+			actionBuilder = new ActionConfig.Builder(action.getUrl(),action.getUrl(),"");
 			actionBuilder.methodName(action.getMethod());
 			for(Result result : action.getResults()) {
 				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
