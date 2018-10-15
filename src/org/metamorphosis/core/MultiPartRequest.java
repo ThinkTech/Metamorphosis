@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class MultiPartRequest implements org.apache.struts2.dispatcher.multipart.MultiPartRequest{
