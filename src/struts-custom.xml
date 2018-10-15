@@ -39,7 +39,7 @@
 <struts>
     <bean class="com.opensymphony.xwork2.ObjectFactory" name="struts"/>
     <bean type="com.opensymphony.xwork2.factory.ResultFactory" name="struts" class="org.apache.struts2.factory.StrutsResultFactory" />
-    <bean type="com.opensymphony.xwork2.factory.ActionFactory" name="struts" class="com.opensymphony.xwork2.factory.DefaultActionFactory" />
+    <bean type="com.opensymphony.xwork2.factory.ActionFactory" name="struts" class="org.metamorphosis.core.ActionFactory" />
     <bean type="com.opensymphony.xwork2.factory.ConverterFactory" name="struts" class="com.opensymphony.xwork2.factory.DefaultConverterFactory" />
     <bean type="com.opensymphony.xwork2.factory.InterceptorFactory" name="struts" class="com.opensymphony.xwork2.factory.DefaultInterceptorFactory" />
     <bean type="com.opensymphony.xwork2.factory.ValidatorFactory" name="struts" class="com.opensymphony.xwork2.factory.DefaultValidatorFactory" />
@@ -107,7 +107,7 @@
 
         <default-interceptor-ref name="defaultStack"/>
 
-        <default-class-ref class="com.opensymphony.xwork2.ActionSupport" />
+        <default-class-ref class="org.metamorphosis.core.ActionSupport" />
         
     </package>
 

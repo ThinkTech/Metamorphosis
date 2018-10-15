@@ -7,8 +7,8 @@
    <constant name="struts.enable.SlashesInActionNames" value="true"/>
    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
    <constant name="struts.patternMatcher" value="regex"/>
-   <bean type="com.opensymphony.xwork2.factory.ActionFactory"  class="org.metamorphosis.core.ActionFactory" />
-	
+   <constant name="struts.multipart.saveDir" value="" />
+   
    <package name="root" namespace="/" extends="tiles-default">
    
     <interceptors>
@@ -20,8 +20,6 @@
      </interceptors>
      
      <default-interceptor-ref name="moduleStack"/>
-     
-     <default-class-ref class="org.metamorphosis.core.ActionSupport" />
           
       <action name="{module}">
 	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException" result="error" />
