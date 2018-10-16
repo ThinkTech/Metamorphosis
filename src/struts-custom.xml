@@ -92,6 +92,7 @@
     <bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" name="jakarta" class="org.metamorphosis.core.MultiPartRequest" scope="prototype"/>
     <bean type="com.opensymphony.xwork2.LocaleProvider" name="struts" class="com.opensymphony.xwork2.DefaultLocaleProvider" scope="singleton" />
     <package name="struts-default" abstract="true">
+    
         <result-types>
             <result-type name="dispatcher" class="org.apache.struts2.dispatcher.ServletDispatcherResult" default="true"/>
             <result-type name="redirect" class="org.apache.struts2.dispatcher.ServletRedirectResult"/>
@@ -99,7 +100,6 @@
 
         <interceptors>
             <interceptor name="exception" class="com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor"/> 
-            <!-- Default stack -->
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception"/>
             </interceptor-stack>  
