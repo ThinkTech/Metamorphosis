@@ -58,8 +58,7 @@ public class MultiPartRequest implements org.apache.struts2.dispatcher.multipart
 	}
 
 	@Override
-	public void cleanUp() {		
-		
+	public void cleanUp() {			
 	}
 
 }
