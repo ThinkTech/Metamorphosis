@@ -2,6 +2,7 @@ package org.metamorphosis.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +55,7 @@ public class MultiPartRequest implements org.apache.struts2.dispatcher.multipart
 
 	@Override
 	public List<String> getErrors() {
-		return null;
+		return new ArrayList<String>();
 	}
 
 	@Override

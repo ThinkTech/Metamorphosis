@@ -26,8 +26,8 @@ public class StartupListener implements ServletContextListener {
 	    ServletContext context = event.getServletContext();
 		context.setAttribute("path",context.getContextPath()+"/");
 		String root = new File(context.getRealPath("/")).getAbsolutePath();
-		FilterRegistration struts2 = context.addFilter("struts2", org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.class);
-		struts2.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true, "/*");
+		FilterRegistration struts2 = context.addFilter("struts2",org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.class);
+		struts2.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,"/*");
 		StringBuffer buffer = new StringBuffer(loadTemplates(context, root));
 		struts2.setInitParameter("config",loadModules(context, root, buffer));
 		context.setInitParameter("org.apache.tiles.factory.TilesContainerFactory","org.metamorphosis.core.TilesContainerFactory");

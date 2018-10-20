@@ -7,7 +7,7 @@
    <constant name="struts.enable.SlashesInActionNames" value="true"/>
    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
    <constant name="struts.patternMatcher" value="regex"/>
-   <constant name="struts.multipart.saveDir" value="" />
+   <constant name="struts.multipart.saveDir" value="." />
    
    <package name="root" namespace="/" extends="tiles-default">
    
