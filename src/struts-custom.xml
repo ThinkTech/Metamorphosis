@@ -52,18 +52,13 @@
     <bean type="org.apache.struts2.views.TagLibraryDirectiveProvider" name="s" class="org.apache.struts2.views.DefaultTagLibrary" />
     <bean type="org.apache.struts2.views.TagLibraryModelProvider" name="s" class="org.apache.struts2.views.DefaultTagLibrary" />
     <bean type="org.apache.struts2.views.util.UrlHelper" name="struts" class="org.apache.struts2.views.util.DefaultUrlHelper"/>
+    <bean class="com.opensymphony.xwork2.conversion.impl.XWorkBasicConverter" />
     <bean type="com.opensymphony.xwork2.conversion.impl.XWorkConverter" name="struts" class="com.opensymphony.xwork2.conversion.impl.XWorkConverter" />
     <bean type="com.opensymphony.xwork2.conversion.ConversionPropertiesProcessor" name="struts" class="com.opensymphony.xwork2.conversion.impl.DefaultConversionPropertiesProcessor" />
     <bean type="com.opensymphony.xwork2.conversion.ConversionFileProcessor" name="struts" class="com.opensymphony.xwork2.conversion.impl.DefaultConversionFileProcessor" />
     <bean type="com.opensymphony.xwork2.conversion.ConversionAnnotationProcessor" name="struts" class="com.opensymphony.xwork2.conversion.impl.DefaultConversionAnnotationProcessor" />
     <bean type="com.opensymphony.xwork2.conversion.TypeConverterCreator" name="struts" class="com.opensymphony.xwork2.conversion.impl.DefaultTypeConverterCreator" />
     <bean type="com.opensymphony.xwork2.conversion.TypeConverterHolder" name="struts" class="com.opensymphony.xwork2.conversion.impl.DefaultTypeConverterHolder" />
-    <bean class="com.opensymphony.xwork2.conversion.impl.XWorkBasicConverter" />
-    <bean type="com.opensymphony.xwork2.conversion.impl.CollectionConverter" name="struts" class="com.opensymphony.xwork2.conversion.impl.CollectionConverter" scope="singleton"/>
-    <bean type="com.opensymphony.xwork2.conversion.impl.ArrayConverter" name="struts" class="com.opensymphony.xwork2.conversion.impl.ArrayConverter" scope="singleton"/>
-    <bean type="com.opensymphony.xwork2.conversion.impl.DateConverter" name="struts" class="com.opensymphony.xwork2.conversion.impl.DateConverter" scope="singleton"/>
-    <bean type="com.opensymphony.xwork2.conversion.impl.NumberConverter" name="struts" class="com.opensymphony.xwork2.conversion.impl.NumberConverter" scope="singleton"/>
-    <bean type="com.opensymphony.xwork2.conversion.impl.StringConverter" name="struts" class="com.opensymphony.xwork2.conversion.impl.StringConverter" scope="singleton"/>
     <bean type="com.opensymphony.xwork2.util.ValueStackFactory" name="struts" class="com.opensymphony.xwork2.ognl.OgnlValueStackFactory" />
     <bean type="com.opensymphony.xwork2.util.reflection.ReflectionProvider" name="struts" class="com.opensymphony.xwork2.ognl.OgnlReflectionProvider" />
     <bean type="com.opensymphony.xwork2.util.reflection.ReflectionContextFactory" name="struts" class="com.opensymphony.xwork2.ognl.OgnlReflectionContextFactory" />
