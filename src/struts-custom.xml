@@ -91,6 +91,7 @@
     <bean type="ognl.PropertyAccessor" name="java.util.HashMap" class="com.opensymphony.xwork2.ognl.accessor.XWorkMapPropertyAccessor" />
     <bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" name="jakarta" class="org.metamorphosis.core.MultiPartRequest" scope="prototype"/>
     <bean type="com.opensymphony.xwork2.LocaleProvider" name="struts" class="com.opensymphony.xwork2.DefaultLocaleProvider" scope="singleton" />
+    
     <package name="struts-default" abstract="true">
     
         <result-types>
