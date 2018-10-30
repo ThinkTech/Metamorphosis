@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 /*
- * $Id: struts-default.xml 1546514 2013-11-29 07:12:14Z lukaszlenart $
- *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,22 +19,12 @@
  * under the License.
  */
 -->
-
-<!--
-    When declaring beans in this file you must either use name="struts" or don't name the bean at all.
-
-    The name="struts" must be used when alias was defined in {@link org.apache.struts2.config.DefaultBeanSelectionProvider} -
-    it is then the default bean's name and {@link org.apache.struts2.config.DefaultBeanSelectionProvider} links name "struts"
-    with "default" (aliasing it)
-
-    If name won't be defined then the "default" value will be used {@link com.opensymphony.xwork2.inject.Container#DEFAULT_NAME}
-    and {@link com.opensymphony.xwork2.inject.Inject}
--->
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
-
+    
 <struts>
+
     <bean class="com.opensymphony.xwork2.ObjectFactory" name="struts"/>
     <bean type="com.opensymphony.xwork2.factory.ResultFactory" name="struts" class="org.apache.struts2.factory.StrutsResultFactory" />
     <bean type="com.opensymphony.xwork2.factory.ActionFactory" name="struts" class="org.metamorphosis.core.ActionFactory" />
@@ -80,7 +68,6 @@
     <bean class="org.apache.struts2.views.jsp.ui.OgnlTool" />
     <bean type="org.apache.struts2.dispatcher.StaticContentLoader" class="org.apache.struts2.dispatcher.DefaultStaticContentLoader" name="struts" />
     <bean type="com.opensymphony.xwork2.UnknownHandlerManager" class="com.opensymphony.xwork2.DefaultUnknownHandlerManager" name="struts" />
-    <!--  Silly workarounds for OGNL since there is currently no way to flush its internal caches -->
     <bean type="ognl.PropertyAccessor" name="java.util.ArrayList" class="com.opensymphony.xwork2.ognl.accessor.XWorkListPropertyAccessor" />
     <bean type="ognl.PropertyAccessor" name="java.util.HashSet" class="com.opensymphony.xwork2.ognl.accessor.XWorkCollectionPropertyAccessor" />
     <bean type="ognl.PropertyAccessor" name="java.util.HashMap" class="com.opensymphony.xwork2.ognl.accessor.XWorkMapPropertyAccessor" />
