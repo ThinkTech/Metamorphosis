@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 import org.apache.struts2.ServletActionContext;
 import groovy.json.JsonSlurper;
 import javax.sql.DataSource;
@@ -73,9 +76,23 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return module != null ? getAction(module,null) : null;
 	}
 	
-	public void sendMail(String name,String email,String subject,String content) {
-		 MailConfig mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"));
-		 new MailSender(mailConfig).sendMail(new Mail(name,email,subject,content));
+	public void sendMail(String email,String subject,String content) throws Exception {
+		 final HtmlEmail mail = new HtmlEmail();
+		 mail.setHostName(getInitParameter("smtp.host"));
+		 mail.setSmtpPort(Integer.parseInt(getInitParameter("smtp.port")));
+		 mail.setAuthenticator(new DefaultAuthenticator(getInitParameter("smtp.email"),getInitParameter("smtp.password")));
+		 mail.setSSLOnConnect(true);
+		 mail.addTo(email);
+		 mail.setFrom(getInitParameter("smtp.email"));
+		 new Thread(new Runnable() {
+			public void run() {
+			  try {
+				mail.send();
+			  } catch (EmailException e) {
+				e.printStackTrace();
+			  }
+			}
+		}).start();
 	}
 	
 	public ModuleManager getModuleManager() {
