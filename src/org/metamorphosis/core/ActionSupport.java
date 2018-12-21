@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -76,7 +77,7 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		return module != null ? getAction(module,null) : null;
 	}
 	
-	public void sendMail(String email,String subject,String content) throws Exception {
+	public void sendMail(String email,String subject,String message) throws Exception {
 		 final HtmlEmail mail = new HtmlEmail();
 		 mail.setHostName(getInitParameter("smtp.host"));
 		 mail.setSmtpPort(Integer.parseInt(getInitParameter("smtp.port")));
@@ -84,6 +85,8 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 		 mail.setSSLOnConnect(true);
 		 mail.addTo(email);
 		 mail.setFrom(getInitParameter("smtp.email"));
+		 mail.setSubject(StringEscapeUtils.unescapeHtml4(subject));
+		 mail.setHtmlMsg(message);
 		 new Thread(new Runnable() {
 			public void run() {
 			  try {
