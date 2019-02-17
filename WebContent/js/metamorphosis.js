@@ -72,7 +72,10 @@ page.init = function() {
 			'<a id="confirm-dialog-cancel" tabindex="2" data-translation="cancel">Cancel</a></div></div>');
 	
 	$("#confirm-dialog-cancel").click(function() { 
+		$(this).focus();
+		document.activeElement = $(this)[0];
 		$("#confirm-dialog-container").hide();
+		return false;
 	});
 	
 	$("#confirm-dialog-container").on('keydown', function(event) {     
@@ -115,7 +118,7 @@ const alert = function(message,callback) {
 	const container = $("#alert-dialog-container");
 	$("span:nth-child(2)",container).html(message);
 	container.show(0,function(){
-		$("#alert-dialog-ok").one("click",function() {
+		$("#alert-dialog-ok").unbind("click").click(function() {
 			container.hide();
 			if(callback)callback();
 		}).focus();
@@ -124,7 +127,6 @@ const alert = function(message,callback) {
 };
 
 const confirm = function(message,callback){
-	$("body").trigger("click");
 	const container = $("#confirm-dialog-container");
 	$("span.confirmation-dialog-title",container).html(message);
 	container.show(0,function(){
