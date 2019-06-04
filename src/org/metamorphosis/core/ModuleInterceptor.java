@@ -43,8 +43,8 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					}
 				}
 				if(module.getUrl().equals(actionURL)) {
-					request.setAttribute("title",module.getTitle());
-					request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
+				   	request.setAttribute("title",module.getTitle());
+					//request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 				}else {
 					for(Action action : module.getActions()) {
 						String url = module.getUrl()+"/"+action.getUrl();
