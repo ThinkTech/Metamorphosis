@@ -170,7 +170,7 @@
                         <div class="d-flex">
                             <div class="mx-auto">
                                 <div class="title-section py-lg-5 pb-4">
-                                    <h4>Power Tools</h4>
+                                    <h4>Powerful Tools</h4>
                                     <h3 class="w3ls-title text-uppercase text-white">unique features</h3>
                                 </div>
                                 <div class="wthree-list-grid d-flex flex-wrap">
@@ -216,7 +216,7 @@
             </div>
             <div class="col-lg-6  py-5">
                 <div class="rgrid-agileits">
-                    <h4>"trendy <br> Material Design <br> Color Schemes</h4>
+                    <h4>trendy <br> Material Design <br> </h4>
                     <span class="about-line" data-blast="bgColor"></span>
                 </div>
             </div>
@@ -228,7 +228,7 @@
                         <div class="d-flex">
                             <div class="mx-auto">
                                 <div class="title-section py-lg-5 pb-4">
-                                    <h4>Power Tools</h4>
+                                    <h4>Powerful Tools</h4>
                                     <h3 class="w3ls-title text-uppercase text-white">Unique Features</h3>
                                 </div>
                                 <div class="wthree-list-grid d-flex flex-wrap">
