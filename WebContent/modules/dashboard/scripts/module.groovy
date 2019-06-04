@@ -1,7 +1,6 @@
 class ModuleAction extends ActionSupport {
                                
       def String execute() {
-         println "hello"
          SUCCESS        
       }
       
