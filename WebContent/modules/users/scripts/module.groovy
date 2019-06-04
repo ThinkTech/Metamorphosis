@@ -1,5 +1,4 @@
 class UserAction extends ActionSupport {
-
 	
 	def login()  {
 	    session.setAttribute("user","user")
@@ -9,15 +8,15 @@ class UserAction extends ActionSupport {
 	}
 	
 	def logout() {
-		SUCCESS
+	    session.invalidate()
+		response.sendRedirect(request.contextPath+"/")
 	}
+	
 	
 	def selectTemplate() {
 	    def id = request.id;
 		def template = templateManager.getTemplate(id)
-		if(template && template.backend) {
-			session.setAttribute("template",id)
-		}
+		if(template && template.backend) session.setAttribute("template",id)
 		response.sendRedirect(request.getHeader("referer"))
 	}
 	

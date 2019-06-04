@@ -21,7 +21,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				HttpServletResponse response = ServletActionContext.getResponse();
 				if(module.isCached() && !module.isBackend()) {
 					response.setHeader("Cache-control", "private, max-age=7200");
-				}else if(module.isBackend() && !actionURL.startsWith("users/")) {
+				}else if(module.isBackend() && !(actionURL.startsWith("users/login") || actionURL.startsWith("users/logout"))) {
 					HttpSession session = request.getSession();
 					Object user = (Object) session.getAttribute("user");
 					if(user==null) return "error";
@@ -44,7 +44,6 @@ public class ModuleInterceptor extends AbstractInterceptor {
 				}
 				if(module.getUrl().equals(actionURL)) {
 				   	request.setAttribute("title",module.getTitle());
-					//request.getRequestDispatcher(module.getUrl()+"/index").forward(request, response);
 				}else {
 					for(Action action : module.getActions()) {
 						String url = module.getUrl()+"/"+action.getUrl();
