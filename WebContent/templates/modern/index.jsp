@@ -71,7 +71,7 @@
                                 <div class="shape6 shape-bg"></div>
                                 <div class="shape7 shape-bg"></div>
                                 <div class="float">
-                                    <form class="form" action="#" method="post">
+                                    <form class="form" action="users/login" method="post">
                                         <div class="form-group">
                                             <label for="email">Email</label><br>
                                             <input type="text" name="email" id="email" class="form-control"

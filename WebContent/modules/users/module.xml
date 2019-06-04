@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
-	<name>users</name>
+    <name>users</name>
+	<url>users</url>
 	<type>back-end</type>
 	<visible>false</visible>
 	<administrable>false</administrable>
@@ -18,10 +19,10 @@
 		</menu>
 	</menus>
 	<actions>
-		<action name="login"  url="login"  global="true" script="users.groovy" method="login" />
-		<action name="logout" url="logout" global="true" script="users.groovy" method="logout">
+		<action  url="login"   method="login" />
+		<action  url="logout"  method="logout">
 			<result type="redirect">/</result>
 		</action>
-		<action name="selectTemplate" url="preferences/templates/select"  script="users.groovy" method="selectTemplate"/>
+		<action url="preferences/templates/select" method="selectTemplate"/>
 	</actions>
 </module>

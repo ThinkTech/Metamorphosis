@@ -1,11 +1,9 @@
-class User {}
-
 class UserAction extends ActionSupport {
 
 	
 	def login()  {
-	    session.setAttribute("user",new User())
-		def module = moduleManager.main
+	    session.setAttribute("user","user")
+		def module = moduleManager.getMainModule("back-end")
 		def url = module ? request.contextPath+"/"+module.url: request.contextPath+"/"
 		response.sendRedirect(url)
 	}
@@ -15,7 +13,7 @@ class UserAction extends ActionSupport {
 	}
 	
 	def selectTemplate() {
-	    def id = request.getParameter("id");
+	    def id = request.id;
 		def template = templateManager.getTemplate(id)
 		if(template && template.backend) {
 			session.setAttribute("template",id)

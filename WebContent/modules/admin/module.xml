@@ -2,6 +2,7 @@
 <module>
 	<name>admin</name>
 	<administrable>false</administrable>
+	<type>back-end</type>
 	<index>users.jsp</index>
 	<order>5</order>
 	<author>Mamadou Lamine Ba</author>
