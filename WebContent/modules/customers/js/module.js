@@ -1,1 +1,0 @@
-module.init("customer", customer => customer.firstName + " "+customer.lastName);
