@@ -3,6 +3,11 @@
     <name>module1</name>
 	<url>module1</url>
 	<type>back-end</type>
+	<index>index.jsp</index>
+	<script>module1.groovy</script>
+	<main>true</main>
+	<visible>true</visible>
+	<cached>true</cached>
 	<author>Mamadou Lamine Ba</author>
 	<authorEmail>lmamdou@s2m.com</authorEmail>
 	<description>description of module1</description>

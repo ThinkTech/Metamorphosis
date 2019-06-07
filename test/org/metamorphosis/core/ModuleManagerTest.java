@@ -33,6 +33,11 @@ public class ModuleManagerTest {
 		assertEquals("module1", module.getName());
 		assertEquals("module1", module.getUrl());
 		assertEquals("back-end", module.getType());
+		assertEquals("/modules/module1/index.jsp",module.getIndex());
+		assertEquals("module1.groovy",module.getScript());
+		assertEquals(true,module.isMain());
+		assertEquals(true,module.isVisible());
+		assertEquals(true,module.isCached());
 		assertEquals("Mamadou Lamine Ba", module.getAuthor());
 		assertEquals("lmamdou@s2m.com", module.getAuthorEmail());
 		assertEquals("description of module1", module.getDescription());
