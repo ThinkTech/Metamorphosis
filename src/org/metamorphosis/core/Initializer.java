@@ -95,8 +95,9 @@ public class Initializer {
 	}
 	
 	private void addController(Module module,Controller controller,Object object) {
-		String path = controller.value();
-		if(!path.trim().equals("")) {
+		String url = controller.value();
+		if(!url.trim().equals("")) {
+			module.setUrl(url);
 			Method[] methods = object.getClass().getDeclaredMethods();
 			for(Method method : methods) {
 				Annotation[] annotations = method.getAnnotations();
