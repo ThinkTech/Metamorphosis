@@ -25,6 +25,7 @@ public class ModuleManagerTest {
 		ModuleManager moduleManager = new ModuleManager(servletContext);
 		File folder = new File("test/resources/modules/module1");
 		Module module = moduleManager.loadModule(folder);
+		assertEquals("module1", module.getId());
 		assertEquals("module1", module.getName());
 		assertEquals("module1", module.getUrl());
 		assertEquals("back-end", module.getType());

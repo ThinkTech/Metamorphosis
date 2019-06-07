@@ -22,6 +22,7 @@ public class TemplateManagerTest {
 		TemplateManager templateManager = new TemplateManager(servletContext);
 		File folder = new File("test/resources/templates/template1");
 		Template template = templateManager.loadTemplate(folder);
+		assertEquals("template1", template.getId());
 		assertEquals("template1", template.getName());
 		assertEquals("back-end", template.getType());
 		assertEquals("Mamadou Lamine Ba", template.getAuthor());
