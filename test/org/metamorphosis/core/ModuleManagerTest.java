@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -54,6 +55,16 @@ public class ModuleManagerTest {
 		Result result =  module.getAction("action1").getResults().get(0);
 		assertEquals("success", result.getName());
 		assertEquals("tiles", result.getType());
+		assertEquals(2, module.getMenus().size());
+		List<Menu> menus = module.getMenus("left");
+		assertEquals(1, menus.size());
+		Menu menu = module.getMenu("left");
+		assertEquals(true, menu.isVisible());
+		assertEquals(2, menu.getMenuItems().size());
+		MenuItem menuItem = menu.getMenuItems().get(1);
+		assertEquals("item4",menuItem.getLabel());
+		assertEquals("module1/url4",menuItem.getUrl());
+		assertEquals("item 4",menuItem.getTitle());
     }
 	
 	@Test

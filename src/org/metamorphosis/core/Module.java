@@ -73,6 +73,11 @@ public class Module extends Extension {
 		for(Menu menu : this.menus) if(menu.getPosition().equals(position)) menus.add(menu);
 		return menus;
 	}
+	
+	public Menu getMenu(String position) {
+		for(Menu menu : this.menus) if(menu.getPosition().equals(position)) return menu;
+		return null;
+	}
 
 	public List<Action> getActions() {
 		return actions;

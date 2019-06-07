@@ -16,9 +16,13 @@
 	<license>GNU/GPL</license>
 	<version>1.0</version>
 	<menus>
-		<menu>
+		<menu position="top">
 			<menuItem label="item1" />
 			<menuItem label="item2" url="url2" />
+		</menu>
+		<menu position="left">
+			<menuItem label="item3" />
+			<menuItem title="item 4" label="item4" url="url4" />
 		</menu>
 	</menus>
 	<actions>
