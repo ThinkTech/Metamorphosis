@@ -37,6 +37,7 @@ public class TemplateManagerTest {
 		assertEquals("©2019", template.getCopyright());
 		assertEquals("GNU/GPL", template.getLicense());
 		assertEquals("1.0", template.getVersion());
+		assertEquals("this is the details of the template",template.getDetails());
     }
 	
 	@Test

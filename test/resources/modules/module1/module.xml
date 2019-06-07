@@ -29,4 +29,5 @@
 		<action title="my Action1" url="action1" page="page1"  method="method1" script="action1"/>
 		<action  url="action2"   method="method2"/>
 	</actions>
+	<details>this is the details of the module</details>
 </module>
