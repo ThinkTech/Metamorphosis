@@ -2,6 +2,7 @@ package org.metamorphosis.core;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
@@ -14,6 +15,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
+import org.metamorphosis.core.annotation.Controller;
+import org.metamorphosis.core.annotation.Get;
+
 import groovy.util.GroovyScriptEngine;
 
 public class Initializer {
@@ -37,20 +41,38 @@ public class Initializer {
     	}
     }
     
-    private void register(File script) throws Exception {
+    public void init(Module module) {
+    	if(folder.exists()) {
+    		try {
+				File[] files = folder.listFiles();
+				if(files!=null) for(File file : files) {
+					Object object = register(file);
+					Annotation[] annotations = object.getClass().getAnnotations();
+					for(Annotation annotation : annotations) {
+					   if(annotation instanceof Controller) addController(module, (Controller) annotation, object);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+    
+    private Object register(File script) throws Exception {
     	Object object = loadScript(script);
 		Annotation[] annotations = object.getClass().getAnnotations();
 		for(Annotation annotation : annotations) {
 		   if(annotation instanceof WebServlet) addServlet(context, (WebServlet) annotation, object);
 		   if(annotation instanceof WebFilter) addFilter(context, (WebFilter) annotation, object);
 		}
+		return object;
     }
     
 	private void addServlet(ServletContext context,WebServlet webServlet,Object object) {
 		String name = object.getClass().getName();
 		ServletRegistration registration = context.getServletRegistration(name);
 		if(registration==null) {
-			registration = context.addServlet(object.getClass().getName(), (Servlet) object);
+			registration = context.addServlet(name, (Servlet) object);
 			if(webServlet.value().length>0)registration.addMapping(webServlet.value());
 			if(webServlet.urlPatterns().length>0)registration.addMapping(webServlet.urlPatterns());
 		}else {
@@ -63,11 +85,34 @@ public class Initializer {
 		String name = object.getClass().getName();
 		FilterRegistration registration = context.getFilterRegistration(name);
 		if(registration==null) {
-			registration = context.addFilter(object.getClass().getName(), (Filter) object);
+			registration = context.addFilter(name, (Filter) object);
 			if(webFilter.value().length>0) registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.value());
 			if(webFilter.urlPatterns().length>0)registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.urlPatterns());
 		}else {
 			String message = "a filter with the name " + name+" has already been registered. Please use a different name or package";
+			throw new RuntimeException(message);
+		}
+	}
+	
+	private void addController(Module module,Controller controller,Object object) {
+		String path = controller.value();
+		if(!path.trim().equals("")) {
+			Method[] methods = object.getClass().getDeclaredMethods();
+			for(Method method : methods) {
+				Annotation[] annotations = method.getAnnotations();
+				for(Annotation annotation : annotations) {
+					if(annotation instanceof Get) {
+						Get get = (Get) annotation;
+						Action action = new Action();
+						action.setUrl(get.url());
+						action.setMethod(method.getName());
+						module.addAction(action);
+					}
+					
+				}
+			}
+		}else {
+			String message = "you must define the path for the controller "+object.getClass();
 			throw new RuntimeException(message);
 		}
 	}
@@ -89,7 +134,7 @@ public class Initializer {
 	
 	private ImportCustomizer createCompilationCustomizer() {
 		ImportCustomizer importCustomizer = new ImportCustomizer();
-		importCustomizer.addStarImports("org.metamorphosis.core","groovy.json","javax.servlet","javax.servlet.annotation","javax.servlet.http");
+		importCustomizer.addStarImports("org.metamorphosis.core","org.metamorphosis.core.annotation","groovy.json","javax.servlet","javax.servlet.annotation","javax.servlet.http");
 		return importCustomizer;
 	}
 	

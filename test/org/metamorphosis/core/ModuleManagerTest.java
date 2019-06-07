@@ -48,6 +48,7 @@ public class ModuleManagerTest {
 		assertEquals("1.0", module.getVersion());
 		assertEquals("this is the details of the module",module.getDetails());
 		assertEquals(2,module.getActions().size());
+		assertEquals("action1",module.getAction("action1").getUrl());
 		assertEquals("method1",module.getAction("action1").getMethod());
 		assertEquals("action1.groovy",module.getAction("action1").getScript());
 		assertEquals("my Action1",module.getAction("action1").getTitle());

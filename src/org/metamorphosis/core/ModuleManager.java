@@ -302,7 +302,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	private ImportCustomizer createCompilationCustomizer() {
 		ImportCustomizer importCustomizer = new ImportCustomizer();
 		importCustomizer.addImports("java.text.SimpleDateFormat");
-		importCustomizer.addStarImports("org.metamorphosis.core","groovy.json");
+		importCustomizer.addStarImports("org.metamorphosis.core","org.metamorphosis.core.annotation","groovy.json");
 		Package[] packages = Package.getPackages();
 		for(Package p : packages) {
 	        if(p.getName().startsWith("app")) {
