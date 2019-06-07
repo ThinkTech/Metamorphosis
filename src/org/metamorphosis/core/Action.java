@@ -10,6 +10,7 @@ public class Action {
 	private String method;
 	private String page;
 	private String script;
+	private String httpMethod;
 	private final List<Result> results = new ArrayList<Result>();
 
 	public String getTitle() {
@@ -61,5 +62,14 @@ public class Action {
 	public List<Result> getResults() {
 		return results;
 	}
+
+	public String getHttpMethod() {
+		return httpMethod;
+	}
+
+	public void setHttpMethod(String httpMethod) {
+		this.httpMethod = httpMethod;
+	}
+	
 	
 }

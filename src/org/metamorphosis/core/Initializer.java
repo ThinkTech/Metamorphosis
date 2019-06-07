@@ -109,6 +109,7 @@ public class Initializer {
 					action.setUrl(get.url());
 					action.setMethod(method.getName());
 					action.setScript(script.getName());
+					action.setHttpMethod("GET");
 					if(!get.page().trim().equals(""))action.setPage(get.page());
 					module.addAction(action);
 				}

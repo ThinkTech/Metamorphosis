@@ -1,5 +1,7 @@
 package org.metamorphosis.core;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,8 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 @SuppressWarnings("serial")
 public class ModuleInterceptor extends AbstractInterceptor {
 
+	private final Logger logger = Logger.getLogger(this.getClass().getName());
+	
 	@Override
 	public String intercept(ActionInvocation invocation)  {
 		try {
@@ -49,7 +53,16 @@ public class ModuleInterceptor extends AbstractInterceptor {
 						String url = module.getUrl()+"/"+action.getUrl();
 						if(url.equals(actionURL)) request.setAttribute("title",action.getTitle());
 					}
+					String url = actionURL.substring(module.getUrl().length()+1);
+					Action action = module.getAction(url);
+					if(action!=null) {
+						if(action.getHttpMethod()!=null && !request.getMethod().equals(action.getHttpMethod())) {
+							logger.log(Level.SEVERE, "the action with the url " +url+" cannot be accessed with the HTTP method "+request.getMethod());
+							return "error";
+						}
+					}
 				}
+				
 			}
 			return invocation.invoke();
 		}catch(Exception e) {
