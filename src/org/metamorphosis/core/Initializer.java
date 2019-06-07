@@ -17,6 +17,8 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.metamorphosis.core.annotation.Controller;
 import org.metamorphosis.core.annotation.Get;
+import org.metamorphosis.core.annotation.Post;
+import org.metamorphosis.core.annotation.Put;
 
 import groovy.util.GroovyScriptEngine;
 
@@ -111,6 +113,24 @@ public class Initializer {
 					action.setScript(script.getName());
 					action.setHttpMethod("GET");
 					if(!get.page().trim().equals(""))action.setPage(get.page());
+					module.addAction(action);
+				} else if(annotation instanceof Post) {
+					Post post = (Post) annotation;
+					Action action = new Action();
+					action.setUrl(post.url());
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					action.setHttpMethod("POST");
+					if(!post.page().trim().equals(""))action.setPage(post.page());
+					module.addAction(action);
+				} else if(annotation instanceof Put) {
+					Put put = (Put) annotation;
+					Action action = new Action();
+					action.setUrl(put.url());
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					action.setHttpMethod("PUT");
+					if(!put.page().trim().equals(""))action.setPage(put.page());
 					module.addAction(action);
 				}
 				
