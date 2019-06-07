@@ -9,7 +9,7 @@
 </head>
 <body>
 	
-   Under Construction
+  <tiles:insertAttribute name="content"/>	
    
 </body>
 </html>

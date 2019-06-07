@@ -5,9 +5,9 @@ class ModuleAction extends ActionSupport {
          SUCCESS        
       }
       
-      @Get(url="hello")
-      def test() {
-         println "test"        
+      @Get(url="sayHello")
+      def hello() {
+         println "hello world"        
       }
 
 }

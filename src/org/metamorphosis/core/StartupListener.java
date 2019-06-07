@@ -131,8 +131,8 @@ public class StartupListener implements ServletContextListener {
 				}
 				content+="<result name='"+result.getName()+"' type='"+result.getType()+"'>"+result.getValue();
 				content+="</result>";
-				content+="<result name='error' type='redirect'>/</result>";
 			}
+			content+="<result name='error' type='redirect'>/</result>";
 			content+="</action>";
 		}
 		content +="</package></struts>";

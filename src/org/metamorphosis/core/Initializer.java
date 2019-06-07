@@ -45,12 +45,14 @@ public class Initializer {
     	if(folder.exists()) {
     		try {
 				File[] files = folder.listFiles();
-				if(files!=null) for(File file : files) {
-					Object object = register(file);
-					Annotation[] annotations = object.getClass().getAnnotations();
-					for(Annotation annotation : annotations) {
-					   if(annotation instanceof Controller) addController(module, (Controller) annotation, object);
-					}
+				if(files!=null) {
+					for(File file : files) {
+					  Object object = register(file);
+					  Annotation[] annotations = object.getClass().getAnnotations();
+					  for(Annotation annotation : annotations) {
+					   if(annotation instanceof Controller) addController(module, file, (Controller) annotation, object);
+					  }
+				   }
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -94,27 +96,24 @@ public class Initializer {
 		}
 	}
 	
-	private void addController(Module module,Controller controller,Object object) {
+	private void addController(Module module,File script,Controller controller,Object object) {
 		String url = controller.value();
-		if(!url.trim().equals("")) {
-			module.setUrl(url);
-			Method[] methods = object.getClass().getDeclaredMethods();
-			for(Method method : methods) {
-				Annotation[] annotations = method.getAnnotations();
-				for(Annotation annotation : annotations) {
-					if(annotation instanceof Get) {
-						Get get = (Get) annotation;
-						Action action = new Action();
-						action.setUrl(get.url());
-						action.setMethod(method.getName());
-						module.addAction(action);
-					}
-					
+		if(!url.trim().equals("")) module.setUrl(url);
+		Method[] methods = object.getClass().getDeclaredMethods();
+		for(Method method : methods) {
+			Annotation[] annotations = method.getAnnotations();
+			for(Annotation annotation : annotations) {
+				if(annotation instanceof Get) {
+					Get get = (Get) annotation;
+					Action action = new Action();
+					action.setUrl(get.url());
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					if(!get.page().trim().equals(""))action.setPage(get.page());
+					module.addAction(action);
 				}
+				
 			}
-		}else {
-			String message = "you must define the path for the controller "+object.getClass();
-			throw new RuntimeException(message);
 		}
 	}
 	

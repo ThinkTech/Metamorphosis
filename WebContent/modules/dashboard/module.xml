@@ -11,6 +11,6 @@
 	<license>GNU/GPL</license>
 	<version>1.0</version>
 	<actions>
-	   <action url="test" method="test"/>
+	   <action url="hello" method="hello"/>
 	</actions>
 </module>

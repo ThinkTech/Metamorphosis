@@ -19,6 +19,5 @@
 	<actions>
 		<action  url="login"   method="login" />
 		<action  url="logout"  method="logout"/>
-		<action url="preferences/templates/select" method="selectTemplate"/>
 	</actions>
 </module>
