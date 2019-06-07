@@ -412,6 +412,14 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		this.configuration = configuration;
 	}
 	
+	public ModuleParser getParser() {
+		return parser;
+	}
+
+	public void setParser(ModuleParser parser) {
+		this.parser = parser;
+	}
+	
 	@Override
 	public void dispatcherInitialized(Dispatcher dispatcher) {
 		configuration = dispatcher.getConfigurationManager().getConfiguration();
@@ -424,5 +432,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	public static ModuleManager getInstance() {
 		return instance;
 	}
+	
 	
 }

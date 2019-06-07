@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>template1</name>
+	<type>back-end</type>
+	<author>Mamadou Lamine Ba</author>
+	<authorEmail>lmamdou@s2m.com</authorEmail>
+	<description>description of template1</description>
+	<creationDate>04/06/2019</creationDate>
+	<copyright>©2019</copyright>
+	<license>GNU/GPL</license>
+	<version>1.0</version>
+</template>

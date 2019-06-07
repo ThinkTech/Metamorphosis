@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <name>module1</name>
+	<url>module1</url>
+	<type>back-end</type>
+	<author>Mamadou Lamine Ba</author>
+	<authorEmail>lmamdou@s2m.com</authorEmail>
+	<description>description of module1</description>
+	<creationDate>04/06/2019</creationDate>
+	<copyright>©2019</copyright>
+	<license>GNU/GPL</license>
+	<version>1.0</version>
+	<menus>
+		<menu>
+			<menuItem label="Account" />
+			<menuItem label="Preferences" url="preferences" />
+		</menu>
+	</menus>
+	<actions>
+		<action  url="login"   method="login" />
+		<action  url="logout"  method="logout"/>
+		<action url="preferences/templates/select" method="selectTemplate"/>
+	</actions>
+</module>

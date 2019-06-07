@@ -191,6 +191,15 @@ public class TemplateManager implements TemplateParser {
 		Collections.sort(templates);
 		return templates;
 	}
+	
+
+	public TemplateParser getParser() {
+		return parser;
+	}
+
+	public void setParser(TemplateParser parser) {
+		this.parser = parser;
+	}
 
 	public static TemplateManager getInstance() {
 		return instance;
