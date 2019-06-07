@@ -17,7 +17,7 @@ import org.apache.commons.digester.Digester;
 public class TemplateManager implements TemplateParser {
 
 	private final Map<String,Template> templates = new HashMap<String,Template>();
-	private final Logger logger = Logger.getLogger(TemplateManager.class.getName());
+	private final Logger logger = Logger.getLogger(this.getClass().getName());
 	private final ServletContext servletContext;
 	private static TemplateManager instance;
 	private TemplateParser parser;

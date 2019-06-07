@@ -92,4 +92,8 @@ public class Module extends Extension {
 		return null;
 	}
 	
+	public File getScriptFolder() {
+		return new File(folder+"/scripts");
+	}
+	
 }

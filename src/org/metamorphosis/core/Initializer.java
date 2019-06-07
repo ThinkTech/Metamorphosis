@@ -47,15 +47,29 @@ public class Initializer {
     }
     
 	private void addServlet(ServletContext context,WebServlet webServlet,Object object) {
-		ServletRegistration registration = context.addServlet(object.getClass().getName(), (Servlet) object);
-		if(webServlet.value().length>0)registration.addMapping(webServlet.value());
-		if(webServlet.urlPatterns().length>0)registration.addMapping(webServlet.urlPatterns());
+		String name = object.getClass().getName();
+		ServletRegistration registration = context.getServletRegistration(name);
+		if(registration==null) {
+			registration = context.addServlet(object.getClass().getName(), (Servlet) object);
+			if(webServlet.value().length>0)registration.addMapping(webServlet.value());
+			if(webServlet.urlPatterns().length>0)registration.addMapping(webServlet.urlPatterns());
+		}else {
+			String message = "a servlet with the name " + name+" has already been registered. Please use a different name or package";
+			throw new RuntimeException(message);
+		}
 	}
 	
 	private void addFilter(ServletContext context,WebFilter webFilter,Object object) {
-		FilterRegistration registration = context.addFilter(object.getClass().getName(), (Filter) object);
-		if(webFilter.value().length>0)registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.value());
-		if(webFilter.urlPatterns().length>0)registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.urlPatterns());
+		String name = object.getClass().getName();
+		FilterRegistration registration = context.getFilterRegistration(name);
+		if(registration==null) {
+			registration = context.addFilter(object.getClass().getName(), (Filter) object);
+			if(webFilter.value().length>0) registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.value());
+			if(webFilter.urlPatterns().length>0)registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.urlPatterns());
+		}else {
+			String message = "a filter with the name " + name+" has already been registered. Please use a different name or package";
+			throw new RuntimeException(message);
+		}
 	}
 	
 	public File getFolder() {

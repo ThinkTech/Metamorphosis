@@ -31,7 +31,7 @@ import groovy.util.GroovyScriptEngine;
 public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	private final Map<String,Module> modules = new HashMap<String,Module>();
-	private final Logger logger = Logger.getLogger(ModuleManager.class.getName());
+	private final Logger logger = Logger.getLogger(this.getClass().getName());
 	private Configuration configuration;
 	private final ServletContext servletContext;
 	private static ModuleManager instance;
