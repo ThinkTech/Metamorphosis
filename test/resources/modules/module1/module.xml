@@ -17,13 +17,12 @@
 	<version>1.0</version>
 	<menus>
 		<menu>
-			<menuItem label="Account" />
-			<menuItem label="Preferences" url="preferences" />
+			<menuItem label="item1" />
+			<menuItem label="item2" url="url2" />
 		</menu>
 	</menus>
 	<actions>
-		<action  url="login"   method="login" />
-		<action  url="logout"  method="logout"/>
-		<action url="preferences/templates/select" method="selectTemplate"/>
+		<action title="my Action1" url="action1" page="page1"  method="method1" script="action1"/>
+		<action  url="action2"   method="method2"/>
 	</actions>
 </module>

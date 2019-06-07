@@ -45,6 +45,15 @@ public class ModuleManagerTest {
 		assertEquals("©2019", module.getCopyright());
 		assertEquals("GNU/GPL", module.getLicense());
 		assertEquals("1.0", module.getVersion());
+		assertEquals(2,module.getActions().size());
+		assertEquals("method1",module.getAction("action1").getMethod());
+		assertEquals("action1.groovy",module.getAction("action1").getScript());
+		assertEquals("my Action1",module.getAction("action1").getTitle());
+		assertEquals("page1", module.getAction("action1").getPage());
+		assertEquals(1, module.getAction("action1").getResults().size());
+		Result result =  module.getAction("action1").getResults().get(0);
+		assertEquals("success", result.getName());
+		assertEquals("tiles", result.getType());
     }
 	
 	@Test
