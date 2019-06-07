@@ -1,7 +1,6 @@
 package org.metamorphosis.core;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -293,7 +292,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return createScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance();
 	}
 	
-	private GroovyScriptEngine createScriptEngine(File folder) throws MalformedURLException {
+	private GroovyScriptEngine createScriptEngine(File folder) throws Exception {
 		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/"+SCRIPTS_FOLDER).toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
 		engine.setConfig(new CompilerConfiguration().addCompilationCustomizers(createCompilationCustomizer()));

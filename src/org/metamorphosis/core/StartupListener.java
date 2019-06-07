@@ -33,6 +33,7 @@ public class StartupListener implements ServletContextListener {
 		context.setInitParameter("org.apache.tiles.factory.TilesContainerFactory","org.metamorphosis.core.TilesContainerFactory");
 		context.setInitParameter("org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG",buffer.toString());
 		new TilesListener().contextInitialized(event);
+		new Initializer(context,new File(root+"/scripts")).init();
 		copyFiles(root);
 	}
 	
