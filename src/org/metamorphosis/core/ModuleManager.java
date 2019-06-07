@@ -433,5 +433,4 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return instance;
 	}
 	
-	
 }
