@@ -2,6 +2,8 @@ package org.metamorphosis.core;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.metamorphosis.core.util.TestModuleParser;
+
 import static org.mockito.Mockito.*;
 
 
@@ -14,8 +16,10 @@ public class ModuleManagerTest {
 	@Test
 	public void createParser() {
 		ServletContext servletContext = mock(ServletContext.class);
+		when(servletContext.getInitParameter("metamorphosis.module_parser"))
+		.thenReturn("org.metamorphosis.core.util.TestModuleParser");
 		ModuleManager moduleManager = new ModuleManager(servletContext);
-		assertEquals(moduleManager,moduleManager.getParser());
+		assertEquals(TestModuleParser.class,moduleManager.getParser().getClass());
 	}
 	
 	
@@ -23,8 +27,8 @@ public class ModuleManagerTest {
     public void loadModule() throws Exception {
 		ServletContext servletContext = mock(ServletContext.class);
 		ModuleManager moduleManager = new ModuleManager(servletContext);
-		File folder = new File("test/resources/modules/module1");
-		Module module = moduleManager.loadModule(folder);
+		assertEquals(moduleManager,moduleManager.getParser());
+		Module module = moduleManager.loadModule(new File("test/resources/modules/module1"));
 		assertEquals("module1", module.getId());
 		assertEquals("module1", module.getName());
 		assertEquals("module1", module.getUrl());

@@ -2,17 +2,22 @@ package org.metamorphosis.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.File;
 import javax.servlet.ServletContext;
 import org.junit.Test;
+import org.metamorphosis.core.util.TestTemplateParser;
 
 public class TemplateManagerTest {
 
 	@Test
 	public void createParser() {
 		ServletContext servletContext = mock(ServletContext.class);
+		when(servletContext.getInitParameter("metamorphosis.template_parser"))
+		.thenReturn("org.metamorphosis.core.util.TestTemplateParser");
 		TemplateManager templateManager = new TemplateManager(servletContext);
-		assertEquals(templateManager,templateManager.getParser());
+		assertEquals(TestTemplateParser.class,templateManager.getParser().getClass());
 	}
 	
 	
