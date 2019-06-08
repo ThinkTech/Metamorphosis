@@ -10,7 +10,4 @@
 	<copyright>©2019</copyright>
 	<license>GNU/GPL</license>
 	<version>1.0</version>
-	<actions>
-	   <action url="hello" method="hello"/>
-	</actions>
 </module>

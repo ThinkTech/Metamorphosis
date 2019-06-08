@@ -55,8 +55,7 @@ public class StartupListener implements ServletContextListener {
 		folder = folder!=null ? folder : "modules";
 		ModuleManager moduleManager = new ModuleManager(context,new File(root+"/"+folder));
 		for(Module module : moduleManager.getModules()) {
-			Initializer initializer = new Initializer(context,module.getScriptFolder());
-			initializer.init(module);
+		    new Initializer(context,module.getScriptFolder()).init();;
 			buffer.append(","+createTiles(module));
 			config +=","+createConfig(module);
 		}

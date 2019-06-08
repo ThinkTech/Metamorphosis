@@ -84,7 +84,12 @@ public class Module extends Extension {
 	}
 
 	public void addAction(Action action) {
-		actions.add(action);
+		if(getAction(action.getUrl())!=null) {
+			String message = "the url " + action.getUrl()+" has been already been defined for the module "+url;
+			throw new RuntimeException(message);
+		}else {
+			actions.add(action);	
+		}
 	}
 	
 	public Action getAction(String url) {

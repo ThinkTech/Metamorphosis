@@ -5,7 +5,7 @@ class ModuleAction extends ActionSupport {
          SUCCESS        
       }
       
-      @GET("sayHello")
+      @GET("hello")
       def hello() {
          println "hello world"        
       }

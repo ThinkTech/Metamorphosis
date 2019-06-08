@@ -2,7 +2,6 @@ package org.metamorphosis.core;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
@@ -15,12 +14,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
-import org.metamorphosis.core.annotation.Controller;
-import org.metamorphosis.core.annotation.DELETE;
-import org.metamorphosis.core.annotation.GET;
-import org.metamorphosis.core.annotation.POST;
-import org.metamorphosis.core.annotation.PUT;
-
 import groovy.util.GroovyScriptEngine;
 
 public class Initializer {
@@ -44,33 +37,16 @@ public class Initializer {
     	}
     }
     
-    public void init(Module module) {
-    	if(folder.exists()) {
-    		try {
-				File[] files = folder.listFiles();
-				if(files!=null) {
-					for(File file : files) {
-					  Object object = register(file);
-					  Annotation[] annotations = object.getClass().getAnnotations();
-					  for(Annotation annotation : annotations) {
-					   if(annotation instanceof Controller) addController(module, file, (Controller) annotation, object);
-					  }
-				   }
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
+    public void register(File script) throws Exception {
+    	register(loadScript(script));
     }
     
-    private Object register(File script) throws Exception {
-    	Object object = loadScript(script);
-		Annotation[] annotations = object.getClass().getAnnotations();
+    public void register(Object object) throws Exception {
+        Annotation[] annotations = object.getClass().getAnnotations();
 		for(Annotation annotation : annotations) {
 		   if(annotation instanceof WebServlet) addServlet(context, (WebServlet) annotation, object);
 		   if(annotation instanceof WebFilter) addFilter(context, (WebFilter) annotation, object);
 		}
-		return object;
     }
     
 	private void addServlet(ServletContext context,WebServlet webServlet,Object object) {
@@ -96,76 +72,6 @@ public class Initializer {
 		}else {
 			String message = "The filter with the name " + name+" has already been registered. Please use a different name or package";
 			throw new RuntimeException(message);
-		}
-	}
-	
-	private void addController(Module module,File script,Controller controller,Object object) {
-		String url = !controller.url().trim().equals("") ? controller.url() : controller.value();
-		if(!url.trim().equals("")) module.setUrl(url);
-		Method[] methods = object.getClass().getDeclaredMethods();
-		for(Method method : methods) {
-			Annotation[] annotations = method.getAnnotations();
-			for(Annotation annotation : annotations) {
-				if(annotation instanceof GET) {
-					GET get = (GET) annotation;
-					Action action = new Action();
-					url = get.value().trim().equals("") ? get.url() : get.value();
-					if(url.trim().equals("")) {
-						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
-						throw new RuntimeException(message);
-					}
-					action.setUrl(url);
-					action.setMethod(method.getName());
-					action.setScript(script.getName());
-					action.setHttpMethod("GET");
-					if(!get.page().trim().equals(""))action.setPage(get.page());
-					module.addAction(action);
-				} else if(annotation instanceof POST) {
-					POST post = (POST) annotation;
-					Action action = new Action();
-					url = post.value().trim().equals("") ? post.url() : post.value();
-					if(url.trim().equals("")) {
-						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
-						throw new RuntimeException(message);
-					}
-					action.setUrl(url);
-					action.setMethod(method.getName());
-					action.setScript(script.getName());
-					action.setHttpMethod("POST");
-					if(!post.page().trim().equals(""))action.setPage(post.page());
-					module.addAction(action);
-				} else if(annotation instanceof PUT) {
-					PUT put = (PUT) annotation;
-					Action action = new Action();
-					url = put.value().trim().equals("") ? put.url() : put.value();
-					if(url.trim().equals("")) {
-						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
-						throw new RuntimeException(message);
-					}
-					action.setUrl(url);
-					action.setMethod(method.getName());
-					action.setScript(script.getName());
-					action.setHttpMethod("PUT");
-					if(!put.page().trim().equals(""))action.setPage(put.page());
-					module.addAction(action);
-				}
-				else if(annotation instanceof DELETE) {
-					DELETE delete = (DELETE) annotation;
-					Action action = new Action();
-					url = delete.value().trim().equals("") ? delete.url() : delete.value();
-					if(url.trim().equals("")) {
-						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
-						throw new RuntimeException(message);
-					}
-					action.setUrl(url);
-					action.setMethod(method.getName());
-					action.setScript(script.getName());
-					action.setHttpMethod("PUT");
-					if(!delete.page().trim().equals(""))action.setPage(delete.page());
-					module.addAction(action);
-				}
-				
-			}
 		}
 	}
 	

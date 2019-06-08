@@ -1,6 +1,8 @@
 package org.metamorphosis.core;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,6 +24,11 @@ import org.apache.tiles.Definition;
 import org.apache.tiles.access.TilesAccess;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
+import org.metamorphosis.core.annotation.Controller;
+import org.metamorphosis.core.annotation.DELETE;
+import org.metamorphosis.core.annotation.GET;
+import org.metamorphosis.core.annotation.POST;
+import org.metamorphosis.core.annotation.PUT;
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.config.entities.PackageConfig;
@@ -155,6 +162,20 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	}
 	
 	private void initModule(Module module) {
+		try {
+			File[] files = module.getScriptFolder().listFiles();
+			if(files!=null) {
+				for(File file : files) {
+				  Object object = loadScript(file);
+				  Annotation[] annotations = object.getClass().getAnnotations();
+				  for(Annotation annotation : annotations) {
+				   if(annotation instanceof Controller) addController(module, file, (Controller) annotation, object);
+				  }
+			   }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if(module.getUrl() == null) module.setUrl(module.getFolder().getName());
 		for(Action action : module.getActions()) if(action.getPage()==null) action.setPage(action.getUrl());
 		for(Menu menu : module.getMenus()) {
@@ -165,12 +186,90 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
+	private void addController(Module module,File script,Controller controller,Object object) {
+		String url = !controller.url().trim().equals("") ? controller.url() : controller.value();
+		if(!url.trim().equals("")) module.setUrl(url);
+		Method[] methods = object.getClass().getDeclaredMethods();
+		for(Method method : methods) {
+			Annotation[] annotations = method.getAnnotations();
+			for(Annotation annotation : annotations) {
+				if(annotation instanceof GET) {
+					GET get = (GET) annotation;
+					Action action = new Action();
+					url = get.value().trim().equals("") ? get.url() : get.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					action.setHttpMethod("GET");
+					if(!get.page().trim().equals(""))action.setPage(get.page());
+					module.addAction(action);
+				} else if(annotation instanceof POST) {
+					POST post = (POST) annotation;
+					Action action = new Action();
+					url = post.value().trim().equals("") ? post.url() : post.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					action.setHttpMethod("POST");
+					if(!post.page().trim().equals(""))action.setPage(post.page());
+					module.addAction(action);
+				} else if(annotation instanceof PUT) {
+					PUT put = (PUT) annotation;
+					Action action = new Action();
+					url = put.value().trim().equals("") ? put.url() : put.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					action.setHttpMethod("PUT");
+					if(!put.page().trim().equals(""))action.setPage(put.page());
+					module.addAction(action);
+				}
+				else if(annotation instanceof DELETE) {
+					DELETE delete = (DELETE) annotation;
+					Action action = new Action();
+					url = delete.value().trim().equals("") ? delete.url() : delete.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					action.setHttpMethod("PUT");
+					if(!delete.page().trim().equals(""))action.setPage(delete.page());
+					module.addAction(action);
+				}
+				
+			}
+		}
+	}
+	
+	
 	private void monitorModule(final Module module) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(module.getFolder()).addListener(new FileListener() {
 				public void onFileCreated(String name) {
 					if(name.equals(MODULE_METADATA)) updateModule(module);		
+				}
+				public void onFileDeleted(String name) {
+				}
+			}).monitor();
+			new FileMonitor(module.getScriptFolder()).addListener(new FileListener() {
+				public void onFileCreated(String name) {
+					if(name.endsWith(".groovy")) updateModule(module);		
 				}
 				public void onFileDeleted(String name) {
 				}
@@ -248,6 +347,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		actionBuilder = new ActionConfig.Builder("index","index","");
 		actionBuilder.addResultConfig(createResultBuilder(new Result("success","tiles",module.getUrl()+"/index")).build());
 		actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
+		actionBuilder.addResultConfig(createResultBuilder(new Result("500","dispatcher","/500.jsp")).build());
 		packageBuilder.addActionConfig("index",actionBuilder.build());
 		for(Action action : module.getActions()) {
 			actionBuilder = new ActionConfig.Builder(action.getUrl(),action.getUrl(),"");
@@ -258,6 +358,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 				}
 				actionBuilder.addResultConfig(createResultBuilder(result).build());
 				actionBuilder.addResultConfig(createResultBuilder(new Result("error","redirect","/")).build());
+				actionBuilder.addResultConfig(createResultBuilder(new Result("500","dispatcher","/500.jsp")).build());
 			}
 			packageBuilder.addActionConfig(action.getUrl(),actionBuilder.build());
 		}
