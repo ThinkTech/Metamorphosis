@@ -16,9 +16,9 @@ import javax.servlet.annotation.WebServlet;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.metamorphosis.core.annotation.Controller;
-import org.metamorphosis.core.annotation.Get;
-import org.metamorphosis.core.annotation.Post;
-import org.metamorphosis.core.annotation.Put;
+import org.metamorphosis.core.annotation.GET;
+import org.metamorphosis.core.annotation.POST;
+import org.metamorphosis.core.annotation.PUT;
 
 import groovy.util.GroovyScriptEngine;
 
@@ -105,8 +105,8 @@ public class Initializer {
 		for(Method method : methods) {
 			Annotation[] annotations = method.getAnnotations();
 			for(Annotation annotation : annotations) {
-				if(annotation instanceof Get) {
-					Get get = (Get) annotation;
+				if(annotation instanceof GET) {
+					GET get = (GET) annotation;
 					Action action = new Action();
 					url = get.value().trim().equals("") ? get.url() : get.value();
 					if(url.trim().equals("")) {
@@ -119,8 +119,8 @@ public class Initializer {
 					action.setHttpMethod("GET");
 					if(!get.page().trim().equals(""))action.setPage(get.page());
 					module.addAction(action);
-				} else if(annotation instanceof Post) {
-					Post post = (Post) annotation;
+				} else if(annotation instanceof POST) {
+					POST post = (POST) annotation;
 					Action action = new Action();
 					url = post.value().trim().equals("") ? post.url() : post.value();
 					if(url.trim().equals("")) {
@@ -133,8 +133,8 @@ public class Initializer {
 					action.setHttpMethod("POST");
 					if(!post.page().trim().equals(""))action.setPage(post.page());
 					module.addAction(action);
-				} else if(annotation instanceof Put) {
-					Put put = (Put) annotation;
+				} else if(annotation instanceof PUT) {
+					PUT put = (PUT) annotation;
 					Action action = new Action();
 					url = put.value().trim().equals("") ? put.url() : put.value();
 					if(url.trim().equals("")) {

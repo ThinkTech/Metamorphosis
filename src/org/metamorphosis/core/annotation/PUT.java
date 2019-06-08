@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Post {
+public @interface PUT {
 	String value() default "";
 	String url()  default "";
 	String page() default "";

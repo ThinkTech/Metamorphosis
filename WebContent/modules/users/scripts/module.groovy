@@ -1,7 +1,7 @@
 @Controller
 class UserAction extends ActionSupport {
 	
-	@Post("login")
+	@POST("login")
 	def login()  {
 	    session.setAttribute("user","user")
 		def module = moduleManager.getMainModule("back-end")
@@ -9,18 +9,11 @@ class UserAction extends ActionSupport {
 		response.sendRedirect(url)
 	}
 	
-	@Get("logout")
+	@GET("logout")
 	def logout() {
 	    session.invalidate()
 		response.sendRedirect(request.contextPath+"/")
 	}
 	
-	
-	def selectTemplate() {
-	    def id = request.id;
-		def template = templateManager.getTemplate(id)
-		if(template && template.backend) session.setAttribute("template",id)
-		response.sendRedirect(request.getHeader("referer"))
-	}
 	
 }
