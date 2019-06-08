@@ -26,7 +26,7 @@ public class Action {
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
+		this.url = url.startsWith("/")?url.substring(1):url;
 	}
 
 	public String getMethod() {

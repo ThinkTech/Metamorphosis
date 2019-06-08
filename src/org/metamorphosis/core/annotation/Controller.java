@@ -9,4 +9,5 @@ import java.lang.annotation.RetentionPolicy;
 @Target(ElementType.TYPE)
 public @interface Controller {
 	String value() default "";
+	String url()   default "";
 }

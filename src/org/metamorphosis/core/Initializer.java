@@ -99,7 +99,7 @@ public class Initializer {
 	}
 	
 	private void addController(Module module,File script,Controller controller,Object object) {
-		String url = controller.value();
+		String url = !controller.url().trim().equals("") ? controller.url() : controller.value();
 		if(!url.trim().equals("")) module.setUrl(url);
 		Method[] methods = object.getClass().getDeclaredMethods();
 		for(Method method : methods) {

@@ -11,7 +11,6 @@ class UserAction extends ActionSupport {
 	
 	@Get("logout")
 	def logout() {
-	    println "logout"
 	    session.invalidate()
 		response.sendRedirect(request.contextPath+"/")
 	}
