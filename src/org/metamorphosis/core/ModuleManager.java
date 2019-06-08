@@ -260,18 +260,15 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	private void monitorModule(final Module module) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
-			new FileMonitor(module.getFolder()).addListener(new FileListener() {
+			new FileMonitor(module.getFolder()).addListener(new FileAdapter() {
 				public void onFileCreated(String name) {
 					if(name.equals(MODULE_METADATA)) updateModule(module);		
 				}
-				public void onFileDeleted(String name) {
-				}
 			}).monitor();
-			new FileMonitor(module.getScriptFolder()).addListener(new FileListener() {
+			
+			new FileMonitor(module.getScriptFolder()).addListener(new FileAdapter() {
 				public void onFileCreated(String name) {
 					if(name.endsWith(".groovy")) updateModule(module);		
-				}
-				public void onFileDeleted(String name) {
 				}
 			}).monitor();
 		}

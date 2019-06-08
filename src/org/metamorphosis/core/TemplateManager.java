@@ -122,11 +122,9 @@ public class TemplateManager implements TemplateParser {
 	private void monitorTemplate(final Template template) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
-			new FileMonitor(template.getFolder()).addListener(new FileListener() {
+			new FileMonitor(template.getFolder()).addListener(new FileAdapter() {
 				public void onFileCreated(String name) {
 					if(name.equals(TEMPLATE_METADATA)) updateTemplate(template);
-				}
-				public void onFileDeleted(String name) {
 				}
 			}).monitor();
 		}
