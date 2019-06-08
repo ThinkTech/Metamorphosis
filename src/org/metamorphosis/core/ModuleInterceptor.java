@@ -71,8 +71,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 			return invocation.invoke();
 		}catch(Exception e) {
 			errorCode = "500";
-			HttpServletRequest request = ServletActionContext.getRequest();
-			request.setAttribute("error",e.getMessage());
+			ServletActionContext.getRequest().setAttribute("error",e.getMessage());
 			e.printStackTrace();
 		}
 		return errorCode;
