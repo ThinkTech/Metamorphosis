@@ -16,6 +16,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 	
 	@Override
 	public String intercept(ActionInvocation invocation)  {
+		String errorCode = "error";
 		try {
 			HttpServletRequest request = ServletActionContext.getRequest();
 			String actionURL = request.getRequestURI().substring(request.getContextPath().length()+1);
@@ -69,7 +70,11 @@ public class ModuleInterceptor extends AbstractInterceptor {
 			}
 			return invocation.invoke();
 		}catch(Exception e) {
+			errorCode = "500";
+			HttpServletRequest request = ServletActionContext.getRequest();
+			request.setAttribute("error",e.getMessage());
+			e.printStackTrace();
 		}
-		return "error";
+		return errorCode;
 	}
 }
