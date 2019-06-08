@@ -16,8 +16,4 @@
 			<menuItem label="Preferences" url="preferences" />
 		</menu>
 	</menus>
-	<actions>
-		<action  url="login"   method="login" />
-		<action  url="logout"  method="logout"/>
-	</actions>
 </module>

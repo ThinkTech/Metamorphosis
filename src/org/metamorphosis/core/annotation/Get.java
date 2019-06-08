@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Get {
+	String value() default "";
 	String url()  default "";
 	String page() default "";
 }

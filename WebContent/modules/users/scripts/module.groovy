@@ -1,5 +1,7 @@
+@Controller
 class UserAction extends ActionSupport {
 	
+	@Post("login")
 	def login()  {
 	    session.setAttribute("user","user")
 		def module = moduleManager.getMainModule("back-end")
@@ -7,7 +9,9 @@ class UserAction extends ActionSupport {
 		response.sendRedirect(url)
 	}
 	
+	@Get("logout")
 	def logout() {
+	    println "logout"
 	    session.invalidate()
 		response.sendRedirect(request.contextPath+"/")
 	}

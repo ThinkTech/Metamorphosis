@@ -80,7 +80,7 @@ public class Initializer {
 			if(webServlet.value().length>0)registration.addMapping(webServlet.value());
 			if(webServlet.urlPatterns().length>0)registration.addMapping(webServlet.urlPatterns());
 		}else {
-			String message = "a servlet with the name " + name+" has already been registered. Please use a different name or package";
+			String message = "The servlet with the name " + name+" has already been registered. Please use a different name or package";
 			throw new RuntimeException(message);
 		}
 	}
@@ -93,7 +93,7 @@ public class Initializer {
 			if(webFilter.value().length>0) registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.value());
 			if(webFilter.urlPatterns().length>0)registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.urlPatterns());
 		}else {
-			String message = "a filter with the name " + name+" has already been registered. Please use a different name or package";
+			String message = "The filter with the name " + name+" has already been registered. Please use a different name or package";
 			throw new RuntimeException(message);
 		}
 	}
@@ -108,7 +108,12 @@ public class Initializer {
 				if(annotation instanceof Get) {
 					Get get = (Get) annotation;
 					Action action = new Action();
-					action.setUrl(get.url());
+					url = get.value().trim().equals("") ? get.url() : get.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
 					action.setMethod(method.getName());
 					action.setScript(script.getName());
 					action.setHttpMethod("GET");
@@ -117,7 +122,12 @@ public class Initializer {
 				} else if(annotation instanceof Post) {
 					Post post = (Post) annotation;
 					Action action = new Action();
-					action.setUrl(post.url());
+					url = post.value().trim().equals("") ? post.url() : post.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
 					action.setMethod(method.getName());
 					action.setScript(script.getName());
 					action.setHttpMethod("POST");
@@ -126,7 +136,12 @@ public class Initializer {
 				} else if(annotation instanceof Put) {
 					Put put = (Put) annotation;
 					Action action = new Action();
-					action.setUrl(put.url());
+					url = put.value().trim().equals("") ? put.url() : put.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
 					action.setMethod(method.getName());
 					action.setScript(script.getName());
 					action.setHttpMethod("PUT");

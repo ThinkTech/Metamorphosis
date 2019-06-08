@@ -133,6 +133,7 @@ public class StartupListener implements ServletContextListener {
 				content+="</result>";
 			}
 			content+="<result name='error' type='redirect'>/</result>";
+			content+="<result name='500' type='dispatcher'>/500.jsp</result>";
 			content+="</action>";
 		}
 		content +="</package></struts>";

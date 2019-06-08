@@ -56,9 +56,12 @@ public class ModuleInterceptor extends AbstractInterceptor {
 					String url = actionURL.substring(module.getUrl().length()+1);
 					Action action = module.getAction(url);
 					if(action!=null) {
-						if(action.getHttpMethod()!=null && !request.getMethod().equals(action.getHttpMethod())) {
-							logger.log(Level.SEVERE, "the action with the url " +url+" cannot be accessed with the HTTP method "+request.getMethod());
-							return "error";
+						if(action.getHttpMethod()!=null && !request.getMethod().equalsIgnoreCase(action.getHttpMethod())) {
+							String message =  "The "+url+" url cannot be accessed with the HTTP "+request.getMethod()+" method.";
+							message+=" Please use the "+action.getHttpMethod().toUpperCase()+" method";
+							logger.log(Level.SEVERE,message);
+							request.setAttribute("error",message);
+							return "500";
 						}
 					}
 				}
