@@ -55,8 +55,7 @@ public class StartupListener implements ServletContextListener {
 		folder = folder!=null ? folder : "modules";
 		ModuleManager moduleManager = new ModuleManager(context,new File(root+"/"+folder));
 		for(Module module : moduleManager.getModules()) {
-		    new Initializer(context,module.getScriptFolder()).init();;
-			buffer.append(","+createTiles(module));
+		    buffer.append(","+createTiles(module));
 			config +=","+createConfig(module);
 		}
 		context.setAttribute("moduleManager",moduleManager);
@@ -156,6 +155,7 @@ public class StartupListener implements ServletContextListener {
 		copyFile(root,"js","metamorphosis.min.js");
 		copyFile(root,"js","jquery-3.1.1.min.js");
 		copyFile(root,"js","dust-full.min.js");
+		copyFile(root,"","500.jsp");
 	}
 	
 	private void copyFile(String root,String directory,String file)	{

@@ -25,6 +25,13 @@
 				</includes>
 			</resource>
 			<resource>
+				<directory>WebContent</directory>
+				<targetPath>META-INF</targetPath>
+				<includes>
+					<include>500.jsp</include>
+				</includes>
+			</resource>
+			<resource>
 				<directory>WebContent/js</directory>
 				<targetPath>META-INF</targetPath>
 				<includes>
