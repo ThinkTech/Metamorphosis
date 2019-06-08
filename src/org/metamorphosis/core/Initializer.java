@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.metamorphosis.core.annotation.Controller;
+import org.metamorphosis.core.annotation.DELETE;
 import org.metamorphosis.core.annotation.GET;
 import org.metamorphosis.core.annotation.POST;
 import org.metamorphosis.core.annotation.PUT;
@@ -146,6 +147,21 @@ public class Initializer {
 					action.setScript(script.getName());
 					action.setHttpMethod("PUT");
 					if(!put.page().trim().equals(""))action.setPage(put.page());
+					module.addAction(action);
+				}
+				else if(annotation instanceof DELETE) {
+					DELETE delete = (DELETE) annotation;
+					Action action = new Action();
+					url = delete.value().trim().equals("") ? delete.url() : delete.value();
+					if(url.trim().equals("")) {
+						String message = "You must define the url for the method " + method.getName()+" of the class "+object.getClass().getName();
+						throw new RuntimeException(message);
+					}
+					action.setUrl(url);
+					action.setMethod(method.getName());
+					action.setScript(script.getName());
+					action.setHttpMethod("PUT");
+					if(!delete.page().trim().equals(""))action.setPage(delete.page());
 					module.addAction(action);
 				}
 				
