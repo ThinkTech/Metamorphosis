@@ -256,7 +256,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	
 	private void monitorModule(final Module module) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
@@ -268,7 +267,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			
 			new FileMonitor(module.getScriptFolder()).addListener(new FileAdapter() {
 				public void onFileCreated(String name) {
-					if(name.endsWith(".groovy")) updateModule(module);		
+					updateModule(module);		
 				}
 			}).monitor();
 		}
