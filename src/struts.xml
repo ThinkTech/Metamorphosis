@@ -22,9 +22,9 @@
      <default-interceptor-ref name="moduleStack"/>
           
       <action name="{module}">
-	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException" result="error" />
+	      	<exception-mapping exception="org.apache.tiles.definition.NoSuchDefinitionException" result="404" />
             <result name="success" type="tiles">{1}</result>
-            <result name="error" type="redirect">/</result>
+            <result name="404" type="dispatcher">/404.jsp</result>
       </action>
        
    </package>

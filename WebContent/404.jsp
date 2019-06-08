@@ -70,9 +70,9 @@ p img {
 
 	<div class="wrapper">
 		<div class="box">
-			<h1>500</h1>
-			<p>Internal Error</p>
-			<p>${message}</p>
+			<h1>404</h1>
+			<p>Page not found</p>
+			<p>The page you requested was not found on the server.</p>
 		</div>
 	</div>
 
