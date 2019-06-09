@@ -1,8 +1,9 @@
 @WebServlet("/test.html")
 class MyServlet extends HttpServlet {
 
-	void doGet(HttpServletRequest request,HttpServletResponse response) {		
-		println "wonderful game"
+	def get() {		
+		println "hello world from a groovy servlet"
+		json([status:1])
 	}
 		
 }

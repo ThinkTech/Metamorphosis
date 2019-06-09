@@ -24,8 +24,8 @@ public class StartupListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 	    ServletContext context = event.getServletContext();
-		context.setAttribute("path",context.getContextPath()+"/");
-		String root = new File(context.getRealPath("/")).getAbsolutePath();
+	    String root = new File(context.getRealPath("/")).getAbsolutePath();
+		new Initializer(context,new File(root+"/scripts")).init();	
 		FilterRegistration struts2 = context.addFilter("struts2",org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.class);
 		struts2.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,"/*");
 		StringBuffer buffer = new StringBuffer(loadTemplates(context, root));
@@ -33,7 +33,6 @@ public class StartupListener implements ServletContextListener {
 		context.setInitParameter("org.apache.tiles.factory.TilesContainerFactory","org.metamorphosis.core.TilesContainerFactory");
 		context.setInitParameter("org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG",buffer.toString());
 		new TilesListener().contextInitialized(event);
-		new Initializer(context,new File(root+"/scripts")).init();
 		copyFiles(root);
 	}
 	

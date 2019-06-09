@@ -2,7 +2,6 @@ package org.metamorphosis.core;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
-import java.net.URL;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -12,9 +11,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.control.customizers.ImportCustomizer;
-import groovy.util.GroovyScriptEngine;
 
 public class Initializer {
 	
@@ -24,6 +20,8 @@ public class Initializer {
 	public Initializer(ServletContext context,File folder) {
 		this.context = context;
 		this.folder = folder;
+		new ScriptManager(context);
+		context.setAttribute("path",context.getContextPath()+"/");
 	}
 	
     public void init() {
@@ -38,7 +36,7 @@ public class Initializer {
     }
     
     public void register(File script) throws Exception {
-    	register(loadScript(script));
+    	register(ScriptManager.getInstance().loadScript(script));
     }
     
     public void register(Object object) throws Exception {
@@ -77,23 +75,6 @@ public class Initializer {
 	
 	public File getFolder() {
 		return folder;
-	}
-	
-	private Object loadScript(File script) throws Exception {
-		return createScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance();
-	}
-	
-	private GroovyScriptEngine createScriptEngine(File folder) throws Exception {
-		URL[] urls = {folder.toURI().toURL()};
-		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
-		engine.setConfig(new CompilerConfiguration().addCompilationCustomizers(createCompilationCustomizer()));
-		return engine;
-	}
-	
-	private ImportCustomizer createCompilationCustomizer() {
-		ImportCustomizer importCustomizer = new ImportCustomizer();
-		importCustomizer.addStarImports("org.metamorphosis.core","org.metamorphosis.core.annotation","groovy.json","javax.servlet","javax.servlet.annotation","javax.servlet.http");
-		return importCustomizer;
 	}
 	
 }

@@ -3,14 +3,12 @@ package org.metamorphosis.core;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -22,8 +20,6 @@ import org.apache.struts2.dispatcher.DispatcherListener;
 import org.apache.tiles.Attribute;
 import org.apache.tiles.Definition;
 import org.apache.tiles.access.TilesAccess;
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.metamorphosis.core.annotation.Controller;
 import org.metamorphosis.core.annotation.DELETE;
 import org.metamorphosis.core.annotation.GET;
@@ -33,7 +29,6 @@ import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.config.entities.PackageConfig;
 import com.opensymphony.xwork2.config.entities.ResultConfig;
-import groovy.util.GroovyScriptEngine;
 
 public class ModuleManager implements DispatcherListener, ModuleParser {
 
@@ -44,7 +39,6 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	private static ModuleManager instance;
 	private ModuleParser parser;
 	private static final String MODULE_METADATA = "module.xml";
-	private static final String SCRIPTS_FOLDER = "scripts";
 	
 	public ModuleManager(ServletContext servletContext) {
 		instance = this;
@@ -166,7 +160,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			File[] files = module.getScriptFolder().listFiles();
 			if(files!=null) {
 				for(File file : files) {
-				  Object object = loadScript(file);
+				  Object object = ScriptManager.getInstance().loadScript(file);
 				  Annotation[] annotations = object.getClass().getAnnotations();
 				  for(Annotation annotation : annotations) {
 				   if(annotation instanceof Controller) addController(module, file, (Controller) annotation, object);
@@ -378,50 +372,15 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	public Object buildAction(Module module,String url) throws Exception {
 		if(module!= null) {
 			Action action = module.getAction(url);
-			File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+action.getScript())
-			 : 	new File(module.getFolder()+"/"+SCRIPTS_FOLDER+"/"+module.getScript());
-			if(file.exists()) return loadScript(file);
+			String scripts_folder = ScriptManager.SCRIPTS_FOLDER;
+			File file = action!= null && action.getScript()!= null ? new File(module.getFolder()+"/"+scripts_folder+"/"+action.getScript())
+			 : 	new File(module.getFolder()+"/"+scripts_folder+"/"+module.getScript());
+			if(file.exists()) return ScriptManager.getInstance().loadScript(file);
 		}
 		return new ActionSupport();
 	}
 	
-	private Object loadScript(File script) throws Exception {
-		return createScriptEngine(script.getParentFile()).loadScriptByName(script.getName()).newInstance();
-	}
 	
-	private GroovyScriptEngine createScriptEngine(File folder) throws Exception {
-		URL[] urls = {folder.toURI().toURL(), new File(servletContext.getRealPath("/")+"/"+SCRIPTS_FOLDER).toURI().toURL()};
-		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
-		engine.setConfig(new CompilerConfiguration().addCompilationCustomizers(createCompilationCustomizer()));
-		return engine;
-	}
-	
-	private ImportCustomizer createCompilationCustomizer() {
-		ImportCustomizer importCustomizer = new ImportCustomizer();
-		importCustomizer.addImports("java.text.SimpleDateFormat");
-		importCustomizer.addStarImports("org.metamorphosis.core","org.metamorphosis.core.annotation","groovy.json");
-		Package[] packages = Package.getPackages();
-		for(Package p : packages) {
-	        if(p.getName().startsWith("app")) {
-	            importCustomizer.addStarImports(p.getName());
-	        }
-	    }
-		String imports = servletContext.getInitParameter("groovy.imports");
-		if(imports!=null && imports.indexOf(",")!=-1){
-			StringTokenizer st = new StringTokenizer(imports,",");
-			while(st.hasMoreTokens()) importCustomizer.addImports(st.nextToken());
-		}else if(imports!=null){
-			importCustomizer.addImports(imports);
-		}
-		String starImports = servletContext.getInitParameter("groovy.starImports");
-		if(starImports!=null && starImports.indexOf(",")!=-1){
-			StringTokenizer st = new StringTokenizer(starImports,",");
-			while(st.hasMoreTokens()) importCustomizer.addStarImports(st.nextToken());
-		}else if(starImports!=null) {
-			importCustomizer.addStarImports(starImports);
-		}
-		return importCustomizer;
-	}
 	
 	public synchronized Object buildAndCacheAction(Module module,String url) throws Exception {
 		String key = url;
