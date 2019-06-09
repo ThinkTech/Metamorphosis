@@ -32,8 +32,6 @@ public class ScriptManager {
 	
 	private ImportCustomizer createCompilationCustomizer() {
 		ImportCustomizer importCustomizer = new ImportCustomizer();
-		importCustomizer.addImports("java.text.SimpleDateFormat");
-		importCustomizer.addStarImports("org.metamorphosis.core","javax.servlet","javax.servlet.annotation","javax.servlet.http","org.metamorphosis.core.annotation","groovy.json");
 		Package[] packages = Package.getPackages();
 		for(Package p : packages) {
 	        if(p.getName().startsWith("app")) {
@@ -54,6 +52,8 @@ public class ScriptManager {
 		}else if(starImports!=null) {
 			importCustomizer.addStarImports(starImports);
 		}
+		importCustomizer.addImports("java.text.SimpleDateFormat");
+		importCustomizer.addStarImports("org.metamorphosis.core","javax.servlet","javax.servlet.annotation","javax.servlet.http","org.metamorphosis.core.annotation","groovy.json");
 		return importCustomizer;
 	}
 	
