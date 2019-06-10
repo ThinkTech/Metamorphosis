@@ -13,9 +13,8 @@ public class InitializerTest {
 
 	@Test
 	public void register() throws Exception {
-		ServletContext servletContext = mock(ServletContext.class);
+		ScriptManager scriptManager = new ScriptManager(mock(ServletContext.class));
 		File folder = new File("test/resources/scripts");
-		ScriptManager scriptManager = new ScriptManager(servletContext);
 		File[] files = folder.listFiles();
 		if(files!=null) {
 			for(File file : files) {
