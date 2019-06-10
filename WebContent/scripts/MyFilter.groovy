@@ -1,5 +1,3 @@
-import javax.servlet.FilterChain;
-
 @WebFilter("/*")
 class MyFilter extends Filter {
 	
