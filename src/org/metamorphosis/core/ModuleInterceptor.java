@@ -12,7 +12,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 @SuppressWarnings("serial")
 public class ModuleInterceptor extends AbstractInterceptor {
 
-	private final Logger logger = Logger.getLogger(this.getClass().getName());
+	protected final Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	@Override
 	public String intercept(ActionInvocation invocation)  {

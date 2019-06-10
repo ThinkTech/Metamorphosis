@@ -8,7 +8,7 @@ import org.apache.tiles.definition.DefinitionsFactoryException;
 
 public class CachingTilesContainer extends org.apache.tiles.impl.mgmt.CachingTilesContainer {
 
-	private final Map<String, Definition> definitions = new HashMap<String, Definition>();
+	protected final Map<String, Definition> definitions = new HashMap<String, Definition>();
 
 	public void register(Definition definition) throws DefinitionsFactoryException {
 		definitions.put(definition.getName(),definition);
