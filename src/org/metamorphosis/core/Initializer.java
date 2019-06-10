@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Proxy;
 import java.util.EnumSet;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.DispatcherType;
@@ -96,9 +97,12 @@ public class Initializer {
 	
 	protected void addListener(ServletContext context,WebListener webListener,Object object) {
 		DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
-		ServletRequestListener listener = (ServletRequestListener) Proxy.newProxyInstance(ServletRequestListener.class.getClassLoader(),new Class[] {ServletRequestListener.class},handler);
 		handlers.put(object.getClass().getName(), handler);
-		context.addListener(listener);
+		EventListener listener=null;
+		if(object instanceof ServletRequestListener) {
+			listener = (EventListener) Proxy.newProxyInstance(ServletRequestListener.class.getClassLoader(),new Class[] {ServletRequestListener.class},handler);
+		}
+		if(listener!=null)context.addListener(listener);
 	}
 	
 	protected void monitor(final File folder) {
