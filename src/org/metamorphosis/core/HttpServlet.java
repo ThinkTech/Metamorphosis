@@ -44,6 +44,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         try {
 			this.getClass().getDeclaredMethod(method).invoke(this);
 		} catch (Exception e) {
+			getRequest().setAttribute("message",e.getCause().getMessage());
+			forward("/500.jsp");
 			e.printStackTrace();
 		}
 	}
@@ -162,9 +164,13 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		return ServletActionContext.getRequest().getContextPath();
 	}
 	
-	public void forward(String location) throws ServletException, IOException {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		request.getRequestDispatcher(location).forward(request, getResponse());
+	public void forward(String location) {
+		try {
+			HttpServletRequest request = ServletActionContext.getRequest();
+			request.getRequestDispatcher(location).forward(request, getResponse());
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void redirect(String location) throws IOException {

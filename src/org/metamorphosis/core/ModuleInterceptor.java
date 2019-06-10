@@ -61,7 +61,7 @@ public class ModuleInterceptor extends AbstractInterceptor {
 							String message =  "The "+url+" url cannot be accessed with the HTTP "+request.getMethod()+" method.";
 							message+=" Please use the "+action.getHttpMethod().toUpperCase()+" method";
 							logger.log(Level.SEVERE,message);
-							request.setAttribute("error",message);
+							request.setAttribute("message",message);
 							return "500";
 						}
 					}
