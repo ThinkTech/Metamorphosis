@@ -39,6 +39,18 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         serve("delete");
 	}
 	
+	public void doHead(HttpServletRequest request,HttpServletResponse response) {		
+        serve("head");
+	}
+	
+	public void doTrace(HttpServletRequest request,HttpServletResponse response) {		
+        serve("trace");
+	}
+	
+	public void doOptions(HttpServletRequest request,HttpServletResponse response) {		
+        serve("options");
+	}
+	
 	private void serve(String method) {		
         try {
 			this.getClass().getDeclaredMethod(method).invoke(this);
