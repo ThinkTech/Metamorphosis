@@ -31,8 +31,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 	}
 	
 	public void doPut(HttpServletRequest request,HttpServletResponse response) {		
-        serve("put");
-		
+        serve("put");	
 	}
 	
 	public void doDelete(HttpServletRequest request,HttpServletResponse response) {		
