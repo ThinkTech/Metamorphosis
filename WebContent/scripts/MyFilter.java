@@ -1,15 +1,13 @@
+import javax.servlet.FilterChain;
+
 @WebFilter("/*")
-public class MyFilter implements Filter {
-
-	void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
+class MyFilter extends Filter {
+	
+	def init() {
+	}
+	
+	def filter() {
 		chain.doFilter(request,response)
-	}
-
-	void init(FilterConfig config) {
-	}
-    
-	void destroy() {
-		
 	}
 
 }
