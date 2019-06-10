@@ -50,7 +50,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         serve("options");
 	}
 	
-	private void serve(String method) {		
+	protected void serve(String method) {		
         try {
 			this.getClass().getDeclaredMethod(method).invoke(this);
 		} catch (Exception e) {

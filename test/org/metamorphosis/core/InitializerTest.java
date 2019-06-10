@@ -6,6 +6,7 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import org.junit.Test;
 
@@ -30,6 +31,9 @@ public class InitializerTest {
 					   assertEquals("TestFilter",object.getClass().getName());
 					   WebFilter webFilter = (WebFilter) annotation;
 					   assertEquals("/*", webFilter.value()[0]);
+				   }
+				   if(annotation instanceof WebListener) {
+					   assertEquals("TestListener",object.getClass().getName());
 				   }
 				}
 		   }

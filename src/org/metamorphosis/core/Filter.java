@@ -14,10 +14,10 @@ import javax.servlet.http.HttpSession;
 
 public class Filter implements javax.servlet.Filter {
 	
-	private FilterConfig config;
-	private FilterChain chain;
-	private ServletRequest request;
-	private ServletResponse response;
+	protected FilterConfig config;
+	protected FilterChain chain;
+	protected ServletRequest request;
+	protected ServletResponse response;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {	
@@ -25,7 +25,10 @@ public class Filter implements javax.servlet.Filter {
 		try {
 			Method method = this.getClass().getDeclaredMethod("init");
 			if(method!=null) method.invoke(this);
-		} catch (Exception e) {
+		} catch (NoSuchMethodException e) {
+		}
+        catch (Exception e) {
+        	e.printStackTrace();
 		}
 	}
 

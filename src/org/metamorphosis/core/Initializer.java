@@ -12,14 +12,16 @@ import javax.servlet.FilterRegistration;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
+import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 
 public class Initializer {
 	
-	private File folder;
-	private final ServletContext context;
-	private final Map<String,DynamicInvocationHandler> handlers;
+	protected File folder;
+	protected final ServletContext context;
+	protected final Map<String,DynamicInvocationHandler> handlers;
 	
 	public Initializer(ServletContext context) {
 		this.context = context;
@@ -56,10 +58,11 @@ public class Initializer {
 		for(Annotation annotation : annotations) {
 		   if(annotation instanceof WebServlet) addServlet(context, (WebServlet) annotation, object);
 		   if(annotation instanceof WebFilter)  addFilter(context, (WebFilter) annotation, object);
+		   if(annotation instanceof WebListener)  addListener(context, (WebListener) annotation, object);
 		}
     }
     
-	private void addServlet(ServletContext context,WebServlet webServlet,Object object) {
+	protected void addServlet(ServletContext context,WebServlet webServlet,Object object) {
 		String name = webServlet.name().trim().equals("")?object.getClass().getName():webServlet.name();
 		ServletRegistration registration = context.getServletRegistration(name);
 		if(registration==null) {
@@ -75,7 +78,7 @@ public class Initializer {
 		}
 	}
 	
-	private void addFilter(ServletContext context,WebFilter webFilter,Object object) {
+	protected void addFilter(ServletContext context,WebFilter webFilter,Object object) {
 		String name = object.getClass().getName();
 		FilterRegistration registration = context.getFilterRegistration(name);
 		if(registration==null) {
@@ -91,7 +94,14 @@ public class Initializer {
 		}
 	}
 	
-	private void monitor(final File folder) {
+	protected void addListener(ServletContext context,WebListener webListener,Object object) {
+		DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
+		ServletRequestListener listener = (ServletRequestListener) Proxy.newProxyInstance(ServletRequestListener.class.getClassLoader(),new Class[] {ServletRequestListener.class},handler);
+		handlers.put(object.getClass().getName(), handler);
+		context.addListener(listener);
+	}
+	
+	protected void monitor(final File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileAdapter() {
@@ -108,7 +118,7 @@ public class Initializer {
 							   if(handler!=null) handler.setTarget(object);
 								
 						   }
-						   else if(annotation instanceof WebFilter) {
+						   else if(annotation instanceof WebFilter || annotation instanceof WebListener) {
 							   String name = object.getClass().getName();
 							   DynamicInvocationHandler handler = handlers.get(name);
 							   if(handler!=null) handler.setTarget(object);
