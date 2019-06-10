@@ -11,13 +11,16 @@ public class Module extends Extension {
 	protected boolean main;
 	protected boolean cached;
 	protected String script = "module.groovy";
-	protected final List<Menu> menus = new ArrayList<Menu>();
-	protected final List<Action> actions = new ArrayList<Action>();
+	protected final List<Menu> menus;
+	protected final List<Action> actions;
 	
 	public Module() {
+		menus = new ArrayList<Menu>();
+		actions = new ArrayList<Action>();
 	}
 	
 	public Module(File folder) {
+		this();
 		setFolder(folder);
 	}
 	

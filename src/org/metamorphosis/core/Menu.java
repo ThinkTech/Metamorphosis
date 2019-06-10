@@ -9,9 +9,10 @@ public class Menu {
 	private String icon;
 	private boolean visible = true;
 	private String position;
-	private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
+	private final List<MenuItem> menuItems;
 
 	public Menu() {
+		menuItems = new ArrayList<MenuItem>();
 	}
 
 	public String getLabel() {

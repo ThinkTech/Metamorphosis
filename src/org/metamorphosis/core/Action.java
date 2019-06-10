@@ -11,7 +11,11 @@ public class Action {
 	private String page;
 	private String script;
 	private String httpMethod;
-	private final List<Result> results = new ArrayList<Result>();
+	private final List<Result> results;
+	
+	public Action() {
+		results = new ArrayList<Result>();;
+	}
 
 	public String getTitle() {
 		return title;
