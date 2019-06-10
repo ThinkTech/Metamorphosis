@@ -5,9 +5,12 @@ import static org.mockito.Mockito.mock;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSessionListener;
+
 import org.junit.Test;
 
 public class InitializerTest {
@@ -33,7 +36,12 @@ public class InitializerTest {
 					   assertEquals("/*", webFilter.value()[0]);
 				   }
 				   if(annotation instanceof WebListener) {
-					   assertEquals("TestListener",object.getClass().getName());
+					   if(object instanceof ServletRequestListener) {
+					     assertEquals("TestRequestListener",object.getClass().getName());
+					   }
+					   else if(object instanceof HttpSessionListener) {
+						     assertEquals("TestSessionListener",object.getClass().getName());
+					    }
 				   }
 				}
 		   }

@@ -17,6 +17,7 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSessionListener;
 
 public class Initializer {
 	
@@ -101,6 +102,9 @@ public class Initializer {
 		EventListener listener=null;
 		if(object instanceof ServletRequestListener) {
 			listener = (EventListener) Proxy.newProxyInstance(ServletRequestListener.class.getClassLoader(),new Class[] {ServletRequestListener.class},handler);
+		}
+		else if(object instanceof HttpSessionListener) {
+			listener = (EventListener) Proxy.newProxyInstance(HttpSessionListener.class.getClassLoader(),new Class[] {HttpSessionListener.class},handler);
 		}
 		if(listener!=null)context.addListener(listener);
 	}

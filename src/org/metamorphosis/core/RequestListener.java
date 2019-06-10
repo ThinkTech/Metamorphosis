@@ -13,13 +13,13 @@ public class RequestListener implements ServletRequestListener {
 	@Override
 	public void requestInitialized(ServletRequestEvent event) {
 		this.event = event;
-		execute("init");
+		execute("onInit");
 	}
 	
 	@Override
 	public void requestDestroyed(ServletRequestEvent event) {
 		this.event = event;
-		execute("destroy");
+		execute("onDestroy");
 	}
 
 	

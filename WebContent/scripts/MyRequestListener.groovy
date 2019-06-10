@@ -1,7 +1,7 @@
 @WebListener
-class MyListener extends RequestListener {
+class MyRequestListener extends RequestListener {
 	
-	def init()  {
+	def onInit()  {
       println "request initialized "
     }
 	
