@@ -5,7 +5,7 @@ public class MyFilter implements Filter {
 		chain.doFilter(request,response)
 	}
 
-	void init(FilterConfig config) throws ServletException {
+	void init(FilterConfig config) {
 	}
     
 	void destroy() {
