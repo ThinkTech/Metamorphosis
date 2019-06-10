@@ -17,6 +17,7 @@ public class FileMonitor {
 
 	private final File folder;
 	private final List<FileListener> listeners;
+	
 	public FileMonitor(File folder) {
 	    this.folder = folder;
 	    listeners = new ArrayList<FileListener>();
