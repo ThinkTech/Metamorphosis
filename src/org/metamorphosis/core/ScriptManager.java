@@ -30,7 +30,7 @@ public class ScriptManager {
 		return engine;
 	}
 	
-	private ImportCustomizer createCompilationCustomizer() {
+	protected ImportCustomizer createCompilationCustomizer() {
 		ImportCustomizer importCustomizer = new ImportCustomizer();
 		Package[] packages = Package.getPackages();
 		for(Package p : packages) {
