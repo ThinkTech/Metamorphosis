@@ -48,7 +48,7 @@ public class Initializer {
     }
     
 	private void addServlet(ServletContext context,WebServlet webServlet,Object object) {
-		String name = object.getClass().getName();
+		String name = webServlet.name().trim().equals("")?object.getClass().getName():webServlet.name();
 		ServletRegistration registration = context.getServletRegistration(name);
 		if(registration==null) {
 			registration = context.addServlet(name, (Servlet) object);
