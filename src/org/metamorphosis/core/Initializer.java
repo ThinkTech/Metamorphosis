@@ -14,18 +14,22 @@ import javax.servlet.annotation.WebServlet;
 
 public class Initializer {
 	
-	private final File folder;
+	private File folder;
 	private final ServletContext context;
 	
-	public Initializer(ServletContext context,File folder) {
+	public Initializer(ServletContext context) {
 		this.context = context;
-		this.folder = folder;
 		new ScriptManager(context);
 		context.setAttribute("path",context.getContextPath()+"/");
 	}
 	
+	public Initializer(ServletContext context,File folder) {
+		this(context);
+		this.folder = folder;
+	}
+	
     public void init() {
-    	if(folder.exists()) {
+    	if(folder!=null && folder.exists()) {
     		try {
 				File[] files = folder.listFiles();
 				if(files!=null) for(File file : files) register(file);
@@ -35,15 +39,17 @@ public class Initializer {
     	}
     }
     
-    public void register(File script) throws Exception {
-    	register(ScriptManager.getInstance().loadScript(script));
+    public Object register(File script) throws Exception {
+    	Object object = ScriptManager.getInstance().loadScript(script);
+    	register(object);
+    	return object;
     }
     
     public void register(Object object) throws Exception {
         Annotation[] annotations = object.getClass().getAnnotations();
 		for(Annotation annotation : annotations) {
 		   if(annotation instanceof WebServlet) addServlet(context, (WebServlet) annotation, object);
-		   if(annotation instanceof WebFilter) addFilter(context, (WebFilter) annotation, object);
+		   if(annotation instanceof WebFilter)  addFilter(context, (WebFilter) annotation, object);
 		}
     }
     

@@ -1,6 +1,8 @@
 package org.metamorphosis.core;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -22,9 +24,11 @@ public class Filter implements javax.servlet.Filter {
 	public void init(FilterConfig config) throws ServletException {	
 		this.config = config;
 		try {
-			this.getClass().getDeclaredMethod("init").invoke(this);
+			Method method = this.getClass().getDeclaredMethod("init");
+			if(method!=null) {
+				method.invoke(this);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
