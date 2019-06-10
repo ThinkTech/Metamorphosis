@@ -64,8 +64,7 @@ public class Initializer {
 		ServletRegistration registration = context.getServletRegistration(name);
 		if(registration==null) {
 			DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
-			Servlet servlet = (Servlet) Proxy.newProxyInstance(Servlet.class.getClassLoader(),
-                    new Class[] { Servlet.class },handler);
+			Servlet servlet = (Servlet) Proxy.newProxyInstance(Servlet.class.getClassLoader(),new Class[] {Servlet.class},handler);
 			handlers.put(name, handler);
 			registration = context.addServlet(name,servlet);
 			if(webServlet.value().length>0)registration.addMapping(webServlet.value());
@@ -81,8 +80,7 @@ public class Initializer {
 		FilterRegistration registration = context.getFilterRegistration(name);
 		if(registration==null) {
 			DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
-			Filter filter = (Filter) Proxy.newProxyInstance(Filter.class.getClassLoader(),
-                    new Class[] { Filter.class },handler);
+			Filter filter = (Filter) Proxy.newProxyInstance(Filter.class.getClassLoader(),new Class[] {Filter.class},handler);
 			handlers.put(name, handler);
 			registration = context.addFilter(name,filter);
 			if(webFilter.value().length>0) registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST,DispatcherType.FORWARD),true,webFilter.value());
