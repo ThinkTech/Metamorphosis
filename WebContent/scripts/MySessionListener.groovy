@@ -8,6 +8,5 @@ class MySessionListener extends SessionListener {
    def onDestroy() {
        println "session destroyed"	                                      
    }
- 
           
 }

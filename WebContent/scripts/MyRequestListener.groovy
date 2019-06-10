@@ -1,9 +1,11 @@
 @WebListener
 class MyRequestListener extends RequestListener {
 	
-	def onInit()  {
-      println "request initialized "
+	def onCreate()  {
+      println "request created "
     }
 	
-
+	def onDestroy()  {
+      println "request destroyed "
+    }
 }
