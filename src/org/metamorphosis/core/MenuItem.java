@@ -2,12 +2,12 @@ package org.metamorphosis.core;
 
 public class MenuItem {
 
-	private String name;
-	private String label;
-	private String icon;
-	private String url;
-	private String title;
-	private boolean visible = true;
+	protected String name;
+	protected String label;
+	protected String icon;
+	protected String url;
+	protected String title;
+	protected boolean visible = true;
 
 	public String getName() {
 		return name;

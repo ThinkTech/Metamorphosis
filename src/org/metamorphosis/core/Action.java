@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Action {
 
-	private String title;
-	private String url;
-	private String method;
-	private String page;
-	private String script;
-	private String httpMethod;
-	private final List<Result> results;
+	protected String title;
+	protected String url;
+	protected String method;
+	protected String page;
+	protected String script;
+	protected String httpMethod;
+	protected final List<Result> results;
 	
 	public Action() {
 		results = new ArrayList<Result>();;

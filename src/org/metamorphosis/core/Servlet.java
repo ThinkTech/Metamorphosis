@@ -102,10 +102,6 @@ public class Servlet extends javax.servlet.http.HttpServlet {
 		return getAction(module,null);
 	}
 	
-	public Object getAction(String url) throws Exception {
-		return getAction(getModule(),url);
-	}
-	
 	public Object getService(Module module) throws Exception {
 		return getAction(module,null);
 	}
@@ -139,11 +135,7 @@ public class Servlet extends javax.servlet.http.HttpServlet {
 	public ModuleManager getModuleManager() {
 		return ModuleManager.getInstance();
 	}
-	
-	public Module getModule() {
-		return getModuleManager().getCurrentModule();
-	}
-	
+		
 	public Module getModule(String name) {
 		return getModuleManager().getModuleByName(name);
 	}
@@ -199,10 +191,6 @@ public class Servlet extends javax.servlet.http.HttpServlet {
 	    reader.close();
 	    return buffer.toString();
 	}
-	
-	public String readFile(String fileName) throws Exception {
-		return readFile(getModule(),fileName);
-	} 
 	
 	public void json(Object object) throws IOException {
 		getResponse().setHeader("Content-Type", "application/json");

@@ -2,9 +2,9 @@ package org.metamorphosis.core;
 
 public class Result {
 
-	private String name;
-	private String type;
-	private String value;
+	protected String name;
+	protected String type;
+	protected String value;
 	
 	public Result() {
 	}

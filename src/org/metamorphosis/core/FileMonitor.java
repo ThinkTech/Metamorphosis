@@ -15,8 +15,8 @@ import java.util.List;
 
 public class FileMonitor {
 
-	private final File folder;
-	private final List<FileListener> listeners;
+	protected final File folder;
+	protected final List<FileListener> listeners;
 	
 	public FileMonitor(File folder) {
 	    this.folder = folder;

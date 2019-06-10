@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Menu {
 
-	private String label;
-	private String icon;
-	private boolean visible = true;
-	private String position;
-	private final List<MenuItem> menuItems;
+	protected String label;
+	protected String icon;
+	protected boolean visible = true;
+	protected String position;
+	protected final List<MenuItem> menuItems;
 
 	public Menu() {
 		menuItems = new ArrayList<MenuItem>();
