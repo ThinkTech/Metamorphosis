@@ -16,12 +16,12 @@ import org.apache.commons.digester.Digester;
 
 public class TemplateManager implements TemplateParser {
 
-	private final Map<String,Template> templates = new HashMap<String,Template>();
-	private final Logger logger = Logger.getLogger(this.getClass().getName());
-	private final ServletContext servletContext;
-	private static TemplateManager instance;
-	private TemplateParser parser;
-	private static final String TEMPLATE_METADATA = "template.xml";
+	protected final Map<String,Template> templates = new HashMap<String,Template>();
+	protected final Logger logger = Logger.getLogger(this.getClass().getName());
+	protected final ServletContext servletContext;
+	protected static TemplateManager instance;
+	protected TemplateParser parser;
+	protected static final String TEMPLATE_METADATA = "template.xml";
 
 	public TemplateManager(ServletContext servletContext) {
 		instance = this;
@@ -50,7 +50,7 @@ public class TemplateManager implements TemplateParser {
 			   }
 			}
 		  }
-		  monitorFolder(folder);
+		  monitor(folder);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class TemplateManager implements TemplateParser {
 		return template;
 	}
 	
-	private TemplateParser createParser() throws Exception {
+	protected TemplateParser createParser() throws Exception {
 		String parserClass = servletContext.getInitParameter("metamorphosis.template_parser");
 		return  parserClass != null ? (TemplateParser) Class.forName(parserClass).newInstance() : this;
 	}
@@ -89,7 +89,7 @@ public class TemplateManager implements TemplateParser {
 		return (Template) digester.parse(metadata);
 	}
 
-	private void monitorFolder(final File folder) {
+	protected void monitor(final File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(folder).addListener(new FileListener() {
@@ -119,7 +119,7 @@ public class TemplateManager implements TemplateParser {
 		templates.put(template.getId(),template);
 	}
 	
-	private void monitorTemplate(final Template template) {
+	protected void monitorTemplate(final Template template) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(template.getFolder()).addListener(new FileAdapter() {
@@ -130,7 +130,7 @@ public class TemplateManager implements TemplateParser {
 		}
 	}
 
-	private void updateTemplate(Template template) {
+	protected void updateTemplate(Template template) {
 		try {
 			logger.log(Level.INFO, "updating template from folder : " + template.getFolder().getName());
 			String id = template.getId();

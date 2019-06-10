@@ -32,13 +32,13 @@ import com.opensymphony.xwork2.config.entities.ResultConfig;
 
 public class ModuleManager implements DispatcherListener, ModuleParser {
 
-	private final Map<String,Module> modules = new HashMap<String,Module>();
-	private final Logger logger = Logger.getLogger(this.getClass().getName());
-	private Configuration configuration;
-	private final ServletContext servletContext;
-	private static ModuleManager instance;
-	private ModuleParser parser;
-	private static final String MODULE_METADATA = "module.xml";
+	protected final Map<String,Module> modules = new HashMap<String,Module>();
+	protected final Logger logger = Logger.getLogger(this.getClass().getName());
+	protected Configuration configuration;
+	protected final ServletContext servletContext;
+	protected static ModuleManager instance;
+	protected ModuleParser parser;
+	protected static final String MODULE_METADATA = "module.xml";
 	
 	public ModuleManager(ServletContext servletContext) {
 		instance = this;
@@ -67,7 +67,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 			   }
 			 }
 		  }
-		  monitorFolder(folder);
+		  monitor(folder);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return module;
 	}
 	
-	private ModuleParser createParser() throws Exception {
+	protected ModuleParser createParser() throws Exception {
 		String parserClass = servletContext.getInitParameter("metamorphosis.module_parser");
 		return  parserClass != null ? (ModuleParser) Class.forName(parserClass).newInstance() : this;
 	}
@@ -124,7 +124,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return (Module) digester.parse(metadata);
 	}
 	
-	private void monitorFolder(final File folder) {
+	protected void monitor(final File folder) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileListener() {
@@ -155,7 +155,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		modules.put(module.getId(),module);
 	}
 	
-	private void initModule(Module module) {
+	protected void initModule(Module module) {
 		try {
 			File[] files = module.getScriptFolder().listFiles();
 			if(files!=null) {
@@ -180,7 +180,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	private void addController(Module module,File script,Controller controller,Object object) {
+	protected void addController(Module module,File script,Controller controller,Object object) {
 		String url = !controller.url().trim().equals("") ? controller.url() : controller.value();
 		if(!url.trim().equals("")) module.setUrl(url);
 		Method[] methods = object.getClass().getDeclaredMethods();
@@ -250,7 +250,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	private void monitorModule(final Module module) {
+	protected void monitorModule(final Module module) {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(module.getFolder()).addListener(new FileAdapter() {
@@ -290,7 +290,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	private void registerPages(Module module) throws Exception {
+	protected void registerPages(Module module) throws Exception {
 		CachingTilesContainer container = (CachingTilesContainer) TilesAccess.getContainer(servletContext);
 		TemplateManager templateManager = TemplateManager.getInstance();
 		Template template = module.isBackend() ? templateManager.getBackend() : templateManager.getFrontend();
@@ -308,7 +308,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		}
 	}
 	
-	private Definition createDefinition(String name,String parent,String template) {
+	protected Definition createDefinition(String name,String parent,String template) {
 		Definition definition = new Definition();
 		definition.setName(name);
 		definition.setExtends(parent);
@@ -317,7 +317,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		return definition;
 	}
 	
-	private void rebuildRuntimeConfiguration(String id,Module module) {
+	protected void rebuildRuntimeConfiguration(String id,Module module) {
 		configuration.removePackageConfig(id);
 		PackageConfig.Builder packageBuilder = new PackageConfig.Builder(module.getId());
 		packageBuilder.namespace("/"+module.getUrl());
@@ -356,7 +356,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		configuration.rebuildRuntimeConfiguration();
 	}
 	
-	private ResultConfig.Builder createResultBuilder(Result result) {
+	protected ResultConfig.Builder createResultBuilder(Result result) {
 		ResultConfig.Builder builder = null;
 		String type = result.getType();
 		if(type.equals("tiles")) {

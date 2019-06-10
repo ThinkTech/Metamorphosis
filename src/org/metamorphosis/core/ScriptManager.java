@@ -10,8 +10,8 @@ import groovy.util.GroovyScriptEngine;
 
 public class ScriptManager {
 
-	private static ScriptManager instance;
-	private final ServletContext context;
+	protected static ScriptManager instance;
+	protected final ServletContext context;
 	public static final String SCRIPTS_FOLDER = "scripts";
 	
 	public ScriptManager(ServletContext context) {

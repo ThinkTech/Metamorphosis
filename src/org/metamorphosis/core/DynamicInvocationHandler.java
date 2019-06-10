@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 public class DynamicInvocationHandler implements InvocationHandler {
 
-	private Object target;
+	protected Object target;
 	
 	public DynamicInvocationHandler(Object target) {
 	    this.target = target;	
