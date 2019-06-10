@@ -20,7 +20,7 @@ import org.apache.struts2.ServletActionContext;
 import groovy.json.JsonSlurper;
 
 @SuppressWarnings("serial")
-public class HttpServlet extends javax.servlet.http.HttpServlet {
+public class Servlet extends javax.servlet.http.HttpServlet {
 
 	public void doGet(HttpServletRequest request,HttpServletResponse response) {		
 		serve("get");

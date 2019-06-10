@@ -1,4 +1,4 @@
 @WebServlet("/test.html")
-class TestServlet extends HttpServlet {
+class TestServlet extends Servlet {
 		
 }
