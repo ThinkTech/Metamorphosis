@@ -1,5 +1,5 @@
-@WebListener
-class MyContextAttributeListener extends ContextAttributeListener {
+@ContextAttributeListener
+class MyContextAttributeListener {
           
      def onAdd() {
         println "context attribute added {name : $name, value = $value}"                                              

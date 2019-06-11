@@ -2,9 +2,8 @@ package org.metamorphosis.core;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
 
-public class ContextAttributeListener extends AbstractListener implements ServletContextAttributeListener {
+public class ServletContextAttributeListener extends AbstractListener implements javax.servlet.ServletContextAttributeListener {
 
 	protected ServletContextAttributeEvent event;
 	

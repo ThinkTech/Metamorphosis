@@ -22,6 +22,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionListener;
 
+import org.metamorphosis.core.annotation.ContextAttributeListener;
+
 public class Initializer {
 	
 	protected File folder;
@@ -61,9 +63,10 @@ public class Initializer {
     public void register(Object object) throws Exception {
         Annotation[] annotations = object.getClass().getAnnotations();
 		for(Annotation annotation : annotations) {
-		   if(annotation instanceof WebServlet) addServlet(context, (WebServlet) annotation, object);
-		   if(annotation instanceof WebFilter)  addFilter(context, (WebFilter) annotation, object);
-		   if(annotation instanceof WebListener)  addListener(context, (WebListener) annotation, object);
+		   if(annotation instanceof WebServlet)   addServlet(context,(WebServlet) annotation,object);
+		   if(annotation instanceof WebFilter)    addFilter(context,(WebFilter) annotation,object);
+		   if(annotation instanceof WebListener)  addListener(context,annotation,object);
+		   if(annotation instanceof ContextAttributeListener)  addListener(context,annotation,object);
 		}
     }
     
@@ -99,7 +102,7 @@ public class Initializer {
 		}
 	}
 	
-	protected void addListener(ServletContext context,WebListener webListener,Object object) {
+	protected void addListener(ServletContext context,Annotation annotation,Object object) {
 		DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
 		handlers.put(object.getClass().getName(), handler);
 		EventListener listener=null;

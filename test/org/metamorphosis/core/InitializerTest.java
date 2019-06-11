@@ -55,7 +55,7 @@ public class InitializerTest {
 					   }
 					   else if(object instanceof ServletContextAttributeListener) {
 						 assertEquals("TestContextAttributeListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),ContextAttributeListener.class);    
+						 assertEquals(object.getClass().getSuperclass(),ServletContextAttributeListener.class);    
 					   }
 					   else if(object instanceof ServletRequestAttributeListener) {
 						 assertEquals("TestRequestAttributeListener",object.getClass().getName());
