@@ -8,7 +8,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpSessionAttributeListener;
 import org.junit.Test;
 import org.metamorphosis.core.annotation.Controller;
 
@@ -59,7 +58,7 @@ public class InitializerTest {
 					   }
 					   else if(object instanceof HttpSessionAttributeListener) {
 						 assertEquals("TestSessionAttributeListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),SessionAttributeListener.class);
+						 assertEquals(object.getClass().getSuperclass(),HttpSessionAttributeListener.class);
 					   }
 				   }
 				}

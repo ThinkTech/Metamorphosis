@@ -1,5 +1,5 @@
-@WebListener
-class MySessionAttributeListener extends SessionAttributeListener {
+@SessionAttributeListener
+class MySessionAttributeListener {
           
      def onAdd() {
         println "session attribute added {name : $name, value = $value}"    

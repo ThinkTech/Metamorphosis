@@ -1,10 +1,9 @@
 package org.metamorphosis.core;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
-public class SessionAttributeListener extends AbstractListener implements HttpSessionAttributeListener {
+public class HttpSessionAttributeListener extends AbstractListener implements javax.servlet.http.HttpSessionAttributeListener {
 
 	protected HttpSessionBindingEvent event;
 	
