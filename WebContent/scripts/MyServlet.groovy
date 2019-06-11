@@ -3,7 +3,7 @@ class MyServlet {
 
 	def get() {		
 		println "hello world from a groovy servlet"
-		json([status:2])
+		json([status:3])
 	}
 	
 	def post() {

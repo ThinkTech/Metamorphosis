@@ -1,5 +1,5 @@
 @WebFilter("/*")
-class MyFilter extends Filter {
+class MyFilter {
 
 	def filter() {
 		chain.doFilter(request,response)

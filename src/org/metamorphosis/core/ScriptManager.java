@@ -39,13 +39,17 @@ public class ScriptManager {
 			public byte[] processBytecode(String name, byte[] original) {
 				ByteArrayInputStream stream = new ByteArrayInputStream(original);
 				try {
-					CtClass clazz = classPool.makeClass(stream);
+					 CtClass clazz = classPool.makeClass(stream);
+					 clazz.detach();
 					 Object[] annotations = clazz.getAnnotations();
 					 for(Object annotation : annotations) {
 						 String value = annotation.toString();
 						 if(value.indexOf("WebServlet")!=-1) {
-							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.Servlet"));
-							 clazz.detach();
+							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.Servlet"));		
+							 return clazz.toBytecode();
+						 }
+						 else if(value.indexOf("WebFilter")!=-1) {
+							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.Filter"));
 							 return clazz.toBytecode();
 						 }
 					 }
