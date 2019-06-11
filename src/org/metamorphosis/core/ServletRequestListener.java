@@ -2,12 +2,11 @@ package org.metamorphosis.core;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class RequestListener extends AbstractListener implements ServletRequestListener {
-
+public class ServletRequestListener extends AbstractListener implements javax.servlet.ServletRequestListener {
+	
 	protected ServletRequestEvent event;
 	
 	@Override

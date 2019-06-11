@@ -21,8 +21,8 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionListener;
-
 import org.metamorphosis.core.annotation.ContextAttributeListener;
+import org.metamorphosis.core.annotation.RequestListener;
 
 public class Initializer {
 	
@@ -66,6 +66,7 @@ public class Initializer {
 		   if(annotation instanceof WebServlet)   addServlet(context,(WebServlet) annotation,object);
 		   if(annotation instanceof WebFilter)    addFilter(context,(WebFilter) annotation,object);
 		   if(annotation instanceof WebListener)  addListener(context,annotation,object);
+		   if(annotation instanceof RequestListener)  addListener(context,annotation,object);
 		   if(annotation instanceof ContextAttributeListener)  addListener(context,annotation,object);
 		}
     }
@@ -140,7 +141,8 @@ public class Initializer {
 							   DynamicInvocationHandler handler = handlers.get(name);
 							   if(handler!=null) handler.setTarget(object);	
 						   }
-						   else if(annotation instanceof WebFilter || annotation instanceof WebListener) {
+						   else if(annotation instanceof WebFilter || annotation instanceof WebListener
+								   || annotation instanceof RequestListener || annotation instanceof ContextAttributeListener) {
 							   String name = object.getClass().getName();
 							   DynamicInvocationHandler handler = handlers.get(name);
 							   if(handler!=null) handler.setTarget(object);

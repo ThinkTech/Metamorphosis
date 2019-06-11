@@ -1,5 +1,5 @@
-@WebListener
-class MyRequestListener extends RequestListener {
+@RequestListener
+class MyRequestListener {
 	
 	def onCreate()  {
       println "request created "

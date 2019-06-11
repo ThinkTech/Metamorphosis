@@ -47,7 +47,7 @@ public class InitializerTest {
 				   else if(annotation instanceof WebListener) {
 					   if(object instanceof ServletRequestListener) {
 					     assertEquals("TestRequestListener",object.getClass().getName());
-					     assertEquals(object.getClass().getSuperclass(),RequestListener.class);
+					     assertEquals(object.getClass().getSuperclass(),ServletRequestListener.class);
 					   }
 					   else if(object instanceof HttpSessionListener) {
 						 assertEquals("TestSessionListener",object.getClass().getName());
