@@ -93,18 +93,18 @@ public class TemplateManager implements TemplateParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(folder).addListener(new FileListener() {
-				public void onCreate(String name) {
-					File file = new File(folder+"/"+name);
+				public void onCreate(String fileName) {
+					File file = new File(folder+"/"+fileName);
 					if(file.isDirectory()) {
-						logger.log(Level.INFO, "adding template from folder : " + name);
+						logger.log(Level.INFO, "adding template from folder : " + fileName);
 						addTemplate(new Template(file));
 					}
 				}
-				public void onDelete(String name) {
+				public void onDelete(String fileName) {
 					Collection<Template> templates = getTemplates();
 					for(Template template : templates){
-						if(template.getFolder().getName().equals(name)) {
-							logger.log(Level.INFO, "removing template from folder : " + name);
+						if(template.getFolder().getName().equals(fileName)) {
+							logger.log(Level.INFO, "removing template from folder : " + fileName);
 							removeTemplate(template);
 							break;
 						}

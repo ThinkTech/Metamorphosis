@@ -128,17 +128,17 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileListener() {
-				public void onCreate(String name) {
-					File file = new File(folder+"/"+name);
+				public void onCreate(String fileName) {
+					File file = new File(folder+"/"+fileName);
 					if(file.isDirectory()) {
-						logger.log(Level.INFO, "adding module from folder  : " + name);
+						logger.log(Level.INFO, "adding module from folder  : " + fileName);
 						addModule(new Module(file));
 					}
 				}
-				public void onDelete(String name) {
+				public void onDelete(String fileName) {
 					for(Module module : getModules()) {
-						if(module.getFolder().getName().equals(name)) {
-							logger.log(Level.INFO, "removing module from folder : " + name);
+						if(module.getFolder().getName().equals(fileName)) {
+							logger.log(Level.INFO, "removing module from folder : " + fileName);
 							removeModule(module);
 							break;
 						}

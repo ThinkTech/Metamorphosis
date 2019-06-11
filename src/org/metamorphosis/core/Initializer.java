@@ -113,8 +113,8 @@ public class Initializer {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileAdapter() {
-				public void onCreate(String file) {
-				  File script = new File(folder+"/"+file);
+				public void onCreate(String fileName) {
+				  File script = new File(folder+"/"+fileName);
 				   try {
 					   Object object = ScriptManager.getInstance().loadScript(script);
 					   Annotation[] annotations = object.getClass().getAnnotations();
