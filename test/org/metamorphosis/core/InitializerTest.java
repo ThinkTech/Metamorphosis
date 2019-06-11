@@ -41,18 +41,23 @@ public class InitializerTest {
 				   if(annotation instanceof WebListener) {
 					   if(object instanceof ServletRequestListener) {
 					     assertEquals("TestRequestListener",object.getClass().getName());
+					     assertEquals(object.getClass().getSuperclass(),RequestListener.class);
 					   }
 					   else if(object instanceof HttpSessionListener) {
-						     assertEquals("TestSessionListener",object.getClass().getName());
+						 assertEquals("TestSessionListener",object.getClass().getName());
+						 assertEquals(object.getClass().getSuperclass(),SessionListener.class);    
 					   }
 					   else if(object instanceof ServletContextAttributeListener) {
-						     assertEquals("TestContextAttributeListener",object.getClass().getName());
+						 assertEquals("TestContextAttributeListener",object.getClass().getName());
+						 assertEquals(object.getClass().getSuperclass(),ContextAttributeListener.class);    
 					   }
 					   else if(object instanceof ServletRequestAttributeListener) {
-						     assertEquals("TestRequestAttributeListener",object.getClass().getName());
+						 assertEquals("TestRequestAttributeListener",object.getClass().getName());
+						 assertEquals(object.getClass().getSuperclass(),RequestAttributeListener.class);
 					   }
 					   else if(object instanceof HttpSessionAttributeListener) {
-						     assertEquals("TestSessionAttributeListener",object.getClass().getName());
+						 assertEquals("TestSessionAttributeListener",object.getClass().getName());
+						 assertEquals(object.getClass().getSuperclass(),SessionAttributeListener.class);
 					   }
 				   }
 				}
