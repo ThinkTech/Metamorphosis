@@ -113,7 +113,7 @@ public class Initializer {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileAdapter() {
-				public void onFileCreated(String file) {
+				public void onCreate(String file) {
 				  File script = new File(folder+"/"+file);
 				   try {
 					   Object object = ScriptManager.getInstance().loadScript(script);

@@ -93,14 +93,14 @@ public class TemplateManager implements TemplateParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(folder).addListener(new FileListener() {
-				public void onFileCreated(String name) {
+				public void onCreate(String name) {
 					File file = new File(folder+"/"+name);
 					if(file.isDirectory()) {
 						logger.log(Level.INFO, "adding template from folder : " + name);
 						addTemplate(new Template(file));
 					}
 				}
-				public void onFileDeleted(String name) {
+				public void onDelete(String name) {
 					Collection<Template> templates = getTemplates();
 					for(Template template : templates){
 						if(template.getFolder().getName().equals(name)) {
@@ -123,7 +123,7 @@ public class TemplateManager implements TemplateParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)){
 			new FileMonitor(template.getFolder()).addListener(new FileAdapter() {
-				public void onFileCreated(String name) {
+				public void onCreate(String name) {
 					if(name.equals(TEMPLATE_METADATA)) updateTemplate(template);
 				}
 			}).monitor();

@@ -128,14 +128,14 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileListener() {
-				public void onFileCreated(String name) {
+				public void onCreate(String name) {
 					File file = new File(folder+"/"+name);
 					if(file.isDirectory()) {
 						logger.log(Level.INFO, "adding module from folder  : " + name);
 						addModule(new Module(file));
 					}
 				}
-				public void onFileDeleted(String name) {
+				public void onDelete(String name) {
 					for(Module module : getModules()) {
 						if(module.getFolder().getName().equals(name)) {
 							logger.log(Level.INFO, "removing module from folder : " + name);
@@ -254,13 +254,13 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		String reload = System.getenv("metamorphosis.reload");
 		if("true".equals(reload)) {
 			new FileMonitor(module.getFolder()).addListener(new FileAdapter() {
-				public void onFileCreated(String name) {
+				public void onCreate(String name) {
 					if(name.equals(MODULE_METADATA)) updateModule(module);		
 				}
 			}).monitor();
 			
 			new FileMonitor(module.getScriptFolder()).addListener(new FileAdapter() {
-				public void onFileCreated(String name) {
+				public void onCreate(String name) {
 					updateModule(module);		
 				}
 			}).monitor();
