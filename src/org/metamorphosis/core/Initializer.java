@@ -27,7 +27,6 @@ import org.metamorphosis.core.annotation.RequestListener;
 import org.metamorphosis.core.annotation.SessionAttributeListener;
 import org.metamorphosis.core.annotation.SessionListener;
 
-
 public class Initializer {
 	
 	protected File folder;
