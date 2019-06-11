@@ -20,5 +20,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 		Object value = getAttribute(property);
 		return value != null ? value : getParameter(property);
 	}
+	
+	public void remove(String name) {
+		removeAttribute(name);
+	}
 
 }

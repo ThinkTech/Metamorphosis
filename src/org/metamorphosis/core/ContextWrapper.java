@@ -319,5 +319,9 @@ public class ContextWrapper implements ServletContext {
 		Object value = getAttribute(property);
 		return value != null ? value : getInitParameter(property);
 	}
+	
+	public void remove(String name) {
+		removeAttribute(name);
+	}
 
 }

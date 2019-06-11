@@ -106,5 +106,9 @@ public class SessionWrapper implements HttpSession {
 	public Object propertyMissing(String property) {
 		return getAttribute(property);
 	}
+	
+	public void remove(String name) {
+		removeAttribute(name);
+	}
 
 }
