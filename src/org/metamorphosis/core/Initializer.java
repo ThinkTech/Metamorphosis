@@ -135,8 +135,7 @@ public class Initializer {
 							   WebServlet webServlet = (WebServlet) annotation;
 							   String name = webServlet.name().trim().equals("")?object.getClass().getName():webServlet.name();
 							   DynamicInvocationHandler handler = handlers.get(name);
-							   if(handler!=null) handler.setTarget(object);
-								
+							   if(handler!=null) handler.setTarget(object);	
 						   }
 						   else if(annotation instanceof WebFilter || annotation instanceof WebListener) {
 							   String name = object.getClass().getName();
