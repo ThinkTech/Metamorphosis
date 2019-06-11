@@ -1,12 +1,17 @@
 package org.metamorphosis.core;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.net.URL;
 import java.util.StringTokenizer;
 import javax.servlet.ServletContext;
+import org.codehaus.groovy.control.BytecodeProcessor;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import groovy.util.GroovyScriptEngine;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.LoaderClassPath;
 
 public class ScriptManager {
 
@@ -26,7 +31,31 @@ public class ScriptManager {
 	public GroovyScriptEngine createScriptEngine(File folder) throws Exception {
 		URL[] urls = {folder.toURI().toURL(), new File(context.getRealPath("/")+"/"+SCRIPTS_FOLDER).toURI().toURL()};
 		GroovyScriptEngine engine = new GroovyScriptEngine(urls);
-		engine.setConfig(new CompilerConfiguration().addCompilationCustomizers(createCompilationCustomizer()));
+		CompilerConfiguration configuration = new CompilerConfiguration();
+		configuration.addCompilationCustomizers(createCompilationCustomizer());
+		final ClassPool classPool = ClassPool.getDefault();
+		classPool.insertClassPath(new LoaderClassPath(engine.getParentClassLoader()));
+		configuration.setBytecodePostprocessor(new BytecodeProcessor() {
+			public byte[] processBytecode(String name, byte[] original) {
+				ByteArrayInputStream stream = new ByteArrayInputStream(original);
+				try {
+					CtClass clazz = classPool.makeClass(stream);
+					 Object[] annotations = clazz.getAnnotations();
+					 for(Object annotation : annotations) {
+						 String value = annotation.toString();
+						 if(value.indexOf("WebServlet")!=-1) {
+							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.Servlet"));
+							 clazz.detach();
+							 return clazz.toBytecode();
+						 }
+					 }
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				return original;
+			}
+		});
+		engine.setConfig(configuration);
 		return engine;
 	}
 	

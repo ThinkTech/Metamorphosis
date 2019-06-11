@@ -1,9 +1,9 @@
 @WebServlet("/test.html")
-class MyServlet extends Servlet {
+class MyServlet {
 
 	def get() {		
 		println "hello world from a groovy servlet"
-		json([status:1])
+		json([status:2])
 	}
 	
 	def post() {
