@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionListener;
 import org.junit.Test;
+import org.metamorphosis.core.annotation.Controller;
 
 public class InitializerTest {
 
@@ -27,19 +28,23 @@ public class InitializerTest {
 				Object object = scriptManager.loadScript(file);
 				Annotation[] annotations = object.getClass().getAnnotations();
 				for(Annotation annotation : annotations) {
-				   if(annotation instanceof WebServlet) {
+				   if(annotation instanceof Controller) {
+					   assertEquals("TestAction",object.getClass().getName());
+					   assertEquals("org.metamorphosis.core.ActionSupport", object.getClass().getSuperclass().getName());
+				   }
+				   else if(annotation instanceof WebServlet) {
 					   assertEquals("TestServlet",object.getClass().getName());
 					   WebServlet webServlet = (WebServlet) annotation;
 					   assertEquals("/test.html", webServlet.value()[0]);
 					   assertEquals("org.metamorphosis.core.Servlet", object.getClass().getSuperclass().getName());
 				   }
-				   if(annotation instanceof WebFilter) {
+				   else if(annotation instanceof WebFilter) {
 					   assertEquals("TestFilter",object.getClass().getName());
 					   WebFilter webFilter = (WebFilter) annotation;
 					   assertEquals("/*", webFilter.value()[0]);
 					   assertEquals("org.metamorphosis.core.Filter", object.getClass().getSuperclass().getName());
 				   }
-				   if(annotation instanceof WebListener) {
+				   else if(annotation instanceof WebListener) {
 					   if(object instanceof ServletRequestListener) {
 					     assertEquals("TestRequestListener",object.getClass().getName());
 					     assertEquals(object.getClass().getSuperclass(),RequestListener.class);

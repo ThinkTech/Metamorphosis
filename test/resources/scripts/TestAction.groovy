@@ -1,0 +1,4 @@
+@Controller
+class TestAction {
+
+}
