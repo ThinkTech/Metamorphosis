@@ -30,6 +30,21 @@ public class ModuleManagerTest {
 		ModuleManager moduleManager = new ModuleManager(servletContext);
 		assertEquals(moduleManager,moduleManager.getParser());
 		Module module = moduleManager.loadModule(new File("test/resources/modules/module1"));
+		testModule(module);
+    }
+	
+	@Test
+    public void loadModules() {
+		ServletContext servletContext = mock(ServletContext.class);
+		ModuleManager moduleManager = new ModuleManager(servletContext);
+		File folder = new File("test/resources/modules");
+		moduleManager.loadModules(folder);
+		assertEquals(1, moduleManager.getModules().size());
+		Module module = moduleManager.getMainModule("back-end");
+		testModule(module);
+    }
+	
+	private void testModule(Module module) {
 		assertEquals("module1", module.getId());
 		assertEquals("module1", module.getName());
 		assertEquals("module1", module.getUrl());
@@ -67,15 +82,6 @@ public class ModuleManagerTest {
 		assertEquals("item4",menuItem.getLabel());
 		assertEquals("module1/url4",menuItem.getUrl());
 		assertEquals("item 4",menuItem.getTitle());
-    }
-	
-	@Test
-    public void loadModules() {
-		ServletContext servletContext = mock(ServletContext.class);
-		ModuleManager moduleManager = new ModuleManager(servletContext);
-		File folder = new File("test/resources/modules");
-		moduleManager.loadModules(folder);
-		assertEquals(1, moduleManager.getModules().size());
-    }
+	}
 	
 }

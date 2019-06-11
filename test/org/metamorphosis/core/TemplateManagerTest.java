@@ -27,6 +27,23 @@ public class TemplateManagerTest {
 		TemplateManager templateManager = new TemplateManager(servletContext);
 		File folder = new File("test/resources/templates/template1");
 		Template template = templateManager.loadTemplate(folder);
+		testTemplate(template);
+    }
+	
+	@Test
+    public void loadTemplates() {
+		ServletContext servletContext = mock(ServletContext.class);
+		TemplateManager templateManager = new TemplateManager(servletContext);
+		File folder = new File("test/resources/templates");
+		templateManager.loadTemplates(folder);
+		assertEquals(1, templateManager.getTemplates().size());
+		assertEquals(0, templateManager.getFrontendTemplates().size());
+		assertEquals(1, templateManager.getBackendTemplates().size());
+		Template template = templateManager.getBackend();
+		testTemplate(template);
+    }
+	
+	private void testTemplate(Template template) {
 		assertEquals("template1", template.getId());
 		assertEquals("template1", template.getName());
 		assertEquals("back-end", template.getType());
@@ -38,15 +55,6 @@ public class TemplateManagerTest {
 		assertEquals("GNU/GPL", template.getLicense());
 		assertEquals("1.0", template.getVersion());
 		assertEquals("this is the details of the template",template.getDetails());
-    }
-	
-	@Test
-    public void loadTemplates() {
-		ServletContext servletContext = mock(ServletContext.class);
-		TemplateManager templateManager = new TemplateManager(servletContext);
-		File folder = new File("test/resources/templates");
-		templateManager.loadTemplates(folder);
-		assertEquals(1, templateManager.getTemplates().size());
-    }
+	}
 	
 }
