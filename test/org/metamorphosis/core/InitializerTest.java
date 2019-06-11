@@ -11,6 +11,7 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionListener;
 
 import org.junit.Test;
@@ -49,6 +50,9 @@ public class InitializerTest {
 					   }
 					   else if(object instanceof ServletRequestAttributeListener) {
 						     assertEquals("TestRequestAttributeListener",object.getClass().getName());
+					   }
+					   else if(object instanceof HttpSessionAttributeListener) {
+						     assertEquals("TestSessionAttributeListener",object.getClass().getName());
 					   }
 				   }
 				}
