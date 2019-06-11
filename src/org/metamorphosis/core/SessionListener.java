@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-public class SessionListener implements HttpSessionListener {
+public class SessionListener extends AbstractListener implements HttpSessionListener {
 	
 	protected HttpSessionEvent event;
 
@@ -20,15 +20,6 @@ public class SessionListener implements HttpSessionListener {
 		execute("onDestroy");
 	}
 	
-	protected void execute(String method) {		
-        try {
-			this.getClass().getDeclaredMethod(method).invoke(this);
-		} catch (NoSuchMethodException e) {
-		}
-        catch (Exception e) {
-        	e.printStackTrace();
-		}
-	}
 	
 	public HttpSession getSession() {
 		HttpSession session = event.getSession();
@@ -39,5 +30,10 @@ public class SessionListener implements HttpSessionListener {
 		}
 		return wrapper;
 	}
+
+	public HttpSessionEvent getEvent() {
+		return event;
+	}
+	
 
 }

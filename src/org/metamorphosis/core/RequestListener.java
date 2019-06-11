@@ -6,7 +6,7 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class RequestListener implements ServletRequestListener {
+public class RequestListener extends AbstractListener implements ServletRequestListener {
 
 	protected ServletRequestEvent event;
 	
@@ -22,17 +22,6 @@ public class RequestListener implements ServletRequestListener {
 		execute("onDestroy");
 	}
 
-	
-	protected void execute(String method) {		
-        try {
-			this.getClass().getDeclaredMethod(method).invoke(this);
-		} catch (NoSuchMethodException e) {
-		}
-        catch (Exception e) {
-        	e.printStackTrace();
-		}
-	}
-	
 	public HttpServletRequest getRequest() {
 		HttpServletRequest request = (HttpServletRequest) event.getServletRequest();
 		HttpServletRequest wrapper = (HttpServletRequest) request.getAttribute("requestWrapper");
@@ -61,6 +50,10 @@ public class RequestListener implements ServletRequestListener {
 		  context.setAttribute("contextWrapper",wrapper);
 		}
 		return wrapper;
+	}
+
+	public ServletRequestEvent getEvent() {
+		return event;
 	}
 	
 }

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
@@ -41,7 +42,10 @@ public class InitializerTest {
 					   }
 					   else if(object instanceof HttpSessionListener) {
 						     assertEquals("TestSessionListener",object.getClass().getName());
-					    }
+					   }
+					   else if(object instanceof ServletContextAttributeListener) {
+						     assertEquals("TestContextAttributeListener",object.getClass().getName());
+					   }
 				   }
 				}
 		   }

@@ -12,11 +12,14 @@ import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletRegistration;
+import javax.servlet.ServletRequestAttributeListener;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionListener;
 
 public class Initializer {
@@ -100,11 +103,20 @@ public class Initializer {
 		DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
 		handlers.put(object.getClass().getName(), handler);
 		EventListener listener=null;
-		if(object instanceof ServletRequestListener) {
+		if(object instanceof ServletContextAttributeListener) {
+			listener = (EventListener) Proxy.newProxyInstance(ServletContextAttributeListener.class.getClassLoader(),new Class[] {ServletContextAttributeListener.class},handler);
+		}
+		else if(object instanceof ServletRequestListener) {
 			listener = (EventListener) Proxy.newProxyInstance(ServletRequestListener.class.getClassLoader(),new Class[] {ServletRequestListener.class},handler);
+		}
+		else if(object instanceof ServletRequestAttributeListener) {
+			listener = (EventListener) Proxy.newProxyInstance(ServletRequestAttributeListener.class.getClassLoader(),new Class[] {ServletRequestAttributeListener.class},handler);
 		}
 		else if(object instanceof HttpSessionListener) {
 			listener = (EventListener) Proxy.newProxyInstance(HttpSessionListener.class.getClassLoader(),new Class[] {HttpSessionListener.class},handler);
+		}
+		else if(object instanceof HttpSessionAttributeListener) {
+			listener = (EventListener) Proxy.newProxyInstance(HttpSessionAttributeListener.class.getClassLoader(),new Class[] {HttpSessionAttributeListener.class},handler);
 		}
 		if(listener!=null)context.addListener(listener);
 	}
