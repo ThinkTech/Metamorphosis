@@ -6,14 +6,13 @@ class UserAction {
 	    session.setAttribute("user","user")
 		def module = moduleManager.getMainModule("back-end")
 		def url = module ? request.contextPath+"/"+module.url: request.contextPath+"/"
-		response.sendRedirect(url)
+		redirect(url)
 	}
 	
 	@GET("logout")
 	def logout() {
 	    session.invalidate()
-		response.sendRedirect(request.contextPath+"/")
+		redirect(request.contextPath+"/")
 	}
-	
 	
 }
