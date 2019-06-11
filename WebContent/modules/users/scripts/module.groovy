@@ -1,5 +1,5 @@
 @Controller
-class UserAction extends ActionSupport {
+class UserAction {
 	
 	@POST("login")
 	def login()  {

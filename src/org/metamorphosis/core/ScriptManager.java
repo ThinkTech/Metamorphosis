@@ -52,6 +52,16 @@ public class ScriptManager {
 							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.Filter"));
 							 return clazz.toBytecode();
 						 }
+						 else if(value.indexOf("Controller")!=-1) {
+							 String superClass = "app.ActionSupport";
+							 try {
+								 Class.forName(superClass);
+							 }catch(Exception e) {
+								 superClass = "org.metamorphosis.core.ActionSupport";
+							 }
+							 clazz.setSuperclass(classPool.get(superClass));
+							 return clazz.toBytecode();
+						 }
 					 }
 				} catch (Exception e) {
 					e.printStackTrace();

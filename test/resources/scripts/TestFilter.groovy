@@ -1,4 +1,4 @@
 @WebFilter("/*")
-class TestFilter extends Filter {
+class TestFilter {
 
 }

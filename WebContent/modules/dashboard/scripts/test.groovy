@@ -1,5 +1,5 @@
 @Controller
-class ModuleAction extends ActionSupport {
+class ModuleAction {
                               
       @GET(url="test",page="test")
       def test() {

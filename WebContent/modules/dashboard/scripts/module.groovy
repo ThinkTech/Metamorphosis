@@ -1,5 +1,5 @@
 @Controller("dashboard")
-class ModuleAction extends ActionSupport {
+class ModuleAction {
                                
       def String execute() {
          SUCCESS        
