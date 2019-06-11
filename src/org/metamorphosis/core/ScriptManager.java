@@ -60,6 +60,14 @@ public class ScriptManager {
 							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.ServletContextAttributeListener"));
 							 return clazz.toBytecode();
 						 }
+						 else if(value.indexOf("RequestAttributeListener")!=-1) {
+							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.ServletRequestAttributeListener"));
+							 return clazz.toBytecode();
+						 }
+						 else if(value.indexOf("SessionListener")!=-1) {
+							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.HttpSessionListener"));
+							 return clazz.toBytecode();
+						 }
 						 else if(value.indexOf("Controller")!=-1) {
 							 String superClass = "app.ActionSupport";
 							 try {

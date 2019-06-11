@@ -1,4 +1,4 @@
-@WebListener
-class TestSessionListener extends SessionListener {
+@SessionListener
+class TestSessionListener {
           
 }

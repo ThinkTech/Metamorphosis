@@ -2,9 +2,8 @@ package org.metamorphosis.core;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
 
-public class SessionListener extends AbstractListener implements HttpSessionListener {
+public class HttpSessionListener extends AbstractListener implements javax.servlet.http.HttpSessionListener {
 	
 	protected HttpSessionEvent event;
 

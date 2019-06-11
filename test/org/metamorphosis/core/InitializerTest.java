@@ -5,14 +5,10 @@ import static org.mockito.Mockito.mock;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletContextAttributeListener;
-import javax.servlet.ServletRequestAttributeListener;
-import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionListener;
 import org.junit.Test;
 import org.metamorphosis.core.annotation.Controller;
 
@@ -51,7 +47,7 @@ public class InitializerTest {
 					   }
 					   else if(object instanceof HttpSessionListener) {
 						 assertEquals("TestSessionListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),SessionListener.class);    
+						 assertEquals(object.getClass().getSuperclass(),HttpSessionListener.class);    
 					   }
 					   else if(object instanceof ServletContextAttributeListener) {
 						 assertEquals("TestContextAttributeListener",object.getClass().getName());
@@ -59,7 +55,7 @@ public class InitializerTest {
 					   }
 					   else if(object instanceof ServletRequestAttributeListener) {
 						 assertEquals("TestRequestAttributeListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),RequestAttributeListener.class);
+						 assertEquals(object.getClass().getSuperclass(),ServletRequestAttributeListener.class);
 					   }
 					   else if(object instanceof HttpSessionAttributeListener) {
 						 assertEquals("TestSessionAttributeListener",object.getClass().getName());

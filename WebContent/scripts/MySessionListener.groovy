@@ -1,5 +1,5 @@
-@WebListener
-class MySessionListener extends SessionListener {
+@SessionListener
+class MySessionListener {
 
    def onCreate() {
        println "session created"                               

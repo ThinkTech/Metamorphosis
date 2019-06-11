@@ -1,5 +1,5 @@
-@WebListener
-class MyRequestAttributeListener extends RequestAttributeListener {
+@RequestAttributeListener
+class MyRequestAttributeListener {
           
      def onAdd() {
         println "request attribute added {name : $name, value = $value}"                                              

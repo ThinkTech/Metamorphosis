@@ -2,10 +2,9 @@ package org.metamorphosis.core;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequestAttributeEvent;
-import javax.servlet.ServletRequestAttributeListener;
 import javax.servlet.http.HttpServletRequest;
 
-public class RequestAttributeListener extends AbstractListener implements ServletRequestAttributeListener {
+public class ServletRequestAttributeListener extends AbstractListener implements javax.servlet.ServletRequestAttributeListener {
 
 	protected ServletRequestAttributeEvent event;
 	

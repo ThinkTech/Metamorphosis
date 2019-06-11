@@ -1,4 +1,4 @@
-@WebListener
-class TestRequestAttributeListener extends RequestAttributeListener {
+@RequestAttributeListener
+class TestRequestAttributeListener  {
 
 }
