@@ -1,7 +1,9 @@
 package org.metamorphosis.core;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletRequestAttributeEvent;
 import javax.servlet.ServletRequestAttributeListener;
+import javax.servlet.http.HttpServletRequest;
 
 public class RequestAttributeListener extends AbstractListener implements ServletRequestAttributeListener {
 
@@ -31,6 +33,26 @@ public class RequestAttributeListener extends AbstractListener implements Servle
 	
 	public String getName() {
 		return event.getName();
+	}
+	
+	public ServletContext getContext() {
+		ServletContext context = event.getServletContext();
+		ServletContext wrapper = (ServletContext) context.getAttribute("contextWrapper");
+		if(wrapper == null) {
+		  wrapper = new ContextWrapper(context);
+		  context.setAttribute("contextWrapper",wrapper);
+		}
+		return wrapper;
+	}
+	
+	public HttpServletRequest getRequest() {
+		HttpServletRequest request = (HttpServletRequest) event.getServletRequest();
+		HttpServletRequest wrapper = (HttpServletRequest) request.getAttribute("requestWrapper");
+		if(wrapper == null) {
+		  wrapper = new RequestWrapper(request);
+		  request.setAttribute("requestWrapper",wrapper);
+		}
+		return wrapper;
 	}
 	
 	public Object getValue() {
