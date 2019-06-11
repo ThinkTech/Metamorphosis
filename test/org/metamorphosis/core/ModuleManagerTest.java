@@ -3,13 +3,9 @@ package org.metamorphosis.core;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.metamorphosis.core.util.TestModuleParser;
-
 import static org.mockito.Mockito.*;
-
-
 import java.io.File;
 import java.util.List;
-
 import javax.servlet.ServletContext;
 
 public class ModuleManagerTest {
