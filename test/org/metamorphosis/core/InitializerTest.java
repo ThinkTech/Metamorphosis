@@ -6,10 +6,14 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import org.junit.Test;
+import org.metamorphosis.core.annotation.ContextAttributeListener;
 import org.metamorphosis.core.annotation.Controller;
+import org.metamorphosis.core.annotation.RequestAttributeListener;
+import org.metamorphosis.core.annotation.RequestListener;
+import org.metamorphosis.core.annotation.SessionAttributeListener;
+import org.metamorphosis.core.annotation.SessionListener;
 
 public class InitializerTest {
 
@@ -39,28 +43,27 @@ public class InitializerTest {
 					   assertEquals("/*", webFilter.value()[0]);
 					   assertEquals("org.metamorphosis.core.Filter", object.getClass().getSuperclass().getName());
 				   }
-				   else if(annotation instanceof WebListener) {
-					   if(object instanceof ServletRequestListener) {
-					     assertEquals("TestRequestListener",object.getClass().getName());
-					     assertEquals(object.getClass().getSuperclass(),ServletRequestListener.class);
-					   }
-					   else if(object instanceof HttpSessionListener) {
-						 assertEquals("TestSessionListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),HttpSessionListener.class);    
-					   }
-					   else if(object instanceof ServletContextAttributeListener) {
-						 assertEquals("TestContextAttributeListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),ServletContextAttributeListener.class);    
-					   }
-					   else if(object instanceof ServletRequestAttributeListener) {
-						 assertEquals("TestRequestAttributeListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),ServletRequestAttributeListener.class);
-					   }
-					   else if(object instanceof HttpSessionAttributeListener) {
-						 assertEquals("TestSessionAttributeListener",object.getClass().getName());
-						 assertEquals(object.getClass().getSuperclass(),HttpSessionAttributeListener.class);
-					   }
+				   else if(annotation instanceof RequestListener) {
+					   assertEquals("TestRequestListener",object.getClass().getName());
+					   assertEquals(object.getClass().getSuperclass(),ServletRequestListener.class);
 				   }
+				   else if(annotation instanceof SessionListener) {
+					   assertEquals("TestSessionListener",object.getClass().getName());
+					   assertEquals(object.getClass().getSuperclass(),HttpSessionListener.class);    
+				   }
+				   else if(annotation instanceof ContextAttributeListener) {
+					   assertEquals("TestContextAttributeListener",object.getClass().getName());
+					   assertEquals(object.getClass().getSuperclass(),ServletContextAttributeListener.class);
+				   }
+				   else if(annotation instanceof RequestAttributeListener) {
+					   assertEquals("TestRequestAttributeListener",object.getClass().getName());
+					   assertEquals(object.getClass().getSuperclass(),ServletRequestAttributeListener.class);
+				   }
+				   else if(annotation instanceof SessionAttributeListener) {
+					   assertEquals("TestSessionAttributeListener",object.getClass().getName());
+					   assertEquals(object.getClass().getSuperclass(),HttpSessionAttributeListener.class);
+				   }
+				  
 				}
 		   }
 		}

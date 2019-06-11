@@ -1,4 +1,4 @@
 @RequestListener
-class TestRequestAttributeListener {
+class TestRequestListener {
 
 }
