@@ -4,7 +4,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 
-
 public class ContextAttributeListener extends AbstractListener implements ServletContextAttributeListener {
 
 	protected ServletContextAttributeEvent event;
