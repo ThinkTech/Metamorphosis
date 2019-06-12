@@ -10,7 +10,7 @@ class MyContextAttributeListener {
      }
 
      void onReplace() {
-         println "context attribute replaced {name : $name, value = $value}"                                             
+         println "context attribute replaced {name : $name, value = $value}"                                         
      }
 
 }
