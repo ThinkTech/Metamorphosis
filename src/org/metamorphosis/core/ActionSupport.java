@@ -78,13 +78,22 @@ public class ActionSupport extends com.opensymphony.xwork2.ActionSupport {
 	}
 	
 	public void sendMail(String email,String subject,String message) throws Exception {
+		 MailConfig config = new MailConfig();
+		 config.setHost(getInitParameter("smtp.host"));
+		 config.setPort(Integer.parseInt(getInitParameter("smtp.port")));
+		 config.setEmail(getInitParameter("smtp.email"));
+		 config.setPassword(getInitParameter("smtp.password"));
+		 sendMail(config, email, subject, message);
+	}
+	
+	public void sendMail(MailConfig config,String email,String subject,String message) throws Exception {
 		 final HtmlEmail mail = new HtmlEmail();
-		 mail.setHostName(getInitParameter("smtp.host"));
-		 mail.setSmtpPort(Integer.parseInt(getInitParameter("smtp.port")));
-		 mail.setAuthenticator(new DefaultAuthenticator(getInitParameter("smtp.email"),getInitParameter("smtp.password")));
+		 mail.setHostName(config.getHost());
+		 mail.setSmtpPort(config.getPort());
+		 mail.setAuthenticator(new DefaultAuthenticator(config.getEmail(),config.getPassword()));
 		 mail.setSSLOnConnect(true);
 		 mail.addTo(email);
-		 mail.setFrom(getInitParameter("smtp.email"));
+		 mail.setFrom(config.getEmail());
 		 mail.setSubject(StringEscapeUtils.unescapeHtml4(subject));
 		 mail.setHtmlMsg(message);
 		 new Thread(new Runnable() {

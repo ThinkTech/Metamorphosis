@@ -34,7 +34,7 @@ public class ScriptManagerTest {
 				   assertEquals("TestServlet",object.getClass().getName());
 				   WebServlet webServlet = (WebServlet) annotation;
 				   assertEquals("/test.html", webServlet.value()[0]);
-				   assertEquals("org.metamorphosis.core.Servlet", object.getClass().getSuperclass().getName());
+				   assertEquals("org.metamorphosis.core.HttpServlet", object.getClass().getSuperclass().getName());
 			   }
 			   else if(annotation instanceof WebFilter) {
 				   assertEquals("TestFilter",object.getClass().getName());

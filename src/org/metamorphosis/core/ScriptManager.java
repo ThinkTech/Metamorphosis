@@ -45,7 +45,7 @@ public class ScriptManager {
 					 for(Object annotation : annotations) {
 						 String value = annotation.toString();
 						 if(value.indexOf("WebServlet")!=-1) {
-							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.Servlet"));		
+							 clazz.setSuperclass(classPool.get("org.metamorphosis.core.HttpServlet"));		
 							 return clazz.toBytecode();
 						 }
 						 else if(value.indexOf("WebFilter")!=-1) {
