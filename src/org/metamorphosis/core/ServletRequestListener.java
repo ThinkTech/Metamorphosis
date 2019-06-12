@@ -5,7 +5,7 @@ import javax.servlet.ServletRequestEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class ServletRequestListener extends AbstractListener implements javax.servlet.ServletRequestListener {
+public class ServletRequestListener extends BaseListener implements javax.servlet.ServletRequestListener {
 	
 	protected ServletRequestEvent event;
 	

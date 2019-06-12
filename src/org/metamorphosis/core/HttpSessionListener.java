@@ -3,7 +3,7 @@ package org.metamorphosis.core;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 
-public class HttpSessionListener extends AbstractListener implements javax.servlet.http.HttpSessionListener {
+public class HttpSessionListener extends BaseListener implements javax.servlet.http.HttpSessionListener {
 	
 	protected HttpSessionEvent event;
 

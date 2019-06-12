@@ -1,8 +1,8 @@
 package org.metamorphosis.core;
 
-public abstract class AbstractListener {
+public class BaseListener {
 
-	protected void execute(String method) {		
+	public void execute(String method) {		
         try {
 			this.getClass().getDeclaredMethod(method).invoke(this);
 		} catch (NoSuchMethodException e) {

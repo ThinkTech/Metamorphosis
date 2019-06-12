@@ -14,7 +14,7 @@ public class Action {
 	protected final List<Result> results;
 	
 	public Action() {
-		results = new ArrayList<Result>();;
+		results = new ArrayList<Result>();
 	}
 
 	public String getTitle() {
@@ -55,7 +55,9 @@ public class Action {
 	}
 
 	public void setScript(String script) {
-		if(!script.endsWith(".groovy")) script+=".groovy";
+		if(!script.endsWith(".groovy")) {
+			script+=".groovy";
+		}
 		this.script = script;
 	}
 
