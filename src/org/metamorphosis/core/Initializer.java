@@ -49,9 +49,11 @@ public class Initializer {
 		if (folder != null && folder.exists()) {
 			try {
 				File[] files = folder.listFiles();
-				if (files != null)
-					for (File file : files)
+				if (files != null) {
+					for (File file : files) {
 						register(file);
+					}
+				}
 				monitor(folder);
 			} catch (Exception e) {
 				e.printStackTrace();
