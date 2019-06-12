@@ -5,6 +5,8 @@
 	<groupId>org.metamorphosis</groupId>
 	<artifactId>metamorphosis-core</artifactId>
 	<version>1.0</version>
+	<description>This is the core api of the metamorphosis framework</description>
+	<url>https://www.metamorphosis.org</url>
 	<packaging>jar</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -68,15 +70,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.0.0</version>
-			</plugin>
-		</plugins>
-	</reporting>
 	<dependencies>
 
 		<dependency>
