@@ -46,13 +46,19 @@ public class FileMonitor {
 							if(kind == OVERFLOW) {
 								continue;
 							} else if(kind == ENTRY_CREATE) {
-							  for(FileListener listener : listeners) listener.onCreate(file);
+							  for(FileListener listener : listeners) {
+								  listener.onCreate(file);
+							  }
 							}
 							else if(kind == ENTRY_DELETE) {
-							  for(FileListener listener : listeners) listener.onDelete(file);
+							  for(FileListener listener : listeners) {
+								  listener.onDelete(file);
+							  }
 							}
 						}
-						if(!key.reset()) break;
+						if(!key.reset()) {
+							break;
+						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
