@@ -1,8 +1,10 @@
+import org.junit.After
+
 @ContextAttributeListener
 class MyContextAttributeListener {
           
      def onAdd() {
-        println "context attribute added {name : $name, value = $value}"                                              
+        println "context attribute added {name : $name, value = $value}"                             
      }
 
      def onRemove() {
