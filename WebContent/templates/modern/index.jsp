@@ -30,7 +30,7 @@
         <nav class="navbar fixed-top navbar-expand-lg navbar-light navbar-fixed-top">
             <div class="container">
                 <h1 class="wthree-logo">
-                    <a href="index.html" id="logoLink" data-blast="color">Metamorphosis</a>
+                    <a href="index.html" id="logoLink" data-blast="color">Metamorphosis RAD</a>
                 </h1>
                 <div class="nav-item  position-relative">
                     <a href="#menu" id="toggle">
@@ -50,10 +50,10 @@
         <div class="container-fluid">
             <div class="row banner-row">
                 <div class="col-lg-8 bg-img text-center">
-                    <h3 class="agile-title">RAD Framework</h3>
-                    <h3>Build your Java web application faster</h3>
+                    <h3 class="agile-title">Build your Java web application faster</h3>
+                    <h3></h3>
                     <div class="bnr-img">
-                        <img scr="templates/modern/images/palette.png" alt="" class="img-fluid m-auto" />
+                        <img src="templates/modern/images/palette.png" alt="" class="img-fluid m-auto" />
                     </div>
 
                 </div>
@@ -366,12 +366,12 @@
 
         });
     </script>
-    <script scr="templates/modern/js/SmoothScroll.min.js"></script>
+    <script  src="templates/modern/js/SmoothScroll.min.js"></script>
     <!-- //smooth-scrolling-of-move-up -->
     <!-- Bootstrap core JavaScript
 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script scr="templates/modern/js/bootstrap.js"></script>
+    <script src="templates/modern/js/bootstrap.js"></script>
 </body>
 
 </html>
