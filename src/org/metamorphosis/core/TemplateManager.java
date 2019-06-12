@@ -64,7 +64,7 @@ public class TemplateManager implements TemplateParser {
 	
 	protected TemplateParser createParser() throws Exception {
 		String parserClass = servletContext.getInitParameter("metamorphosis.template_parser");
-		return  parserClass != null ? (TemplateParser) Class.forName(parserClass).newInstance() : this;
+		return parserClass != null ? (TemplateParser) Class.forName(parserClass).newInstance() : this;
 	}
 
 	@Override
