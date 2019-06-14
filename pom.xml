@@ -5,7 +5,7 @@
 	<groupId>org.metamorphosis</groupId>
 	<artifactId>metamorphosis-core</artifactId>
 	<version>1.0</version>
-	<description>This is the core api of the modular metamorphosis framework which aims to speed up and simply the development of 
+	<description>This is the core api of the modular metamorphosis framework which aims to speed up and simplify the development of 
 	a java web application with an integration with the groovy language.</description>
 	<url>https://www.metamorphosis.org</url>
 	<packaging>jar</packaging>
