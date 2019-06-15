@@ -46,11 +46,11 @@ public class Initializer {
 	}
 
 	public void init() {
-		if (folder != null && folder.exists()) {
+		if(folder != null && folder.exists()) {
 			try {
 				File[] files = folder.listFiles();
-				if (files != null) {
-					for (File file : files) {
+				if(files != null) {
+					for(File file : files) {
 						register(file);
 					}
 				}
@@ -70,21 +70,21 @@ public class Initializer {
 	public void register(Object object) throws Exception {
 		Annotation[] annotations = object.getClass().getAnnotations();
 		for (Annotation annotation : annotations) {
-			if (annotation instanceof WebServlet)
+			if(annotation instanceof WebServlet)
 				addServlet(context, (WebServlet) annotation, object);
-			if (annotation instanceof WebFilter)
+			if(annotation instanceof WebFilter)
 				addFilter(context, (WebFilter) annotation, object);
-			if (annotation instanceof WebListener)
+			if(annotation instanceof WebListener)
 				addListener(context, annotation, object);
-			if (annotation instanceof RequestListener)
+			if(annotation instanceof RequestListener)
 				addListener(context, annotation, object);
-			if (annotation instanceof ContextAttributeListener)
+			if(annotation instanceof ContextAttributeListener)
 				addListener(context, annotation, object);
-			if (annotation instanceof RequestAttributeListener)
+			if(annotation instanceof RequestAttributeListener)
 				addListener(context, annotation, object);
-			if (annotation instanceof SessionListener)
+			if(annotation instanceof SessionListener)
 				addListener(context, annotation, object);
-			if (annotation instanceof SessionAttributeListener)
+			if(annotation instanceof SessionAttributeListener)
 				addListener(context, annotation, object);
 		}
 	}
@@ -92,15 +92,15 @@ public class Initializer {
 	protected void addServlet(ServletContext context, WebServlet webServlet, Object object) {
 		String name = webServlet.name().trim().equals("") ? object.getClass().getName() : webServlet.name();
 		ServletRegistration registration = context.getServletRegistration(name);
-		if (registration == null) {
+		if(registration == null) {
 			DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
 			Servlet servlet = (Servlet) Proxy.newProxyInstance(Servlet.class.getClassLoader(),
 					new Class[] { Servlet.class }, handler);
 			handlers.put(name, handler);
 			registration = context.addServlet(name, servlet);
-			if (webServlet.value().length > 0)
+			if(webServlet.value().length > 0)
 				registration.addMapping(webServlet.value());
-			if (webServlet.urlPatterns().length > 0)
+			if(webServlet.urlPatterns().length > 0)
 				registration.addMapping(webServlet.urlPatterns());
 		} else {
 			String message = "The servlet with the name " + name
@@ -112,18 +112,20 @@ public class Initializer {
 	protected void addFilter(ServletContext context, WebFilter webFilter, Object object) {
 		String name = object.getClass().getName();
 		FilterRegistration registration = context.getFilterRegistration(name);
-		if (registration == null) {
+		if(registration == null) {
 			DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
 			Filter filter = (Filter) Proxy.newProxyInstance(Filter.class.getClassLoader(), new Class[] { Filter.class },
 					handler);
 			handlers.put(name, handler);
 			registration = context.addFilter(name, filter);
-			if (webFilter.value().length > 0)
+			if(webFilter.value().length > 0) {
 				registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD), true,
 						webFilter.value());
-			if (webFilter.urlPatterns().length > 0)
+			}
+			if(webFilter.urlPatterns().length > 0) {
 				registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD), true,
 						webFilter.urlPatterns());
+			}
 		} else {
 			String message = "The filter with the name " + name
 					+ " has already been registered. Please use a different name or package";
@@ -135,29 +137,30 @@ public class Initializer {
 		DynamicInvocationHandler handler = new DynamicInvocationHandler(object);
 		handlers.put(object.getClass().getName(), handler);
 		EventListener listener = null;
-		if (object instanceof ServletContextAttributeListener) {
+		if(object instanceof ServletContextAttributeListener) {
 			listener = (EventListener) Proxy.newProxyInstance(ServletContextAttributeListener.class.getClassLoader(),
 					new Class[] { ServletContextAttributeListener.class }, handler);
-		} else if (object instanceof ServletRequestListener) {
+		} else if(object instanceof ServletRequestListener) {
 			listener = (EventListener) Proxy.newProxyInstance(ServletRequestListener.class.getClassLoader(),
 					new Class[] { ServletRequestListener.class }, handler);
-		} else if (object instanceof ServletRequestAttributeListener) {
+		} else if(object instanceof ServletRequestAttributeListener) {
 			listener = (EventListener) Proxy.newProxyInstance(ServletRequestAttributeListener.class.getClassLoader(),
 					new Class[] { ServletRequestAttributeListener.class }, handler);
-		} else if (object instanceof HttpSessionListener) {
+		} else if(object instanceof HttpSessionListener) {
 			listener = (EventListener) Proxy.newProxyInstance(HttpSessionListener.class.getClassLoader(),
 					new Class[] { HttpSessionListener.class }, handler);
-		} else if (object instanceof HttpSessionAttributeListener) {
+		} else if(object instanceof HttpSessionAttributeListener) {
 			listener = (EventListener) Proxy.newProxyInstance(HttpSessionAttributeListener.class.getClassLoader(),
 					new Class[] { HttpSessionAttributeListener.class }, handler);
 		}
-		if (listener != null)
+		if(listener != null) {
 			context.addListener(listener);
+		}
 	}
 
 	protected void monitor(final File folder) {
 		String reload = System.getenv("metamorphosis.reload");
-		if ("true".equals(reload)) {
+		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileAdapter() {
 				public void onCreate(String fileName) {
 					File script = new File(folder + "/" + fileName);
@@ -172,15 +175,15 @@ public class Initializer {
 		try {
 			Object object = ScriptManager.getInstance().loadScript(script);
 			Annotation[] annotations = object.getClass().getAnnotations();
-			for (Annotation annotation : annotations) {
-				if (annotation instanceof WebServlet) {
+			for(Annotation annotation : annotations) {
+				if(annotation instanceof WebServlet) {
 					WebServlet webServlet = (WebServlet) annotation;
 					String name = webServlet.name().trim().equals("") ? object.getClass().getName() : webServlet.name();
 					DynamicInvocationHandler handler = handlers.get(name);
-					if (handler != null) {
+					if(handler != null) {
 						handler.setTarget(object);
 					}
-				} else if (annotation instanceof WebFilter || annotation instanceof WebListener
+				} else if(annotation instanceof WebFilter || annotation instanceof WebListener
 						|| annotation instanceof RequestListener || annotation instanceof ContextAttributeListener
 						|| annotation instanceof RequestAttributeListener || annotation instanceof SessionListener
 						|| annotation instanceof SessionAttributeListener) {
