@@ -196,7 +196,9 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		BufferedReader reader = new BufferedReader(new FileReader(new File(module.getFolder()+"/"+fileName)),1024);
 	    String content = "";
 	    StringBuffer buffer = new StringBuffer();
-	    while((content = reader.readLine()) != null) buffer.append(content);
+	    while((content = reader.readLine()) != null) {
+	    	buffer.append(content);
+	    }
 	    reader.close();
 	    return buffer.toString();
 	}
