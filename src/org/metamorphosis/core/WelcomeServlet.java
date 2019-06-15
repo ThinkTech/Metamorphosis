@@ -14,7 +14,9 @@ public class WelcomeServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {	
 		String cache = System.getenv("metamorphosis.cache");
-		if(cache!=null) response.setHeader("Cache-control", "private, max-age="+cache);
+		if(cache!=null) {
+			response.setHeader("Cache-control", "private, max-age="+cache);
+		}
 		forward(request,response);
 	}
 	
