@@ -47,7 +47,9 @@ public class Action {
 
 	public void setPage(String page) {
 		this.page = page;
-		if(page != null) results.add(new Result(page));	
+		if(page != null) {
+			results.add(new Result(page));	
+		}
 	}
 
 	public String getScript() {
