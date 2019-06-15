@@ -57,9 +57,9 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	public void loadModules(File folder) {
 		File[] files = folder.listFiles();
-		if (files != null) {
-			for (File file : files) {
-				if (file.isDirectory()) {
+		if(files != null) {
+			for(File file : files) {
+				if(file.isDirectory()) {
 					try {
 						loadModule(file);
 					} catch (Exception e) {
@@ -126,7 +126,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	protected void monitor(final File folder) {
 		String reload = System.getenv("metamorphosis.reload");
-		if ("true".equals(reload)) {
+		if("true".equals(reload)) {
 			new FileMonitor(folder).addListener(new FileListener() {
 				public void onCreate(String fileName) {
 					File file = new File(folder + "/" + fileName);
@@ -159,25 +159,29 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 	protected void initModule(Module module) {
 		try {
 			File[] files = module.getScriptFolder().listFiles();
-			if (files != null) {
-				for (File file : files) {
+			if(files != null) {
+				for(File file : files) {
 					Object object = ScriptManager.getInstance().loadScript(file);
 					Annotation[] annotations = object.getClass().getAnnotations();
-					for (Annotation annotation : annotations) {
-						if (annotation instanceof Controller)
+					for(Annotation annotation : annotations) {
+						if(annotation instanceof Controller) {
 							addController(module, file, (Controller) annotation, object);
+						}
 					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (module.getUrl() == null)
+		if(module.getUrl() == null) {
 			module.setUrl(module.getFolder().getName());
-		for (Action action : module.getActions())
-			if (action.getPage() == null)
+		}
+		for(Action action : module.getActions()) {
+			if (action.getPage() == null) {
 				action.setPage(action.getUrl());
-		for (Menu menu : module.getMenus()) {
+			}
+		}
+		for(Menu menu : module.getMenus()) {
 			for (MenuItem item : menu.getMenuItems()) {
 				String url = item.getUrl() != null ? module.getUrl() + "/" + item.getUrl() : module.getUrl();
 				item.setUrl(url);
@@ -187,7 +191,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	protected void addController(Module module, File script, Controller controller, Object object) {
 		String url = !controller.url().trim().equals("") ? controller.url() : controller.value();
-		if (!url.trim().equals(""))
+		if(!url.trim().equals(""))
 			module.setUrl(url);
 		Method[] methods = object.getClass().getDeclaredMethods();
 		for (Method method : methods) {
@@ -265,7 +269,7 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	protected void monitorModule(final Module module) {
 		String reload = System.getenv("metamorphosis.reload");
-		if ("true".equals(reload)) {
+		if("true".equals(reload)) {
 			new FileMonitor(module.getFolder()).addListener(new FileAdapter() {
 				public void onCreate(String name) {
 					if (name.equals(MODULE_METADATA))
@@ -338,9 +342,9 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		packageBuilder.namespace("/" + module.getUrl());
 		packageBuilder.addParent(configuration.getPackageConfig("root"));
 		ActionConfig.Builder actionBuilder;
-		for (Menu menu : module.getMenus()) {
-			for (MenuItem item : menu.getMenuItems()) {
-				if (!item.getUrl().equals(module.getUrl())) {
+		for(Menu menu : module.getMenus()) {
+			for(MenuItem item : menu.getMenuItems()) {
+				if(!item.getUrl().equals(module.getUrl())) {
 					String url = item.getUrl().substring(module.getUrl().length() + 1);
 					actionBuilder = new ActionConfig.Builder(url, url, null);
 					actionBuilder.addResultConfig(
@@ -356,11 +360,11 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		actionBuilder.addResultConfig(createResultBuilder(new Result("error", "redirect", "/")).build());
 		actionBuilder.addResultConfig(createResultBuilder(new Result("500", "dispatcher", "/500.jsp")).build());
 		packageBuilder.addActionConfig("index", actionBuilder.build());
-		for (Action action : module.getActions()) {
+		for(Action action : module.getActions()) {
 			actionBuilder = new ActionConfig.Builder(action.getUrl(), action.getUrl(), "");
 			actionBuilder.methodName(action.getMethod());
-			for (Result result : action.getResults()) {
-				if (!result.getValue().equals("") && !result.getValue().startsWith("/")) {
+			for(Result result : action.getResults()) {
+				if(!result.getValue().equals("") && !result.getValue().startsWith("/")) {
 					result.setValue(module.getUrl() + "/" + result.getValue());
 				}
 				actionBuilder.addResultConfig(createResultBuilder(result).build());
@@ -381,14 +385,13 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 		} else if (type.equals("redirect")) {
 			builder = new ResultConfig.Builder(result.getName(), "org.apache.struts2.dispatcher.ServletRedirectResult");
 		} else if (type.equals("dispatcher")) {
-			builder = new ResultConfig.Builder(result.getName(),
-					"org.apache.struts2.dispatcher.ServletDispatcherResult");
+			builder = new ResultConfig.Builder(result.getName(),"org.apache.struts2.dispatcher.ServletDispatcherResult");
 		}
 		return builder.addParam("location", result.getValue());
 	}
 
 	public Object buildAction(Module module, String url) throws Exception {
-		if (module != null) {
+		if(module != null) {
 			Action action = module.getAction(url);
 			String scripts_folder = ScriptManager.SCRIPTS_FOLDER;
 			File file = action != null && action.getScript() != null
@@ -403,13 +406,13 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	public synchronized Object buildAndCacheAction(Module module, String url) throws Exception {
 		String key = url;
-		if (module != null) {
+		if(module != null) {
 			Action action = module.getAction(url);
 			key = action != null && action.getScript() != null ? module.getUrl() + "/" + action.getScript()
 					: module.getUrl() + "/" + module.getScript();
 		}
 		Object object = servletContext.getAttribute(key);
-		if (object == null) {
+		if(object == null) {
 			object = buildAction(module, url);
 			servletContext.setAttribute(key, object);
 		}
@@ -438,56 +441,68 @@ public class ModuleManager implements DispatcherListener, ModuleParser {
 
 	public Collection<Module> getVisibleModules(String type) {
 		Collection<Module> modules = new ArrayList<Module>();
-		for (Module module : getModules())
-			if (module.isVisible() && module.getType().equals(type))
+		for(Module module : getModules()) {
+			if(module.isVisible() && module.getType().equals(type)) {
 				modules.add(module);
+			}
+		}
 		return modules;
 	}
 
 	public Collection<Module> getFrontendModules() {
 		List<Module> modules = new ArrayList<Module>();
-		for (Module module : getModules())
-			if (module.isFrontend())
+		for(Module module : getModules()) {
+			if(module.isFrontend()) {
 				modules.add(module);
+			}
+		}
 		Collections.sort(modules);
 		return modules;
 	}
 
 	public Collection<Module> getBackendModules() {
 		List<Module> modules = new ArrayList<Module>();
-		for (Module module : getModules())
-			if (module.isBackend())
+		for(Module module : getModules()) {
+			if(module.isBackend()) {
 				modules.add(module);
+			}
+		}
 		Collections.sort(modules);
 		return modules;
 	}
 
 	public Module getModuleByUrl(String url) {
-		for (Module module : getModules()) {
-			if (module.getUrl().equals(url))
+		for(Module module : getModules()) {
+			if(module.getUrl().equals(url)) {
 				return module;
+			}
 		}
 		return null;
 	}
 
 	public Module getModuleByName(String name) {
-		for (Module module : getModules())
-			if (module.getName().toLowerCase().equals(name.toLowerCase()))
+		for(Module module : getModules())
+			if(module.getName().toLowerCase().equals(name.toLowerCase())) {
 				return module;
+			}
 		return null;
 	}
 
 	public Module getModuleById(String id) {
-		for (Module module : getModules())
-			if (module.getId().equals(id))
+		for(Module module : getModules()) {
+			if(module.getId().equals(id)) {
 				return module;
+			}
+		}
 		return null;
 	}
 
 	public Module getMainModule(String type) {
-		for (Module module : getModules())
-			if (module.isMain() && module.getType().equals(type))
+		for(Module module : getModules()) {
+			if(module.isMain() && module.getType().equals(type)) {
 				return module;
+			}
+		}
 		return null;
 	}
 
