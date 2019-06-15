@@ -190,7 +190,6 @@ public class TemplateManager implements TemplateParser {
 		return templates;
 	}
 	
-
 	public TemplateParser getParser() {
 		return parser;
 	}
